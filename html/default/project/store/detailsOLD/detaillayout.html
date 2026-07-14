@@ -1,0 +1,295 @@
+#ifnull( $aproduct )
+#set( $aproduct = $data)
+#end
+
+<div class="container" id="storedetailarea">
+  <div class="d-flex align-items-center">
+    <div class="d-flex flex-column">
+      <h2 class="mt-5 mb-0 text-dark">$!aproduct.getText("name",$context)</h2>
+      <div class="d-flex gap-2">
+        <p class="rating">★ 4.56</p>
+        <span>&middot;</span>
+        <p class="reviews">155 reviews</p>
+        <span>&middot;</span>
+        <p class="reviews">San Lucas Sacatepéquez</p>
+      </div>
+    </div>
+    <div class="d-flex flex-grow-1"></div>
+    <p class="my-0"><i class="fas fa-share-alt"></i> Share</p>
+    #if( $caneditcollection) 
+      <a class="emdialog btn btn-sm btn-outline-success ms-3" title="[[Edit Product]]" href="$apphome/project/store/edit.html?id=${aproduct.id}&collectionid=$librarycol.id">
+        <i class="fas fa-edit"></i> [[Edit Product]]
+      </a> 
+      #set($uploadlink = "${communitylink}/views/modules/asset/add/start.html?entityupload=true&entitytype=$searchtype&entityvalue=$aproduct.id&collectionid=$librarycol.id")
+		#set($oemaxlevel = "1")
+		#set($targetdiv = "applicationcontent")
+		<a href="$uploadlink" 
+			class="ajax moreactions btn btn-xs btn-secondary"
+			data-targetdivinner="storedetailarea"
+			data-closedialog="true" 
+			data-closemediaviewer="true"
+			data-updateurl="true"
+			data-oemaxlevel="$!oemaxlevel"
+			title="[[Upload Product Images]]">
+			<i class="fas fa-upload"></i> [[Add Images]]</a>
+      
+    #end
+  </div>
+  
+  
+  
+  <div class="row image-gallery">
+    <div class="col col-md-6 col-sm-12">
+  			#set( $asset = $mediaarchive.getCachedData("asset",$aproduct.primaryimage))
+                  <img src='$mediaarchive.asLinkToPreview($asset,"image1500x1500.jpg")' />
+    </div>
+    <div class="col col-md-6 d-none d-md-block">
+      <div class="row">
+     		#set( $query = $mediaarchive.query("asset").exact("collectiveproduct",$aproduct.id))
+				#set( $assethits = $mediaarchive.getCachedSearch($query))
+           #foreach($asset in $assethits)
+      
+        	<div class="col-md-6 mt-3">
+             <img src='$mediaarchive.asLinkToPreview($asset,"image1500x1500.jpg")' class="img-fluid" alt="image" />
+            </div>
+        	#end
+      </div>
+    </div>
+    <button class="d-flex align-items-center see-more" data-bs-toggle="modal" data-bs-target="#preview">
+      <i class="fas fa-camera"></i>
+      <p class="m-0 ms-2">See all photos</p>
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col col-12 col-md-6 d-flex flex-column align-items-center">
+      <p class="h5 mt-5">Pricing</p>
+      <div class="reservation">
+        <div class="d-flex align-items-center justify-content-between">
+          #set($subtotal = $aproduct.getDouble("productprice"))
+          <p class="price m-0"><span class="currency">$!context.getText($!mediaarchive.getCachedData("currencytype",
+                $aproduct.currencytype )) $!context.doubleToMoney($subtotal, 2)</span>/<span
+                style="text-transform: lowercase;">[[Night]]</span></p>
+          <div class="d-flex align-items-center gap-2">
+            <p class="rating m-0">★ 4.56</p>
+            &middot;
+            <p class="reviews m-0">155 reviews</p>
+          </div>
+        </div>
+        <div class="d-flex flex-column mt-3">
+          <div class="d-flex align-items-center flex-wrap">
+            <div class="form-floating flex-grow-1">
+              <input type="date" class="form-control" id="checkIn" placeholder="Check-In" autocomplete="off" />
+              <label for="dateRange">Check-In</label>
+            </div>
+            <div class="form-floating flex-grow-1">
+              <input type="date" class="form-control" id="checkOut" placeholder="Check-Out" autocomplete="off" />
+              <label for="dateRange">Check-Out</label>
+            </div>
+          </div>
+          <div class="form-floating flex-grow-1">
+            <input class="form-control" id="guests" placeholder="Guests" value="1 guest" />
+            <label for="guests">Guests</label>
+          </div>
+        </div>
+        <button class="btn btn-lg themed-btn w-100 mt-3">Reserve</button>
+        <div class="pricing">
+          <p class="text-center caption mt-2">
+            You won't be charged yet. <a href="#">Learn more</a>
+          </p>
+          <div class="d-flex mt-3">
+            <p class="label flex-grow-1">$45 &times; 7 nights</p>
+            <p class="value">$318</p>
+          </div>
+          <div class="d-flex">
+            <p class="label flex-grow-1">Weekly stay discount</p>
+            <p class="value text-success">-$16</p>
+          </div>
+          <div class="d-flex">
+            <p class="label flex-grow-1">Cleaning fee</p>
+            <p class="value">$22</p>
+          </div>
+          <hr class="divider" />
+          <div class="d-flex">
+            <p class="label flex-grow-1"><strong>Total</strong></p>
+            <p class="value"><strong>$344</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-12 col-md-6 d-flex flex-column align-items-center">
+      <p class="h5 mt-5 ms-1">Meet your host</p>
+      <div class="owner-preview details-page">
+        <div class="details-card">
+
+			#set( $userimageurl = $mediaarchive.asLinkToUserProfile($chatuser))
+			#ifnull($userimageurl) #set( $userimageurl = "${communitylink}/theme/images/user.svg" ) #end
+			<img src="$userimageurl" />
+          <p class="name"></p>
+          <p class="rank"></p>
+          <div class="d-flex justify-content-around w-100 stats">
+            <p class="reviews">
+              <strong>150</strong>
+              <small>Reviews</small>
+            </p>
+            <p class="rating">
+              <strong>4.85</strong>
+              <small>Rating</small>
+            </p>
+            <p class="duration">
+              <strong>5</strong>
+              <small>Years hosting</small>
+            </p>
+          </div>
+        </div>
+        <p class="description">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+          voluptatum. Quisquam, voluptatum. Quisquam, voluptatum.
+        </p>
+        <a href="https://wa.me/+1222333366" class="btn btn-whatsapp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp"
+          viewBox="0 0 16 16">
+          <path
+            d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+        </svg><span class="ms-2">Whatsapp</span></a>
+      </div>
+    </div>
+  </div>
+  <p class="h5 mt-5 ms-1">Amenities</p>
+  <div class="d-flex flex-wrap align-items-center">
+    <div class="amenity">
+      <i class="fas fa-bed"></i>
+      <p class="m-0">1 king bed</p>
+    </div>
+    <div class="amenity">
+      <i class="fas fa-shower"></i>
+      <p class="m-0">Shared Bathroom</p>
+    </div>
+    <div class="amenity">
+      <i class="fas fa-home"></i>
+      <p class="m-0">Host's family lives here</p>
+    </div>
+    <div class="amenity more">
+      <p class="m-0">See More</p>
+    </div>
+  </div>
+  <p class="h5 mt-3">About this place</p>
+  <p class="description">
+    $!aproduct.getText("productdescription",$context)
+  </p>
+  <hr />
+  <div class="d-flex w-100 stats-header gap-2 mt-4 mb-2">
+    <p>
+      <strong>&starf; 4.85</strong>
+      <small>Rating</small>
+    </p>
+    <span>&middot;</span>
+    <p>
+      <strong>150</strong>
+      <small>Reviews</small>
+    </p>
+  </div>
+  <div class="row mb-4">
+    <div class="col col-12 col-md-6 d-flex align-items-center rating-breakdown gap-2">
+      <span>Cleanliness</span>
+      <div class="progress flex-grow-1 ms-auto" style="height: 3px; max-width: 200px">
+        <div class="progress-bar bg-dark" role="progressbar" style="width: 90%"></div>
+      </div>
+      <small>4.8</small>
+    </div>
+    <div class="col col-12 col-md-6 d-flex align-items-center rating-breakdown gap-2">
+      <span>Communication</span>
+      <div class="progress flex-grow-1 ms-auto" style="height: 3px; max-width: 200px">
+        <div class="progress-bar bg-dark" role="progressbar" style="width: 85%"></div>
+      </div>
+      <small>4.6</small>
+    </div>
+    <div class="col col-12 col-md-6 d-flex align-items-center rating-breakdown gap-2">
+      <span>Check-in</span>
+      <div class="progress flex-grow-1 ms-auto" style="height: 3px; max-width: 200px">
+        <div class="progress-bar bg-dark" role="progressbar" style="width: 90%"></div>
+      </div>
+      <small>4.9</small>
+    </div>
+    <div class="col col-12 col-md-6 d-flex align-items-center rating-breakdown gap-2">
+      <span>Accuracy</span>
+      <div class="progress flex-grow-1 ms-auto" style="height: 3px; max-width: 200px">
+        <div class="progress-bar bg-dark" role="progressbar" style="width: 75%"></div>
+      </div>
+      <small>4.5</small>
+    </div>
+    <div class="col col-12 col-md-6 d-flex align-items-center rating-breakdown gap-2">
+      <span>Location</span>
+      <div class="progress flex-grow-1 ms-auto" style="height: 3px; max-width: 200px">
+        <div class="progress-bar bg-dark" role="progressbar" style="width: 90%"></div>
+      </div>
+      <small>4.8</small>
+    </div>
+    <div class="col col-12 col-md-6 d-flex align-items-center rating-breakdown gap-2">
+      <span>Value</span>
+      <div class="progress flex-grow-1 ms-auto" style="height: 3px; max-width: 200px">
+        <div class="progress-bar bg-dark" role="progressbar" style="width: 90%"></div>
+      </div>
+      <small>4.75</small>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col col-12 col-md-6 d-flex flex-column gap-2 review-item h-100 pb-4">
+      <div class="d-flex align-items-center gap-2">
+        <img src="https://loremflickr.com/g/320/240/potrait,people/all" alt="image" class="img-thumbnail circular" />
+        <div class="d-flex flex-column">
+          <p class="m-0">John Doe</p>
+          <p class="m-0 text-muted small">May 2021</p>
+        </div>
+      </div>
+      <p class="m-0">
+        We had a wonderful stay at Made's place! The tree house is as dreamy
+        and beautiful as the pictures. It feels private and is away from the
+        bustle of tourists, but there are restaurants
+      </p>
+    </div>
+  </div>
+  <div class="d-flex justify-content-start">
+    <button class="btn btn-outline-dark mb-3">Show all reviews</button>
+  </div>
+</div>
+<div class="modal fade" id="preview">
+  <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+    <div class="modal-content">
+      <button type="button" class="btn-close p-3" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-body">
+        <div class="row image-gallery">
+          <div class="col col-sm-12 p-1">
+            <img src="https://source.unsplash.com/collection/8890044/600x500" alt="image" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    // generating placeholders for testing, delete this section in production
+    let el = document.querySelector(".review-item");
+    for (let i = 0; i <= 4; i++) {
+      let clone = el.cloneNode(true);
+      el.parentElement.appendChild(clone);
+    }
+    let gallery = document.querySelector(".modal-body .image-gallery .col");
+    for (let i = 0; i <= 4; i++) {
+      let clone = gallery.cloneNode(true);
+      clone.className = [
+        "col col-md-6 col-sm-12 p-1",
+        "col col-md-6 col-sm-12 p-1",
+        "col col-sm-12 p-1",
+      ][i % 3];
+      gallery.parentElement.appendChild(clone);
+    }
+    // section end
+  });
+</script>

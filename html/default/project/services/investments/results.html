@@ -1,0 +1,56 @@
+<div id="investmentreport">
+	<h3>[[Totals]]</h3>
+	<table class="table table-striped">
+                #foreach($account in $paidfromaccount_totals.keySet())
+	                	<tr>
+	                		<td class="text-left" style="width:300px"> $!context.getText($!mediaarchive.getCachedData("bankaccount", $account ))</td>
+	                		<td class="text-left">
+	                			#set($subtotal = $paidfromaccount_totals.get($account))
+	                			$!context.doubleToMoney($subtotal, 2)
+	                		</td>
+                		</tr>
+				#end
+    </table> 
+      <div class="emdata emdatatable">
+          <table class="table table-striped">
+              <thead>
+                  <tr class="tableheader">
+                      <th>[[Approved By]]</th>
+                      <th>[[Account]]</th>
+                      <th>[[Date]]</th>
+                      <th>[[Description]]</th>
+                      <th>[[Total]]</th>
+                      <th>[[Currency]]</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              #foreach($hit in $investments)
+                  <tr>
+                      <td>#set( $auser = $mediaarchive.getUser($hit.investmentuser) )$auser</td>
+                      <td>$!context.getText($!mediaarchive.getCachedData("bankaccount", $hit.bankaccount))</td>
+                      <td>$!context.getDate($hit.date)</td>
+                      <td>#esc($hit.notes)</td>
+                      <td style="text-align: center;">$ $!context.roundDouble($!hit.total, 2)</td>
+                      <td>$!context.getText($!mediaarchive.getCachedData("currencytype", $hit.currencytype))</td>
+            <td style="text-align: center">
+                #if( $caneditcollection )
+                    <a
+                        href="${projectlink}/services/investments/edit.html?id=$hit.id&searchtype=collectiveinvestment&collectionid=$librarycol.id&librarycol=$librarycol.id"
+                        class="btn btn-xs btn-secondary emdialog"
+                        data-hidefooter="true"
+                        ><i class="fa fa-edit"></i></a>
+                        
+                #end
+            </td>
+        </tr>
+        #end
+    </table>
+    </div>
+    #if($investments.size() > 0)
+        <div>$investments.size() [[hits]]</div>
+        
+        <a href="${projectlink}/services/investments/export/investments.csv?collectionid=${librarycol.id}&hitssessionid=$investments.getSessionId()"
+           class="btn btn-sm btn-primary mb-4">[[Download]]</a>
+     #end
+        
+</div>

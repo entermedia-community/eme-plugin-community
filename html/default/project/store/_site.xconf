@@ -1,0 +1,9 @@
+<page>
+	<property name="collectivesection">store</property>
+
+	<property name="virtual">true</property>
+
+	<path-action name="ProjectModule.loadCollection">
+	</path-action>
+
+</page>

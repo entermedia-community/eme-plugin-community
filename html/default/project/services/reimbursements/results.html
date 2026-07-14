@@ -1,0 +1,76 @@
+<Div id="expensereport">
+           #if($reimbursementsbyuser_total)      
+           	<table class="table table-striped">
+                #foreach($userid in $reimbursementsbyuser_total.keySet())
+	                	<tr>
+                			#set($subtotal = $reimbursementsbyuser_total.get($userid))
+	                		<td class="text-left" style="width:150px">$!mediaarchive.getUser( $userid )</td>
+	                		<td class="text-left">
+	                			$!context.doubleToMoney($subtotal, 2)
+	                		</td>
+                		</tr>
+				#end            
+				</table>
+			#end   
+                 
+                  <div class="emdata emdatatable">
+                      <table class="table table-striped">
+                          <thead>
+                              <tr class="tableheader">
+                                  #if($showcollections )
+                                  <th>[[Collection]]</th>
+                                  #end
+                                  <th>[[Pay Date]]</th>
+                                  <th>[[Reimbursed User]]</th>
+                                  <th>[[Description]]</th>
+                                  <th>[[Total]]</th>
+                                  <th>[[Approved]]</th>
+                                  <th>[[Is Paid]]</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          #foreach($hit in $reimbursements)
+                              <tr>
+                                  #if($showcollections )
+                                  <td>
+									<a
+	                                    href="${projectlink}/services/reimbursements/index.html?collectionid=$hit.collectionid"
+	                                    class="btn btn-xs btn-secondary"
+	                                    target="_new"
+	                                    data-hidefooter="true"
+	                                    >
+		                                  $!mediaarchive.getCachedData("librarycollection", $hit.collectionid)
+		                             </a>
+                                  </td>
+                                  #end
+                                  <td>$!context.getDate($hit.paymentdate)</td>
+                                  <td>$!mediaarchive.getCachedData("user", $hit.reimburseuser)</td>
+                                  <td>#esc($hit.expensedescription)</td>
+                                  <td style="text-align: right; width:140px;">$!context.doubleToMoney($!hit.total, 2) $!context.getText($!mediaarchive.getCachedData("currencytype", $hit.currencytype))</td>
+									<td>$!mediaarchive.getCachedData("user", $hit.user)</td>
+                                  <td>#if($hit.ispaid == true)[[true]]#end</td>
+			                      <td style="text-align: center">
+			                            #if( $caneditcollection || $showcollections)
+			                                <a
+			                                    href="${projectlink}/services/reimbursements/edit.html?id=$hit.id&searchtype=collectivereimbursement&collectionid=$hit.collectionid&librarycol=$hit.collectionid"
+			                                    class="btn btn-xs btn-secondary emdialog"
+			                                    data-hidefooter="true"
+			                                    title="[[Edit Expense]]  $!mediaarchive.getCachedData("librarycollection", $hit.collectionid)"
+			                                    ><i class="fa fa-edit"></i></a>
+			                                    
+			                            #end
+			                      </td>
+                    </tr>
+                #end
+            </table>
+           
+        </div>
+        
+        #if($reimbursements.size() > 0)
+         <div>$reimbursements.size() [[hits]]</div>
+         <div>
+    		<a href="${projectlink}/services/reimbursements/export/expenses.csv?collectionid=$!{librarycol.id}&hitssessionid=$reimbursements.getSessionId()"
+       			class="btn btn-sm btn-primary mb-4">[[Download]]</a>
+        </div>
+        #end
+</div>

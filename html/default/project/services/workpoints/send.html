@@ -1,0 +1,51 @@
+##Exising ones 
+##No existing programs found.
+
+#set($collectionid = $context.getRequestParameter("collectionid"))
+#set($currencytypesource = $context.getRequestParameter("currencytypesource"))
+
+ <div style="padding:20px;">
+	#set( $xmledithome  = "$apphome/components/xml")
+	#set( $searchtype = "currencytransfer" )
+	#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+	$context.putPageValue("searcher",$searcher)
+	<form name="saveproject" 
+			id="saveproject" 
+			action="$apphome/project/services/transfers/sendsave.html" 
+			method="post"
+			class="ajaxform autocloseform validate"
+			data-targetdivinner="walletdashboard"
+			data-oemaxlevel="1">
+	
+	<input type="hidden" name="save" value="true" />
+	<input type="hidden" name="searchtype" value="$searchtype" />
+	<input type="hidden" name="collectionid" value="$collectionid" />
+	
+	<input type="hidden" name="field" value="user" />
+	<input type="hidden" name="user.value" value="$user.getId()" />
+	
+	<div class="form-group row no-gutters g-0">
+    <label for="exampleTextarea" class="col">[[Source Funds]]</label>
+	<div class="col-10" style="padding-left:10px;">
+		<div class="emfield-list">
+			<input type="hidden" value="currencytype" name="field">
+			<div id="listdetail_currencytypesource" class="listdetailpicker">
+			#set( $netincome = $financeManager.getNetIncomeByCurrency($collectionid,null,null) )
+			<input type="hidden" name="field" value="currencytype" />
+			<select name="currencytype.value" class="select2" >
+			#foreach( $currencytype in $netincome.keySet())
+				#set($net = $netincome.get($currencytype))
+				<option value="$currencytype">$!mediaarchive.getCachedData("currencytype", $currencytype) / $!context.doubleToMoney($!net, 2)</td>
+			#end
+			</select>
+			</div>
+		</div>
+    </div>
+    </div>
+		
+	$context.putPageValue("viewid", "currencytransfersend")
+	$context.putPageValue("data", $data)
+	 
+	$pages.include("/$applicationid/components/xml/detaileditor4.html", $context)
+	</form>
+</div>

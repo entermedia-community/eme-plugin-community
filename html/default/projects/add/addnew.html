@@ -1,0 +1,32 @@
+#set($libraryid = "collectives")
+
+#set( $searcher = $mediaarchive.getSearcher("librarycollection") )
+#set( $xmledithome  = "$apphome/components/xml")
+$context.putPageValue("searcher",$searcher)
+
+#if(!$user)
+	<div  class="alert alert-success">
+		<strong>[[Login Required]]</strong> 
+	</div>
+#else
+
+<form name="saveproject" id="saveproject" action="/${applicationid}/projects/add/newsave.html" method="post" class="force-validate-inputs">
+	<input type="hidden" name="field" value="communitytag" />
+	<input type="hidden" name="communitytag.value" value="$!communitytag.id" />
+
+	<input type="hidden" name="save" value="true" />
+	<input type="hidden" name="searchtype" value="librarycollection" />
+
+	<input type="hidden" name="field" value="owner" />
+	<input type="hidden" name="owner.value" value="$user.getId()" />
+
+	<input type="hidden" name="field" value="library" />
+	<input type="hidden" name="library.value" value="$!libraryid" />
+
+	#set( $searcher = $mediaarchive.getSearcher("librarycollection") )
+	$context.putPageValue("searcher", $searcher)
+	$context.putPageValue("viewid", "librarycollectionaddteam")
+	$pages.include("/$applicationid/components/xml/detaileditorcss.html", $context)
+</form>
+#end
+

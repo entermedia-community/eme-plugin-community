@@ -1,0 +1,16 @@
+#set( $clientroot = "/${applicationid}/components/closedcaptions" )
+
+<div class="row g-0">
+	<div class="col" style="max-width: 550px">
+		<div id="video-container" id="showcaseclient" data-clientroot="$clientroot" data-dataid="$asset.id" >
+			#if($asset.previewstatus == "2")
+				$pages.include("$apphome/components/results/player/html5/index.html", $context)
+			#else
+				[[Video is importing]]
+			#end	
+		</div>
+	</div>
+	<div class="col-sm-4">
+		$pages.include("$apphome/views/modules/asset/editor/timeline/details/edit.html", $context)
+	</div>
+</div>

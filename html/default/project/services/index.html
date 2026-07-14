@@ -1,0 +1,169 @@
+#set($collectionid = $librarycol.getId())
+<div id="collectivebilling">
+	
+#if($user) 
+#if($mediaarchive.getCatalogSettingValue("productionmode") != "true")
+	#if( $caneditcollection )
+		<div class="alert alert-warning"><b>Site is in TEST mode. Add your keys to catalog settings and switch to production mode to take credit cards.</b></div>
+	#else
+		
+	#end
+#end
+#ifnull($librarycol.get("contactemail"))
+	#if( $caneditcollection )
+		<div class="alert alert-warning"><b>No contact email set in Project.</b></div>
+	#else
+		
+	#end
+#end
+<div class="collectivecontent" style="margin-bottom:40px;">
+	
+     #set( $invoices = $mediaarchive.query("collectiveinvoice").match("collectionid",
+     $collectionid).sort("createdonDown").search())
+     #if ($invoices)
+     	
+     	<div class="d-flex justify-content-between mb-2">
+         	<h2 style="margin-bottom:10px;">[[Invoices]]</h2>
+         </div>
+         
+         <div class="emdata emdatatable">
+             <table class="table table-striped table-hover">
+                 <thead>
+                     <tr class="tableheader">
+                         <th style="width: 90px;">[[Invoice]] #</th>
+                         <th style="width: 115px; text-align:center">[[Due Date]]</th>
+                         <th style="width: 115px; text-align:center">[[Paid On]]</th>
+                         <th>[[Name]]</th>
+                         ##<th>[[Description]]</th>
+                         <th style="width: 145px; text-align:right">[[Total Price]]</th>
+						 <th style="width: 65px; text-align:center">[[Currency]]</th>
+                         <th style="text-align:center;">[[Status]]</th>
+                         <th style="width: 180px;"></th>
+                     </tr>
+                 </thead>
+                 #set($replacer = $mediaarchive.getReplacer())
+                 
+                 #foreach($invoice in $invoices)
+                     #if ($invoice.instance_status == "active")
+                         #set($instancescount = $instancescount+1)
+                     #end
+                     <tr>
+                         <td style="text-align: center;">$invoice.invoicenumber</td>
+                         <td style="text-align: center;">$!context.getDate($invoice.duedate)</td>
+                         <td style="text-align: center;">$!context.getDate($invoice.invoicepaidon)</td>
+                         <td>
+	                        
+	                        
+                         	#if($invoice.getValue("duedate"))
+                         		#set($invoicemonth = $context.getLocaleManager().getMonthName($invoice.getValue("duedate"), $context.getLocale()))
+							#end
+							
+							
+							##For Replace Formating
+								#set($invoiceformated = $invoice)
+								
+								#set($ignore = $invoiceformated.setValue("invoicemonth",$invoicemonth))
+								#set($ignore = $invoiceformated.setValue("project", $librarycol))
+								#if($invoice.startdate)
+									#set($startdate = "#date($invoice, 'startdate')")
+								#end
+								#set($ignore = $invoiceformated.setValue("startdate", $startdate))
+								
+								#if($invoice.duedate)
+									#set($duedate = "#date($invoice, 'duedate')")
+								#end
+								#set($ignore = $invoiceformated.setValue("duedate", $duedate))
+								#if($invoice.enddate)
+									#set($enddate = "#date($invoice, 'enddate')")
+								#end
+								#set($ignore = $invoiceformated.setValue("enddate", $enddate))
+							##
+                         
+                         
+                         	#if($invoice.getName())
+                         		#set($invoiceoriginalname = $invoice.getName())
+								#set($invoicename = $replacer.replace($invoiceoriginalname, $invoiceformated))
+                         		#text($invoicename)
+                         	#else
+	                             #set($prods = $invoice.getValue("productlist"))
+	                             #foreach($pr in $prods)
+	                                 #set($prod = $mediaarchive.query("collectiveproduct").exact("id", "$pr.productid").searchOne())
+	                                 $prod<br>
+	                             #end
+                             #end
+                         </td>
+                     ##    <td>
+                     ##        #foreach($pr in $prods)
+                     ##            #set($prod = $mediaarchive.query("collectiveproduct").exact("id", "$pr.productid").searchOne())
+                     ##            $!mediaarchive.text($prod.productdescription, $invoice.id)<br>
+                     ##        #end
+                     ##    </td>
+					 	 
+					 	 #set($currency = $mediaarchive.getCachedData("currencytype", $invoice.getValue("currencytype")))
+                         <td style="text-align: right;">
+	                        $!{currency.currencysymbol}$!context.doubleToMoney($!invoice.totalprice, 2)
+                         </td>
+						 <td style="text-align: center;">
+							<span class="currencysmall">$!{currency.currencycode}</span>
+						 </td>
+                         <td style="text-align: center;">
+                            
+                            #set($paymentstatus = $mediaarchive.getCachedData("paymentstatus", $invoice.getValue("paymentstatus"))) 
+                            #if($invoice.getValue("paymentstatus") == "paid")
+                            	[[Paid]]
+                            #elseif($invoice.getValue("paymentstatus") == "error")
+                            	[[Payment Error]]
+                                 #ifnotnull($invoice.paymentstatusreason)
+                                    <div class="billinginvoiceerror">$invoice.paymentstatusreason</div>
+                                #end
+                            #else
+                                #set($sentstatus = $mediaarchive.getCachedData("invoicesentstatus", $invoice.getValue("invoicesentstatus")))
+                                $!context.getText($sentstatus)  
+                                #if ($invoice.getValue("invoicesentstatus") == "error")
+                                        #ifnotnull($invoice.invoicesentstatusreason)
+                                            <div class="billinginvoiceerror">$invoice.invoicesentstatusreason</div>
+                                        #end
+                                #end
+                            #end
+                         </td>
+                         <td>
+                            <a href="${projectlink}/services/previewinvoice.html?invoiceid=${invoice.id}&collectionid=$collectionid"
+                                     
+                                     class="btn btn-xs btn-secondary emdialog mb-1"
+                                      data-hidefooter="true">[[View]]</a>
+                             #if ($invoice.getValue("invoicesentstatus") == "sent")
+                                 <a
+                                     href="${projectlink}/services/paynow.html?invoiceid=${invoice.id}&collectionid=$collectionid"
+                                     class="btn btn-xs btn-primary mb-1">
+                                     [[Pay Now]]</a>
+  
+							 #end
+							 
+	                       	 #if( $canviewsettings )
+                                 #if ($invoice.getValue("paymentstatus") != "paid" && $invoice.getValue("invoicesentstatus") != "canceled")
+                             	  <a
+                                  href="${projectlink}/services/cancelinvoice.html?collectionid=${collectionid}&id=${invoice.id}&oemaxlevel=1"
+                                  class="ajax btn btn-xs btn-secondary mb-1" data-targetdiv="collectivebilling">[[Cancel]]</a>
+                            	  #end
+                            	  <a
+                                     href="/find/views/settings/lists/datamanager/edit/edit.html?id=$invoice.id&searchtype=collectiveinvoice"
+                                     class="btn btn-xs btn-secondary mb-1"
+                                     target="_blank">
+                                     <i class="fa fa-database"></i>
+                                 </a>
+                           	#end
+                                   
+                               </td>
+                           </tr>
+                       #end
+                   </table>
+               </div>
+           #end
+ </div>
+ 
+ $pages.include("$apphome/project/services/products/results.html",$context)
+ 
+ #end
+ </div>
+ 
+ 

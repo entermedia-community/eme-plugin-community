@@ -1,0 +1,160 @@
+#set( $currency = '$' )
+
+#if(!$invoice)
+	#set( $id = $context.getRequestParameter('invoiceid'))
+	#if(!$id)
+		#set( $id = $invoiceid)
+	#end
+	#set( $invoice =	$mediaarchive.getBean("invoiceManager").getInvoiceById($id))
+#end
+ 
+<div id="invoicecontainer">
+#if($invoice) 
+	###set( $products = $mediaarchive.getBean("invoiceManager").getInvoiceProductList($id))
+	#set( $collectionid = $invoice.getValue("collectionid"))
+	#set( $collection = $mediaarchive.query("librarycollection").exact("id", $collectionid).searchOne() )
+
+	
+<form method="post" action="${projectlink}/store/reservations/editinvoicesave.html" class="ajaxform" data-targetdiv="invoicecontainer">	
+	<input type="hidden" name="id" value="$id">
+	<input type="hidden" name="invoiceid" value="$id">
+	<input type="hidden" name="collectionid" value='$invoice.getValue("collectionid")' />
+
+	<div class="row" style="background-color:#efefef; padding:10px 0;">
+		<div class="col-sm-6">
+				<strong>[[Reservation Number]]: $invoice.getValue("invoicenumber")</strong>
+				<br>
+				[[Created on]]: $!context.getDate($invoice.getValue("createdon"))
+		</div>
+		
+	</div>
+
+
+	##contacts
+	<div style="margin:20px 0 20px;">
+		<strong>[[Send to]]:</strong>
+		#set($sentto = $invoice.getValue("sentto"))
+		#if (!$sentto)
+			#set( $team = $mediaarchive.query("librarycollectionusers").exact("collectionid",$collectionid).exact("ontheteam",true).exact("isbillingcontact","true").search($context) )
+			#foreach( $hit in $team)
+				#set($followeruser = $mediaarchive.getUser($hit.followeruser) )
+			  	#if($followeruser && $followeruser.getEmail())
+			  		#if (!$sentto)
+			  			#set($sentto = $followeruser.getEmail())
+			  		#else
+			  			#set($sentto = "${sentto}, ${followeruser.getEmail()}")
+			  		#end
+			  	#end
+			  	
+			#end
+		#end
+		<input type="hidden" name="field" value="sentto" />
+		<textarea class="form-control" name="sentto.value">$!sentto</textarea>
+		<div style="font-size: .8em;">*[[Comma separated emails]]</div>
+	</div>
+	
+	<div style="margin:20px 0 20px;">
+		<strong>[[Reservation Name]]:</strong>
+
+		<div class="emfield-default">
+			<input type="hidden" value="name" name="field">
+			<input type="text" class="form-control detail_name textinput autosubmited " value='$!invoice.getValue("name")' id="name.value" name="name.value">
+		</div>
+	
+	</div>
+	
+	<div style="margin:20px 0 20px;">
+			<strong>[[Client Notes]]:</strong>
+
+			<div class="emfield-default">
+				<input type="hidden" value="customernote" name="field">
+				<input type="text" class="form-control detail_name textinput autosubmited " value='$!invoice.getValue("customernote")' id="customernote.value" name="customernote.value">
+			</div>
+		
+		</div>
+	
+	#set($duedate = $invoice.getDate("duedate"))
+	#set($enddate = $invoice.getDate("enddate"))
+	
+		
+	<div style="margin: 20px 0; ">		
+		<div class="d-flex flex-column mt-3">
+		          <div class="d-flex align-items-center flex-wrap">
+		            <div class="form-floating flex-grow-1">
+		              <input class="form-control" id="checkIn" name="duedate" placeholder="[[Check-In]]" required autocomplete="off" value="$context.getDate($duedate)" />
+		              <label for="checkIn">[[Request Stay]]</label>
+		            </div>
+		            <div class="form-floating flex-grow-1">
+		              <input class="form-control" id="checkOut" name="enddate" placeholder="[[Check-Out]]" autocomplete="off" required autocomplete="off"
+		                data-disableddates='#foreach( $date in $blockeddates.getBlockedDates())$date.toDateString(),#end'
+						value="$context.getDate($enddate)"
+		               />
+		              <label for="checkOut">[[Check-Out]]</label>
+		            </div>
+		          </div>
+		          <div class="form-floating flex-grow-1 guests">
+		            <input class="form-control" id="guests" name="guests" placeholder="[[Guests]]" value="1" />
+		            <label for="guests">[[Guests]]</label>
+		            <div id="guestsPicker">
+		              <div class="d-flex flex-column mx-2 align-items-center gp-inner">
+		                <p>[[Adults]]</p>
+		                <small>[[Age 13]]+</small>
+		                <div class="d-flex align-items-center">
+		                  <button class="btn btn-dark g-minus" type="button" data-gt="adult">
+		                    <i class="fa fa-minus"></i>
+		                  </button>
+		                  <strong class="g-input" data-gt="guest">1</strong>
+		                  <button class="btn btn-dark g-plus" type="button" data-gt="adult">
+		                    <i class="fa fa-plus"></i>
+		                  </button>
+		                </div>
+		              </div>
+		              <hr />
+		              <div class="d-flex flex-column mx-2 align-items-center gp-inner">
+		                <p class="m-0">[[Children]]</p>
+		                <small>[[Age]] 0 - 13</small>
+		                <div class="d-flex align-items-center">
+		                  <button class="btn btn-dark g-minus" type="button" data-gt="children">
+		                    <i class="fa fa-minus"></i>
+		                  </button>
+		                  <strong class="g-input" data-gt="guest">0</strong>
+		                  <button class="btn btn-dark g-plus" type="button" data-gt="children">
+		                    <i class="fa fa-plus"></i>
+		                  </button>
+		                </div>
+		              </div>
+		              <hr />
+		              <div class="d-flex flex-column mx-2 align-items-center gp-inner">
+		                <p class="m-0">[[Pets]]</p>
+		                <div class="d-flex align-items-center">
+		                  <button class="btn btn-dark g-minus" type="button" data-gt="pet">
+		                    <i class="fa fa-minus"></i>
+		                  </button>
+		                  <strong class="g-input" data-gt="pet">0</strong>
+		                  <button class="btn btn-dark g-plus" type="button" data-gt="pet">
+		                    <i class="fa fa-plus"></i>
+		                  </button>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>	
+
+	</div>
+		#if( $canviewsettings )
+		<div class="text-right" style="padding:15px 10px;">
+			<a href="${projectlink}/store/reservations/previewinvoice.html?invoiceid=$id&oemaxlevel=1" 
+				class="btn btn-secondary ajax" 
+				data-targetdiv="invoicecontainer" 
+				style="margin-right:10px;">[[Back]]</a>
+			<input type="submit" class="btn btn-primary dialogsubmitbtn" value="[[Save]]"/>
+	
+		</div>
+		#end
+</form>
+#end
+
+</div>
+	
+	
+	

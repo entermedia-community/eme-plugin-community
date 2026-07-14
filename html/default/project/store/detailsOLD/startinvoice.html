@@ -1,0 +1,61 @@
+##Exising ones 
+##No existing programs found.
+<div style="padding:10px 0;">
+#set( $searchtype = "collectiveinvoice")
+#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+#set( $xmledithome  = "$apphome/components/xml")
+$context.putPageValue("searcher",$searcher)
+#ifnull( $aproduct)
+	#set( $id  = $context.getRequestParameter("productid"))
+	#set($aproduct = $mediaarchive.getData("collectiveproduct", $id))
+#end
+#set( $data = $searcher.createNewData())
+
+$data.setValue("name","$user.getEmail() [[Reservation]]")
+
+<form name="inlinesaveproject" 
+		id="inlinesaveproject" 
+		action="$apphome/project/store/details/processinvoice.html" 
+		method="post"
+		class="ajaxform"
+			data-targetdiv="storeworkarea"
+			data-oemaxlevel="1">
+<input type="hidden" name="save" value="true" />
+<input type="hidden" name="searchtype" value="${searchtype}" />
+
+<input type="hidden" name="field" value="owner" />
+<input type="hidden" name="owner.value" value="$user.getId()" />
+
+<input type="hidden" name="field" value="collectionid" />
+<input type="hidden" name="collectionid.value" value="$librarycol.getId()" />
+<input type="hidden" name="collectionid" value="$librarycol.getId()" />
+
+<input type="hidden" name="productid" value="$aproduct.id" />
+<input type="hidden" name="productlist.add" value="$aproduct.id" />
+
+<div style="padding-bottom:10px;">
+$pages.include("$apphome/components/xml/types/daterange.html",$context)
+</div>
+
+<input type="hidden" name="field" value="name" />
+<input type="hidden" name="name.value" value="$data.name" />
+
+<p>[[New Reservation]]:<b> $user.getEmail()</b></p>
+
+##if( !$caneditcollection)
+	<input type="hidden" name="field" value="forcustomer" />
+	<input type="hidden" name="forcustomer.value" value="$user.getId()" />
+##end
+
+#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+$context.putPageValue("searcher",$searcher)
+#set( $producttype = $aproduct.producttype )
+$context.putPageValue("view", "${searchtype}/invoiceadd${producttype}")
+$context.putPageValue("data",$data)
+$pages.include("/$applicationid/components/xml/detaileditor4.html", $context)
+
+<input class="btn btn-primary" type="submit" value="[[Reserve]]" />
+##Put js logic in here for handing sub-totals and filling on more details
+
+</form>
+</div>

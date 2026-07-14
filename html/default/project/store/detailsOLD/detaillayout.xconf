@@ -1,0 +1,9 @@
+<page>
+
+	<inner-layout>/${applicationid}/theme/layouts/collectivelayout.html</inner-layout>
+
+	<page-action name="Script.run" alltypes="true" >
+		<script>/${applicationid}/collective/store/details/availaility.groovy</script>
+	</page-action>
+
+</page>

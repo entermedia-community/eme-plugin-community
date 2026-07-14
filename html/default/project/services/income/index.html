@@ -1,0 +1,97 @@
+#set($collectionid = $librarycol.getId())
+
+#if($user) 
+	<div >
+		<div class="d-flex justify-content-between mb-2">
+		<h2>[[Payments]]</h2>
+		<div>
+		#if( $caneditcollection )
+	       	<a href="${projectlink}/services/income/addnew.html?collectionid=${collectionid}"
+	              class="emdialog btn btn-sm btn-primary"
+	              title="[[Add Income]]"><i class="fa fa-plus"></i> [[Add Income]]</a>
+	     #end
+	    <a onclick="$('#searchform').toggle()" class="btn btn-sm btn-secondary"><i class="fa fa-search"></i> [[Search]]</a>
+	    </div>
+	    </div>
+	
+		
+		<form  id="incomesearchform" 
+			class="autosubmit  ajaxform" 
+			data-targetdiv="incomereport" 
+			method="post" 
+			action="${projectlink}/services/income/results.html">
+		
+			#set( $searchtype = "collectiveincome") 
+			#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+			$context.putPageValue("searcher",$searcher)
+			#set ($details = $searcher.getDetailsForView("collectiveincomesearch", $userprofile))
+			$context.putPageValue("viewid","collectiveincomesearch")
+			
+			
+			<input type="hidden" name="field" value="collectionid" />
+			<input type="hidden" name="collectionid.value" value="$collectionid" />
+			<input type="hidden" name="operation" value="exact" />
+			<input type="hidden" name="collectionid" value="$collectionid" />
+			<input type="hidden" name="oemaxlevel" value="1" />
+			
+			<div  id="searchform" class="inlinesearch" style="display:none" >
+				<div class="d-flex flex-wrap">
+					$context.putPageValue("autocomplete","off")
+					
+					#foreach( $detail in $details)
+						<div class="searchfield">
+								$context.putPageValue("detail", $detail)
+								$pages.include("/${applicationid}/components/advancedsearch/detaileditinline.html", $context)
+						</div>
+							
+					#end
+				</div>	
+			</div>
+	   
+	   		<div class="finances-table-sort d-flex flex-rows justify-content-end mb-2">
+			<label>[[Sort by]]:</label>
+			<div style="padding-left:10px; width:220px; display:inline-block;">
+				<select class="select2 	form-control" name="$!{searchtype}sortby" >
+					#set ($details = $searcher.getDetailsForView("collectiveincomeaddnew", $userprofile))
+					#foreach( $detail in $details)
+						<option value="$detail.getId()Down">$context.getText($detail)</option>
+						<option value="$detail.getId()Up">$context.getText($detail) [[Reverse]]</option>
+					#end
+				</select>
+				</div>
+			</div>
+		
+	   </form>
+	   
+	   
+	   
+	##   #ifnull( $income)
+	##		 #set( $income = $searcher.query().exact("collectionid",$collectionid).hitsPerPage(20).named("income").search($context))
+	##		 #set( $n = $income.setHitsPerPage(20))
+	##	     $context.putPageValue("income",$income)
+	## 	#end
+	   
+	   $pages.include("$apphome/project/services/income/results.html",$context)
+	
+	
+	</div>
+	
+	<hr class="my-4">
+	$pages.include("$apphome/project/services/donations/index.html", $context)
+	
+	
+	#set( $invoices = $mediaarchive.query("collectiveinvoice").exact("paymentstatus","paid").exact("collectionid",
+	$collectionid).sort("createdonDown").search())
+	#if ($invoices)
+		
+		<hr>
+		<div class="d-flex justify-content-between mb-2">
+		<h3>[[Invoices]]</h3>
+		</div>
+	    $context.putPageValue("invoices",$invoices)
+		 $pages.include("$apphome/project/services/invoices/results.html", $context)
+	#end
+	   
+  
+#end
+

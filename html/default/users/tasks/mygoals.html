@@ -1,0 +1,143 @@
+<div class="maincontent">
+	#set( $hits = $opentickets)
+
+	#ifnull($user)
+		<p> [[Must be logged in to view goals]] </p>
+	#end	
+	
+	
+		<div class="goals-header-actions">
+				  <!-- <a class="btn btn-success dropdown-toggle" style="color:white;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Employee
+				  </a> -->
+				  
+					##Open Projects
+					
+					#set ($aprojects = $mediaarchive.query("projectgoal").not("projectstatus", "closed").not("projectstatus", "completed").search($context))
+					#set($pids = [])
+				  	#foreach ( $aproject in $aprojects)
+				  			#set($x = $pids.add($aproject.id))
+				  	#end
+				  	
+				  	#set( $user_text = "$user" )
+					#if( $selecteduser)
+						#set( $user_text = "$selecteduser.toString()" )
+					#end
+				  	
+				  	#if($canviewsettings)
+				  	<form  action="$content.path" class="form-inline autosubmitform" style = "float:left">
+						
+						
+						<div  style="padding-right:20px;min-width:230px;display:inline-block">
+						<select name="userid" id="userid"  
+							class="listautocomplete selectautosubmit" 
+							data-showdefault="$text" data-addnewlabel="[[[Add New]]]" 
+							data-searchfield="name" data-searchtype="user"  
+							data-placeholder="$user_text" data-sortby="name">
+						</select>
+						</div>
+					</form>
+					#end
+				##if($canviewsettings)
+			 	<div class="float-right">$opentickets.size() [[Open Goals for]]: <strong>$!user_text</strong></div>
+				##end
+				
+			<div class="clearfix"></div>
+		</div>
+	##if($canviewsettings)
+	#if($hits)
+	
+		#set($projectManager = $mediaarchive.getProjectManager())
+		
+		<div class="emdata" style="overflow-x:auto;">
+		<table width="100%" class="table table-striped goalstable">
+		<thead>
+		<tr class="tableheader">
+			<th style="width:130px;">[[Project]]</th>
+			<!-- <th style="width:130px;">[[Topic]]</th> -->
+			<th style="width:130px;">[[Goal]]</th>
+<!-- 			<th style="width:130px;">[[Team]]</th>-->			
+			<th>[[Details]]</th>
+			<th style="width:180px;">[[Status]]</th>
+			<!-- <th style="width:250px">[[#]]</th> -->
+			
+		</tr>
+		</thead>
+		#foreach($goal in $hits)
+		    #set( $tasks =  $tasklookup.get($goal.getId()) )
+		    #if( !$tasks.isEmpty())
+				<tr class="goalstatus$!{goal.projectstatus}" >
+				$context.putPageValue("goal",$goal)
+				$context.putPageValue("tasks",$tasks)
+				<td >
+					
+					#set( $project= $!mediaarchive.getCachedData("librarycollection", $goal.collectionid) )
+					#set( $community = $mediaarchive.getCachedData("communitytag",$project.communitytag))
+					#if($project.urlname)
+						#set($projectlink = "$!{community.externaldomain}/${project.urlname}/goals/priorities")
+					#else
+						#set($projectlink = "${communitylink}/proposal/${project.id}/#dash($project.getName()).html")
+					#end
+					
+					#set($caneditproject = false)
+					#ifnotnull($project)
+						#set($caneditcollection = $projectManager.canEditCollection($context, $project.getId()))
+						#set($isonteam = $projectManager.isOnTeam($project, $user.getId()))
+						#if($caneditcollection || $isonteam )
+							#set($caneditproject = true)
+						#end
+					#end
+					$context.putPageValue("caneditcollection",$caneditproject)
+					<a href="$projectlink"
+					title="[[Open]]: $!project">
+					$!project
+					</a>
+				</td>
+				<td>
+					<a data-cancelsubmit="true" 
+						data-hidefooter="true"
+						data-urlbar="${apphome}/users/tasks/search.html?ticketlevel=$goal.ticketlevel&goaltrackerstaff=*&opengoalid=$goal.id" 
+						href="$sitelink/app/collective/goals/editgoalpanel.html?id=$goal.id&collectionid=$goal.collectionid&goalfolder=agent" 
+						title="[[Open Ticket]]" 
+						class="emdialog editgoalshow goal-description" 
+						data-width="900">$!goal.ticketnumber $goal.name</a>
+				</td>
+				<td >
+					
+					$!goal.details 		
+					
+					<div class="goal-body">
+						
+						$pages.include("$apphome/project/goals/search/goaltasks.html?indialog=true&onlyuser=true", $context)
+					</div>
+					
+				</td>
+				<td class="text-center" >
+					
+					#if ($caneditproject)
+					$pages.include("${apphome}/users/tasks/resolvebutton.html",$context)
+					 #end
+					<div class="clearfix" style="padding:5px;"> </div>
+					<span class="headersubtext">
+						$!context.getText($!mediaarchive.getData("tickettype",$goal.tickettype)) $!goal.getAge() [[ago]] [[by]] $!mediaarchive.getUser($goal.owner).getAnonNickName()
+					</span><br>
+						
+						#if ($goal.deliverydate)
+							<span style="color:red">[[Due on:]] $goal.deliverydate.substring(0, 10)</span>
+						#end
+				</td>
+				
+				</tr>
+			#end	
+		
+		#end
+		</table>
+		</div>
+	##end
+#end
+
+
+</div>
+
+
+

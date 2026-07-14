@@ -1,0 +1,140 @@
+
+
+  <div class="bg-dark p-4 ">
+    <div class="container">
+    <div class="d-flex align-items-center">
+        <div class="mx-md-auto text-center flex-grow-1">
+          <h1 class="project-h1 m-0">
+            #text($communitytag) Development Projects
+          </h1>
+          <!-- <h4 class="text-white mt-0 d-none d-md-block fw-thin">
+            Truly joyful news to delight the spirit of humanity.
+          </h4> -->
+        </div>
+        
+        <div id="homecreateproject" class="d-flex flex-column align-items-center">
+          $pages.include("$apphome/projects/add/addprojectbutton.html")
+         </div>
+  
+    </div>
+    </div>
+  </div>
+  <div class="container my-5">
+    #set( $searcher = $mediaarchive.getSearcher("librarycollection") )
+    #set( $projects = $mediaarchive.query("librarycollection").exact("communitytag",$communitytag.id).sort("name").search($context))
+  
+    <div class="row justify-content-md-center">
+      #foreach($project in $projects)
+        #if($project.getValue("urlname"))
+        #set($projectlink = "$!{community.externaldomain}/${project.urlname}")
+        #if($canviewsettings)
+          #set($projectlink = "$projectlink/chat/")
+        #end
+      #else
+        #set($projectlink = "/project/chat/index.html?collectionid=${project.id}")
+      #end
+        #set($logo = false)
+        #if($project.assetportrait)
+          #set($asset = $mediaarchive.getAsset($project.assetportrait))
+          #set($logo = $mediaarchive.asLinkToPreview($asset, "image200x200"))
+        #else
+          #set($logo = "$apphome/theme/images/OI_flower.png")
+        #end
+        #set($description = $project.get("collectivedescription"))
+  
+        #if ($project.collectivebanner)
+          #set( $banner= $mediaarchive.getAsset($project.collectivebanner) )
+          #set ($bannerurl = "/$mediaarchive.getMediaDbId()/services/module/asset/downloads/preset/$!{banner.sourcepath}/image1920x500cropped.jpg")
+        #else
+          #set ($bannerurl = "$apphome/theme/images/oi-background-2023.jpg")
+        #end
+  
+        <div class="col-sm-12 col-md-6 col-lg-4 d-flex flex-column h-100" data-aos="fade-up">
+          <div class="card project-card">
+            <div
+              #if($bannerurl)
+                class="project-cover"
+                style="background-image: url('$bannerurl')" 
+              #else
+                class="project-cover coverRandom"
+              #end>
+              <a href="$projectlink" class="project-thumb-link"  title="[[View]]: #text($project)">
+                  <img src="$logo" />
+                </a>
+            </div>
+            <div class="px-4 pb-4 image d-flex flex-column justify-content-center align-items-center">
+              <a href="$projectlink" class="name mt-2"  title="[[View]]: #text($project)">#text($project)</span></a>
+              #set($owner = $mediaarchive.getUser($project.owner))
+              <span class="creator">by #text($owner)</span>
+              <!-- <div class="d-flex flex-column justify-content-center align-items-center mt-3">
+                  <span class="members">45 Members</span>
+              </div> -->
+              
+              <div class="text mt-3">
+                <span>
+                  #if($description.length() > 300)
+                    $!{description.substring(0,300)}...
+                  #else 
+                    $!{description}
+                  #end
+                </span>
+              </div>
+              <div class="d-flex mt-3">
+                <a href="$projectlink" class="explore themed-btn">Explore</a>
+              </div>
+              <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
+              #ifnotnull($librarycol.facebooklink)
+                <a href="$librarycol.facebooklink" class="text-dark">
+                  <span><i class="fab fa-facebook-f"></i></span>
+                </a>
+              #end
+              #ifnotnull($librarycol.twitterlink)
+                <a href="$librarycol.twitterlink" class="text-dark">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                  </svg>
+                </a>
+              #end
+              #ifnotnull($librarycol.instagramlink)
+                <a href="$librarycol.instagramlink" class="text-dark">
+                  <span><i class="fab fa-instagram"></i></span>
+                </a>
+              #end
+              #ifnotnull($librarycol.linkedinlink)
+                <a href="$librarycol.linkedinlink" class="text-dark">
+                  <span><i class="fab fa-linkedin"></i></span>
+                </a>
+              #end
+              #ifnotnull($librarycol.githublink)
+                <a href="$librarycol.githublink" class="text-dark">
+                  <span><i class="fab fa-github"></i></span>
+                </a>
+              #end 
+              </div>
+              <div class="px-2 rounded date">
+                <span class="launched">Launched on May, 2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      #end
+    </div>
+  <!-- 
+    <div class="my-5" style="width:100%;border-top:1px solid #efefef;"></div>
+  
+    <div class=" d-flex align-items-center justify-content-center subscription">
+      <div class="p-4" style="background-color: #ffffff;">
+        <h2 class="text-center mb-0">Join the Community</h2>
+        <p class="text-center">Join the community to get updates on the latest projects.</p>
+        <div class="input-group input-group-lg mb-3">
+          <input type="text" class="form-control input-brand mb-0 px-3 py-2"
+            style="min-height: 48px;border-width:2px;" placeholder="Your email">
+          <button class="btn btn-primary rounded-end" type="button">Subscribe</button>
+        </div>
+      </div>
+    </div>
+     -->
+  </div>
+

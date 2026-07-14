@@ -1,0 +1,65 @@
+#set($childassetid = $context.getRequestParameter("childassetid"))
+#set($childasset = $mediaarchive.getAsset($childassetid))
+#set($ending = $mediaarchive.asLinkToOriginal($childasset) )
+#set($url = "$siteroot/$mediadbappid/services/module/asset/downloads/originals/$ending")
+
+
+<div id="versionpreview">
+#ifnotnull($childasset)
+	<div class="versiontoolbar">
+		<div class="me-auto "><div class="pl-2">$childasset.sourcepath</div></div>
+		
+		#set($iscurrent = $context.getRequestParameter("iscurrent"))
+		 
+		#if($iscurrent != "true")
+			<a href="#" 
+				class="btn btn-accent ajax ms-1 stackedplayer"
+				data-assetid="$childasset.id"
+				title="[[Open Asset]]">
+				<i class="bi bi-image"></i> [[Open Asset]]
+			</a>
+		
+
+		  #set($originalpath = $mediaarchive.asLinkToOriginal($childasset))
+		  #if( $selectedrevision )
+			  #set ($downloadlink = "/${mediaarchive.getMediaDbId()}/services/module/asset/downloads/originals/${originalpath}?version=${selectedrevision.version}")
+		  #else
+			  #set ($downloadlink = "/${mediaarchive.getMediaDbId()}/services/module/asset/downloads/originals/${originalpath}")
+		  #end
+		  #if(($candownload || $canconvert || $candownloadfpo) && $canquickdownload)
+			#set($dlink =  "$applink/views/modules/asset/activity/downloadassets.html")
+			  <a href="${dlink}" 
+				class="btn btn-secondary ms-1 #if($desktop) desktopdirectdownload #end"
+				title="[[Download Version]]">
+				<i class="bi bi-download me-1"></i> [[Download]]
+			</a>
+			#end
+			<a class="btn btn-secondary ms-1  emdialog" 
+			href="$siteroot$apphome/views/modules/asset/editor/adjustments/share.html?assetid=${childasset.id}&presetid=${child.id}"
+			data-noesc="true"
+			data-hidefooter="true"
+			title="[[Share]] $!childasset.name"><i class="fas fa-share-alt"></i></a>
+		#end
+	</div>
+     	
+		 
+		
+		#set( $rendertype = $mediaarchive.getMediaRenderType($childasset.fileformat))
+		$context.putPageValue("type", $rendertype)
+		$context.putPageValue("hit", $childasset)
+		#set ($previewlink = $mediaarchive.asLinkToPreview($childasset,"image550x550") )
+		<div class="versionpreviewcontent">
+			<a href="#" class="stackedplayer" data-assetid="$childasset.id">
+			#if( $previewlink )
+			<h5 class="mb-2">[[Preview]]:</h5>
+			<img src="$previewlink">
+			#else
+				<p>[[No preview available]]</p>
+			#end
+			</a>
+		</div>
+
+#end		
+</div>
+
+

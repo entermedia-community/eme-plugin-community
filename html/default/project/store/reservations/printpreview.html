@@ -1,0 +1,125 @@
+#set($collectionid = $context.getRequestParameter("collectionid"))
+
+#set( $id = $context.getRequestParameter('invoiceid')) 
+#if(!$id)
+	#set( $id = $invoiceid)
+#end
+#if(!$invoice)
+	#set( $invoice = $mediaarchive.getBean("invoiceManager").getInvoiceById($id))
+#end
+#if ($invoice)
+	#if(!$collectionid)
+		#set( $collection = $mediaarchive.query("librarycollection").exact("id", $invoice.getValue("collectionid")).searchOne() )
+		#set( $collectionid = $collection.getId())
+	#end
+
+	$context.putPageValue("invoice", $invoice)
+	#set( $invoiceready =	"true")
+	#set($sentto = $invoice.getValue("sentto"))
+	#if(!$sentto)
+		#set( $invoiceready =	"false")
+	#end
+<html>
+<head>
+	<title>
+		[[Print Invoice]]
+	</title>
+	
+<style>
+body {
+	font-family: sans-serif;
+	font-size:13px;
+	 -webkit-print-color-adjust:exact !important;
+  print-color-adjust:exact !important;
+	}
+	.table
+	{
+		display: table;
+		width: 100%;
+	}
+	.table th {
+	background-color: #efefef;
+	padding:5px;
+	}
+	.table td {
+	padding:3px;
+	border-bottom:1px solid #efefef;
+	}
+	.cellrow
+	{
+		display: table-row;
+		border: 1px dashed #CCCCCC;
+		font-size: 11pt;
+		padding-left: 6px;
+	}
+
+		
+	.printinvoicebtn,
+	.viewinvoiceheader
+	{
+		display:none;
+	}
+	.invoicecompanylogo {
+	float:left;}
+	.invoicecompanyinfo {
+	float:right;
+	}
+	.text-right {
+	text-align: right;}
+	.clearfix {
+	clear: both;}
+	.viewinvoicebody {
+	padding:20px;}
+	h1
+	{
+		color: #31578D;
+		font-size: 16pt;
+	}
+	h2
+	{
+		font-size: 12pt;
+	}
+	h3
+	{
+		font-size: 11pt;
+	}
+	.hideprinting { display:none;}
+
+</style>
+</head>
+<body  onload="window.print();">
+
+
+
+<div style="width:780px" name="oearchive" class="emarchive" id="emarchive">
+
+	<div id="invoicecontainer">
+
+	$pages.include("$apphome/project/services/viewinvoice.html", $context)
+	</div>
+	
+	#ifnotnull($collection.parentprojectinvoicing)
+			
+			#set($parentcollectionivoice = $mediaarchive.getCachedData("librarycollection", $collection.parentprojectinvoicing))
+			
+			#ifnotnull($parentcollectionivoice)
+				#set( $invoicepayoptions = $parentcollectionivoice.get("invoicepayoptions"))
+				
+			#end
+		#end
+		#if(!$invoicepayoptions)
+			#if($collection.invoicepayoptions)
+				#set( $invoicepayoptions = $collection.invoicepayoptions)
+			#else
+				#set( $invoicepayoptions = $mediaarchive.getCatalogSettingValue("invoice_pay_options"))
+			#end
+		#end
+	      #ifnotnull($invoicepayoptions)
+	      <div style="padding:20px">$!invoicepayoptions</div>
+	      #end
+	        
+	        
+</div>
+</body>
+</html>
+#end

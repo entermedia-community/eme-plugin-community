@@ -1,0 +1,11 @@
+#
+#Fri Jul 03 17:12:53 CST 2026
+Current=Actual
+Download=Descargar
+Download\ Version=Versi\u00F3n para descargar
+Modified=Modificado
+No\ preview\ available=No hay vista previa disponible
+Open\ Asset=Activos abiertos
+Parent\ Asset=Activo de la empresa matriz
+Preview=Vista previa
+Share=Compartir

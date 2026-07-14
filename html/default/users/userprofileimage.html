@@ -1,0 +1,23 @@
+#ifnull($assetprofile)
+	#set($assetid = $context.getRequestParameter("assetid"))
+	#set($assetprofile = $mediaarchive.getAsset($assetid))
+#end
+#set($thumbsize = $context.getRequestParameter("thumbsize"))
+#if(!$assetprofile)
+	#set( $userimageurl = "${apphome}/theme/images/user.svg" )
+#else
+	#if( $assetprofile.previewstatus && $assetprofile.previewstatus == "2") 
+		#set( $userimageurl = $mediaarchive.asLinkToPreview($assetprofile, null, $thumbsize) )
+	#else
+		<div id="status$!{assetprofile.id}" 
+			class="ajaxstatus  " 
+		    data-oemaxlevel="1"
+		    data-firstrun="500" 
+			ajaxpath="${apphome}/users/userprofileimage.html?assetid=$!{assetprofile.id}&thumbsize=$!{thumbsize}">
+			<img src="${apphome}/theme/images/ajax-loader.gif" alt="[[Loading]]..." />
+		</div>
+	#end
+#end
+#if($userimageurl)
+<img src="$userimageurl" alt="$selecteduser.getAnonNickName()" class="profile-userimage" />	
+#end

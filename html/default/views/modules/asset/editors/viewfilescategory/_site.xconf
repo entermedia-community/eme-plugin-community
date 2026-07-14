@@ -1,0 +1,25 @@
+<page>
+
+	<property name="edithomename">viewfilescategory</property>
+
+	<property name="edithome">/${applicationid}/views/modules/${module}/editors/${edithomename}</property>
+
+	<property name="edithomeid">${module}${edithomename}</property>
+
+	<inner-layout>${edithome}/resultarea.html</inner-layout>
+
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/default</property>
+
+	<property name="showselections">false</property>
+
+	<property name="showaddnew">false</property>
+
+	<property name="virtual">true</property>
+
+	<property name="showentitiesheader">false</property>
+
+	<page-action name="MediaSearchModule.loadCategory">
+		<property name="idlevel">1</property>
+	</page-action>
+
+</page>

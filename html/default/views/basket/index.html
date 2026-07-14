@@ -1,0 +1,57 @@
+
+$context.putPageValue("hits",$orderassets)
+$context.putPageValue("hidefilters",true)
+
+#set($module = $searcherManager.getCachedData($catalogid, "module", $moduleid ) )
+
+<div id="searchplugin" class="basket-layout">
+  <div id="collectionbasket" class="h-100">
+	  
+	  <div class="category-breadcrumb bookmark-breadcrumb #if($searchcategory) category-breadcrumb-tall #end">
+	<div class="d-flex">
+		<h5 class="me-auto p-0 m-0 ps-3">
+			<i class="bi bi-cart-fill"></i> [[Cart]] #if($orderitems.size() >0)<span class="text-secondary">($orderitems.size())</span>#end
+		</h5>
+		
+		
+		#if($canviewsettings && $userprofile.hasModule("order") )
+			#set( $pendingorders = $mediaarchive.query("order").named("pendingorders").exact("checkoutstatus","pending").search($context))
+			#if( $pendingorders.size() > 0)
+				<a href="$apphome/views/modules/order/editors/orderlistpending/index.html?checkoutstatus=pending" 
+					class="btn btn-cta ajax" 
+					data-targetdiv="applicationcontent" 
+					data-oemaxlevel="3" 
+					data-updateurl="true" 
+					title="[[Pending Orders]]">
+					 [[Pending Orders]] ($pendingorders.size())
+				</a>
+			#else
+				<a href="$apphome/views/modules/order/editors/orderlistpending/index.html" 
+					class="btn btn-accent ajax" 
+					data-targetdiv="applicationcontent" 
+					data-oemaxlevel="3" 
+					data-updateurl="true" 
+					title="[[Checkout Orders]]">
+					 [[Checkout Orders]]
+				</a>
+			#end
+		#end
+    </div>
+    </div>
+    
+    #if($orderitems.size() >0 )
+      $context.putPageValue("resultstargetdiv","collectionbasket")
+      $context.putPageValue("resultsPage","$siteroot$apphome/views/basket/index.html")
+      $context.putPageValue("hideresultstypes","hideresultstypes")
+      <div id="basketassetlist" 
+			class="editdiv basketassetlist heightExcludingHeaderFooter" 
+			data-oemaxlevel="1"
+			data-targetdiv="resultsdiv"
+		>
+      $pages.include("$searchhome/index.html",$context)
+      </div>
+    #else
+      <p style="padding:20px;">[[No Items in Cart]]</p>
+    #end
+  </div>
+</div> 

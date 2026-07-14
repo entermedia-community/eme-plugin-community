@@ -1,0 +1,27 @@
+#
+#Fri Jul 03 17:13:30 CST 2026
+Approve=Aprobar
+Approved\ asset=Activo aprobado
+Are\ you\ sure\ to\ lock\ the\ Asset?=\u00BFEst\u00E1s seguro de bloquear el Activo?
+Are\ you\ sure\ to\ unlock\ the\ Asset?=\u00BFEst\u00E1s seguro de desbloquear el activo?
+Asset\ is\ locked=El activo est\u00E1 bloqueado.
+Change\ status=Cambiar de estado
+Create\ new\ copy\ from\ Desktop=Crear una nueva copia desde el escritorio
+Currently\ locked\ by=Actualmente bloqueado por
+Delete\ Asset=Eliminar el activo
+Delete\ Selected\ Assets=Eliminar los activos seleccionados
+Delete\ asset=Eliminar el activo
+Delete\ assets=Eliminar activos
+Desktop\ Sync=Sincronizaci\u00F3n de escritorio
+Download=Descargar
+Edit\ on\ Desktop=Editar en el escritorio
+History=Historia
+Lock=Cerradura
+Lock\ Asset=Bloqueo de activos
+Locked\ by\ You=Cerrado por ti
+Reject=Rechazar
+Rejected\ asset=Activo rechazado
+Replace\ Original\ File=Reemplazar archivo original
+Replace\ from\ Desktop=Reemplazar desde el escritorio
+Replace\ original\ file=Reemplazar el archivo original
+Unlock\ Asset=Desbloquear el activo

@@ -1,0 +1,13 @@
+<page>
+<property name="appsection">pendingpayments</property>
+ <permission name="view">
+    <or>
+      <group id="administrators"/>
+      <settingsgroup id="administrator"/>
+    </or>
+  </permission>
+  
+  <inner-layout min-width="1024">//${applicationid}/projects/reports/layout.html</inner-layout>
+  
+  
+</page>  

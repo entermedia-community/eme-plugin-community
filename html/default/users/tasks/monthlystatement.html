@@ -1,0 +1,19 @@
+<div class="maincontent">
+
+
+#set( $searcher = $mediaarchive.getSearcher("pointstatementmonthly") )
+$context.putPageValue("searcher",$searcher)
+
+#set($viewid = "pointstatementmonthly/results")
+$context.putPageValue("viewid", $viewid)
+
+#set ($details = $searcher.getDetailsForView($viewid, $userprofile))
+
+$context.putPageValue("details",$details)
+
+$pages.include("${apphome}/components/table/results.html", $context)
+
+<div class="clearfix"></div>
+</div>
+
+	

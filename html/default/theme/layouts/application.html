@@ -1,0 +1,40 @@
+<div id="application" 
+	class="emfinderapp setpagetitle #if($desktop) desktop #end"
+	data-user="$!user.getId()" 
+	data-siteroot="$!siteroot"
+	data-home="$!siteroot"
+	data-apphome="$!apphome" 
+	data-catalogid="$!catalogid" 
+	data-themeprefix="${themeprefix}" 
+	data-browserlanguage="$!{browserlanguage}" 
+	data-componenthome="$!componenthome"
+	data-moduleid="$!module.getId()"
+	data-titlepostfix='$!mediaarchive.getCatalogSettingValue("sitetitle")'
+	data-mediadbappid="$!mediaarchive.getMediaDbId()"
+	data-entermediakey="$!mediaarchive.getUserManager().getEnterMediaKey($user)"
+	data-editmode='$!user.get("oe_edit_mode")'
+	#if($desktop)
+		data-desktop="true"
+		data-required-desktop-version='$!mediaarchive.getCatalogSettingValue("desktop_required_api_version")'
+	#end>
+	#if ( $canviewerrors )
+		<div id="errordiv"></div>
+	#end
+
+	#if( $browser.isNarrow() )
+	<div class="drawer drawer-start" tabindex="-1" id="mobileDrawer">
+		<div class="drawer-header">
+			<h5 class="drawer-title">&nbsp;</h5>
+			<button type="button" class="btn-close text-muted" id="drawerClose" aria-label="Close"></button>
+		</div>
+		<div class="drawer-body"></div>
+	</div>
+	#end
+	
+	$pages.includeContent()
+
+	<div id="footer" role="contentinfo" class="emfooter">
+		##$pages.include("${apphome}/components/autoopen/index.html", $context)
+		##$pages.include("/${applicationid}/theme/layouts/footer.html", $context)
+	</div>
+</div>

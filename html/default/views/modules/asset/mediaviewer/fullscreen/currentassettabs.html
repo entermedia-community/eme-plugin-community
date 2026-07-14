@@ -1,0 +1,150 @@
+#set( $previewonly = $page.previewonly)
+#if (!$previewonly)
+	#set($previewonly = false)
+#end
+
+#if(!$title)
+	#if( $asset.assettitle )
+		#set($title = $asset.getText("assettitle",$context)) 
+	#else 
+		#set($title = $asset.getText("name",$context) )
+	#end
+#end
+<div class="d-flex justify-content-center p-1 w-100 media-namecard">
+	<p class="m-0">#text($asset.sourcePath)</p>
+</div> 
+<div id="assettabnavs">
+	<ul class="flex-grow-1">
+		#if( $canaddtofavorites)
+			$context.putPageValue("assetid", $asset.id)
+			<li class="assettabnav">
+				<div id="tabassetfavorite-${asset.id}" class="media-info-icons">
+					$pages.include("$apphome/views/modules/asset/editor/favorite/index.html?targetdiv=tabassetfavorite", $context)
+				</div>
+			</li>
+		#end
+
+		#if( !$previewonly && $canviewmetadatageneral )
+			<li class="assettabnav #if($opentab == "viewproperties")tabselected#end">
+				<a class="expandmenu ajax " 
+					href="$siteroot${apphome}/views/modules/asset/mediaviewer/fullscreen/currentasset.html"
+					data-opentab="viewproperties"
+					data-targetdiv="main-media-container"
+					data-oemaxlevel="1" 
+					data-propertyfield="assetopentab"
+					data-propertyvalue="viewproperties"
+					title="[[Metadata]]">
+					<i class="bi bi-info-circle me-1 ns"></i> <span>[[Data]]</span>
+				</a>
+			</li>
+		#end
+
+		#if( !$browser.isNarrow() )
+
+			#if (!$ismulti && $canviewmetadatageneral)
+				#if(!$candownload && $asset.getFileFormat() == "pdf")
+				#else
+				<li class="assettabnav #if($opentab == "viewpreview")tabselected#end">	
+					<a class="expandmenu assetpreview ajax rememberassettab" 
+						href="$siteroot${apphome}/views/modules/asset/mediaviewer/fullscreen/currentasset.html"
+						data-opentab="viewpreview"
+						data-targetdiv="main-media-container"
+						data-oemaxlevel="1" 
+						data-propertyfield="assetopentab"
+						data-propertyvalue="viewpreview"
+						title="[[View]] #esc($!title)">
+						<i class="bi bi-fullscreen ns me-1"></i> [[Viewer]] 
+					</a>
+				</li>
+				#end
+			#end
+
+			#if (!$ismulti)
+				<li class="assettabnav hidemulti">
+					$pages.include("${edithome}/assetdatatables.html",$context)
+				</li>
+			#end
+
+		#end
+
+		#if( !$ismulti)
+			#if ($canshareasset || $canviewcroppingtool || $canviewmediaedit || (($rendertype =="video" || $rendertype  == "audio") && ($canviewclosedcaptions || $canviewtimeline)))
+				#if ($rendertype =="video" || $rendertype  == "image" || $rendertype  == "audio" ) 
+				<li class="assettabnav #if($opentab == 'assetedit')tabselected #end">
+					<a class="expandmenu assettab ajax rememberassettab" 
+						href="$siteroot${apphome}/views/modules/asset/mediaviewer/fullscreen/currentasset.html?action=assetedit" 
+						title="[[Media Edit & Share]]"
+						data-opentab="assetedit"
+						data-targetdiv="main-media-container"
+						data-oemaxlevel="1" 
+						data-propertyfield="assetopentab"
+						data-propertyvalue="assetedit"
+						data-assettabname="[[Edit]]">
+						<i class="bi bi-image ns me-1"></i> <span>[[Media Edit & Share]]</span>
+					</a>
+				</li>
+				#end
+			#end
+		#end
+
+		#if( !$ismulti)
+			#if ($canviewconversions || $canconverthistory || $canconverthistory )
+				<li class="assettabnav #if($opentab == 'assethistory')tabselected #end">
+					<a class="expandmenu assettab ajax rememberassettab" 
+						href="$siteroot${apphome}/views/modules/asset/mediaviewer/fullscreen/currentasset.html?action=assethistory" title="[[History]]"
+						data-opentab="assethistory"
+						data-targetdiv="main-media-container"
+						data-oemaxlevel="1" 
+						data-propertyfield="assetopentab"
+						data-propertyvalue="assethistory"
+						data-assettabname="[[History]]">
+						<i class="bi bi-clock-history ns me-1"></i> <span>[[History]]</span>
+					</a>
+				</li>
+			#end
+		#end
+
+		#if(!$ismulti && ($candownload || $canconvert || $candownloadfpo))
+		<li class="assettabnav">
+			#set($dlink = "$applink/views/modules/asset/activity/downloadassets.html") 
+			<a href="$dlink"
+				class="emdialog expandmenu" 
+				data-hidefooter="true" 
+				data-dialogid="donwloadasset" 
+				data-assetid="${asset.id}"
+				data-assethitssessionid="$!hitssessionid">
+				<i class="bi bi-download ns me-1"></i> <span class="mbl-hidden">[[Download]]</span>
+			</a>
+		</li>
+		#end
+		
+		#if( !$browser.isNarrow() )
+
+			#if ( $cancheckout )
+			<li class="assettabnav" id="mediaviewerbasket">
+				#if($orderManager.isAssetInOrder($catalogid, $order, $asset.id) )
+				<a class="updatebasketmediaviewer expandmenu" data-action="remove" data-alerttxt="[[Removed From Cart]]" data-targetdiv="mediaviewerbasket" 
+					href="$siteroot$componenthome/basket/mediaviewertoggleitem.html?assetid=$asset.id">
+					<span class="bi bi-cart-fill ns me-1"> </span> [[Remove From Cart]]
+				</a>
+				#else
+				<a class="updatebasketmediaviewer expandmenu"  data-targetdiv="mediaviewerbasket" data-alerttxt="[[Added To Cart]]" 
+					href="$siteroot$componenthome/basket/mediaviewertoggleitem.html?assetid=$asset.id">
+					<span class="bi bi-cart ns me-1"> </span> [[Add To Cart]]
+				</a>
+				#end
+			</li>
+			#end
+
+		#end
+	</ul>
+
+	<div class="assetcaretnav">
+		<a class='goleftclick gotoarrows #if( $previous ) arrowenabled #end"' id="goleftclick" data-assetid="$!previous.id" title="#text($previous)" href="#"><span class="bi bi-caret-left-fill overlay-nav gocaret"></span></a>
+		<a class='gorightclick gotoarrows #if( $next ) arrowenabled #end"' id="gorightclick" data-assetid="$!next.id" title="#text($next)"  href="#"><span class="bi bi-caret-right-fill overlay-nav gocaret"></span></a>
+	</div>
+
+	<div class="entityclose">
+		<span title="[[Esc to Close]]" class="bi bi-x-lg ns"></span>
+	</div>
+</div>

@@ -1,0 +1,127 @@
+<div id="incomereport">
+	<div id="emresultscontent">        
+        <div id="resultsdiv">
+         <div class="emdata emdatatable">
+         	
+            #set($hits = $income)
+			
+			#set($sortedby= $hits.getSortBy())
+			
+			$context.putPageValue("hits",$hits)
+			
+			#if( !$hits.isEmpty() ) 
+				#set($resultsLink = "${projectlink}/services/income/results.html?hitssessionid=$hits.sessionId&oemaxlevel=1&collectiveincomesortby=$!sortedby")
+				$context.putPageValue("resultsLink",$resultsLink)
+	            $pages.include("${apphome}/components/table/pages.html", $context)
+			#end
+         	
+			
+			
+             <table class="table table-striped">
+                 <thead>
+                     <tr class="tableheader">
+                         <th>[[Date]] #if($sortedby.startsWith("date")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
+                         <th>[[Account]] #if($sortedby.startsWith("bankaccount")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
+                         <th>[[Topic]] #if($sortedby.startsWith("collectiveproject")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
+                         <th>[[Type]] #if($sortedby.startsWith("incometype")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
+                         <th>[[Description]] #if($sortedby.startsWith("incomedescription")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
+                         <th>[[Total]] #if($sortedby.startsWith("total")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
+                         
+                         <th></th>
+                     </tr>
+                 </thead>
+                 #set($totalarray = {})
+				 #set($count = 0)
+				 <tbody>
+	                 #foreach($hit in $hits.getPageOfHits())
+						#set($currency = $mediaarchive.getCachedData("currencytype", $hit.getValue("currencytype")))
+					 	#set($count = $count +1)
+	                 	#if(!$totalarray.get($hit.currencytype))
+	                 		#set($totalarray[$hit.currencytype] = [])
+	                 	#end
+	                 	#set($dumb = $totalarray[$hit.currencytype].add($hit.total))
+	                     <tr>
+	                         <td>$!context.getDate($hit.date)</td>
+	                         <td>$!mediaarchive.getCachedData("bankaccount", $hit.paidfromaccount)</td>
+	                         <td>$!mediaarchive.getCachedData("collectiveproject", $hit.collectiveproject)</td>
+	                         <td>$!context.getText($!mediaarchive.getCachedData("incometype", $hit.incometype))</td>
+	                         <td>#esc($hit.incomedescription)</td>
+	                         <td style="text-align: right; width:140px;">
+	                         $!context.doubleToMoney($!hit.total, 2) $!{currency.currencycode}
+	                         </td>
+	                                  
+	                        <td style="text-align: center">
+	                            #if( $caneditcollection )
+	                                <a
+	                                    href="${projectlink}/services/income/edit.html?id=$hit.id&searchtype=collectiveincome&collectionid=$librarycol.id&librarycol=$librarycol.id"
+	                                    class="btn btn-xs btn-warning emdialog"
+	                                    data-hidefooter="true"
+										title="[[Edit]]"
+	                                    ><i class="fa fa-edit"></i></a>
+	                                    
+	                            #end
+	                        </td>
+	                    </tr>
+	                #end
+				</tdbody>
+				#set($currencyusd = $mediaarchive.getCachedData("currencytype", "1"))
+				#set($ustotal = 0)
+                #if($totalsbycurrency)
+					<tfoot>
+                	#foreach( $currencyid in $totalsbycurrency.keySet())
+						#set($currency = $mediaarchive.getCachedData("currencytype", $currencyid))
+						#set($subtotal = $totalsbycurrency.get($currencyid))
+	                	<tr class="table-row-subtotals">
+	                		<td colspan="3"></td>
+	                		<td class="text-right">[[Sub Total]]:</td>
+	                		<td class="text-right">
+	       
+								#set( $convertedtotal = $financeManager.inDollars($currencyid,$subtotal))
+								#ifnotnull($convertedtotal)
+									#set($ustotal = $mathutil.addition($ustotal, $convertedtotal) )
+								#end
+								
+								#if ($currencyid != "1")
+									$!{currency.currencysymbol}$!context.doubleToMoney($!subtotal, 2) 
+									$!{currency.currencycode}
+								#end 
+								
+	                		</td>
+	                		<td class="text-right">
+								$!{currencyusd.currencysymbol}$!context.doubleToMoney($!convertedtotal, 2) $!{currencyusd.currencycode}
+							</td>
+							<td></td>
+	                	</tr>
+                	#end
+				
+					<tr class="table-row-totals">
+                		<td colspan="4"></td>
+                		<td class="text-right"><strong>[[Total]]:</strong></td>
+                		<td class="text-right">
+                			<strong>$!{currencyusd.currencysymbol}$!context.doubleToMoney($!ustotal, 2) $!{currencyusd.currencycode}</strong> 
+                		</td>
+                		<td></td>
+                	</tr>
+					</tfoot>
+				#end
+            </table>
+            
+        </div>
+     
+     #if($income.size() > 0)
+     	<div class="mb-2">$count of $!income.size() [[hits]]</div>
+        
+		#if( $caneditcollection )
+		<div>
+        <a href="${projectlink}/services/income/export/income.csv?collectionid=${librarycol.id}&hitssessionid=$hits.getSessionId()"
+                      class="btn btn-sm btn-primary mb-4">[[Download]]</a>
+                      
+        <a href="${projectlink}/services/income/import/index.html?collectionid=$!{librarycol.id}"
+           class="btn btn-sm btn-primary mb-4 emdialog" title="[[Import Income]]">[[Import CSV]]</a>
+        </div>
+		#end
+        #end
+                      
+        </div>
+		</div>
+</div>

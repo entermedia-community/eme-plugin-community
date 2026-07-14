@@ -1,0 +1,107 @@
+#set( $showreimburst = $context.getRequestParameter("showreimburst"))
+<Div id="expensereport">
+                      <table class="table table-striped">
+
+                #foreach($userid in $pendingexpensesreimburseuser_total.keySet())
+	                	<tr>
+                			#set($subtotal = $pendingexpensesreimburseuser_total.get($userid))
+	                		<td class="text-left" style="width:150px">$!mediaarchive.getUser( $userid )</td>
+	                		<td class="text-left">
+	                			$!context.doubleToMoney($subtotal, 2)
+	                		</td>
+                		</tr>
+				#end   
+
+                #foreach($currency in $currencytype_total.keySet())
+	                	<tr>
+	                		<td class="text-left" style="width:150px">[[Total]]:</td>
+	                		<td class="text-left">
+	                			#set($subtotal = $currencytype_total.get($currency))
+	                			$!context.doubleToMoney($subtotal, 2) $!mediaarchive.getCachedData("currencytype", $currency )
+	                		</td>
+                		</tr>
+				#end
+            </table>   
+                  <div class="emdata">
+                      <table class="table table-striped">
+                          <thead>
+                              <tr class="tableheader">
+                                  #if($showcollections )
+                                  <th>[[Collection]]</th>
+                                  #end
+                                  <th>[[Date]]</th>
+                                  <th>[[Topic]]</th>
+                                  <th>[[Type]]</th>
+                                  <th>[[Description]]</th>
+                                  <th>[[Total]]</th>
+                                  #if( $showreimburst )
+                                  <th>[[Reimburse To]]</th>                                  
+                                  #else
+                                  <th>[[Approved]]</th>
+                                  #end
+                                  <th>[[Is Paid]]</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          #foreach($hit in $expenses)
+                              <tr>
+                                  #if($showcollections )
+                                  <td>
+									<a
+	                                    href="${projectlink}/services/expenses/index.html?collectionid=$hit.collectionid"
+	                                    class="btn btn-xs btn-secondary"
+	                                    target="_new"
+	                                    data-hidefooter="true"
+	                                    >
+		                                  $!mediaarchive.getCachedData("librarycollection", $hit.collectionid)
+		                             </a>
+                                  </td>
+                                  #end
+                                  <td>$!context.getDate($hit.date)</td>
+                                  <td>$!mediaarchive.getCachedData("collectiveproject", $hit.collectiveproject)</td>
+                                  <td>$!mediaarchive.getCachedData("expensetype", $hit.expensetype)</td>
+                                  <td>#esc($hit.expensedescription)</td>
+                                  <td style="text-align: right; width:140px;">$!context.doubleToMoney($!hit.total, 2) $!mediaarchive.getCachedData("currencytype", $hit.currencytype)</td>
+								 #if( $showreimburst )
+								 	<td>$!mediaarchive.getCachedData("user", $hit.reimburseuser)</td>								
+								 #else
+								 	<td>$!mediaarchive.getCachedData("user", $hit.user)</td>
+								#end                                 
+                                  <td>#if($hit.ispaid == true)[[true]]#end</td>
+			                      <td style="text-align: center; min-width:70px;">
+			                            #if( $caneditcollection || $showcollections)
+			                                <a
+			                                #if( $showreimburst )
+			                                	#set(  $baselink = "${projectlink}/services/expenses")
+			                                #else
+			                                	#set(  $baselink = "${projectlink}/services/reimbursements")
+			                                #end
+			                                    href="$baselink/expenseedit.html?id=$hit.id&searchtype=collectiveexpense&collectionid=$hit.collectionid&librarycol=$hit.collectionid"
+			                                    class="btn btn-xs btn-secondary emdialog"
+			                                    data-hidefooter="true"
+			                                    title="[[Edit Expense]]  $!mediaarchive.getCachedData("librarycollection", $hit.collectionid)"
+			                                    ><i class="fa fa-edit"></i></a>
+
+			                                <a
+			                                    href="${projectlink}/services/expenses/move/move.html?id=$hit.id&searchtype=collectiveexpense&collectionid=$hit.collectionid"
+			                                    class="btn btn-xs btn-secondary emdialog"
+			                                    title="[[Move Expense]]  $!mediaarchive.getCachedData("librarycollection", $hit.collectionid)"
+			                                    ><i class="fa fa-angle-right"></i></a>
+			                                    
+			                            #end
+			                      </td>
+                    </tr>
+                #end
+            </table>
+            $expenses.size() [[hits]]
+        </div>
+        
+       
+        
+        <a href="${projectlink}/services/expenses/export/expenses.csv?collectionid=$!{librarycol.id}&hitssessionid=$expenses.getSessionId()"
+           class="btn btn-sm btn-primary mb-4">[[Download CSV]]</a>
+           
+##        <a href="${projectlink}/services/expenses/import/index.html?collectionid=$!{librarycol.id}"
+##           class="btn btn-sm btn-primary mb-4 emdialog" title="[[Import Expenes]]">[[Import CSV]]</a>
+        
+</div>

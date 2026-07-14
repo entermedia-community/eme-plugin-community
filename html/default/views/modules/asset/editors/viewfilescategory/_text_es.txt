@@ -1,0 +1,6 @@
+#
+#Fri Jul 03 17:12:22 CST 2026
+Add\ Sub-Folder=A\u00F1adir subcarpeta
+Collapse\ Tree=Colapsar el \u00E1rbol
+Folders=Carpetas
+View\ Files=Ver archivos

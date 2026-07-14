@@ -1,0 +1,6 @@
+<page>
+	<page-action name="Script.run" alltypes="true" >
+		<script>./move.groovy</script>
+	</page-action>
+
+</page>

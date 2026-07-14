@@ -1,0 +1,63 @@
+<div class="maincontent">
+	#set($userprojects = $mediaarchive.getProjectManager().listCollectionsOnTeam($user))
+	#set($ticketlevel = $context.getRequestParameter("ticketlevel"))
+
+	#if($userprojects.isEmpty())
+		<div class="text-center text-muted my-5">
+			[[No projects for this user.]]
+		</div>
+	#else
+
+		#set( $opengoalid = $context.getRequestParameter("opengoalid"))
+
+		#if( $opengoalid )
+			#set( $goal = $mediaarchive.getData("projectgoal",$opengoalid))
+			#set( $goallink = "${communitylink}/collective/goals/editgoalpanel.html?id=${goal.id}&collectionid=$goal.collectionid&goalfolder=$!content.goalfolder")
+			<a href="$goallink" title="$goal.name" class="emdialog editgoalshow openemdialog" style="display: none">[[Goal link]]</a>	
+		#end
+		
+		#ifnotnull($ticketlevel)
+			#set( $hits = $mediaarchive.query("projectgoal").orgroup("collectionid",$userprojects).exact("ticketlevel",$ticketlevel).orgroup("projectstatus","open|critical").enduser(true).sort("creationdateDown").search() )
+		#end
+		#ifnull($ticketlevel)
+			#set( $hits = $mediaarchive.query("projectgoal").orgroup("collectionid",$userprojects).orgroup("projectstatus","open|critical").enduser(true).sort("creationdateDown").search() )
+		#end
+
+		#if (!$hits.isEmpty())
+			<div class="goals-header-actions rounded mb-3 px-3">
+				<form  id="rolesearch" action="$content.path" class="form-inline autosubmitform">
+					#set($level = $mediaarchive.getCachedData("ticketlevel",$ticketlevel))
+					<span class="me-2">
+						#text($level) ($hits.size())
+					</span>
+
+					<input name="ticketlevel" type="hidden" value="$ticketlevel" />
+				
+					#set($selectedcollectiverole = $context.getRequestParameter("collectiverole"))
+					
+					$context.putPageValue("selectedcollectiverole",$selectedcollectiverole)
+					
+					<select name="collectiverole" id="rolepicker"  style="width:300px;"
+						class="listautocomplete selectautosubmit" 
+						data-showdefault="$text" data-addnewlabel="[[[Add New]]]" 
+						data-searchfield="name" data-searchtype="collectiverole"  
+						data-placeholder="#if( $selectedcollectiverole) $mediaarchive.getCachedData("collectiverole",$selectedcollectiverole)) #else by role #end" data-sortby="name">
+					</select>
+				</form>
+			</div>
+			
+			#foreach($goal in $hits)
+				#set( $goal = $mediaarchive.getSearcher("projectgoal").loadData($goal))
+				$context.putPageValue("goal",$goal)
+				$pages.include("${apphome}/project/goals/priorities/goalsearchrow.html",$context)
+			#end
+		#else
+			<div class="text-center text-muted my-5">
+				[[No goals found for this ticket level.]]
+			</div>
+		#end
+	#end
+</div>
+
+
+

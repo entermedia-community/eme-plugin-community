@@ -1,0 +1,141 @@
+#set($collectionid = $context.getRequestParameter("collectionid"))
+<div  id="pointsreport">
+<div class="maincontent">
+	    <h4 class="modal-title">[[Points Report]]</h4>
+	    <div style="padding:5px 0;">
+	    <div style="display:inline-block; padding-right:10px;">[[Month]]: $context.getDateTime($since)</div> 
+	    <a class="btn btn-xs btn-light ajax" 
+	    	href="${apphome}/users/tasks/report.html?collectionid=$!collectionid&monthsback=$monthsback&oemaxlevel=1"
+	    	data-targetdiv="pointsreport"> [[Go Back]] ${monthsback} [[Month]]</a>
+	    
+	    #if($monthsback!='1')
+	    <a class="btn btn-xs btn-light ajax" 
+	    href="${apphome}/users/tasks/report.html?collectionid=$!collectionid&monthsback=0&oemaxlevel=1"
+	    data-targetdiv="pointsreport"> [[Current Month]]</a>
+	    #end
+	    </div>
+#foreach($person in $users)
+	<div class="pull-left card card-mini" style="margin:5px 0;"> 
+    	<div class="card-task-header" >$person</div>
+  		<div class="card-task-body " >
+  		#set( $weeks = $completed.weeksInMonth($since) )
+			<table class="striped" style="width:100%">
+  			<tr>
+  			<th>[[Tickets and Tasks]]</th>
+  			<th style="width:280px;">[[Closed On]]</th>
+  			<th style="width:80px;text-align:right;">[[Tasks]]</th>
+  			<th style="width:80px;text-align:right;">[[Roles]]</th></tr>
+			#set( $totalroalpoints = 0)  			
+			#set( $totaltaskpoints = 0)  	
+  		#foreach( $week in $weeks)
+			#set( $weektaskpoints = 0)  	
+			#set( $weekrolepoints = 0)  	
+			#set($tasks = $completed.getTasksForWeek($person, $week))
+			#set( $taskpoints = 0)  	
+			
+  		    #foreach($task in $tasks)
+  		     	#set( $selectedcat = $mediaarchive.getCachedData("projectdepartment",$task.projectdepartment) )
+				#set( $points = $selectedcat.getValue("goalpoints"))
+				#if( !$points || $points == 0)
+					#set( $points = 10 )
+				#end
+				#set( $counted = $counted +1)
+				#set( $totaltaskpoints = $totaltaskpoints + $points)
+				#set( $weektaskpoints = $weektaskpoints + $points)
+  				<tr>
+  				<td>
+  				<a class="emdialog" 
+  					style="text-decoration: underline;"
+  					data-width="900"
+  					data-hidefooter="true"
+		 	 		title="[[Ticket Details]]" 
+		 	 		href="${communitylink}/project/goals/editgoalpanel.html?id=$task.projectgoal&collectionid=$task.collectionid&nodeID=$selectedcat.id&goalfolder=$!content.goalfolder">
+		 	 		#set($collection = $!mediaarchive.getCachedData("librarycollection",$task.collectionid) )
+
+		 	 		#if( $task.get("completedurgent") == "true")
+						<strong>[[[Urgent]]]</strong>		 	 		
+		 	 		#end
+		 	 		###Task: 
+		 	 		#set($taskname = $!mediaarchive.getCachedData("category",$task.projectdepartment) )
+		 	 		#if($collectionreport)
+		 	 		#else
+		 	 			$collection -
+		 	 		#end
+		 	 		#if($tasname)
+		 	 		$!taskname -
+		 	 		#end
+		 	 		$!task.comment</a>
+		 	 		</td>
+  					<td>$context.getDateTime($task.getDate("completedon"))</td>
+  					<td style="text-align:right">$points
+  					
+					#if( $task.get("completedurgent") == "true")
+						#set( $weektaskpoints = $$weektaskpoints + 10)
+						#set( $totaltaskpoints = $totaltaskpoints + 10)
+						+ 10
+		 	 		#end
+  					</td>
+  					<td></td>
+		 	 		#set($prevticket =  $ticket )
+  				</tr>
+  		    #end
+  		    
+  		    #set($roleactions = $completed.getRoleActionsForWeek($person, $week))
+  		    #foreach($roleaction in $roleactions)
+  		     	<tr>
+  				<td>
+  				#set( $task = $mediaarchive.getCachedData("goaltask",$roleaction.goaltaskid) )
+  				
+  				#set( $col = $mediaarchive.getCachedData("librarycollection",$task.collectionid) )
+ 				<a class="emdialog" 
+					style="text-decoration: underline;"
+					data-width="900"
+					data-hidefooter="true"
+					title="[[Ticket Details]]" 
+					href="${communitylink}/project/goals/editgoalpanel.html?id=$task.projectgoal&collectionid=$task.collectionid&goalfolder=$content.goalfolder">
+
+  				#text( $col ) -
+  				#set($role = $!mediaarchive.getCachedData("collectiverole",$roleaction.getUserRole().get("collectiverole") ) )
+				( #text($role) )
+				
+				  				$!task.comment</a>
+						$!roleaction.getUserRole().name
+  				</td>
+  				<td>$context.getDateTime($roleaction.getDate())</td>
+  				<td></td>
+  				<td style="text-align:right">
+				#set( $weekrolepoints = $weekrolepoints + 10)
+				#set( $totalroalpoints = $totalroalpoints + 10)
+				10
+  				</td>
+  				</tr>
+  		    #end
+  			<tr><td colspan="2" style="padding-left: 0px;"> </td>
+  			<td style="text-align:right;"><b>#if( $weektaskpoints > 0 )$weektaskpoints #end</b></td>
+  			 <td style="text-align:right;"><b>#if( $weekrolepoints > 0 )$weekrolepoints #end</b></td>
+  			</tr>
+		#end
+ 		    #if( $totaltaskpoints > 0)
+ 			<tr>
+ 			<td colspan="2" style="text-align:right;"><b>[[Tasks]]:</b></td>
+ 			<td style="text-align:right;">
+ 			<b>$totaltaskpoints</b>
+ 			</td>
+ 			<td></td>
+ 			</tr>
+ 			#end
+ 		    #if( $totalroalpoints > 0)
+ 			<tr>
+ 			<td colspan="2" style="text-align:right;"><b>[[Roles]]:</b></td>
+ 			<td></td>
+ 			<td style="text-align:right;">
+ 			<b>$totalroalpoints</b>
+ 			</td></tr>
+ 			#end
+  			</table>
+  		</div>
+	</div>
+#end
+</div>
+</div>
+	

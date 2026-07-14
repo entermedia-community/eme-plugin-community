@@ -1,0 +1,203 @@
+#set( $currency = '$' ) 
+#if(!$invoice) #set( $id = $context.getRequestParameter('invoiceid')) 
+	#if(!$id) 
+		#set( $id = $invoiceid)
+	#end 
+	#set( $invoice = $mediaarchive.getBean("invoiceManager").getInvoiceById($id)) 
+#end 
+#if($invoice)
+	$context.putPageValue("invoice", $invoice)
+	#set( $products = $mediaarchive.getBean("invoiceManager").getInvoiceProductList($id)) 
+	#set( $collection = $mediaarchive.query("librarycollection").exact("id",$invoice.getValue("collectionid")).searchOne())
+	$context.putPageValue("collection", $collection)
+	 
+	#set($status = $invoice.getValue("paymentstatus")) 
+	$context.putPageValue("status", $status)
+	
+	#set($invoicemonth = $context.getLocaleManager().getMonthName($invoice.getValue("duedate"), $context.getLocale())) 
+	
+	##For Replace Formating 
+	#set($invoiceformated = $invoice)
+	#set($replacer = $mediaarchive.getReplacer()) 
+	#set($ignore = $invoiceformated.setValue("invoicemonth",$invoicemonth)) 
+	#set($ignore = $invoiceformated.setValue("project", $collection)) 
+	#set($duedate = "#date($invoice, 'duedate')") 
+	#set($ignore = $invoiceformated.setValue("duedate", $duedate)) 
+	#set($ignore = $invoiceformated.setValue("startdate", $duedate)) 
+	####legacy?? 
+	#set($enddate = "#date($invoice, 'enddate')") 
+	#set($ignore = $invoiceformated.setValue("enddate", $enddate)) 
+	#set($recurringperiod = $mediaarchive.getData("productrecurringperiod",$invoice.getValue("recurringperiod"))) 
+	#set($recurringperiod = $context.getText($recurringperiod)) 
+	#set($ignore =
+	$invoiceformated.setValue("period", $recurringperiod)) 
+	##--
+	
+	<div class="viewinvoice">
+	  <div class="viewinvoiceheader">
+	    <div class=" d-flex justify-content-between">
+		<div>
+		    <div style="padding: 0 0 5px">
+		      <strong>[[Status]]:</strong>
+		      #if($status.equals("invoiced")) [[Confirmation Sent]]
+		      #elseif($status.equals("pending")) [[Pending]]
+		      #elseif($status.equals("payd")) [[Payd]] #end
+		    </div>
+		    #if($status.equals("invoiced") && $invoice.getValue("sentdate"))
+		    <div style="padding: 0 0 5px 0">
+		      <strong>[[Sent Date]]</strong>: $invoice.getValue("sentdate")
+		    </div>
+		    #end ##contacts
+		</div>
+		
+		#*<div class="printinvoicebtn text-right">
+		      <a
+		        href="${projectlink}/store/reservations/printpreview.html?invoiceid=$!invoice.id"
+		        target="_blank"
+		        class="btn btn-sm btn-light"
+		        ><i class="fa-solidfa-print"></i> [[Print]]</a>
+		    </div>
+		</div>*#
+	    <div style="margin: 0 0 20px">
+	      #if($status.equals("invoiced"))
+	      <strong>[[Sent to]]:</strong>
+	      #else
+	      <strong>[[Send to]]:</strong>
+	      #end
+	      <div
+	        style="
+	          border: 1px solid #555;
+	          padding: 3px 5px;
+	          margin-bottom: 10px;
+	          background-color: #f1f1f1;
+	        "
+	      >
+	        #if($invoice.getValue("sentto")) $invoice.getValue("sentto") #else
+	        --[[Edit to add contacts]]-- #end
+	      </div>
+	    </div>
+	  </div>
+	
+	  <div class="viewinvoicebody" style="position: relative">
+		
+		
+	    $pages.include("viewinvoiceheader.html", $context)
+		
+		
+	
+	    <div style="background-color: #efefef; padding: 10px; margin: 10px 0">
+	      <table style="width: 100%">
+	        <tr>
+	          <td>
+	            #set($invoiceoriginalname = $invoice.getValue("name"))
+	            #set($invoicename = $replacer.replace($invoiceoriginalname,
+	            $invoiceformated))
+	
+	            <strong>[[Reservation Number]]:</strong>
+	            $invoice.getValue("invoicenumber")
+	            <br />
+	            ##<strong>$!invoicename</strong>
+	            #if($invoicemonth) ##
+	            <div><strong>Month:</strong> $invoicemonth</div>
+	            #end
+	          </td>
+	          <td style="width: 240px; text-align: right; vertical-align: top">
+	            
+	          </td>
+	        </tr>
+	      </table>
+	    </div>
+	    <div style="margin-top: 10px">
+
+		  #set($invoicedescription = $invoice.getValue("invoicedescription")) 
+		  #if($invoicedescription)
+		      #set($invoicedescription = $replacer.replace($invoicedescription, $invoiceformated)) 
+			  $invoicedescription 
+		  #end
+	    </div>
+	
+	    <div style="padding-top: 10px">
+	      
+			<table class="purchase_content" width="100%" cellpadding="0" cellspacing="0">
+			   #set($invoiceManager = $mediaarchive.getBean("invoiceManager"))
+               #set($purchases = $invoice.getValue("productlist"))
+				#foreach ($purchase in $purchases)
+					#set ( $product = $invoiceManager.getProductById($purchase.productid) )
+					<tr>
+						<td valign="top" style="vertical-align: top;">
+							
+							#set($totaldays = $purchase.productquantity)
+							
+							##DO not have
+							#set($totalprice = $invoice.getDouble("totalprice") )
+							#set($totalprice = $context.roundDouble($totalprice,2) )
+							
+							#set($guests = $invoice.getInt("headcount") )
+							#set($dailyrate =  $totalprice / $totaldays)
+							
+							#set($dailyrate = $context.roundDouble($dailyrate,2) )
+							#set($duedate = $invoice.getDate("duedate"))
+							###set($enddate = $invoiceManager.getEndDate($product))
+							#set($enddate = $invoice.getDate("enddate"))
+							
+							<div class="reservation-date">
+								<div class="d-flex align-items-end"> 
+									<div class="d-flex flex-column">
+										<span class="mb-2">[[Self Check-in]]:</span>
+										<strong>$context.getDate($duedate)</strong>
+										<small>14:00 &mdash; 24:00</small>
+									</div>
+									<div class="vertical-divider"></div>
+									<div class="d-flex flex-column">
+										<span class="mb-2">[[Check-out]]:</span>
+										<strong>$context.getDate($enddate)</strong>
+										<small>00:00 &mdash; 10:00</small>
+									</div> 
+								</div>
+								
+								<p class="mt-3 mb-0">Total length of stay: <strong>$totaldays nights</strong></p>
+								
+								<p class="m-0">You selected: <strong>1 room</strong>
+								#if($guests != "0")
+								for <strong>$guests</strong>
+								#end
+								</p>
+							</div>
+					
+							<div class="reservation-price">
+								<div class="">
+									#if( $totaldays < 29)
+									<p class="m-0 text-muted ">+Stay is less than one month</p>
+									#end
+										#if( $howmanypeople && $howmanypeople > 1)
+									<p class="m-0 text-muted ">+More than one person</p>
+										#end
+									<p class="m-0 text-muted ">Daily rate: $$dailyrate $!context.getText($!mediaarchive.getCachedData("currencytype",$invoice.currencytype )) Per day</p>
+									<h3>
+										Price: $totaldays x $dailyrate= $$totalprice $!context.getText($!mediaarchive.getCachedData("currencytype",$invoice.currencytype ))
+									</h3>
+								</div>
+							</div>
+							
+							<div>
+
+							
+							#ifnotnull( $invoice.customernote )
+							<p>Customer Note:</p>
+							<p>#esc($invoice.customernote)</p>
+							#end
+
+	                        $!invoicefooter
+
+
+							</div> 
+							
+						</td>
+					</tr>
+				#end
+              </table>
+			
+	    </div>
+	  </div>
+	</div>
+#end

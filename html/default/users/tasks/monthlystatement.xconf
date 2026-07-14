@@ -1,0 +1,8 @@
+<page>
+	
+	<property name="appsection">completed</property>
+	
+	<path-action name="DataEditModule.search">
+		<property name="searchtype">pointstatementmonthly</property>
+	</path-action>
+</page>

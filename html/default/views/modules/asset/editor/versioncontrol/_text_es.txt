@@ -1,0 +1,19 @@
+#
+#Fri Jul 03 17:12:45 CST 2026
+Deleted=Eliminado
+Download=Descargar
+Download\ Version=Versi\u00F3n para descargar
+Edited=Editado
+File\ Size=Tama\u00F1o del archivo
+Imported=Importado
+Make\ a\ Copy=Hacer una copia
+Modified=Modificado
+No\ preview\ available=No hay vista previa disponible
+Preview=Vista previa
+Published=Publicado
+Replaced=Reemplazado
+Restore\ this\ Version=Restaurar esta versi\u00F3n
+Restored=Restaurado
+Synced=Sincronizado
+Uploaded=Subido
+Version=Versi\u00F3n

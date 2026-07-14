@@ -1,0 +1,4 @@
+<page>
+	<property name="collectivesection">referrals</property>
+<inner-layout>/${applicationid}/project/layout/innerlayout.html</inner-layout>
+</page>

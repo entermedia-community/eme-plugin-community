@@ -1,0 +1,11 @@
+<page>
+	<property name="module">user</property>
+	<path-action name="DataEditModule.parseMultPart" />
+	<path-action name="AssetEditModule.handleUploads"/>
+	<path-action name="Script.run">
+		<script>/${applicationid}/users/edit/saveuser.groovy</script>
+	</path-action>
+	
+	<property name="reloadprofile">true</property>
+	
+</page>

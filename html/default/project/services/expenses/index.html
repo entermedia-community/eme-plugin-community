@@ -1,0 +1,74 @@
+#set($collectionid = $librarycol.getId())
+
+#if($user) 
+
+<div class="d-flex justify-content-between mb-2">
+	<h2>[[Expenses]]</h2>
+     <div>
+    	 #if( $caneditcollection )
+         <a href="${projectlink}/services/expenses/addnew.html?collectionid=${collectionid}"
+          class="emdialog btn btn-sm btn-primary"
+          title="[[Add Expense]]"><i class="fa fa-plus"></i> [[Add Expense]]</a>
+	    #end
+	    
+    	<a onclick="$('#searchform').toggle()" class="btn btn-sm btn-secondary"><i class="fa fa-search"></i> [[Search]]</a>
+     </div>
+    </div>      
+ 
+	<form  id="incomesearchform" 
+		class="autosubmit  ajaxform" 
+		data-targetdiv="expensereport" 
+			method="post" 
+			data-oemaxlevel="1"
+			action="${projectlink}/services/expenses/results.html">
+			#set( $searchtype = "collectiveexpense")
+			$context.putPageValue("searchtype",$searchtype)
+			#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+			$context.putPageValue("searcher",$searcher)
+			#set ($details = $searcher.getDetailsForView("collectiveexpensesearch", $userprofile))
+			$context.putPageValue("viewid","${$searchtype}search")
+			$context.putPageValue("searchform",true)
+			
+		<input type="hidden" name="oemaxlevel" value="1" />
+		
+		<input type="hidden" name="field" value="collectionid" />
+		<input type="hidden" name="collectionid.value" value="$collectionid" />
+		<input type="hidden" name="operation" value="exact" />
+		<input type="hidden" name="collectionid" value="$collectionid" />
+		<input type="hidden" name="${searchtype}hitsname" value="expenses" />
+		
+		<div  id="searchform" class="inlinesearch" style="display:none" >
+			<div class="d-flex flex-wrap" >
+				$context.putPageValue("autocomplete","off")
+				#foreach( $detail in $details)
+					<div style="min-width: 200px; margin-right: 10px;">
+							$context.putPageValue("detail", $detail)
+							$pages.include("/${applicationid}/components/advancedsearch/detaileditinline.html", $context)
+					</div>
+					#if( $counter == 4)
+						
+					#end	
+				#end
+			</div>	
+		</div>
+	
+   		
+   		<div class="finances-table-sort d-flex flex-rows justify-content-end mb-2">
+		<label>[[Sort by]]:</label>
+		<div style="padding-left:10px; width:220px; display:inline-block;">
+		<select class="select2 	form-control" name="$!{searchtype}sortby" >
+			#set ($details = $searcher.getDetailsForView("collectiveexpensegeneral", $userprofile))
+			#foreach( $detail in $details)
+				<option value="$detail.getId()Down">$context.getText($detail)</option>
+				<option value="$detail.getId()Up">$context.getText($detail) [[Reverse]]</option>
+			#end
+		</select>
+		</div>
+		</div>
+		
+   </form>      
+   
+	$pages.include("${apphome}/project/services/expenses/results.html",$context)
+#end
+
+

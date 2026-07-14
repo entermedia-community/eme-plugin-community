@@ -1,0 +1,13 @@
+
+<page>
+
+	<inner-layout>/${applicationid}/theme/layouts/dialoglayout.html</inner-layout>
+
+<property name="usemap">false</property>
+
+	<path-action name="DataEditModule.loadData" >
+			<pageval>library</pageval>
+			<idname>libraryid</idname>
+			<searchtype>library</searchtype>
+    </path-action>
+</page>

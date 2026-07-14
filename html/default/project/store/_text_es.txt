@@ -1,0 +1,5 @@
+#
+#Thu Aug 25 17:18:57 CDT 2022
+Donate=Donar
+Add\ A\ Product=Agregar un producto
+Product=Producto

@@ -1,0 +1,7 @@
+<page>
+	<page-action name="TaskModule.loadTasksForUser" />	
+	<property name="fullwidth">true</property>
+	<property name="collectivesection">instances</property>
+	<property name="appsection">mytasks</property>
+
+</page>

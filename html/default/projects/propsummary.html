@@ -1,0 +1,67 @@
+<div class="container py-2 project-container">
+  <div class="prop-details">
+    <div class="prop-credit">
+      #set($link = "${communitylink}/proposal/${project.id}/#dash($project.getName()).html")
+      <a href="$link" class="d-flex flex-column align-items-center p-2 w-100">
+        #set($logo = false)
+        #if($project.assetportrait)
+          #set($asset = $mediaarchive.getAsset($project.assetportrait))
+          #set($logo = $mediaarchive.asLinkToPreview($asset,"image200x200.png"))
+        #else
+          #set($logo = "${communitylink}/theme/images/OI_flower.png")
+        #end
+        <img src="$logo" />
+        <p>#text($project)</p>
+        #set( $days = $mediaarchive.getProjectManager().calcDaysRemaining($project) )
+        #if($days)
+        <div style="padding: 0 10px;">
+          #set( $completed = 365 - $days)
+          #set( $per = $numberutils.divide($completed, 365) )
+          #set( $per = $per * 100.0 )
+          <div class="progress" style="margin-top:8px;width:100%; height: 16px;">
+            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: $per%;" aria-valuenow="25"
+              aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <small>$days [[days remaining]]</small>
+        </div>
+        #end
+        <button class="btn btn-sm btn-primary mt-3">[[Track Progress]] <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ffffff" class="bi bi-arrow-right-short"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+        </svg></button>
+      </a>
+    </div>
+
+    <div class="prop-pse prb">
+      <ul class="nav nav-tabs bg-transparent">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" data-target="problem" style="color: #f39d00;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-slash-circle"
+              viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path d="M11.354 4.646a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 .708.708l6-6a.5.5 0 0 0 0-.708z" />
+            </svg> <span class="ms-1">[[Problem]]</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-target="empowerment" style="color: #18a380;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightning"
+              viewBox="0 0 16 16">
+              <path
+                d="M5.52.359A.5.5 0 0 1 6 0h4a.5.5 0 0 1 .474.658L8.694 6H12.5a.5.5 0 0 1 .395.807l-7 9a.5.5 0 0 1-.873-.454L6.823 9.5H3.5a.5.5 0 0 1-.48-.641l2.5-8.5zM6.374 1 4.168 8.5H7.5a.5.5 0 0 1 .478.647L6.78 13.04 11.478 7H8a.5.5 0 0 1-.474-.658L9.306 1H6.374z" />
+            </svg> <span class="ms-1">[[Empowerment]]</span>
+          </a>
+        </li>
+      </ul>
+      <div class="content px-2 py-1">
+        <div class="problem">
+          $!project.get("proposalproblem")
+        </div>
+        <div class="empowerment">
+          $!project.get("proposalempowerment")
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>

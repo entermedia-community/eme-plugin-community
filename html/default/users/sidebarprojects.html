@@ -1,0 +1,71 @@
+##Search collections this user is teammeber
+#set( $organizationsuser = $mediaarchive.query("librarycollectionusers").exact("followeruser",$user.getId()).exact("ontheteam","true").search() )
+#set($userprojectsids = [])
+
+#set( $appsection = $context.getRequestParameter("appsection"))
+#if( !$appsection)
+	#set( $appsection = $content.appsection )
+#end
+
+<div id="usersidebarstatus" class="ajaxstatus" data-reloadspeed="60000" data-ajaxpath="${apphome}/users/sidebar.html?appsection=$appsection&oemaxlevel=1&collectionid=$!librarycol.id" >
+
+<div class="sidebar-box" style="height:auto;"> 
+    <div class="sidebar-box-header">
+        [[Projects]]        
+        <a href="#" class="sidebar-toggler" data-action="hide" data-targetdiv="usersidebar"
+        title="[[Hide User Sidebar]]">
+        <i class="fas fa-angle-double-left"></i>
+        </a>
+    </div>
+
+#set( $collectives = $mediaarchive.query("librarycollection").enduser(true).sort("name").search($context) )
+
+    <div class="sidebar-box-content" style="padding:0;" id="sidebarboxprojects">
+    	#if( $collectives.size() >= 1)
+    		<div style="padding:5px 15px;">
+			<select  id="collectivesearch2" 
+						name="collectionid" 
+						class="form-control autosubmitlink" 
+						data-placeholder="[[Search Workspaces]]"
+						data-url="$sitelink/app/collective/community/index.html?goaltrackerstaff=*&collectionid="
+						data-dropdownparent="sidebarboxprojects"
+					>
+					<option></option>
+					#foreach( $collective in $collectives )
+						<option value="$collective.getId()">#esc($collective.name)</option>
+					#end
+			</select>
+			</div>
+		#end
+	
+	#set($selectedproject = $librarycol.getId())
+	<div style="#if($collectives.size() > 4) height: 200px; overflow-y:auto; #end ">
+	#set( $modcollections = $chatManager.loadCollectionsModified($collectives,$user.getId() ) )
+	<ul class="sidebar-list" >
+		#if( $librarycol)
+			<li class="current">
+				<a href="$sitelink/app/collective/community/index.html?collectionid=$librarycol.id&goaltrackerstaff=*" title="[[Workspace]] $librarycol.name" >
+				<i class="fas fa-sitemap"></i> $librarycol.name #if( $modcollections.contains($librarycol.getId()) )<i class="fas fa-bell fa-xs" style="color:orange"></i>#end
+				</a>
+			</li>
+		#end
+
+		#foreach( $ohit in $collectives )
+			#if( $librarycol.getId() != $ohit.id)			
+				#if($modcollections.contains($ohit.getId()) )
+					#foreach($usr in $organizationsuser)
+						#if ($usr.getValue("collectionid") == $ohit.getId() && $modcollections.contains($ohit.getId()))
+					<li class="#if($selectedproject==$ohit.id) current #end">
+						<a href="$sitelink/app/collective/community/index.html?collectionid=$ohit.id&goaltrackerstaff=*" title="[[Workspace]] $ohit.name" >
+						<i class="fas fa-sitemap"></i> $ohit.name <i class="fas fa-bell fa-xs" style="color:orange"></i>
+						</a>
+					</li>
+						#end
+					#end
+
+				#end
+			#end
+		#end
+	</ul>
+	</div>
+	

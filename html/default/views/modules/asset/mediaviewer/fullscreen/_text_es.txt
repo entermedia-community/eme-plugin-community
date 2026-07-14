@@ -1,0 +1,17 @@
+#
+#Fri Jul 03 17:12:37 CST 2026
+Add\ To\ Cart=A\u00F1adir al carrito
+Added\ To\ Cart=A\u00F1adido al carrito
+Data=Datos
+Download=Descargar
+Edit=Edici\u00F3n
+Esc\ to\ Close=Esc para cerrar
+History=Historia
+Media\ Edit\ &\ Share=Editar y compartir medios
+Metadata=Metadatos
+No\ template\ for=No hay plantilla para
+Remove\ From\ Cart=Quitar del carrito
+Removed\ From\ Cart=Eliminado del carrito
+View=Vista
+Viewer=Espectador
+mediadbappid\ not\ defined\ in\ datamanager=mediadbappid no definido en el gestor de datos

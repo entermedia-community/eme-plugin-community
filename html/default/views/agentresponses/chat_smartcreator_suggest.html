@@ -1,0 +1,39 @@
+#set($creatortype = $inflector.singularize($playbackentitymodule.getName()))
+<p class="m-0">
+  [[Welcome to]] $creatortype [[creation wizard]].
+</p>
+<messageplain>[[Welcome to]] $creatortype [[creation wizard]].</messageplain>
+<h5 class="mb-2">
+  [[What]] $creatortype [[subject you would like to create?]]
+</h5>
+<messageplain>[[What]] $creatortype [[subject you would like to create?]]</messageplain>
+
+#if($semantictopics.isEmpty())
+  #set($suggestedtopic = $entity.getName())
+  #set($none = $semantictopics.add($suggestedtopic))
+#end
+
+#if(!$semantictopics.isEmpty())
+  <p class="mb-1">
+    [[Here are some suggestions]]:
+  </p>
+  <messageplain>[[Here are some suggestions]]:</messageplain>
+  <ul>
+    #foreach($topic in $semantictopics)
+
+      #set($fixedtopic = "Create a brief outline for a $creatortype about $topic. For each outline topic, create a summary with a header, and paragraphs + lists (where necessary). Provide examples if applicable.")
+      
+
+     #set($fixedtopic = $translationManager.emediaTranslate("en", $context.getLocale(), $fixedtopic))
+
+      <li class="autoprefixchatmsg"
+        style="text-transform: capitalize;"
+        data-prefix="${fixedtopic}"
+        data-functionname="chat_smartcreator_parse_user_prompt"
+      >
+      <span>$topic</span>
+      <messageplain>$topic</messageplain>
+    </li>
+    #end
+  </ul> 
+#end

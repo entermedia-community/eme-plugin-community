@@ -1,0 +1,100 @@
+#set($collectionid = $librarycol.getId())
+
+#ifnotnull($collectionid)
+	#if($caneditcollection || $librarycol.priviacylevel != "commercial")
+		#set($collectiveadminsection = $content.collectiveadminsection)
+		#if(!$collectiveadminsection)
+			#set($collectiveadminsection = "finances")
+		#end
+		 
+		
+		<div class="contentcolumn" style="padding:0; min-height: calc(100% - 270px);">
+			<div class="row g-0" style="height: 100%">
+				<div class="col-md-2">
+					<div class="project-sidebar-menu">
+							<h3>[[Finances]]</h3>	
+							<ul class="auto-active-container">
+								
+								##set($finances_profitandloss = $content.isPropertyTrue("finances_profitandloss",true))
+								#if($canviewsettings)
+									<li class="#if($collectiveadminsection == "finances") current #end">
+										<a href="${projectlink}/services/finances/dashboard.html"  rel="nofollow"  class="ajax auto-active-link" 
+										data-targetdivinner="collectivesettingscontent" data-updateurl="true" data-oemaxlevel="1">[[Profit and Loss]]</a>
+									</li>
+									#ifnull($finances_defaultview) #set($finances_defaultview = "services/finances/dashboard.html") #end
+								#end
+								
+								##set($finances_accounts = $content.isPropertyTrue("finances_accounts",true))
+								#if($canviewsettings)
+									<li class="#if($collectiveadminsection == "bankaccounts") current #end">
+										<a href="${projectlink}/services/bankaccounts/"
+										data-updateurl="true"  class="ajax auto-active-link" data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Accounts]]</a>
+									</li>
+									#ifnull($finances_defaultview) #set($finances_defaultview = "finances_accounts") #end
+								#end
+		#* 						
+								<li class="#if($collectiveadminsection == "transfers") current #end">
+									<a href="${projectlink}/services/transfers/"  data-updateurl="true" class="ajax auto-active-link" 
+									data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Transfers]]</a>
+								</li>
+		*#
+								###set($finances_workpoints = $content.isPropertyTrue("finances_workpoints",true))
+								#if($user)
+									<li class="#if($collectiveadminsection == "workpoints") current #end">
+										<a href="${projectlink}/services/workpoints/"  data-updateurl="true" class="ajax auto-active-link" 
+										data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Work Points]]</a>
+									</li>
+									#ifnull($finances_defaultview) #set($finances_defaultview = "finances_accounts") #end
+								#end
+								
+								#set($finances_income = $content.isPropertyTrue("finances_income",true))
+								#if($canviewsettings)
+									<li class="#if($collectiveadminsection == "income") current #end">
+										<a href="${projectlink}/services/income/" data-updateurl="true" class="ajax auto-active-link" 
+										data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Income]]</a>
+									</li>
+									#ifnull($finances_defaultview) #set($finances_defaultview = "finances_income") #end
+								#end
+								
+								##set($finances_invoices = $content.isPropertyTrue("finances_invoices",true))
+								#if($user)
+									<li class="#if($collectiveadminsection == "invoices") current #end">
+										<a href="${projectlink}/services/"  
+										data-updateurl="true" class="ajax auto-active-link" data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Invoices]]</a>
+									</li>
+									#ifnull($finances_defaultview) #set($finances_defaultview = "finances_invoices") #end
+								#end
+								
+								#set($finances_expenses = $content.isPropertyTrue("finances_expenses",true))
+								#if($canviewsettings)
+									<li class="#if($collectiveadminsection == "expenses") current #end">
+										<a href="${projectlink}/services/expenses/"  data-updateurl="true" 
+										class="ajax auto-active-link" data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Expenses]]</a>
+									</li>
+									#ifnull($finances_defaultview) #set($finances_defaultview = "finances_expenses") #end
+								#end
+								
+								
+								##<li class="#if($collectiveadminsection == "reimbursements") current #end">
+								##	<a href="${projectlink}/services/reimbursements/" data-updateurl="true" 
+								##	class="ajax auto-active-link" data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Reimbursements]]</a>
+								##</li>
+		
+								##<li class="#if($collectiveadminsection == "investments") current #end">
+								##	<a href="${projectlink}/services/investments/"  data-updateurl="true" class="ajax auto-active-link" 
+								##	data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Investments]]</a>
+								##</li>
+							</ul>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<div id="collectivesettingscontent" class="project-main-content">
+						
+						$pages.includeContent()	 
+					</div>
+				</div>
+			</div>
+		</div>
+	#end
+#end
+

@@ -1,0 +1,11 @@
+<page>
+	<path-action name="AssetEditModule.handleUploads"/>
+	<path-action name="DataEditModule.saveData"/>
+	<path-action name="InvoiceModule.saveNewInvoiceForStore"/>
+	
+	<path-action name="ProjectModule.loadCollection"></path-action>
+<!--	  <path-action name="Script.run">
+	    <script>/${catalogid}/events/scripts/billing/sendinvoice.groovy</script>
+	  </path-action>
+-->
+</page>

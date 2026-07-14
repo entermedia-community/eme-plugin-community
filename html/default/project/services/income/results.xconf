@@ -1,0 +1,10 @@
+<page>
+  
+  
+  <property name="hitsperpage">20</property>
+  <property name="searchtype">collectiveincome</property>
+  
+  <page-action name="ProjectModule.loadCollectiveIncome" />
+
+
+</page>

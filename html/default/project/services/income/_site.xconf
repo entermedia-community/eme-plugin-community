@@ -1,0 +1,4 @@
+<page>
+	<property name="collectiveadminsection">income</property>
+	<path-action name="ProjectModule.loadCollection"></path-action>
+</page>

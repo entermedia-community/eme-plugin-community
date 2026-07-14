@@ -1,0 +1,3 @@
+<page>
+	<inner-layout>/${applicationid}/project/layout/innerlayout.html</inner-layout>
+</page>

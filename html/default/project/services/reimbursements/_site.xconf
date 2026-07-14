@@ -1,0 +1,8 @@
+<page>
+	<property name="collectiveadminsection">reimbursements</property>
+	<property name="searchtype">collectivereimbursement</property>
+<path-action name="FinanceModule.loadDateRange" />
+
+<path-action name="FinanceModule.loadFinanceManager" />
+
+</page>

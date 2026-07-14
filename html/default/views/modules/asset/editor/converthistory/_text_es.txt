@@ -1,0 +1,7 @@
+#
+#Fri Jul 03 17:12:58 CST 2026
+File\ Manager=Administrador de archivos
+Open\ File\ Manager=Abrir el Administrador de archivos
+Re-Scan\ Faces=Reescanear las caras
+Recreate\ Conversions=Recrear conversiones
+You\ don't\ have\ permissions\ to\ see\ asset\ conversions=No tienes permisos para ver las conversiones de activos

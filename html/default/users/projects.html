@@ -1,0 +1,101 @@
+#set( $ids = $mediaarchive.query("librarycollectionusers").exact("followeruser", $selecteduser.getId()).search($context)
+)
+
+#set($oids = ["none"])
+#foreach( $ohit in $ids )
+#set($x = $oids.add($ohit.collectionid))
+#end
+
+
+#set( $collections = $mediaarchive.query("librarycollection").ids($oids).sort("name").search($context) )
+
+#set( $modcollections = $chatManager.loadCollectionsModified($collections, $selecteduser.getId() ) )
+
+#if($collections.size()>0)
+<h3>[[Team Projects]]</h3>
+
+<div class="d-flex flex-wrap justify-content-center p-4">
+	#foreach( $ohit in $collections )
+	#set($imagelink = false)
+
+	#set( $project = $mediaarchive.getCachedData("librarycollection",$ohit.getId()))
+	#set( $projectcommunity = $mediaarchive.getCachedData("communitytag",$project.communitytag))
+	#if($project.urlname)
+	#set($hitprojectlink = "$!{projectcommunity.externaldomain}/${project.urlname}")
+	#else
+	#set($hitprojectlink = "/project/chat/index.html?collectionid=${project.id}")
+	#end
+
+
+
+	#if($project.assetportrait)
+	#set($asset = $mediaarchive.getAsset($project.assetportrait))
+	#set($imagelink = $mediaarchive.asLinkToPreview($asset,"image200x200"))
+	#else
+	#set($imagelink = "$communitylink/theme/images/OI_flower.png")
+	#end
+
+	<div class="card-collections">
+		<a href="${hitprojectlink}" class="d-flex flex-column h-100 #if($selectedproject==$project.id) active #end">
+			<div class="card-collections-thumb" style='#if($imagelink) background-image: url("$imagelink") #end'>
+			</div>
+			<div class="collectionbox">
+				$project.name
+				#if( $modcollections.contains($project.getId())) #end
+			</div>
+		</a>
+	</div>
+	#end
+</div>
+#end
+
+#set( $organizationsuser = $mediaarchive.query("librarycollectionlikes").exact("followeruser",
+$selecteduser.getId()).search($context) )
+#set($foids = [])
+#foreach( $ohit in $organizationsuser )
+#set($fcid = $ohit.collectionid)
+#if(!$oids.contains($fcid))
+#set($x = $foids.add($fcid))
+#end
+#end
+#if($foids.size()>0)
+
+#set( $organizations = $mediaarchive.query("librarycollection").ids($foids).sort("name").search() )
+
+<h3 class="mt-4"> [[Liked Projects]]</h3>
+<div class="stations-grid p-4">
+	<div class="project-grid ">
+
+		#foreach( $ohit in $organizations )
+		#set($imagelink = false)
+
+		#set( $project = $mediaarchive.getCachedData("librarycollection",$ohit.getId()))
+		#set( $projectcommunity = $mediaarchive.getCachedData("communitytag",$project.communitytag))
+		#if($project.urlname)
+		#set($hitprojectlink = "$!{projectcommunity.externaldomain}/${project.urlname}")
+		#else
+		#set($hitprojectlink = "/project/chat/index.html?collectionid=${project.id}")
+		#end
+		#if($project.assetportrait)
+		#set($asset = $mediaarchive.getAsset($project.assetportrait))
+		#set($imagelink = $mediaarchive.asLinkToPreview($asset,"image200x200"))
+		#else
+		#set($imagelink = "$communitylink/theme/images/OI_flower.png")
+		#end
+
+		<div class="card-collections">
+			<a href="${hitprojectlink}" class=" #if($selectedproject==$project.id) active #end">
+				<div class="card-collections-thumb"
+					style='border:5px solid #fff;#if($imagelink) background-image: url("$imagelink") #end'></div>
+				<div class="card-name collectionbox">
+					$project.name
+					#if( $modcollections.contains($project.getId())) * #end
+				</div>
+			</a>
+		</div>
+
+		#end
+	</div>
+	<div class="clearfix"></div>
+</div>
+#end

@@ -1,0 +1,11 @@
+<page>
+	<property name="assettab">viewclosedcaptions</property>
+	<property name="hidepreview">true</property>
+	<property name="fullwidth">true</property>
+	<path-action name="MediaArchiveModule.getAsset" />
+	<path-action name="TimelineModule.loadCaptionEditor" />
+
+
+	<style id="videoplayer-css" href="/${applicationid}/theme/styles/timeline/timeline.css" />
+
+</page>

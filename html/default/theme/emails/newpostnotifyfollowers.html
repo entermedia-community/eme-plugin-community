@@ -1,0 +1,56 @@
+$pages.include("${apphome}/theme/emails/layout-top.html", $context)
+
+<div>
+  
+  
+  #if($librarycol.urlname)
+  	#set($projectlink = "$!{community.externaldomain}/${librarycol.urlname}")
+  #else
+  	#set($projectlink = "$!{community.externaldomain}/#dash($librarycol.getName())")
+  #end
+
+  #if($blogpost.urlname)
+    #set($bloglink = "${projectlink}/blog/${blogpost.urlname}")
+  #else
+    #set($bloglink = "${projectlink}/blog/${blogpost.id}")
+  #end
+
+  <h1 style="margin-bottom:0.5rem;">$blogpost.getName()</h1>
+  
+
+ 
+  #if($postimage)
+  <div style="margin-bottom:1rem; width:100%"><img style="width:100%" src="${postimage}" ></div>
+  #end
+  <div style="margin-bottom:1rem; font-size:16px; line-height: 1.7;">
+  $!blogpost.get("maincontent")
+  </div>
+  
+  
+  <div style=" font-size:15px; line-height: 1.7; margin-bottom:0.75rem">
+		#set( $tags = $blogpost.getValues("keywords") )
+		#if($tags && !$tags.isEmpty() )
+		
+			#foreach( $tag in $tags )
+				#<span style="padding-right:0.rem;"><em>#esc($tag)</em></span>
+			#end
+		#end
+	</div>
+	
+	<div style="margin-bottom:1rem;  font-size:15px; line-height: 1.7;">
+	By: $postuser.getAnonNickName()<br>
+	<a href="${bloglink}?entermedia.key=${entermediakey}&fbclid=blog${blogpost.getId()}" title="View $blogpost.getName()">View online</a>
+	</div>
+
+</div>
+
+#ifnotnull($followeremail)
+<div  style="margin:2rem 0 1rem; font-size:13px;">
+	Click <a href="${community.externaldomain}/project/channel/subscribers/unsubscribe.html?email=${followeremail}&collectionid=${librarycol.getId()}&entermedia.key=${entermediakey}">here</a> to Unfollow/Unsuscribe.
+	
+</div>
+#end
+
+$pages.include("${apphome}/theme/emails/layout-bottom.html", $context)
+
+

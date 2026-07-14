@@ -1,0 +1,26 @@
+<page>
+
+	<inner-layout>/${applicationid}/collective/store/details/detaillayout.html</inner-layout>
+
+	<property name="virtual">true</property>
+
+	<path-action name="DataEditModule.loadDataForEdit" allowduplicates="true">
+		<property name="searchtype">librarycollection</property>
+		<property name="idlevel">2</property>
+		<property name="idname">collectionid</property>
+		<property name="pageval">librarycol</property>
+	</path-action>
+
+
+	<path-action name="DataEditModule.loadDataForEdit" allowduplicates="true">
+		<property name="searchtype">collectiveproduct</property>
+		<property name="idlevel">1</property>
+		<property name="idname">productid</property>
+		<property name="pageval">aproduct</property>
+	</path-action>
+
+
+    <path-action name="Admin.loadPermissions"/>
+
+
+</page>

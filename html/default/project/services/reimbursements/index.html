@@ -1,0 +1,115 @@
+#set($collectionid = $librarycol.getId())
+#set( $topic = $context.getRequestParameter("collectiveproject"))		
+
+#ifnull( $collectionid )
+	#set($collectionid = $context.getRequestParameter("collectionid"))
+#end
+
+
+<div id="allreimbursements">
+
+	<div class="d-flex justify-content-between mb-2">
+		<h3>[[Reimbursements Sent]]</h3>
+		<div>
+		     #if( $caneditcollection )
+		         <a href="${projectlink}/services/reimbursements/addnew.html?collectionid=${collectionid}"
+		          class="emdialog btn btn-sm btn-primary"
+		          title="[[Add Reimbursement]]"><i class="fa fa-plus"></i> [[Add Reimbursement]]</a>
+		    #end
+		    #if( !$hits.isEmpty() ) <a onclick="$('#searchform').toggle()" class="btn btn-sm btn-secondary"><i class="fa fa-search"></i> [[Search]]</a>#end
+	    </div>      
+	</div>
+	#if($hits && !$hits.isEmpty() ) 
+	<form  id="incomesearchform" 
+		class="autosubmit  ajaxform" 
+		data-targetdiv="allreimbursements" 
+		method="post" 
+		action="${projectlink}/services/reimbursements/index.html">
+	
+		#set( $searcher = $mediaarchive.getSearcher("collectivereimbursement") )
+		$context.putPageValue("searcher",$searcher)
+		#set ($details = $searcher.getDetailsForView("collectivereimbursement/search", $userprofile))
+	
+		$context.putPageValue("viewid","collectivereimbursementsearch")
+		<input type="hidden" name="searchtype" value="collectivereimbursement" />
+		
+		<input type="hidden" name="field" value="collectionid" />
+		<input type="hidden" name="collectionid.value" value="$collectionid" />
+		<input type="hidden" name="operation" value="exact" />
+		<input type="hidden" name="collectionid" value="$collectionid" />
+		<input type="hidden" name="oemaxlevel" value="1" />
+		
+		<div  id="searchform" class="inlinesearch" style="display:none" >
+			<div class="row">
+				$context.putPageValue("autocomplete","off")
+				#foreach( $detail in $details)
+					<div class="col-md-3">
+							$context.putPageValue("detail", $detail)
+							$pages.include("/${applicationid}/components/advancedsearch/detaileditinline.html", $context)
+					</div>
+					#if( $counter == 4)
+						</div>
+						<div  class="row" >
+					#end	
+				#end
+			</div>	
+		</div>
+		
+   		
+   		<div class="finances-table-sort d-flex flex-rows justify-content-end mb-2">
+		<label>[[Sort by]]:</label>
+		<div style="padding-left:10px; width:220px; display:inline-block;">
+			<select class="select2 	form-control" name="sortby" >
+				#set ($details = $searcher.getDetailsForView("collectivereimbursement/editexpense", $userprofile))
+				#foreach( $detail in $details)
+					<option value="$detail.getId()Down">$context.getText($detail)</option>
+					<option value="$detail.getId()Up">$context.getText($detail) [[Reverse]]</option>
+				#end
+			</select>
+		</div>
+		</div>
+   </form>
+   #end
+   
+   	$pages.include("${apphome}/project/services/reimbursements/results.html",$context)
+   
+	
+   
+	
+	#if(!$expenses.isEmpty() )
+   		<hr class="my-4">
+   		<div class="d-flex justify-content-between mb-2">
+		<h3>[[Expenses Pending]]</h3>
+		</div>
+		$pages.include("${apphome}/project/services/reimbursements/expenses.html",$context)
+	#end
+	
+	
+	#set( $userscurrency = $financeManager.getTotalsReimbursedByUser($collectionid,$daterange) )
+	#if($userscurrency.size()> 0)
+		<hr/>
+	   <div style="padding-top:20px;">
+	   		<div class="d-flex justify-content-between mb-2">
+			<h3>[[Expenses Completed]]</h3>
+		</div>
+	
+	 	<table class="table table-striped">
+			#foreach($value in $userscurrency)	
+				#set( $auser = $mediaarchive.getUser($value.getKeyedOn() ) )
+				#foreach($currency in $value.getCurrencies() )
+				<tr>
+				<td>$auser</td>
+				<td>
+						$value.getValue($currency) $!context.getText($mediaarchive.getCachedData("currencytype",$currency))
+				</td>
+				</tr>
+				#end
+			#end	
+	   </table>
+	   </div>
+	#end  
+	
+	
+	
+</div>
+

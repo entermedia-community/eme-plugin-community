@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>USDT Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #020617;
+      border-radius: 16px;
+      padding: 28px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 1.5rem;
+    }
+    .network {
+      text-align: center;
+      color: #38bdf8;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .amount {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .qr {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .address {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 0.85rem;
+      word-break: break-all;
+      margin-bottom: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #22c55e;
+      color: #022c22;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #16a34a;
+    }
+    .warning {
+      margin-top: 14px;
+      font-size: 0.75rem;
+      color: #f87171;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>USDT Payment</h1>
+  <div class="network">TRC20 Network</div>
+
+  <div class="amount">
+    Amount: <strong>100 USDT</strong>
+  </div>
+
+  <div class="qr">
+    <img
+      src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TXXXXXXXXXXXXXXXXXXXXXXXX"
+      alt="USDT QR Code"
+    />
+  </div>
+
+  <div class="address" id="address">
+    TXXXXXXXXXXXXXXXXXXXXXXXX
+  </div>
+
+  <button onclick="copyAddress()">Copy Address</button>
+
+  <div class="warning">
+    ⚠️ Send <strong>USDT only</strong> on the <strong>TRC20 (Tron)</strong> network.<br>
+    Sending on the wrong network may result in permanent loss of funds.
+  </div>
+</div>
+
+<script>
+  function copyAddress() {
+    const address = document.getElementById("address").innerText;
+    navigator.clipboard.writeText(address);
+    alert("Address copied!");
+  }
+</script>
+
+</body>
+</html>

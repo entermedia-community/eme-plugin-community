@@ -1,0 +1,8 @@
+<page>
+
+	<path-action name="DataEditModule.saveData"/>
+	<path-action name="Script.run">
+		<script>./sendsave.groovy</script>
+	</path-action>
+
+</page>

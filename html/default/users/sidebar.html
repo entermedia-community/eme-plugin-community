@@ -1,0 +1,162 @@
+#set( $appsection = $context.getRequestParameter("appsection"))
+#if( !$appsection)
+	#set( $appsection = $content.appsection )
+#end
+
+<div id="sidebarreload" 
+class="ajaxsocketautoreload"  
+data-ajaxpath="$communitylink/users/sidebar.html?appsection=$!appsection&oemaxlevel=1&collectionid=$!librarycol.id" >
+
+	<div class="sidebar-box" style="height:auto;"> 
+	    <div class="sidebar-box-header">
+	        [[Recent Chats]]        
+	        <button class="oi-sidebar-toggler toggleuserpreference userOffcanvasToggler" 
+	        	data-action="hide" 
+	        	data-bs-dismiss="offcanvas" 
+	        	data-userpreference="showsidebar"
+	        	title="[[Hide User Sidebar]]">
+	        	<i class="fas fa-times"></i>
+	        </button>
+	    </div>
+		#set( $chatmanager = $mediaarchive.getBean("chatManager"))
+		#set($selectedproject = $librarycol.getId())
+		<div style="max-height: 400px; min-height:150px; overflow-y:auto;overflow-x: hidden;">
+		<div class="usersidebartopmessages" >
+			#foreach( $message in $messages )
+				#set( $topic = $mediaarchive.getCachedData("collectiveproject",$message.channel))
+				#set( $project = $mediaarchive.getCachedData("librarycollection",$topic.parentcollectionid))
+				#set( $community = $mediaarchive.getCachedData("communitytag",$project.communitytag))
+				#set( $otherperson =  $chatManager.getOtherChatUser($project,$user) )
+				
+			  <div class="d-flex messageselection #if($selectedproject==$project.id) current #end pb-1">
+				<div class="d-flex p-1" >
+						#ifnotnull($otherperson)
+							$context.putPageValue("chatuser",$otherperson)
+							$pages.include("${apphome}/users/icon.html",$context)
+						#end
+						#ifnull($otherperson)
+							#if($project.assetportrait)
+							#set($asset = $mediaarchive.getAsset($project.assetportrait))
+							#set($link = $mediaarchive.asLinkToPreview($asset,"image200x200"))
+							#else
+							#set($link = "${communitylink}/theme/images/OI_flower.png")
+							#end
+							<div class="card-collections-thumb" style='background-image: url("$link")'></div>
+						#end
+				</div>
+				<div class="flex-grow-1 p-1" style="">
+					#if($project.urlname)
+						#set($projectlink = "$!{community.externaldomain}/${project.urlname}/chat/index.html")
+					#else
+						#set($projectlink = "/project/chat/index.html?collectionid=${project.id}")
+					#end	
+					<a href="${projectlink}" title="[[Messages on]] ${project}">		
+					 	#ifnotnull($otherperson)
+						<b>  $otherperson.getScreenName() </b>
+						#end
+						#ifnull($otherperson)
+						<b> #text($project) </b>
+						#end
+						<div class="messagearea">
+							#set($msg = $message.message)
+							#if($msg)
+								$url_util.escapeMessage($msg,26, true)
+							#end
+						</div>
+						#set($chatuser = $mediaarchive.getUser($message.user))
+						#set($ownmessage = false)
+						
+						#if($message.user == $user)
+							#set($ownmessage = true)
+						#end
+						<div style="font-size:.8em;font-style:italic;">
+							<span style="#if(!$ownmessage) font-weight:bold;#end">$chatuser</span>,
+							###datatext($topic, "name") 
+							#set($since = $context.getAge($message.getDate("date")))
+							#ifnotnull($since) $since [[ago]]#end
+							#ifnull($since)[[now]]#end
+						</div>
+					</a>	
+				</div>
+	 		 </div>
+			#end
+		</div>	
+		</div>
+		
+	</div>
+
+	<div class="sidebar-box">
+	   <div class="sidebar-box-header" >[[Profile]]
+	   <a href="${communitylink}/users/index.html?id=$user.getId()" class="float-right" title="[[My Profile]] - $user.getAnonNickName() ($!user.getEmail())"><i class="fas fa-user-cog"></i></a>
+	   </div>
+	   <div class="sidebar-box-content" style="padding:0;">
+			#set($userprojects = $mediaarchive.getProjectManager().listCollectionsOnTeam($user))
+	
+		    	<ul class="sidebar-list">
+					#*<li class="#if($appsection == "wallet") current #end">
+					<a href="${communitylink}/wallet/$user.id/index.html"><i class="fas fa-clipboard-check"></i> [[My Wallet]]</a>
+					</li>*#
+					#if(!$userprojects.isEmpty() )
+						<li class="#if($appsection == "planning") current #end" >
+							<a href="$!{communitylink}/users/tasks/index.html?$!{args}"><i class="fas fa-calendar-alt me-1"></i> [[Goal Planning]]</a>
+						</li>
+						#set($ticketlevel = $context.getRequestParameter("ticketlevel"))
+						<li class='#if($appsection == "search" && $ticketlevel == 2) current #end'>
+							<a href="$!{communitylink}/users/tasks/search.html?ticketlevel=2"><i class="fas fa-bolt me-1"></i> [[Priority Goals]]</a>
+						</li>
+						<li class="#if($appsection == "mytasks") current #end" >
+							<a href="$communitylink/users/tasks/mytasks.html?goaltrackerstaff=$user.getId()"><i class="fas fa-tasks me-1"></i> [[My Goals]]</a>
+						</li>
+						<li class='#if($appsection == "search" && $ticketlevel != 2) current #end'>
+							<a href="$!{communitylink}/users/tasks/search.html"><i class="fas fa-search me-1"></i> [[All Open Goals]]</a>
+						</li>
+						<li class="#if($appsection == "completed") current #end" >
+							<a href="$communitylink/users/tasks/report.html?collectionid=*&goaltrackerstaff=*"><i class="fas fa-check-circle me-1"></i> [[Completed Goals]]</a>
+						</li>
+					#end
+				</ul>
+			
+	    ##	<ul class="sidebar-list">
+		##	<li class="#if($appsection == "activity") current #end" >
+		##				<a href="$!{communitylink}/projects/allcthatsactivity/index.html"  >
+		##				<i class="fa fa-comments"></i> [[All Chats]]</a>
+		##	</li>
+		##	</ul>
+	</div>		
+	#if($canviewsettings)
+	<div class="sidebar-box">
+			<div class="sidebar-box-header d-flex justify-content-between" style="margin-top:0px;">
+				<div>[[Admin]]</div>
+				<a href="$sitelink/find/views/settings/status/tools/index.html" class="" title="[[Finder Settings]]" target="_blank"><i class="fas fa-cog"></i></a>
+			</div>
+			<ul class="sidebar-list" style="margin-bottom:0px;">
+				<li class="#if($content.getPageName() == "reportpendingpayments") current #end" >
+					<a href="${communitylink}/projects/reports/reportpendingpayments.html"><i class="fas fa-chart-line"></i> [[Payments Pending]]</a>
+				</li>
+				#*
+				<li class="#if($content.getPageName() == "allprojectsbalances") current #end" >
+					<a href="${communitylink}/projects/reports/allprojectsbalances.html"><i class="fas fa-chart-line"></i> [[All Transactions]]</a>
+				</li>
+				*#
+			
+				#*<li class="#if($appsection == "tixreport") current #end" >
+					<a href="${communitylink}/users/tasks/tixreport.html?goaltrackerstaff=$user.getId()"><i class="fas fa-chart-line me-1"></i> [[Tix Report]]</a>
+				*#
+				<li class="#if($appsection == "invoices") current #end">
+					<a href="${communitylink}/projects/reports/invoices/invoicepaidyear.html" ><i class="fas fa-file-invoice-dollar me-1 "></i> [[Invoices]]</a>
+				</li>
+			</ul>
+	</div>
+	#end
+	
+	#if($canviewsettings)
+	<div class="sidebar-box my-3" style="text-align:center">
+	<a href="/projects/add/addnew.html" class="emdialog btn btn-primary  m-1">
+		    <i class="fas fa-plus me-1"></i>
+		    [[Create a Project]]
+		  </a>
+	</div>
+	#end		
+  
+    </div>
+</div>

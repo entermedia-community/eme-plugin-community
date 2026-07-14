@@ -1,0 +1,73 @@
+<div id="incomereport">
+                 
+        <div id="resultsdiv">
+   
+         <div class="emdata emdatatable">
+         
+            #set($hits = $linkhits)
+			$context.putPageValue("hits",$hits)
+			#set($resultsLink = "${page.path}?hitssessionid=$hits.sessionId&searchtype=$hits.getSearchType()&hitsperpage=$!hits.hitsPerPage&oemaxlevel=1")
+			$context.putPageValue("resultsLink",$resultsLink)
+            $pages.include("$!{apphome}/components/results/table/pages.html", $context)
+         
+         
+             <table class="table table-striped">
+                 <thead>
+                     <tr class="tableheader">
+                         <th>[[Date]]</th>
+                         <th>[[Code]]</th>
+                         <th>[[User]]</th>
+                         <th>[[Path]]</th>
+                         
+                         <th style="width: 120px;"></th>
+                     </tr>
+                 </thead>
+                 #set($totalarray = {})
+                 #foreach($hit in $hits.getPageOfHits())
+                 	#if(!$totalarray.get($hit.currencytype))
+                 		#set($totalarray[$hit.currencytype] = [])
+                 	#end
+                 	#set($dumb = $totalarray[$hit.currencytype].add($hit.total))
+                     <tr>
+                         <td>$!context.getDateTime($hit.date)</td>
+                         <td>$!hit.referralcode</td>
+                         
+                         <td>$!hit.user</td>
+                         <td>$!hit.path</td>
+                         
+                                  
+                        <td style="text-align: center">
+                            #if( $caneditcollection )
+                            	#if( $hit.firsttrakedlink )
+                                <a
+                                    href="$!{apphome}/project/services/linktracker/edit.html?id=$hit.firsttrakedlink&collectionid=$librarycol.id&librarycol=$librarycol.id"
+                                    class="btn btn-xs btn-secondary emdialog"
+                                    data-hidefooter="true"
+                                    ><i class="fas fa-project-diagram"></i></a>
+                                #end
+                                       <a
+                                    href="$!{apphome}/project/services/linktracker/edit.html?id=$hit.id&collectionid=$librarycol.id&librarycol=$librarycol.id"
+                                    class="btn btn-xs btn-secondary emdialog"
+                                    data-hidefooter="true"
+                                    ><i class="fa fa-edit"></i></a>
+                            #end
+                        </td>
+                    </tr>
+                #end
+               
+            </table>
+            
+        </div>
+     $!linkhits.size() [[hits]]
+        <div>
+        <a href="$!{collectivehome}/project/services/linktracker/export/income.csv?collectionid=${librarycol.id}&hitssessionid=$hits.getSessionId()"
+                      class="btn btn-sm btn-primary mb-4">[[Download]]</a>
+                      
+        <a href="$!{collectivehome}/project/services/linktracker/import/index.html?collectionid=$!{librarycol.id}"
+           class="btn btn-sm btn-primary mb-4 emdialog" title="[[Import Income]]">[[Import CSV]]</a>
+
+                      
+        </div>
+                      
+        </div>
+</div>

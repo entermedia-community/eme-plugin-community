@@ -1,0 +1,192 @@
+#set($currency = '$' )
+#set( $catalagDB = $mediaarchive.query("catalogsettings").exact("id", "events_billing_notify_invoice_appid").sort("createdon").searchOne() ) 
+#set( $db = "entermediadb" ) 
+#if ( $catalagDB )
+	#set( $db = "$catalagDB.value" ) 
+#end
+
+#if ($!context.getRequestParameter("year")) 
+	#set( $year = $!context.getRequestParameter("year"))
+#else
+	#set( $year = $mediaarchive.getCurrentYear())
+#end
+
+#if ($!context.getRequestParameter("month"))
+	#set( $month = $!context.getRequestParameter("month"))
+#else
+	#set( $month = 0)
+#end
+
+#if ($!context.getRequestParameter("status")) 
+	#set( $status = $!context.getRequestParameter("status"))
+#else
+	#set( $status = "invoiced")
+#end
+#if( $canviewsettings )
+<div class="maincontent" id="invoicedata">
+	<h2>[[All Projects Invoices]]</h2>
+
+	
+    
+            <div class="collectivemaincolx h-100">
+                <div class="">
+				   <div class="card mb-4">
+				   	<div class="card-header ">
+						<b>[[Filters]]</b>	   		
+				   	</div>
+				   	<div class="card-body">
+				   		<form class="ajaxform row g-3 " data-targetdiv="invoicedata">
+							<div class="col-auto">
+					   		<label>[[Year]]</label>
+					   		<select class="form-control form-control-sm" name="year">
+							#foreach($i in [2021..2030])
+							   <option value="$i" #if($i == $year) selected="selected" #end>$i</option>
+							#end
+					   		</select>
+					   		</div>
+					   		<div class="col-auto">
+					   		<label>[[Month]]</label>
+					   		<select class="form-control form-control-sm" name="month">
+					   		   <option value="0" #if($month == 0) selected="selected" #end>All</option>							
+							   <option value="1" #if($month == 1) selected="selected" #end>[[January]]</option>
+							   <option value="2" #if($month == 2) selected="selected" #end>[[February]]</option>
+							   <option value="3" #if($month == 3) selected="selected" #end>[[March]]</option>
+							   <option value="4" #if($month == 4) selected="selected" #end>[[April]]</option>
+							   <option value="5" #if($month == 5) selected="selected" #end>[[May]]</option>
+							   <option value="6" #if($month == 6) selected="selected" #end>[[June]]</option>
+							   <option value="7" #if($month == 7) selected="selected" #end>[[July]]</option>
+							   <option value="8" #if($month == 8) selected="selected" #end>[[August]]</option>
+							   <option value="9" #if($month == 9) selected="selected" #end>[[September]]</option>
+							   <option value="10" #if($month == 10) selected="selected" #end>[[October]]</option>
+							   <option value="11" #if($month == 11) selected="selected" #end>[[November]]</option>
+							   <option value="12" #if($month == 12) selected="selected" #end>[[December]]</option>							
+					   		</select>
+					   		</div>
+					   		<div class="col-auto">
+					   		<label>[[Payment Status]]</label>
+					   		<select class="form-control form-control-sm" name="status">
+							   <option value="paid" #if($status == "paid") selected="selected" #end>[[Paid]]</option>
+							   <option value="invoiced" #if($status == "invoiced") selected="selected" #end>[[Invoiced]]</option>
+							   <option value="error" #if($status == "error") selected="selected" #end>[[Error]]</option>
+					   		</select>
+					   		</div>
+					   		<div class="col-auto align-self-end">
+					   		<button class="btn btn-primary" type="submit">[[Search]]</button>
+					   		</div>
+				   		</form>
+				   	</div>	   	
+				   </div>
+	
+                
+	                <div class="table-responsive">
+	                	<table class="table table-striped">
+	                		<thead>
+	                			 <tr class="tableheader">
+	                			 	  <th>[[Project]]</th>
+                                      <th>[[Invoice Number]]</th>
+                                       <th>[[Created On]]</th>
+                                       <th>
+                                       #if ($status == "paid")
+                                         [[Paid On]]
+                                       #elseif ($status == "invoiced")
+                                         [[Due Date]]
+                                       #end                                       
+                                       </th>
+                                       ##<th>[[Name]]</th>
+                                       <th>[[Description]]</th>
+                                       <th style="width:115px;">[[Total Price]]</th>
+									   <th style="width:115px;">[[Currency]]</th>
+                                       <th>[[Status]]</th>
+                                  </tr>
+	                		</thead>	
+	                		
+	                		<tbody>
+	                		###set( $invoices = $mediaarchive.query("collectiveinvoice").search())
+	                		
+	                		#set( $invoices = $mediaarchive.getBean("invoiceManager").getInvoiceFromMonth($status, $year, $month) )
+							
+	                		#foreach($invoice in $invoices)
+                                    #if ($invoice.instance_status == "active")
+                                        #set($instancescount = $instancescount+1)
+                                    #end
+                                    
+                                    #set($project = $mediaarchive.getCachedData("librarycollection", $invoice.collectionid))
+                                    
+                                    ##For Replace Formating
+										#set($invoiceformated = $invoice)
+										#set($replacer = $mediaarchive.getReplacer())
+										#set($ignore = $invoiceformated.setValue("invoicemonth",$invoicemonth))
+										#set($ignore = $invoiceformated.setValue("project", $project))
+										#set($startdate = "#date($invoice, 'startdate')")
+										#set($ignore = $invoiceformated.setValue("startdate", $startdate))
+										#set($duedate = "#date($invoice, 'duedate')")
+										#set($ignore = $invoiceformated.setValue("duedate", $duedate))
+										#set($enddate = "#date($invoice, 'enddate')")
+										#set($ignore = $invoiceformated.setValue("enddate", $enddate))
+									##--
+
+
+                                    <tr>
+                                    	<td>
+											
+											#if($project.urlname)
+												#set($projectlink = "$!{community.externaldomain}/${project.urlname}/services/finances/dashboard.html")
+											#else
+												#set($projectlink = "/project/services/finances/dashboard.html?collectionid=${project.id}")
+											#end
+											<a href="${projectlink}" style="text-decoration: underline;">#text($project)</a>
+										</td>
+                                        <td>$invoice.invoicenumber</td>
+                                        <td>$!context.getDate($invoice.createdon)</td>
+                                        <td>
+                                        	$!context.getDate($invoice.duedate)
+                                            #if ($status == "paid")
+                                            ##  $!context.getDate($invoice.invoicepaidon)
+                                            #end
+                                        </td>
+                                      
+                                        <td>
+                                           	#set($invoicename = $invoice.getValue("name"))
+                                           	#set($invoicedescription = $invoice.getValue("invoicedescription"))
+                                           	
+                                           	#if($invoicename)
+                                           		#set($invoicename = $replacer.replace($invoicename, $invoiceformated))
+                                           		$invoicename
+											#elseif($invoicedescription)
+												#set($invoicedescription = $replacer.replace($invoicedescription, $invoiceformated))
+                                            	$invoicedescription
+                                            #else
+	                                            #foreach($pr in $prods)
+	                                                #set($product= $mediaarchive.getCacheData("collectiveproduct", $pr.productid))
+	                                                $!mediaarchive.text($product.productdescription, $invoice.id)<br>
+	                                            #end
+                                            #end
+                                            
+                                        </td>
+										#set($currency = $mediaarchive.getCachedData("currencytype", $invoice.getValue("currencytype")))
+                                        <td style="text-align: center;">$!{currency.currencysymbol}$!context.doubleToMoney($!invoice.totalprice, 2)</td>
+										<td style="text-align: center;">$!{currency.currencycode}</td>
+                                        <td>
+                                            #set($status = $mediaarchive.query("paymentstatus").match("id", "$invoice.paymentstatus").searchOne())
+                                            $context.getText($status)
+                                        </td>
+                                        <td> 
+                                                <a
+                                                    href="/find/views/settings/lists/datamanager/edit/edit.html?id=$invoice.id&searchtype=collectiveinvoice"
+                                                    class="btn btn-sm btn-secondary"
+                                                    target="_blank">
+                                                    <i class="fa fa-database"></i>
+                                                </a>                                            
+                                        </td>
+                                    </tr>
+                                #end
+	                		</tbody>
+	                	</table>	                
+	                </div>
+	                
+                </div>
+            </div>
+    
+
+</div>
+#end

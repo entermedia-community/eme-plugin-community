@@ -1,0 +1,259 @@
+#set($id = $context.getRequestParameter('invoiceid'))
+#set($invoice = $mediaarchive.getBean("invoiceManager").getInvoiceById($id))
+$context.putPageValue("invoice", $invoice)
+#set($currency = $mediaarchive.getCachedData("currencytype", $invoice.getValue("currencytype")))
+#set($products = $mediaarchive.getBean("invoiceManager").getInvoiceProductList($id))
+$context.putPageValue("products", $products)
+#set($collection = $mediaarchive.getBean("invoiceManager").getWorkspaceById($invoice.collectionid))
+$context.putPageValue("collection", $collection)
+
+<div class="container">
+<div class="contentcolumn">
+<div class="collectivecontent" id="collectivecheckout">
+
+<h2 style="margin-bottom:10px;">[[Check Out]]</h2>
+
+#ifnull($user)
+	#set($user = $checkoutuser)
+#end
+
+#set($invoicemonth = $context.getLocaleManager().getMonthName($invoice.getValue("duedate"), $context.getLocale()))
+
+##For Replace Formating
+	#set($invoiceformated = $invoice)
+	#set($replacer = $mediaarchive.getReplacer())
+	#set($ignore = $invoiceformated.setValue("invoicemonth",$invoicemonth))
+	#set($ignore = $invoiceformated.setValue("project", $collection))
+	#set($duedate = "#date($invoice, 'duedate')")
+	#set($ignore = $invoiceformated.setValue("duedate", $duedate))
+	#set($ignore = $invoiceformated.setValue("startdate", $duedate))  ##legacy
+	#set($enddate = "#date($invoice, 'enddate')")
+	#set($ignore = $invoiceformated.setValue("enddate", $enddate))
+##--
+
+#if($invoice.paymentstatus == "paid")
+<strong>[[Invoice]] #$!invoice.invoicenumber</strong> [[Status is Paid]].
+#else
+
+	#if(!$mediaarchive.isCatalogSettingTrue("productionmode"))
+		#if($caneditcollection)
+			<div class="alert alert-warning">[[Site is in test mode. Credit card is 4242 4242 4242 4242 any expiration date. Add your keys to catalog settings and switch to production mode to take credit cards]].</div>
+		#else
+		<div class="alert alert-warning">[[Project Payment Method is in test mode. For assistance, please reach out to a Project Team Member or OI Administrator.]].</div>
+		#end
+	#end
+
+	<div class="card" style="max-width:1200px; margin:0 auto;">
+    <div class="card-header">
+        <div class="row" style="border-bottom:1px solidc ">
+            <div class="col-sm-9">
+                <h5>
+                    <i class="fa-solidfa-credit-card mr-4" style="font-size: 1.4em"></i>
+                    [[All major credit cards accepted]]
+                </h5>
+            </div>
+			<div class="col-sm-3 printinvoicebtn text-right">
+					      <a
+					        href="${projectlink}/services/printpreview.html?invoiceid=$!invoice.id"
+					        target="_blank"
+					        class="btn btn-sm btn-light " style="float: right;"
+					        ><i class="fa-solidfa-print"></i> [[Print]]</a>
+					</div>
+
+        </div>
+    </div>
+    <div class="card-body py-4" >
+		
+		$pages.include("viewinvoiceheader.html", $context)
+		<div class="row" style="margin-bottom:30px;">
+			<div class="col-sm-8">
+			<div>
+					<strong>[[Invoice Number]]: $invoice.getValue("invoicenumber")</strong>
+					<br>
+					<strong>[[Created on]]:</strong> $!context.getDate($invoice.getValue("createdon"))
+					<br>
+					<strong>[[Due By]]:</strong> $!duedate
+			</div>
+				
+				#set($invoicedto = $collection.getValue("invoicedto"))
+				#if($invoicedto)
+					<strong>[[Invoiced to]]:</strong>
+					<div style="line-height: 1;">$invoicedto</div>
+				#end
+				
+				
+				#set($invoicedescription = $invoice.getValue("invoicedescription"))
+				#if($invoicedescription)
+					#set($invoicedescription = $replacer.replace($invoicedescription, $invoiceformated))
+					<div style="margin-top:10px;">$invoicedescription</div>
+				#end
+				
+			</div>
+			<div class="col-sm-5 text-right">
+				$!collection.getValue("invoicebusinessinfo")
+			</div>
+				
+		</div>
+		
+		
+        <div class="row">
+
+            <div class="col-sm-7 col-md-6">
+                    <h4>[[Products]]</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <col span="1" style="width: 5%;">
+                            <col span="1" style="width: 60%;">
+                            <col span="1" style="width: 25%;">
+                            <tr>
+                                <th class="purchase_heading" align="left">
+                                    [[Qty]]
+                                </th>
+                                <th class="purchase_heading" align="left">
+                                   [[Description]]
+                                </th>
+                                <th class="purchase_heading" style="text-align: right">
+                                    [[Amount]]
+                                </th>
+                            </tr>
+                            #set($products = $invoice.getValue("productlist"))
+							#foreach ($product in $products)
+								#set ( $prod = $mediaarchive.getBean("invoiceManager").getProductById($product.productid) )
+								<tr>
+									<td valign="top" style="vertical-align: top;">$product.productquantity</td>
+									
+									<td valign="top" style="vertical-align: top;">
+										
+										#set($productname = $replacer.replace($prod.name, $invoiceformated))
+										
+										#text($productname)
+										##<div style="font-size: 0.9em;">
+										##$!mediaarchive.text($prod.getValue("productdescription"), $invoice.id)
+										##</div>
+									</td>
+									<td  valign="top" style="text-align: right; vertical-align: top;"><span>$!{currency.currencysymbol}$!context.doubleToMoney($invoice.totalprice, 2)</span></td>
+								</tr>
+								#set($lastproduct = $mediaarchive.getBean("invoiceManager").getProductById($product.productid))
+							#end
+							
+							$context.putPageValue("lastproduct", $lastproduct)
+					
+                            <tr>
+                                <td style="text-align:right" colspan="2">
+									<b>[[Total]] #if($currency.currencycode)<span class="currencysmall">(${currency.currencycode})</span>#end</b>
+								</td>
+                                <td  style="text-align: right"><b>$!{currency.currencysymbol}$!context.doubleToMoney($invoice.getValue("totalprice"), 2)</b></td>
+                            </tr>
+                        </table>
+                    </div>
+
+            </div>
+            <div class="col-sm-5  col-md-6">
+            #if ($invoice.paymentstatus == 'canceled')
+				
+					<div class="card">
+						<div class="card-header alert-danger">
+						[[This invoice was canceled]]
+						</div>
+						<div class="card-body">
+							[[Please contact support or reach us via chat]]
+						</div>
+					</div>
+				      
+			#else
+				#ifnotnull($collection.parentprojectinvoicing)
+					#set($parentcollectionivoice = $mediaarchive.getCachedData("librarycollection", $collection.parentprojectinvoicing))
+					#ifnotnull($parentcollectionivoice)
+						#set( $invoicepayoptions = $parentcollectionivoice.get("invoicepayoptions"))
+					#end
+				#end
+				#if(!$invoicepayoptions)
+					#if($collection.invoicepayoptions)
+						#set( $invoicepayoptions = $collection.invoicepayoptions)
+					#else
+						#set( $invoicepayoptions = $mediaarchive.getCatalogSettingValue("invoice_pay_options"))
+					#end
+				#end
+				
+				##Disable Stripe for not USD
+				#set( $stripeenabled = false)
+            	#if($invoice.currencytype == "usd" ||  $invoice.currencytype == "1")
+					#set( $stripeenabled = true)
+				#end
+
+				<div class="accordion" id="accordionExample">
+						#if($stripeenabled)
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingOne">
+								<button class="accordion-button" type="button"
+									#ifnotnull($invoicepayoptions)
+									data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+									#end
+									>
+									<i class="bi bi-credit-card me-2"></i> [[Credit Card]]
+								</button>
+								</h2>
+								<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+										##Disable Stripe for not USD
+										#if($invoice.currencytype == "usd" ||  $invoice.currencytype == "1")
+											$pages.include("./paynow-stripe.html", $context)
+										#else
+											<div style="text-align:center; ">
+												[[Credit Card payment not available for currency]] $!{currency.currencycode}.
+											</div>
+														
+										#end
+								</div>
+								</div>
+							</div>
+						#end
+						#ifnotnull($invoicepayoptions)
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingTwo">
+								<button class="accordion-button #if($stripeenabled) collapsed #end" type="button" 
+									#if(!$stripeenabled) 
+										data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-controls="collapseTwo" aria-expanded="true" 
+									#end
+									>
+									<i class="bi bi-cash-coin me-2"></i>
+									#if(!$stripeenabled) 
+									[[Payment Options]]
+									#else
+									[[Other Payment Options]]
+									#end
+								</button>
+								</h2>
+								<div id="collapseTwo" class="accordion-collapse collapse #if(!$stripeenabled) show #end" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+										$!invoicepayoptions
+								</div>
+								</div>
+							</div>
+						#end
+
+					</div>
+				#end
+			</div>
+	          
+        </div> <!-- end row -->
+        
+        
+    </div>
+</div>
+
+  
+
+#end
+#if($caneditcollection  || $user )
+	<div style="padding:20px 0">
+	<a href="${projectlink}/services/index.html?collectionid=${invoice.collectionid}" class="btn btn-secondary">[[Back to Invoices]]</a>
+	</div>
+#end
+
+<div class="clearfix"></div>
+</div>
+
+</div></div>
+
+

@@ -1,0 +1,138 @@
+#if( $canviewsettings )
+	#set($collectionid = $librarycol.getId())
+	#set($collection = $librarycol)
+	<hr class="my-4">
+	<div class="d-flex justify-content-between mb-2">
+       <h3>[[Products]]</h3>
+		<div>
+			 <a href="${projectlink}/services/addnew.html?collectionid=${collectionid}"
+			 class="emdialog btn  btn-primary">[[Add Product or Service]]</a>
+        </div>
+	
+     </div>
+       ##Search instances in these organizations
+       #set($products = $mediaarchive.query("collectiveproduct").match("collectionid", $collectionid).sort("createdonUp").search())
+       #if ($products)
+           <div class="emdata emdatatable">
+               <table class="table table-striped  table-hover">
+                   <thead>
+                       <tr class="tableheader">
+                           <th style="width: 120px;">[[Created On]]</th>
+                        <th>[[Product]]</th>
+                        <th>[[Price]]</th>
+						<th style="width:65px;">[[Cur]]</th>
+						<th style="width: 120px;">[[Next Bill Date]]</th>
+                        <th style="width: 280px;"></th>
+                    </tr>
+                </thead>
+                #foreach($hit in $products)
+                    #if ($hit.instance_status == "active")
+                        #set($instancescount = $instancescount+1)
+                    #end
+                    #if($hit.recurring == true || $canviewsettings)
+                        <tr>
+                            <td style="text-align: center;">$!context.getDate($hit.createdon)</td>
+                            <td>
+                            #if($hit.getValue("nextbillon"))
+								#set($invoicemonth = $context.getLocaleManager().getMonthName($hit.getValue("nextbillon"), $context.getLocale()))
+							#end
+							##For Replace Formating
+								#set($productformated = $hit)
+								#set($replacer = $mediaarchive.getReplacer())
+								#set($ignore = $productformated.setValue("invoicemonth",$invoicemonth))
+								#set($ignore = $productformated.setValue("project", $collection))
+								#set($startdate = "#date($hit, 'nextbillon')")
+								#set($ignore = $productformated.setValue("duedate", $startdate))
+								#set($ignore = $productformated.setValue("startdate", $startdate))  ####legacy??
+								#set($enddate = "#date($hit, 'enddate')")
+								##set($ignore = $productformated.setValue("enddate", $enddate))
+								#set($recurringperiod = $mediaarchive.getData("productrecurringperiod", $invoice.getValue("recurringperiod")))
+								#set($recurringperiod = $context.getText($recurringperiod))
+								#set($ignore = $productformated.setValue("period", $recurringperiod))
+							##--
+
+                            
+                            #set($productname = $replacer.replace($hit.name, $productformated))
+							#text($productname)
+                            
+                            
+                             #if ($hit.billingstatus == "canceled")
+                                 &nbsp;<strong>[[Canceled]]</strong>
+                             #end
+                            ##<div style="font-size: 0.9em;">$!mediaarchive.text($hit.productdescription, $hit.id)</div>
+                            </td>
+                            <td style="text-align: right;">
+								#set($currency = $mediaarchive.getCachedData("currencytype", $hit.getValue("currencytype")))
+		                        
+		                        $!{currency.currencysymbol}$!context.doubleToMoney($!hit.productprice, 2)
+							</td>
+							<td style="text-align: center;">
+								<span class="currencysmall">$!{currency.currencycode}</span>
+							</td>
+							<td style="text-align: center;">$!context.getDate($hit.nextbillon)</td>
+                            <td>
+                                #if( $canviewsettings )
+                                
+                                    #if($hit.recurring != "true")
+							    	<a
+                                    href="${projectlink}/services/generateinvoice.html?collectionid=${collectionid}&id=${hit.id}"
+                                    title="[[Invoice Product or Service]]"
+                                    class="emdialog btn btn-xs btn-secondary mb-1"
+                                    data-hidefooter="true">[[Create Invoice]]</a>
+                                    #end
+                                    <a
+                                        href="${projectlink}/services/editproduct.html?collectionid=${collectionid}&id=${hit.id}"
+                                        title="[[Edit Product or Service]]"
+                                        class="emdialog btn btn-xs btn-secondary mb-1"><i class="fa fa-edit"></i></a>
+                                    <a
+                                        href="${projectlink}/services/copyproduct.html?collectionid=${collectionid}&id=${hit.id}"
+                                        title="[[Copy Product or Service]]"
+                                        class="emdialog btn btn-xs btn-secondary mb-1"><i class="fa fa-copy"></i></a>
+
+                                        
+
+                                
+	                                 #if ($hit.recurring == true)
+	                                     #if ($hit.billingstatus == "active")
+	                                         #if ($hit.isautopaid == true)
+	                                             <a
+	                                                 href="${projectlink}/services/toggleautopay.html?collectionid=${collectionid}&id=${hit.id}"
+	                                                 class="btn btn-xs btn-success mb-1">[[AutoPay Enabled]]</a>
+	                                         #else
+	                                             <a
+	                                                 href="${projectlink}/services/toggleautopay.html?collectionid=${collectionid}&id=${hit.id}"
+	                                                 class="btn btn-xs btn-secondary mb-1">[[AutoPay Paused]]</a>
+	                                         #end
+	                                     #end
+	                                     #if ($hit.billingstatus == "active")
+	                                         <a
+	                                             href="${projectlink}/services/cancelsubscription.html?collectionid=${collectionid}&productid=${hit.id}"
+	                                             class="emdialog btn btn-xs btn-danger mb-1">[[Cancel]]</a>
+	                                     #end
+	                                 #end
+	                                 
+	                                 ##<div style="padding:5px 0 0;">
+                                    
+	                                 
+	                                <a
+                                        href="/find/views/settings/lists/datamanager/edit/edit.html?id=$hit.id&searchtype=collectiveproduct"
+                                        class="btn btn-xs btn-secondary"
+                                        target="_blank">
+                                        <i class="fa fa-database"></i>
+                                    </a>
+									
+                                    ##</div>
+                                #end
+                            </td>
+                        </tr>
+                    #end
+                #end
+            </table>
+        </div>
+    #end 
+
+   
+        
+#end
+
+

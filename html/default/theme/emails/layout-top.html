@@ -1,0 +1,117 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<style type="text/css" rel="stylesheet" media="all">
+		
+		body {
+		  background-color: #F4F4F7;
+		  color: #51545E;
+		}
+		/* Type ------------------------------ */
+
+		body,
+		td,
+		th {
+	      font-size: 16px;
+	      font-family: AtlasGrotesk,'Open Sans','Helvetica Neue Light','Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;
+	      line-height: 1.7;
+	      color: #444;
+	    }
+	    h1 {
+	      margin: 0.5rem 0 1rem;;
+	    } 
+	    h2, h3, h4, h5, h6, p, ul, ol {
+	      margin: 0.5rem 0;
+	    }
+		p,
+	    ul,
+	    ol,
+	    blockquote {
+	      margin: .4em 0 1.1875em;
+	      font-size: 16px;
+	      line-height: 1.625;
+	    }
+	    
+	    p.sub {
+	      font-size: 13px;
+	    }
+	    a {
+	      color: #626584;
+	      text-decoration: none;
+	    }
+	    a:hover {
+	      text-decoration: underline;
+	    }
+		.preheader {
+		      display: none !important;
+		      visibility: hidden;
+		      font-size: 1px;
+		      line-height: 1px;
+		      max-height: 0;
+		      max-width: 0;
+		      opacity: 0;
+		      overflow: hidden;
+		    }
+			
+			/* Buttons ------------------------------ */
+			    
+			    .button {
+			      background-color: #3869D4;
+			      border-top: 10px solid #3869D4;
+			      border-right: 18px solid #3869D4;
+			      border-bottom: 10px solid #3869D4;
+			      border-left: 18px solid #3869D4;
+			      display: inline-block;
+			      color: #FFF!important;
+			      text-decoration: none;
+			      border-radius: 3px;
+			      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
+			      -webkit-text-size-adjust: none;
+			      box-sizing: border-box;
+			    }
+			    
+			    .button--green {
+			      background-color: #22BC66;
+			      border-top: 10px solid #22BC66;
+			      border-right: 18px solid #22BC66;
+			      border-bottom: 10px solid #22BC66;
+			      border-left: 18px solid #22BC66;
+			    }
+			    
+			    .button--red {
+			      background-color: #FF6136;
+			      border-top: 10px solid #FF6136;
+			      border-right: 18px solid #FF6136;
+			      border-bottom: 10px solid #FF6136;
+			      border-left: 18px solid #FF6136;
+			    }
+			    
+			    @media only screen and (max-width: 500px) {
+			      .button {
+			        width: 100% !important;
+			        text-align: center !important;
+			      }
+			    }
+	  </style>
+	</head>
+
+  <body marginheight="0" marginwidth="0" style="padding:1rem;width:100%!important;-webkit-text-size-adjust:100%;margin:0;-ms-text-size-adjust:100%;background-color:#efefef">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" style="padding:8px;width:100%!important;background:#FFFFFF;border-radius:8px;border:1px #F7F8F8 solid;max-width:722px;margin:8px auto;box-shadow:rgba(0, 0, 0, 0.24) 0px 3px 8px;-webkit-border-radius:8px;background-color:#FFFFFF;-moz-border-radius:8px">
+      <tbody>
+        <tr><td colspan="2" style="padding:4px"><p></p></td></tr>
+        <tr>
+          <td style="padding-left: 6px;">
+			#ifnotnull($community)
+				<img height="80" src="$!{community.externaldomain}/${community.primaryimagepathpng}"
+				style="border:0;width:112px;height:60px;border-width:0px!important;object-fit:contain"
+				width="112"
+				alt="#if($project.name)${project.name} - #end $!{community.name}" />
+			  #end
+          </td>
+          <td align="right" style="padding-right: 6px;">
+            <h1 style="font-size:20px;line-height: 22px;margin: 0">#if($project.name)${project.name}<br>#end
+				#ifnotnull($community)<span style="font-size:14px;">${community.name}</span>#end</h1>
+          </td>
+        </tr>
+        <tr><td colspan="2" style="border-bottom: 1px solid #efefef;padding:8px"></td></tr>
+        <tr>
+          <td colspan="2" style="padding:24px 12px">

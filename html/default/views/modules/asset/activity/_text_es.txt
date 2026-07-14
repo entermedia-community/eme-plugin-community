@@ -1,0 +1,9 @@
+#
+#Fri Jul 03 17:14:10 CST 2026
+Choose\ a\ download\ format\ for\ each\ type\ of\ asset=Elige un formato de descarga para cada tipo de activo
+Downloading=Descargar
+Invalid\ order,\ username\ does\ not\ match=Pedido inv\u00E1lido\: el nombre de usuario no coincide
+Items=\u00CDtems
+Next=Siguiente
+Processing=Procesamiento
+Session\ expired,\ Reload\ browser=La sesi\u00F3n ha expirado, recargue el navegador

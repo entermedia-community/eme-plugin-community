@@ -1,0 +1,39 @@
+##Exising ones 
+##No existing programs found.
+
+#set($collectionid = $context.getRequestParameter("collectionid"))
+ <div style="padding:0px;">
+	
+	#set( $xmledithome  = "$apphome/components/xml")
+	#set( $searchtype = "collectiveinvestment" )
+	#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+	$context.putPageValue("searcher",$searcher)
+	<form name="saveproject" 
+			id="saveproject" 
+			action="$apphome/project/services/investments/addsave.html" 
+			method="post"
+			class="ajaxform autocloseform"
+			data-targetdivinner="collectivesettingscontent"
+			data-oemaxlevel="1">
+	
+	
+	<input type="hidden" name="save" value="true" />
+	<input type="hidden" name="searchtype" value="$searchtype" />
+	
+	<input type="hidden" name="field" value="user" />
+	<input type="hidden" name="user.value" value="$user.getId()" />
+	
+	<input type="hidden" name="field" value="collectionid" />
+	<input type="hidden" name="collectionid.value" value="$collectionid" />
+	<input type="hidden" name="collectionid" value="$collectionid" />
+	
+	
+	$context.putPageValue("viewid", "collectiveinvestmentaddnew")
+	$context.putPageValue("data", $data)
+
+<p>*[[Add a negative amount for disbursements]].</p>
+	 
+	$pages.include("/$applicationid/components/xml/detaileditor4.html", $context)
+</form>
+
+</div>

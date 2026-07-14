@@ -1,0 +1,7 @@
+<page>
+
+	<inner-layout>/${applicationid}/collective/store/details/detaillayout.html</inner-layout>
+
+	<property name="virtual">true</property>
+	
+</page>

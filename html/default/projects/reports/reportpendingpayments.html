@@ -1,0 +1,11 @@
+
+	
+			<div class="maincontent">
+				<h2>[[Pending Payments]]</h2>
+					
+					##set( $expenses = $mediaarchive.query("collectiveexpense").exact("ispaid","false").sort("dateDown").search($context))
+					$context.putPageValue("expenses",$expenses)
+					$context.putPageValue("showcollections",true)
+					$pages.include("$apphome/project/services/expenses/results.html?field=ispaid&ispaid.value=false&operation=exact",$context)
+              </div>
+    

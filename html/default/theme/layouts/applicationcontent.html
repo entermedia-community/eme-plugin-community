@@ -1,0 +1,31 @@
+#set($section = $content.section)
+
+#if($section == "files")
+	#set($setpagetitle = $category.getName())
+#elseif($section == "uploadmedia")
+	#set($setpagetitle = "[[Upload Media]]")
+#elseif($section == "favorites")
+	#set($setpagetitle = "[[Bookmarks]]")
+#elseif($section == "basket")
+	#set($setpagetitle = "[[Cart]]")
+#elseif($section == "settings")
+	#set($setpagetitle = "[[Settings]]")
+    #if($module.id != "modulesearch")
+        #set($setpagetitle = "#text($module) #text($setpagetitle)")
+    #end
+#elseif($section == "myaccount")
+	#set($setpagetitle = "[[My Account]]")
+#elseif($section == "dashboard")
+	#set($setpagetitle = "[[Dashboard Reports]]")
+#else
+	#set($setpagetitle = "#text($category) #text($module)")
+#end
+
+<div id="applicationcontent" 
+    class="applicationmaincontent  applicationmaincontent$!section overflow-y"
+	data-setpagetitle="$!setpagetitle"
+	data-section="$!section ">
+
+    $pages.includeContent()
+
+</div>

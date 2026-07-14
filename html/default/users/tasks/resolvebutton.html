@@ -1,0 +1,14 @@
+#set($value = $mediaarchive.getCachedData("projectstatus",$goal.projectstatus))
+<div id="resolve#eid($goal.id)" class="d-flex flex-column align-items-end">
+	#if($value)
+		<div class="badge text-bg-secondary mb-2">#text($value)</div>
+	#end
+	
+	<a href="${communitylink}/users/tasks/resolvegoal.html?goalid=$goal.id" 
+		data-targetdiv="goalrow${goal.id}" 
+		data-oemaxlevel="1"
+		title="[[Resolve Goal]]"
+		class="ajax btn btn-sm btn-success">
+		<i class="fas fa-check-circle me-1"></i> [[Resolve Goal]]
+	</a>
+</div>

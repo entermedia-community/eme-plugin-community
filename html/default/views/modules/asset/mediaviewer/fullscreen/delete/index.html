@@ -1,0 +1,43 @@
+
+
+#ifnotnull($asset)
+	#set($count = 1)
+#end
+#ifnull($asset)
+	#ifnotnull($hits)
+	#set($count = $hits.getSelectionSize())
+	#end
+#end
+
+#ifnull($count)
+[[Invalid Session]]
+#end
+#ifnotnull($count)
+<div class="p-3">
+    <p>[[Are you sure you want to delete]] <strong>
+     
+    	#if($count > 1 ) 
+    		$count [[assets]]
+    	#else 
+    		1 [[asset]]
+    	#end</strong>?</p>
+	
+    #set( $deleteurl = "$siteroot$apphome/views/modules/asset/delete.html")
+	
+    <form name="deleteoption" 
+    	id="deleteoption" 
+    	action="$deleteurl" 
+    	class="ajaxform autocloseform hideMediaViewer"
+    	data-ajaxreloadtargets="dataeditedreload">
+	    <input name="hitssessionid" value='$!context.getRequestParameter("assethitssessionid")' type="hidden" />
+	    #set( $nodeID = $context.getRequestParameter("nodeID") )
+	    <input name="nodeID" value="$!nodeID" type="hidden" />
+	    <input name="assetid" value="$!asset.id" type="hidden" />
+	    <input name="cache" value="false" type="hidden" />
+		
+	    <p><input type="checkbox" name="deleteoriginal" value="true" id="deleteoriginal" />
+	    <label for="deleteoriginal">[[Also delete original]]</label></p>
+		
+    </form>
+	</div>
+#end

@@ -1,0 +1,55 @@
+#set($collectionid = $context.getRequestParameter("collectionid"))
+#set( $id = $context.getRequestParameter('invoiceid')) 
+#if(!$id)
+	#set( $id = $invoiceid)
+#end
+#if(!$invoice)
+	#set( $invoice = $mediaarchive.getBean("invoiceManager").getInvoiceById($id))
+#end
+#if ($invoice)
+	$context.putPageValue("invoice", $invoice)
+	#set( $invoiceready =	"true")
+	#set($sentto = $invoice.getValue("sentto"))
+	#if(!$sentto)
+		#set( $invoiceready =	"false")
+	#end
+	<div id="invoicecontainer">
+	#if( $canviewsettings )
+<form method="post" action="${projectlink}/services/sendinvoice.html" 
+		class="ajaxform autocloseform" 
+		data-targetdiv="collectivebilling">
+#end
+<input type="hidden" name="oemaxlevel" value="1">
+<input type="hidden" name="invoiceid" value="$id">
+<input type="hidden" name="collectionid" value='$invoice.getValue("collectionid")' />
+	
+		$pages.include("$apphome/project/services/viewinvoice.html", $context)
+		
+		
+		<div class="text-right" style="padding:15px 10px;">
+		#if( $canviewsettings )
+			#set($status = $invoice.getValue("paymentstatus"))
+			
+			#if(!$status.equals("paid"))
+			<a href="${projectlink}/services/editinvoice.html?invoiceid=$id" 
+				class="btn btn-sm btn-secondary ajax" 
+				data-targetdiv="invoicecontainer"
+				title="[[Edit Invoice Details]]"
+				>[[Edit]]</a>
+			#end
+			
+			#if($invoiceready == "true")
+				#if($sentstatus.equals("sent"))
+					<input type="submit" class="btn btn-sm btn-primary" value="[[Re-send Invoice]]"/>
+				#elseif(!$status.equals("paid"))
+					<input type="submit" class="btn btn-sm btn-primary" value="[[Send Invoice]]"/>
+				#end
+			#end
+		
+		#end
+		</div>
+		#if( $canviewsettings )
+	</form>
+	#end
+	</div>
+#end

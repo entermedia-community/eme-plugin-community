@@ -1,0 +1,24 @@
+<div id="blockareauser" class="my-2">
+  #if( $userprofile.containsValue("blockedusers",$selecteduser.getId()))
+  <a
+    data-targetdiv="blockareauser"
+    data-oemaxlevel="1"
+    href="${apphome}/users/block/toggle.html?field=blockedusers&profilepreference.value=$selecteduser.getId()&userid=$selecteduser.getId()"
+    class="btn btn-xs btn-light ajax"
+    title="[[Edit User Profile]]"
+  >
+    <i class="fas fa-user"></i> [[Un-Block User]]
+  </a>
+
+  #else
+  <a
+    class="btn btn-xs btn-light ajax"
+    data-targetdiv="blockareauser"
+    data-oemaxlevel="1"
+    href="${communitylink}/users/block/toggle.html?field=blockedusers&profilepreference.value=$selecteduser.getId()&userid=$selecteduser.getId()"
+    title="[[Edit User Profile]]"
+  >
+    <i class="fas fa-user"></i> [[Block User]]
+  </a>
+  #end
+</div>

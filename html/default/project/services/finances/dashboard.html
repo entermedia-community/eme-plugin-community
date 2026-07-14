@@ -1,0 +1,47 @@
+#set($collectionid = $librarycol.getId())
+	
+#set($finances_profitandloss = $content.isPropertyTrue("finances_profitandloss",true))
+#if($finances_profitandloss)
+	#set($finances_dashboard = "${apphome}/project/services/profitandloss/dashboard.html")
+#end
+#ifnull($finances_dashboard)
+	#set($finances_accounts = $content.isPropertyTrue("finances_accounts",true))
+	#if($finances_accounts)
+		#set($finances_dashboard = "${apphome}/project/services/bankaccounts/index.html")
+	#end
+#end
+
+#ifnull($finances_dashboard)
+	#set($finances_workpoints = $content.isPropertyTrue("finances_workpoints",true))
+	#if($finances_workpoints)
+		#set($finances_dashboard = "${apphome}/project/services/workpoints/index.html")
+	#end
+#end
+
+#ifnull($finances_dashboard)
+	#set($finances_income = $content.isPropertyTrue("finances_income",true))
+	#if($finances_income)
+		#set($finances_dashboard = "${apphome}/project/services/income/index.html")
+	#end
+#end
+
+#ifnull($finances_dashboard)
+	#set($finances_invoices = $content.isPropertyTrue("finances_invoices",true))
+	#if($finances_invoices)
+		#set($finances_dashboard = "${apphome}/project/services/index.html")
+	#end
+#end
+
+#ifnull($finances_dashboard)
+#set($finances_expenses = $content.isPropertyTrue("finances_expenses",true))
+#if($finances_expenses)
+	#set($finances_dashboard = "${apphome}/project/services/expenses/index.html")
+#end
+#end
+
+
+#ifnotnull($collectionid)
+	$pages.include($finances_dashboard, $context)
+#end
+
+

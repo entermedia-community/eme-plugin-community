@@ -1,0 +1,67 @@
+#set( $collectionid = ${librarycol.id})
+
+#*
+#if( $caneditcollection)
+  <a class="oe-dataedit" style="position:absolute; top:22px; right:17px;" data-target="#edithtmlstoredescription-$collectionid" title="[[Edit Store Description]]" data-width="500"	href="#"><i class="fas fa-edit"></i> </a>
+#end
+
+#if(!$librarycol.storedescription)
+<div style="height: 30px;"></div>
+#end
+
+<div class="#if( $caneditcollection)oe-editable#end" id="edithtmlstoredescription-$collectionid" data-dataid="$collectionid" data-field="storedescription" data-searchtype="librarycollection">
+    #if($librarycol.storedescription) $!librarycol.storedescription #end
+</div>
+*#
+
+
+<h2 class="text-center mb-3">[[Rentals]]</h2>
+<hr/>
+
+<div class="d-flex justify-content-between my-3">
+#if( $caneditcollection)
+  <a href="${projectlink}/store/addnew.html" class="emdialog btn add-product" title="$library.name [[Product]]">
+    <i class="fas fa-cart-plus me-1"></i>
+      [[Add A Product]]
+  </a> 
+  <a href="${projectlink}/store/reservations.html" class="btn view-reservation" title="$library.name [[Reservations]]" data-targetdivinner="storeworkarea" data-oemaxlevel="1">
+    <i class="fas fa-house-user me-1"></i>
+      [[View All Reservations]]
+  </a> 
+#end
+</div>
+
+#set( $hits = $mediaarchive.query("collectiveproduct").hitsPerPage(20).exact("collectionid",$collectionid).exact("producttype","5").sort("name").search($context) )
+
+
+<div class="d-flex align-items-center flex-wrap store-products">
+  #foreach( $aproduct in $hits.getPageOfHits())
+    #set( $hit = false)
+    $context.putPageValue("aproduct",$aproduct)
+    <div class="product-container">
+		#if($caneditcollection)
+      <a class="emdialog btn btn-sm themed-btn edit-product" href="${projectlink}/store/edit.html?collectionid=${collectionid}&id=${aproduct.getId()}">
+        <i class="fas fa-edit me-1"></i>
+        [[Edit]]
+      </a>
+	  #end
+      <a href="/${librarycol.urlname}/rentaldetails/$aproduct.urlname" title="#text($aproduct.name)">
+        <div class="product-card">
+          <div class="product-img">
+			
+            $pages.include("$apphome/project/store/thumbprimary.html",$context)
+          </div>
+          <div class="product-summary">
+            <h4 class="text-black mb-1">$!aproduct.getText("name",$context)</h4>
+            $!aproduct.getText("productdescription",$context)
+            #set($subtotal = $aproduct.getDouble("productprice"))
+            <div class="product-price text-muted">
+              <strong>$$!context.doubleToMoney($subtotal, 2) $!context.getText($!mediaarchive.getCachedData("currencytype", $aproduct.currencytype ))</strong>&nbsp;/ [[night]]
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  #end
+</div>
+

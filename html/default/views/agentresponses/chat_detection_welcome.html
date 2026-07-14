@@ -1,0 +1,83 @@
+
+<div class="ai-welcome">
+	#ifnotnull($entity)
+		<div class="d-flex">
+			<div class="flex-grow-1">
+				<p>
+					[[Welcome to the AI Agent!]]
+				</p>
+				<messageplain>[[Welcome to the AI Agent!]]</messageplain>
+				<p>
+					[[I can help you with any query related to]] <strong>#text($entity)</strong>.
+				</p>
+				<messageplain>[[I can help you with any query related to]] #text($entity).</messageplain>
+				#set($description = $entity.get("longcaption"))
+				#ifnull($description)
+					#set($description = $entity.get("collectivedescription"))
+				#end
+				#ifnotnull($description)
+					<p>
+						<span class="trim-text" data-max="300">$description</span>
+						<button class="see-more-btn see-more" data-seemore="(...[[see more]])" data-seeless="(...[[see less]])"></button>
+					</p>
+					<messageplain>$description</messageplain>
+				#end
+			</div>
+			#set($assetid = $entity.get("primarymedia"))
+			#ifnull($assetid)
+				#set($assetid = $entity.get("primaryimage"))
+			#end
+			#ifnotnull($assetid)
+				<div class="assetpreviewreadonly mb-1">
+				$pages.include("$apphome/components/xml/types/assetpicker/preview.html?assetid=${assetid}&readonly=true", $context)
+				</div>
+			#end
+		</div>
+		<div class="d-flex">
+			<div class="d-flex flex-column me-2 flex-grow-1">
+				<h5 class="my-2">[[Here are some things I can help you with]]:</h5>
+				<messageplain>[[Here are some things I can help you with]]:</messageplain>
+				#set($scenarios = $mediaarchive.query("automationscenario").exact("enabled","true").exact("chatenabled","true").sort("ordering").cachedSearch())
+				<ul>
+					#foreach( $scenario in $scenarios )
+						<li>
+							<a class="ajax"
+								href="$applink/views/modules/${agentcontext.entitymoduleid}/editors/entitychat/chatterbox/changescenario.html"
+								data-targetdiv="chatterbox"
+								data-channel="$!{channel.getId()}"
+								data-currentscenario="$scenario.id"
+								data-functionname="${scenario.id}_welcome"
+								data-oemaxlevel="1">
+								<span>#text( $scenario )</span>
+								<messageplain>#text( $scenario )</messageplain>
+							</a>
+						</li>
+					#end
+				</ul>
+				#ifnull($scenarios)
+					<p>[[I can help you create tutorials, answer your questions, generate images, and more.]]</p>
+					<messageplain>[[I can help you create tutorials, answer your questions, generate images, and more.]]</messageplain>
+				#end
+			</div>
+			<div class="d-flex flex-column flex-grow-1">
+				<h5 class="my-2">[[Quick Access]]:</h5>
+				<ul>
+					<li>
+						<a class="ajax"
+							href="$applink/views/modules/${agentcontext.entitymoduleid}/editors/entitychat/ctoplevelfunctionsave.html"
+							data-targetdiv="aichatsearch"
+							data-channel="$!{channel.getId()}"
+							data-currentscenario="chat_searching"
+							data-oemaxlevel="1">
+							<span>View Related Records</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	#end
+	#ifnull($entity)
+		<h5 class="mt-0 mb-2">[[What would you like to search for?]]</h5>
+		<messageplain>[[What would you like to search for?]]</messageplain>
+	#end
+</div>

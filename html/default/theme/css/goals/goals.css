@@ -1,0 +1,675 @@
+.goals-sidebar {
+	width: 100%;
+}
+.goals-content {
+	border-left: 1px solid #eee;
+}
+.dragoverselected {
+	border: 1px #3423e1 solid;
+}
+.editgoalshow {
+	display: block;
+}
+.editgoalshow:hover {
+	text-decoration: none;
+}
+.goals-header-actions {
+	padding: 10px 8px 10px;
+	background-color: #f5f5f5;
+	border-bottom: 1px solid #efefef;
+}
+.showonhover {
+	display: none;
+}
+.goals-column-container {
+	float: left;
+	width: 20%;
+}
+.goals-column {
+	border: 1px solid #d1d1d1;
+	background-color: #fcfcfc;
+	margin: 0 5px 0 0;
+	min-height: 450px;
+}
+.goals-column-0 {
+	margin-left: 5px;
+}
+.goals-column-header {
+	padding: 3px 4px;
+	color: #666;
+	background-color: #eee;
+	text-align: center;
+	height: 40px;
+	font-weight: 700;
+	margin: 1px;
+}
+.goals-column-header-close {
+	float: right;
+}
+.card-goal {
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+	margin: 0 0 20px 0;
+	padding: 0;
+	min-height: 80px;
+}
+.card-goal a {
+	color: #666;
+}
+.card-goal a:hover {
+	color: #333;
+}
+.card-goal:hover {
+	background-color: #fafafa;
+}
+.card-goal .goalheader {
+	padding: 3px 6px;
+	background-color: rgb(0, 0, 0, 0.07);
+}
+.card-goal .goalbody {
+	padding: 5px;
+}
+.card-goal .cardtasks {
+	padding: 5px;
+}
+.goal-footer {
+	margin-top: 10px;
+	padding-bottom: 0px;
+	font-size: 90%;
+}
+.goal-footer a {
+	display: block;
+	float: left;
+	margin: 4px 6px 0px 0;
+	font-weight: normal !important;
+}
+.goal-status-2 {
+	background-color: #218838;
+	color: #fff;
+}
+.dragicon {
+	display: none;
+	color: #aaa;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+ul.projectgoals {
+	margin: 10px;
+	padding: 0;
+}
+.goals-tasks-container {
+	padding: 1px;
+}
+.card-task {
+	position: relative;
+	float: left;
+	width: 260px;
+	height: 225px;
+	border-radius: 0;
+}
+.card-task-body {
+	padding: 8px 5px 5px;
+	min-height: 100px;
+}
+.card-task-body hr {
+	margin: 0.75rem 0;
+}
+.card-task-body.taskcomplete {
+	background: #eee;
+}
+.card-task-header {
+	padding: 5px;
+	background-color: #efefef;
+	min-height: 32px;
+	position: relative;
+	font-size: 14px;
+}
+.card-task-header.alert-success {
+	background-color: #1e7e34;
+	color: white;
+}
+.card-task-header.alert-warning {
+	background-color: #fff3cd;
+}
+.card-task-footer {
+	position: absolute;
+	bottom: 0;
+	padding-bottom: 3px;
+	font-size: 90%;
+}
+.card-task select.form-control-sm {
+	padding: 0.175rem 0.5rem !important;
+	width: 180px;
+}
+.goal-commentauthor {
+	cursor: pointer;
+	font-size: 90%;
+}
+.goal-commentarea {
+	margin: 5px 0 0 0;
+	padding: 3px;
+	border: 1px solid #333;
+	background-color: #fcfcfc;
+	color: #666;
+	font-size: 0.8em;
+	width: 100%;
+}
+.goal-delete {
+	display: block;
+	position: absolute;
+	top: 2px;
+	right: 2px;
+}
+.goal-commentsarea {
+	overflow-y: hidden;
+}
+.goal-commentsarea-scroll {
+	overflow-y: scroll;
+	height: 120px;
+}
+.card-taskcomplete3 .goal-commentsarea-scroll {
+	height: 85px;
+}
+.goal-comments-container {
+	margin: 5px 5px 5px 0;
+	font-size: 0.8em;
+}
+.goal-comments-scroll {
+	padding: 0;
+	overflow-y: auto;
+}
+.goal-comment {
+	border-bottom: 1px solid #dfdfdf;
+	padding: 3px 0 2px;
+	position: relative;
+}
+.goal-comment-status {
+	color: #777;
+}
+.goals-sidebar {
+	margin-top: 30px;
+}
+@media (min-width: 992px) {
+	.goals-sidebar {
+		margin-top: 0;
+	}
+}
+.taskedit {
+	display: block;
+	height: 100%;
+	line-height: 30px;
+	text-align: center;
+	text-decoration: none;
+}
+.taskedit:hover {
+	text-decoration: none;
+}
+.goalstatus-0,
+.taskstatus-0,
+.taskstatus-0 a {
+	background-color: #bbb;
+	color: #111;
+}
+.goalstatus-0:hover {
+	background-color: #888;
+}
+.goalstatus-0 a {
+	color: #fff;
+}
+/* Yellow */
+.goalstatus-1,
+.taskstatus-1,
+.taskstatus-1 a {
+	color: #333 !important;
+	background-color: #ffc107;
+	border-color: #ffc107;
+}
+.goalstatus-1:hover {
+	color: white;
+}
+/* RED */
+.goalstatus-2,
+.taskstatus-2,
+.taskstatus-2 a {
+	color: #fff;
+	background-color: #dc3545;
+	border-color: #dc3545;
+}
+.goalstatus-2:hover {
+	background-color: #c82333;
+}
+.goalstatus-2 a {
+	color: #fff;
+}
+/*GREEN*/
+.goalstatus-3,
+.taskstatus-3,
+.taskstatus-3 a {
+	color: #fff !important;
+	background-color: #28a745;
+	border-color: #28a745;
+}
+.goalstatus-3:hover {
+	background-color: #218838;
+}
+.goalstatus-3 a {
+	color: #fff;
+}
+.goalstatus-4,
+.taskstatus-4,
+.taskstatus-4 a {
+	color: #333 !important;
+	background-color: #ffcb86;
+	border-color: #ffcb86;
+}
+.goalstatus-4:hover {
+	color: black;
+}
+/* NOTE */
+.goalstatus-5,
+.taskstatus-5,
+.taskstatus-5 a {
+	color: #fff;
+	background-color: #459caa;
+	border-color: #459caa;
+}
+.goalstatus-5:hover {
+	background-color: #459caa;
+}
+.goalstatus-5 a {
+	color: #fff;
+}
+.tasklistdelete {
+	position: absolute;
+	right: 3px;
+	top: 6px;
+	font-size: 14px;
+}
+.tasklistdelete:hover {
+	color: #dc3545;
+}
+.taskinfopoints {
+	font-size: 14px;
+}
+.completedby {
+	font-size: 12px;
+}
+.col-form-label {
+	text-align: right;
+}
+.noderow .selected {
+	background-color: #eee;
+}
+.likedgoals .card-mini {
+	float: left;
+	width: 300px;
+	height: 200px;
+	margin: 0 10px 10px 10px;
+}
+.table-goaltaskstable tr {
+	background-color: #bbb !important;
+}
+.goaltaskrow {
+	margin-bottom: 2rem;
+}
+.goaltaskbox {
+	background-color: #ffffff;
+	color: #111;
+	padding: 8px 12px;
+	border-radius: 6px;
+	align-items: start;
+	position: relative;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+	min-height: 74px;
+}
+.goaltaskcontainer .credit {
+	color: #757575;
+}
+.goaltaskrow .goaltaskbox {
+	border: 1px solid #efefef;
+}
+.goaltaskrow .taskdetails {
+	flex: 1;
+}
+.taskstatus {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+}
+.taskage {
+	width: 100px;
+	padding-left: 5px;
+	float: left;
+	line-height: 30px;
+	font-size: 0.9rem;
+}
+.taskowner {
+	width: 110px;
+	float: left;
+	line-height: 30px;
+	font-size: 0.9rem;
+}
+.tasktype {
+	width: 100%;
+	float: left;
+	padding-left: 5px;
+	display: block;
+	line-height: 30px;
+}
+.taskstatus {
+	align-items: center;
+	padding: 0 !important;
+}
+.taskdetails {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	line-clamp: 4;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}
+.goalrow {
+	background-color: #ffffff;
+	margin-bottom: 1.5rem;
+}
+.goalrow:only-child {
+	margin-bottom: 0;
+}
+.goallevel3 {
+	border: 1px solid #4bacff;
+	background: #f1edff;
+}
+.goallevel3 .border-bottom,
+.goallevel3 .border-top {
+	border-color: #bee1ff !important;
+}
+.goallevel2 {
+	border: 1px solid #ffc509;
+	background: #fff8e0 !important;
+}
+.goallevel2 .border-bottom,
+.goallevel2 .border-top {
+	border-color: #ffe599 !important;
+}
+.goallevel1 {
+	border: 1px solid #cecece;
+	background: #f2f2f2;
+}
+.duedate {
+	color: #fff;
+	background-color: #ffc509;
+	padding: 4px 8px;
+	border-radius: 4px;
+}
+.goal-details {
+	margin-bottom: 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	line-clamp: 4;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}
+.goal-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	line-clamp: 4;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+}
+@media (min-width: 992px) {
+	.tasktype {
+		display: inline-block;
+		width: 190px;
+	}
+	.taskdetails {
+		display: inline-block;
+	}
+}
+.goalstatusclosed {
+	border: 1px solid #68ff78 !important;
+	background: #f4fef0 !important;
+}
+.goalstatusclosed .border-bottom,
+.goalstatusclosed .border-top {
+	border-color: #c9ffcf !important;
+}
+.goalstatus1,
+.goalstatus1:hover {
+	border-color: #edf08b !important;
+	background: #ffffff;
+}
+.goalstatus2,
+.goalstatus2:hover {
+	border-color: #f8d5d5 !important;
+	background: #ffffff;
+}
+.goalstatus3,
+.goalstatus3:hover {
+	border-color: #68ff78 !important;
+	background: #ffffff;
+}
+.goaltask3 .goalstatus3 {
+	background-color: #ddffdd;
+	box-shadow: none;
+}
+.goalstatusactive {
+	background: #fdffd2;
+}
+.goalstatuscritical,
+.goalstatuscritical:hover {
+	background-color: beige !important;
+}
+
+.goalstatuscompleted {
+	background: #ddffdd !important;
+	border-color: #9fffaa !important;
+}
+.goalstatuscompleted .border-bottom,
+.goalstatuscompleted .border-top {
+	border-color: #9fffaa !important;
+}
+.goalstatuscompleted .goaltaskbox {
+	background: #ddffdd !important;
+	border-color: #9fffaa !important;
+	box-shadow: none;
+}
+.taskgoaledit {
+	padding: 10px 10px 20px;
+	margin-bottom: 10px;
+	background-color: #ffffff;
+}
+.taskgoaledit #textarea {
+	min-height: 110px;
+	font-size: 0.9rem;
+}
+#advsearchpanel {
+	padding: 10px;
+}
+.advancedsearch-table {
+	table-layout: fixed;
+}
+#advsearchpanel .form-control.datepicker {
+	width: 185px;
+	margin-top: 5px;
+}
+.goals-sidebar .ui-widget-content {
+	border: 0 none;
+	background: 0 none;
+}
+.goal-tabs {
+	padding: 0;
+	border-bottom: 1px solid #ddd;
+	box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.4);
+	position: relative;
+	background-color: #fff;
+}
+.goal-tabs .emtabs {
+	background-color: #d1d1d1;
+}
+.goal-tabs .emtabs li {
+	margin: 0;
+	border-right: 1px solid #b1b1b1;
+}
+.goal-tabs .emtabs li a {
+	padding: 0.8rem 0.6rem;
+	font-size: 0.8rem;
+}
+.goal-tabs .emtabs li a .badge {
+	padding: 0.2em 0.4em;
+	line-height: 1;
+}
+@media (min-width: 640px) {
+	.goal-tabs .emtabs li a {
+		padding: 0.8rem 0.8rem;
+		font-size: 0.9rem;
+	}
+}
+.goal-tabs .emtabs li.emtabselected a {
+	background-color: #fff;
+}
+.goalsactions {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}
+.ajaxstatus {
+	font-weight: normal;
+}
+#advsearchpanel .form-control {
+	max-width: 100%;
+}
+.col-inline-table-sidebar {
+	padding: 10px;
+}
+.col-inline-table-content {
+	border-left: 1px solid #eee;
+	height: 100%;
+}
+.goallike {
+	display: inline-block;
+	color: #626684;
+}
+.editgoallike:hover {
+	text-decoration: none;
+}
+.taskstatus > div,
+.taskstatus > p {
+	min-width: 100px;
+}
+.taskstatus > p > i {
+	display: inline-block;
+	margin-right: 4px;
+}
+.taskmyself .attn i {
+	transform: rotate(-15deg);
+	animation: attention 4s ease-in-out infinite;
+}
+@keyframes attention {
+	0% {
+		transform: rotate(-15deg);
+	}
+	10% {
+		transform: rotate(15deg);
+	}
+	20% {
+		transform: rotate(-15deg);
+	}
+	30% {
+		transform: rotate(15deg);
+	}
+	40% {
+		transform: rotate(-15deg);
+	}
+}
+.btn-role {
+	font-size: 0.9rem;
+}
+.btn-role,
+.btn-point,
+.btn-role:hover,
+.btn-point:hover {
+	color: #444 !important;
+	border-color: #cfcfcf !important;
+	background-color: #cfcfcf !important;
+}
+.btn-role:hover,
+.btn-point:hover {
+	opacity: 0.8;
+}
+.rolemyself .btn-role,
+.rolemyself .btn-role:hover {
+	color: #fff !important;
+	border-color: #d47272 !important;
+	background-color: #bb4747 !important;
+}
+.rolemyself .btn-point,
+.rolemyself .btn-point:hover {
+	color: #fff !important;
+	border-color: #bb4747 !important;
+	background-color: #d47272 !important;
+}
+.rolemyself.completed .btn-role,
+.rolemyself.completed .btn-role:hover {
+	color: #fff !important;
+	border-color: #65ca58 !important;
+	background-color: #57af4c !important;
+}
+.rolemyself.completed .btn-point,
+.rolemyself.completed .btn-point:hover {
+	color: #fff !important;
+	border-color: #57af4c !important;
+	background-color: #65ca58 !important;
+}
+.roleselected .btn-role,
+.roleselected .btn-role:hover {
+	color: #fff !important;
+	border-color: #eeba1e !important;
+	background-color: #a08b01 !important;
+}
+.roleselected .btn-point,
+.roleselected .btn-point:hover {
+	color: #fff !important;
+	border-color: #a08b01 !important;
+	background-color: #eeba1e !important;
+}
+table.goalstable tbody td {
+	align-content: start;
+	padding: 1rem 0.75rem;
+}
+.goalstable .goal-description {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	line-clamp: 5; /* Limits the text to 3 lines */
+	-webkit-line-clamp: 5; /* Limits the text to 3 lines */
+	overflow: hidden;
+}
+.taskrole {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+.taskrole p {
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 0;
+	transform: translateY(calc(-100% - 8px));
+	width: 150px;
+	padding: 4px 8px;
+	border-radius: 8px;
+	background-color: #ffffff;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+	font-size: 0.85rem;
+	color: #333;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}
+.taskrole i {
+	font-size: 0.8rem;
+}
+.taskrole:hover p {
+	opacity: 1;
+}

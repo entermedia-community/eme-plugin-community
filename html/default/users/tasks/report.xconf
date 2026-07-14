@@ -1,0 +1,7 @@
+<page>
+	
+	
+	<path-action name="TaskModule.loadDashboard"/>
+	<property name="appsection">completed</property>
+
+</page>

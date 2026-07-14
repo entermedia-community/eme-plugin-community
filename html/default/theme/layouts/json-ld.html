@@ -1,0 +1,41 @@
+#if( $userpost )
+
+  #if(!$prefix) #set( $prefix = $context.siteRoot ) #end
+
+  #if($librarycol.urlname)
+    #set($projectlink = "$!{community.externaldomain}/${librarycol.urlname}")
+  #else
+    #set($projectlink = "${communitylink}/#dash($librarycol.getName())")
+  #end
+
+  #set($postasset = $mediaarchive.getAsset($userpost.primarymedia))
+  #set($postimagesrc = $mediaarchive.asLinkToGenerated($postasset, "image1200x630.webp"))
+
+  #set( $postuser = $userManager.getUser($userpost.owner, true))
+
+  #set( $timestamp = $context.getDateUtil().getISO8601($userpost.getValue('entity_date')) )
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "#esc($!userpost.name)",
+      "image": [
+        "${prefix}${postimagesrc}"
+      ],
+      "datePublished": "$timestamp",
+      "dateModified": "$timestamp",
+      "author": [{
+          "@type": "Person",
+          "name": "$postuser.getAnonNickName()",
+          "url": "${prefix}#urlescape("${apphome}/users/index.html?id=${postuser.getId()}")"
+      }],
+      "publisher": [{
+          "@type": "Organization",
+          "name": "#text($librarycol)",
+          "url": "${prefix}${projectlink}"
+      }]
+    }
+  </script>
+
+#end

@@ -1,0 +1,51 @@
+##Exising ones 
+##No existing programs found.
+
+
+    [[Add a new Invoice and email the billing contacts]]
+
+ <div style="padding:20px;">
+#set( $searchtype = "collectiveproduct")
+#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+#set( $xmledithome  = "$apphome/components/xml")
+$context.putPageValue("searcher",$searcher)
+
+	#set( $id  = $context.getRequestParameter("id"))
+	#set($data = $mediaarchive.getData($searchtype, $id))
+
+<form name="saveproject" 
+	id="saveproject" 
+	action="${apphome}/project/store/save.html" 
+	method="post"
+	enctype="multipart/form-data"
+	class="ajaxform autocloseform"
+	data-targetdiv="storeworkarea"
+	data-oemaxlevel="1">
+
+
+	<input type="hidden" name="save" value="true" />
+	<input type="hidden" saveprojectname="searchtype" value="collectiveproduct" />
+	
+	#if( $id)
+	
+	<input type="hidden" name="id" value="$id" />
+	#end
+	<input type="hidden" name="field" value="owner" />
+	<input type="hidden" name="owner.value" value="${user.getId()}" />
+	
+	<input type="hidden" name="field" value="collectionid" />
+	<input type="hidden" name="collectionid.value" value="${librarycol.getId()}" />
+	<input type="hidden" name="collectionid" value="${librarycol.getId()}" />
+	
+	<input type="hidden" name="field" value="producttype" />
+	<input type="hidden" name="producttype.value" value="5" />
+	
+	#set( $searcher = $mediaarchive.getSearcher("collectiveproduct") )
+	$context.putPageValue("searcher",$searcher)
+	$context.putPageValue("viewid", "collectiveproductaddnewproduct")
+	$context.putPageValue("data", $data)
+	
+	$pages.include("${apphome}/components/xml/detaileditor4.html", $context)
+	
+	<button type="submit" class="btn btn-primary" hidden>[[Submit]]</button>
+</form>

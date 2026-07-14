@@ -1,0 +1,11 @@
+<page>
+	<property name="title">Projects Tasks</property>
+	<property name="fullwidth">true</property>
+	
+	<property name="appsection">tasks</property>
+	<property name="defaulttab">goaltab</property>
+	
+	<style id="tasks" href="/${applicationid}/project/goals/goals.css" />
+    <script id="goals" src="/${applicationid}/project/goals/goals.js"/>
+
+</page>

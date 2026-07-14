@@ -1,0 +1,40 @@
+<div id="dialoguserform">
+	#set( $searcher = $mediaarchive.getSearcher("user") )
+	$context.putPageValue("searcher",$searcher)
+	$context.putPageValue("viewid", "usereditmyaccount")
+	#set( $userid = $context.getRequestParameter("userid"))
+	#set( $canedit = false)
+	
+	#if( $user.getId() == $userid || $canviewsettings)
+		#set( $canedit = true)
+	#end
+	
+	#if( $canedit )
+		#set( $selecteduser = $mediaarchive.getUser($userid) )
+		
+		$context.putPageValue("data", $selecteduser)
+		<form name="dialogform" 
+			class="ajaxform autocloseform"
+			data-targetdiv="userprofile"
+			data-oemaxlevel="2"
+			id="useraccountform"
+			 action="${communitylink}/users/edit/save.html" 
+			 enctype="multipart/form-data"  
+			 method="post"
+			>
+			
+		$pages.include("${apphome}/components/xml/detaileditor4.html", $context)
+		
+		$context.putPageValue("data", $data)
+		<input type="hidden" name="save" value="true" />
+		<input type="hidden" name="searchtype" value="user" />
+		<input type="hidden" name="id" value="${selecteduser.getId()}" />
+		<input type="hidden" name="userid" value="${selecteduser.getId()}" />
+		
+		
+		</form>
+	
+	#else
+		[[No permissions]]
+	#end
+</div>

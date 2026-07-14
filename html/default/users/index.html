@@ -1,0 +1,85 @@
+#set($userid = $context.getRequestParameter("id"))
+#set($selecteduser = $mediaarchive.getUser($userid))
+#if(!$selecteduser)
+	#set($selecteduser = $user)
+#end
+
+$context.putPageValue("selecteduser", $selecteduser)
+
+#if( $selecteduser && $selecteduser.enabled == "true")	
+	#set( $subscriptions = $mediaarchive.query("librarycollectionusers").exact("followeruser",$selecteduser.getId()).sort("isbillingcontact").search())
+	$context.putPageValue("subscriptions", $subscriptions)
+	<div class="d-flex flex-wrap mb-5 bg-light align-items-center shadow">
+		#if( $user.getId() == $selecteduser.getId() || $canviewsettings)
+			#set($canedituserinfo = true)
+		#end
+		<div class="profile-username mr-5 me-5">
+			<div class="profile-imagecontainer">
+				#set($assetprofile = $mediaarchive.getUserProfileAssetPortrait($selecteduser))
+				#set($thumbsize = "image200x200")
+				$pages.include("${apphome}/users/userprofileimage.html?assetid=$!{assetprofile.id}&thumbsize=$!{thumbsize}", $context)
+			</div>
+		</div>
+			
+		<div class="d-flex flex-column flex-grow-1">	
+			#if($canedituserinfo)
+				<form id="uploaddata" 
+					name="wizard" 
+					method="post" 
+					enctype="multipart/form-data"
+					action="${apphome}/users/uploadsave.html" 
+				>
+					<input type="hidden" name="userid" value="$selecteduser.getId()" />
+					<input type="hidden" name="sourcepath" value="userprofiles/$selecteduser.getId()/" />
+					<input id="upload_field" name="file" type="file" style="position:absolute; top:-1000px;" >
+				</form>
+				<script>
+					$('#upload_field').change(function() {
+						$('#uploaddata').submit();
+					});
+				</script>
+			#end
+					
+			<div>
+				<h4>
+					<span>$!selecteduser.getName()</span>
+					<small class="ml-1 ms-1 text-muted">($!selecteduser.getAnonNickName())</small>
+				</h4>
+				<div class="d-flex align-items-center gap-3 mb-2">
+					#if($user)
+						<span><i class="far fa-envelope mr-1 me-1 text-muted"></i> $!selecteduser.email<br></span>
+						#if($selecteduser.getPhoneNumber())
+							<span><i class="fas fa-phone mr-1 me-1 text-muted"></i> $!selecteduser.getPhoneNumber()</span>
+						#end
+					#end
+				</div>
+				
+				#if( $user  && $selecteduser.getId() != $user.getId())
+					$pages.include("${apphome}/users/block/toggle.html")
+				#end
+
+				<div class="d-flex align-items-center gap-2 my-2">
+					#if($canedituserinfo) 
+						<a href="${apphome}/users/edit/edit.html?userid=$selecteduser.getId()" class="emdialog btn btn-xs btn-primary" title="[[Edit User Profile]]">
+							<i class="fas fa-user mr-1 me-1"></i> [[Edit Profile]]
+						</a>
+						#*
+							<a href="${apphome}/users/preferences/delete.html?userid=$selecteduser.getId()" class="emdialog btn btn-xs btn-warning" title="[[Delete Account]]">
+								<i class="fas fa-cog mr-1 me-1"></i> [[Delete Account]]
+							</a>
+						*#
+					#end
+					#if( $user.getId() == $selecteduser.getId())
+						<a href="${communitylink}/authentication/logout.html" class="btn btn-xs btn-danger">
+							<i class="fas fa-sign-out-alt mr-1 me-1"></i> [[Logout]]
+						</a>
+					#end
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	$pages.include("${apphome}/users/projects.html", $context)
+#else
+	<p class="text-center text-muted my-4">[[User not found]]</p>
+#end	

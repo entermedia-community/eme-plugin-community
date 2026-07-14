@@ -1,0 +1,18 @@
+#
+#Mon Oct 17 14:17:08 CDT 2022
+Description=Descripci\u00F3n
+Add\ Income=A\u00F1adir ingreso
+Cash\ Payments=Pagos en efectivo
+Reverse=Reverso
+Invoices=Facturas
+Import\ CSV=Importar CSV
+Date=Fecha
+hits=registros
+Type=Tipo
+Sort\ by=Ordenar por
+Search=Buscar
+Total=Total
+Import\ Income=Importar Ingresos
+Topic=Tema
+Download=Descargar
+Direct\ Payments=Pagos Directos

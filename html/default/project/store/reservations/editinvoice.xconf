@@ -1,0 +1,7 @@
+<page>
+	<inner-layout />
+	
+	 <page-action name="Script.run" alltypes="true" >
+		<script>/${applicationid}/project/store/reservations/availability.groovy</script>
+	</page-action>
+</page>

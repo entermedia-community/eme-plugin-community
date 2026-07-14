@@ -1,0 +1,22 @@
+#
+#Tue Aug 29 23:18:48 BDT 2023
+All=\u5168\u90E8
+All\ Chats=\u6240\u6709\u804A\u5929
+Hide\ User\ Sidebar=\u9690\u85CF\u7528\u6237\u4FA7\u8FB9\u680F
+Payments\ Pending=\u5F85\u4ED8\u6B3E
+Tix\ Report=\u8482\u514B\u65AF\u62A5\u544A
+Direct\ Chat=\u76F4\u63A5\u804A\u5929
+Admin\ Reports=\u7BA1\u7406\u62A5\u544A
+All\ Transactions=\u6240\u6709\u4EA4\u6613
+Completed\ Tasks=\u5DF2\u5B8C\u6210\u7684\u4EFB\u52A1
+My\ Wallet=\u6211\u7684\u94B1\u5305
+ago=\u524D
+My\ Profile=\u6211\u7684\u7B80\u5386
+Invoices=\u53D1\u7968
+Admin=\u884C\u653F
+Recent\ Chats=\u6700\u8FD1\u7684\u804A\u5929\u8BB0\u5F55
+Profile=\u8F6E\u5ED3
+My\ Tasks=\u6211\u7684\u4EFB\u52A1
+Level\ 1=1\u7EA7
+Level\ 2=2\u7EA7
+Settings=\u8BBE\u7F6E

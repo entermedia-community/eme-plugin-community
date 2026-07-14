@@ -1,0 +1,6 @@
+<page>
+
+  	<path-action name="PageValue.loadPageVariable" bean="mathutil" />
+  	<property name="collectiveincomesortby">dateUp</property>
+
+</page>

@@ -1,0 +1,14 @@
+$pages.include("${apphome}/theme/emails/layout-top.html", $context)
+
+
+	<p>[[Hello]] $teamuser.getScreenName(),</p>
+	<p><b>$user.getScreenName()</b> [[added you to]] <b>$librarycol.getName()</b> [[as a Team Member]].</p>
+	<p style="display:block;text-align:center;">
+		
+		#set($projectlink = "$!{community.externaldomain}/${librarycol.urlname}/chat/index.html")
+	  
+	  	<a href="$projectlink?entermedia.key=${entermediakey}" style="text-decoration:none;color:white;background:#3297d5;padding:8px 12px;border-radius:4px;display:inline-block;">[[Log in to the Project]]</a>
+	</p>
+
+
+$pages.include("${apphome}/theme/emails/layout-bottom.html", $context)

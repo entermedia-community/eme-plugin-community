@@ -1,0 +1,47 @@
+$pages.include("layout-top.html", $context)
+
+
+<p>[[Chat notifications for user]]: <strong>$!followeruser</strong></p>
+
+#foreach( $topicmod in $topicmods)
+	#set($collectionid = $topicmod.collectionid)
+	#set($topicid = $topicmod.chattopicid)
+
+	#set( $project = $mediaarchive.getCachedData("librarycollection",$collectionid) )
+	#set( $topic = $mediaarchive.getCachedData("collectiveproject",$topicid) )
+
+	#set($projectlink = "$!{community.externaldomain}/${project.urlname}")
+	<div style="padding-bottom:10px; border-bottom:1px solid #ddd;">
+		<strong>
+			<a href="${projectlink}/chat/index.html" 
+			title="Open: $project.getName() "
+			style="color: royalblue;text-decoration: none;">$project.getName() / $topic</a></strong>
+		#set( $messages = $mediaarchive.query("chatterbox").exact("channel",$topicid).after("date",$messagessince).sort("date").search() )
+		#foreach($chat in $messages)
+			<div style="padding:0 15px 15px 0;">
+				#set( $chatuser = $mediaarchive.getUser($chat.user) ) 
+				<b>$chatuser.getAnonNickName()</b>&nbsp; 
+				<span style="font-size:0.8rem;">- $context.getDateTime($chat.date)</span><br> 
+				#if($chat.message)
+					#if( $chat.message.startsWith("http"))
+						<a href="$chat.message" style="color: royalblue;text-decoration: none;">$chat.message</a>
+					#else
+						$chat.message
+					#end
+				#end
+			</div>
+		#end
+	</div>
+#end
+
+<br>
+<p style="color:#888;text-align:center;margin-bottom: 0;">
+	<small>
+		[[To un-subscribe or change notification preferences edit your]] <a href="$!{community.externaldomain}/users/index.html" style="color: royalblue;text-decoration: none;">[[Account Preferences]]</a>
+	</small>
+</p>
+
+$pages.include("layout-bottom.html", $context)
+
+
+

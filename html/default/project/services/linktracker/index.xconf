@@ -1,0 +1,8 @@
+<page>
+
+  <path-action name="DataEditModule.searchFields" >
+		<property name="searchtype">collectivelinktracker</property>
+		<property name="hitsname">linkhits</property>
+  </path-action>
+
+ </page>

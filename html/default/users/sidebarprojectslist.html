@@ -1,0 +1,34 @@
+##Search collections this user is teammeber
+#set( $ids = $mediaarchive.query("librarycollectionusers").exact("followeruser",$user.getId()).exact("ontheteam","true").search() )
+
+#set($oids = [])
+#foreach( $ohit in $ids )
+#set($x = $oids.add($ohit.collectionid))
+#end
+
+
+#set($userprojectsids = [])
+
+#set( $appsection = $context.getRequestParameter("appsection"))
+#if( !$appsection)
+	#set( $appsection = $content.appsection )
+#end
+
+#set( $collections = $mediaarchive.query("librarycollection").ids($oids).sort("name").search($context) )
+
+#set($selectedproject = $librarycol.getId())
+
+#foreach( $ohit in $collections )
+
+	#set( $project = $mediaarchive.getCachedData("librarycollection",$ohit.getId()))
+	#set( $projectcommunity = $mediaarchive.getCachedData("communitytag",$project.communitytag))
+	#if($project.urlname)
+	#set($hitprojectlink = "$!{projectcommunity.externaldomain}/${project.urlname}")
+	#else
+	#set($hitprojectlink = "/project/chat/index.html?collectionid=${project.id}")
+	#end
+	<a href="${hitprojectlink}" class="file-row  #if($selectedproject==$project.id) active #end">
+		<i class="bi bi-folder-fill module-icon f-icon"></i>
+		$project.name
+	</a>
+#end

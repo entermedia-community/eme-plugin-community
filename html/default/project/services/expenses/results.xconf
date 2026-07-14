@@ -1,0 +1,10 @@
+<page>
+
+  	<page-action name="PageValue.loadPageVariable" bean="mathutil" />
+  	
+  	<property name="hitsperpage">20</property>
+    <property name="searchtype">collectiveexpense</property>
+  	
+ <page-action name="ProjectModule.loadCollectiveExpenses" />
+
+</page>

@@ -1,0 +1,8 @@
+#
+#Tue Aug 30 10:50:02 CDT 2022
+Sort\ by=Ordenar por
+Reverse=Reverso
+Search=Buscar
+Transfers=Transferencias
+Add\ Transfer=Agregar transferencia
+Source\ Funds=Fondos de origen

@@ -1,0 +1,77 @@
+
+#set($collectionid = $context.getRequestParameter("collectionid"))
+ <div style="padding:20px;">
+	#set( $xmledithome  = "$apphome/components/xml")
+	#set( $searchtype = "currencytransaction" )
+	#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+	$context.putPageValue("searcher",$searcher)
+	
+	#set( $id  = $context.getRequestParameter("id"))
+	#set($data = $mediaarchive.getData($searchtype, $id))
+	<form name="saveproject" 
+			id="saveproject" 
+			action="$apphome/project/services/workpoints/paysave.html" 
+			method="post"
+			class="ajaxform autocloseform"
+			data-targetdivinner="serviceworkarea"
+			data-oemaxlevel="1"
+			>
+	
+	<input type="hidden" name="save" value="true" />
+	<input type="hidden" name="searchtype" value="$searchtype" />
+	
+	<input type="hidden" name="field" value="id" />
+	<input type="hidden" name="id.value" value="$!id" />
+	
+		<input type="hidden" name="field" value="collectionid" />
+	<input type="hidden" name="collectionid.value" value="$collectionid" />
+	<input type="hidden" name="collectionid" value="$collectionid" />
+	
+##	$context.putPageValue("viewid", "currencytransactionpay")
+##	$context.putPageValue("data", $data)
+##	$pages.include("/$applicationid/components/xml/detaileditor4.html?detailsreadonly=true", $context)
+
+
+##we are adding a transaction to pay a user for these pending points
+##Once complete the points will be marked as paid
+##Only show this button for unpaid points
+##
+	#set( $data = $mediaarchive.getData("currencytransfer",$id) )
+	#set( $targetuserid = $data.get("paymententitysource") )
+
+#set($exchange = $financeManager.getDollarForPointForUser($targetuserid,$collectionid))
+<p>
+#set( $sub = $exchange*$data.getDouble("total") )
+[[This project pays]]: <B>$data.total</B> [[points]] * <b>$$exchange</b> USD / [[point]] = <b>$$sub USD</b>
+<br>
+([[point exchange rate be edited in project settings]])
+</p>
+
+<div class="form-group row no-gutters g-0">
+    <label for="exampleTextarea" class="col">[[Available Balance]]</label>
+	<div class="col-10" style="padding-left:10px;">
+		<div class="emfield-list">
+			<input type="hidden" value="currencytype" name="field">
+			<div id="listdetail_currencytypesource" class="listdetailpicker">
+			#set( $netincome = $financeManager.getNetIncomeByCurrency($collectionid,null,null) )
+			<input type="hidden" name="field" value="currencytype" />
+			<select name="currencytype.value" class="select2" >
+			#foreach( $currencytype in $netincome.keySet())
+				#if( $currencytype != "2")
+				#set($net = $netincome.get($currencytype))
+				<option value="$currencytype">$!context.doubleToMoney($!net, 2) $!context.getName($!mediaarchive.getCachedData("currencytype", $currencytype))</td>
+				#end
+			#end
+			</select>
+			</div>
+			[[Payment will be paid in the selected currency]]
+		</div>
+    </div>
+    </div>
+	<div style="padding:20px 0 0;">
+	<a class="submitform btn btn-sm btn-primary">[[Send]]</a>
+	<a class="closemodal btn btn-sm btn-secondary" style="margin-left:10px;">[[Cancel]]</a> 
+	</div>
+</form>
+
+</div>

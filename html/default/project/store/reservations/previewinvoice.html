@@ -1,0 +1,55 @@
+#set( $id = $context.getRequestParameter('invoiceid')) 
+#if(!$id)
+	#set( $id = $invoiceid)
+#end
+#if(!$invoice)
+	#set( $invoice = $mediaarchive.getBean("invoiceManager").getInvoiceById($id))
+#end
+#if ($invoice)
+	$context.putPageValue("invoice", $invoice)
+	#set( $invoiceready =	"true")
+	#set($sentto = $invoice.getValue("sentto"))
+	#if(!$sentto)
+		#set( $invoiceready =	"false")
+	#end
+	<div id="invoicecontainer">
+	#if( $canviewsettings )
+<form method="post" action="${projectlink}/services/sendinvoice.html" 
+		class="ajaxform autocloseform" 
+		data-targetdiv="collectivebilling">
+#end
+<input type="hidden" name="oemaxlevel" value="1">
+<input type="hidden" name="invoiceid" value="$id">
+<input type="hidden" name="collectionid" value='$invoice.getValue("collectionid")' />
+	
+		$pages.include("${apphome}/project/store/reservations/viewinvoice.html", $context)
+		
+		
+		<div class="text-right" style="padding:15px 10px;">
+		<button id="closebutton" type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">[[Close]]</button>
+		#if( $canviewsettings )
+			#set($status = $invoice.getValue("paymentstatus"))
+			
+			#if(!$status.equals("paid"))
+			<a href="${projectlink}/store/reservations/editinvoice.html?invoiceid=$id" 
+				class="btn btn-secondary ajax" 
+				data-targetdiv="invoicecontainer"
+				title="[[Edit Invoice Details]]"
+				>[[Edit Invoice]]</a>
+			#end
+			
+			#if($invoiceready == "true")
+				#if($status.equals("invoiced"))
+					<input type="submit" class="btn btn-primary" value="[[Re-send Invoice]]"/>
+				#elseif(!$status.equals("paid"))
+					<input type="submit" class="btn btn-primary" value="[[Send Invoice]]"/>
+				#end
+			#end
+		
+		#end
+		</div>
+		#if( $canviewsettings )
+	</form>
+	#end
+	</div>
+#end

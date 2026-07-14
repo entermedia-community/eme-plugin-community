@@ -1,0 +1,47 @@
+$pages.include("${apphome}/theme/emails/layout-top.html", $context)
+    <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+      <tr>
+        <td align="center">
+          <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+            <tr>
+              <td class="email-body" width="100%" cellpadding="0" cellspacing="0">
+                <table class="email-body_inner" align="center" width="600" cellpadding="0" cellspacing="0" role="presentation">
+                  <tr>
+                    <td class="content-cell">
+                      <div class="f-fallback">
+                        
+                        
+                        $!invoiceheader
+                        
+                       #if($actionurl)
+                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                          <tr>
+                            <td align="center">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                                <tr>
+                                  <td align="center">
+                                    <a href="$actionurl" class="f-fallback button button--green" target="_blank">Check Invoice History</a>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        #end
+                        
+                        $!invoicefooter
+                        
+                        
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+$pages.include("${apphome}/theme/emails/layout-bottom.html", $context)
+	

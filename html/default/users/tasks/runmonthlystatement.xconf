@@ -1,0 +1,7 @@
+<page>
+	
+	<property name="appsection">completed</property>
+	<path-action name="Script.run" >
+		<script>/${catalogid}/events/scripts/users/monthlystatements.groovy</script>
+	</path-action>
+</page>

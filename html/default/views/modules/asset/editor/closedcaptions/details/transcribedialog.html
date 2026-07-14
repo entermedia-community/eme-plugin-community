@@ -1,0 +1,24 @@
+#set( $clientroot = "/${applicationid}/components/closedcaptions" )
+
+	<form name="vttupload" id="vttupload" method="post"
+		class="ajaxform autocloseform d-flex align-items-center"
+		action="$clientroot/transcribe.html"
+		data-oemaxlevel="1"
+		data-targetdiv="closedcaptioneditor"
+		data-toastmessage="[[Transcribing #text($asset.name)]]"
+		data-toastsuccess="[[Successfully transcribed #text($asset.name)]]"
+		data-toasterror="[[Failed to transcribe #text($asset.name)]]"
+	>
+	 	<input type="hidden" name="assetid" value="$asset.id"> 
+		
+		<p class="mb-0 me-2">[[Language within the video is]]</p>
+		#set($languages = $mediaarchive.getList("locale"))
+		<select class="form-control form-control-sm lenguagepicker" id="languagestranscribe" name="selectedlang" data-allowclear="false">
+		#foreach($locale in $languages)
+			<option value="$!locale.id" #if("en"==$!locale.id) selected #else disabled #end>$!locale</option>
+		#end
+		</select>
+		 
+	</form>
+
+	

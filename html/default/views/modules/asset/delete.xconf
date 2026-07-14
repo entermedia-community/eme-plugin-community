@@ -1,0 +1,6 @@
+<page>
+	
+	<property name="copyprefix">assetdialog</property>
+	<path-action name="AssetEditModule.deleteAssets"/>
+  	
+</page>

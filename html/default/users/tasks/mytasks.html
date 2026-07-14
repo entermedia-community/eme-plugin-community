@@ -1,0 +1,55 @@
+<div class="maincontent">
+	#set( $hits = $opentickets)
+
+	#ifnull($user)
+		<p> [[Must be logged in to view your pending tasks]] </p>
+	#end	
+	
+	
+	<div class="goals-header-actions d-flex justify-content-between rounded mb-3 px-3">
+		#set ($aprojects = $mediaarchive.query("projectgoal").not("projectstatus", "closed").not("projectstatus", "completed").search($context))
+		#set($pids = [])
+		
+		#foreach ( $aproject in $aprojects)
+			#set($x = $pids.add($aproject.id))
+		#end
+
+		#set( $user_text = "$user" )
+		
+		#if( $selecteduser)
+			#set( $user_text = "$selecteduser.toString()" )
+		#end
+					
+		#if($canviewsettings)
+			<form  action="$content.path" class="form-inline autosubmitform">
+				<div  style="padding-right:20px;min-width:230px;display:inline-block">
+					<select name="userid" id="userid"  
+						class="listautocomplete selectautosubmit" 
+						data-showdefault="$text" data-addnewlabel="[[[Add New]]]" 
+						data-searchfield="name" data-searchtype="user"  
+						data-placeholder="$user_text" data-sortby="name">
+					</select>
+				</div>
+			</form>
+		#end
+		<div class="text-muted">$opentickets.size() [[Open Goals for]] <strong>$!user_text</strong></div>
+	</div>
+
+	#if (!$hits.isEmpty())
+		#foreach($goal in $hits)
+			#set( $goal = $mediaarchive.getSearcher("projectgoal").loadData($goal))
+			$context.putPageValue("goal",$goal)
+			$pages.include("${apphome}/project/goals/priorities/goalsearchrow.html",$context)
+		#end
+		#set($projectManager = $mediaarchive.getProjectManager())
+	#else
+		<div class="text-center text-muted my-5">
+			[[No goals found for this ticket level.]]
+		</div>
+	#end
+
+
+</div>
+
+
+

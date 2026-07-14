@@ -1,0 +1,135 @@
+#set($collectionid = $librarycol.getId())
+
+<div  id="financesdashboard">
+	<div class="d-flex justify-content-between mb-2">
+		<h2>[[Profit and Loss]]</h2>
+		<div class="dontprintme text-right">   
+			#* 
+		    #if( $caneditcollection )
+		         <a
+		          href="${projectlink}/services/transfers/send.html?collectionid=$collectionid"
+		          class="emdialog btn btn-sm btn-primary">[[Send Money]]</a>
+		
+		         <a
+		          href="${communitylink}/users/transfers/request.html"
+		          class="emdialog btn btn-sm btn-primary">[[Request Money]]</a>
+		          
+		          <a
+		          href="${communitylink}/users/transfers/request.html"
+		          class="emdialog btn btn-sm btn-primary">[[Receive Money]]</a>
+		
+		    #end      
+		   *#
+		</div>		    
+	</div>
+		
+		    
+	<form  id="searchform" 
+		class="autosubmit  ajaxform" 
+		data-targetdiv="financesdashboard" 
+		method="post" 
+		action="${projectlink}/services/profitandloss/dashboard.html">
+	
+		<input type="hidden" name="oemaxlevel" value="1" />
+		<input type="hidden" name="collectionid" value="$collectionid" />
+		
+		<div  id="dashsearchform" class="d-flex mb-2 inlinesearch" style="padding:10px 0; margin:10px 0 20px; background-color: #f0f0f0;" >
+			$context.putPageValue("autocomplete","off")
+			<div class="px-2">
+			[[Filter by]]:
+			</div>
+			<div class="px-2">
+				<select name="year" class="select2 form-control-sm " style="width:120px;">
+					<option value="-1" #if($daterange.getYearPicked() == -1) selected #end>[[All]]</option>
+					<option value="0"  #if($daterange.getYearPicked() == 0) selected #end>[[YTD]]</option>
+					<option value="1"  #if($daterange.getYearPicked() == 1) selected #end>[[Last Year]]</option>
+					<option value="2"  #if($daterange.getYearPicked() == 2) selected #end>[[Two Years Ago]]</option>
+				</select>
+			</div>
+			<div class="px-2">
+				<select name="month" class="select2 form-control-sm" style="width:120px;">
+					<option value="0" #if($daterange.getMonthPicked() == 0) selected #end>[[Month]]</option>
+					<option value="1" #if($daterange.getMonthPicked() == 1) selected #end>[[Jan]]</option>
+					<option value="2" #if($daterange.getMonthPicked() == 2) selected #end>[[Feb]]</option>
+					<option value="3" #if($daterange.getMonthPicked() == 3) selected #end>[[March]]</option>
+					<option value="4" #if($daterange.getMonthPicked() == 4) selected #end>[[April]]</option>
+					<option value="5" #if($daterange.getMonthPicked() == 5) selected #end>[[May]]</option>
+					<option value="6" #if($daterange.getMonthPicked() == 6) selected #end>[[June]]</option>
+					<option value="7" #if($daterange.getMonthPicked() == 7) selected #end>[[July]]</option>
+					<option value="8" #if($daterange.getMonthPicked() == 8) selected #end>[[Aug]]</option>
+					<option value="9" #if($daterange.getMonthPicked() == 9) selected #end>[[Sep]]</option>
+					<option value="10" #if($daterange.getMonthPicked() == 10) selected #end>[[Oct]]</option>
+					<option value="11" #if($daterange.getMonthPicked() == 11) selected #end>[[Nov]]</option>
+					<option value="12" #if($daterange.getMonthPicked() == 12) selected #end>[[Dec]]</option>
+				</select>
+			</div>
+			<div class="col-md-2">
+				#set( $allprojects = $mediaarchive.getSearcher("collectiveproject").query().match("parentcollectionid",$librarycol.getId()).sort("name").search($context) )
+				#if( $allprojects.size() > 1)
+					
+					#set($projectid = $context.getRequestParameter("collectiveproject") )
+					<select name="collectiveproject"  class="select2 form-control-sm" style="width:250px;">
+						<option value="">[[By Topic]]</option>
+						#foreach( $project in $allprojects )
+							<option value="$project.getId()" #if($projectid == $project.getId()) selected #end>$project</option>
+						#end
+					</select>
+				#end				
+			</div>		
+			<div class="col-md-5 text-right">
+				<a href="${projectlink}/services/profitandloss/dashboard.html?collectionid=$collectionid&clearfilters=true&oemaxlevel=1" class="btn btn-sm btn-light ajax" data-targetdiv="financesdashboard">[[Clear Filters]]</a>
+			</div>		
+			
+			
+		</div>	
+	</form>
+
+	#set( $netincome = $financeManager.getNetIncomeByCurrency($collectionid, $daterange, $projectid) )
+	<h4>[[Profit]]</h4>
+		#set( $total = 0.0)
+			<table class="table tablefinances" >
+			
+			<tr class="tablefinances-header">
+				<td colspan="2" style="text-align: left;">[[Currency]]
+				</td>
+				<td class="table-col-totals"  style="width:200px"> [[USD]]
+				</td>
+			</tr>
+			
+			#foreach( $currencytype in $netincome.keySet())
+				#set($net = $netincome.get($currencytype))
+				<tr>
+				<td >$!context.getText($!mediaarchive.getCachedData("currencytype", $currencytype))</td>
+				<td style="width:200px; text-align: right;">
+					#if( $currencytype != "1") 
+						$!context.doubleToMoney($!net, 2)
+					#end	</td>
+				
+				<td class="table-col-totals" style="width:200px; ">
+				#if( $currencytype != "2") 
+				#set( $subtotal = $financeManager.inDollars($currencytype,$net))
+				$$!context.doubleToMoney($subtotal, 2) 
+				#set( $total = $subtotal + $total)
+				#end
+				</td>
+				</tr>
+			#end
+			
+			<tr>
+				<td colspan="2" style="text-align: right;"><strong>[[Total]]:</strong></td>
+				<td class="table-col-totals">
+			 	<strong>$$!context.doubleToMoney($total, 2)</strong> 
+			</td>
+			</tr>
+			</table>
+							    
+		    
+	<div id="report">
+		    
+	$pages.include("${apphome}/project/services/profitandloss/balances.html",$context)
+			
+	</div>
+</div>	 	    
+	
+			
+			

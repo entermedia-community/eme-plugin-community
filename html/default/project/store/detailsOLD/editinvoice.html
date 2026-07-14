@@ -1,0 +1,54 @@
+##Exising ones 
+##No existing programs found.
+
+
+ <div style="padding:20px;">
+#set( $searchtype = "collectiveinvoice")
+#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+#set( $xmledithome  = "$apphome/components/xml")
+$context.putPageValue("searcher",$searcher)
+
+#set( $searcher = $mediaarchive.getSearcher($searchtype) )
+$context.putPageValue("searcher",$searcher)
+
+
+#set($id  = $context.getRequestParameter("id"))
+#set($data = $mediaarchive.getData("collectiveinvoice", $id))
+$context.putPageValue("data",$data)
+
+<form name="saveproject" 
+		id="saveproject" 
+		action="$apphome/project/store/details/saveinvoice.html" 
+		method="post"
+		class="ajaxform autocloseform"
+			data-targetdiv="storeworkarea"
+			data-oemaxlevel="1">
+
+
+<input type="hidden" name="save" value="true" />
+<input type="hidden" name="searchtype" value="${searchtype}" />
+
+<input type="hidden" name="id" value="$data.id" />
+<input type="hidden" name="field" value="collectionid" />
+<input type="hidden" name="collectionid" value="$librarycol.getId()" />
+
+
+#set( $productid  = $context.getRequestParameter("productid"))
+#set($aproduct = $mediaarchive.getData("collectiveproduct", $productid))
+#set($producttype = $aproduct.producttype)
+
+<input type="hidden" name="productid" value="$productid" />
+
+#if( $caneditcollection)
+$context.putPageValue("view", "${searchtype}/invoiceview${producttype}team")
+#else
+$context.putPageValue("view", "${searchtype}/invoiceview${producttype}")
+#end
+ 
+$pages.include("/$applicationid/components/xml/detaileditor4.html", $context)
+
+#if( $canviewsettings)
+	<a href="${communitylink}/views/settings/lists/datamanager/edit/edit.html?id=$id&searchtype=collectiveinvoice">[[Admin Edit]]</a>
+#end
+
+</form>

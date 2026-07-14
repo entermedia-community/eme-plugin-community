@@ -1,0 +1,29 @@
+
+<h5 class="m-0">
+  [[Welcome to Smart Creator wizard]].
+</h5>
+<messageplain>[[Welcome to Smart Creator wizard]].</messageplain>
+<p class="mb-2">
+  [[Choose the type of content you would like to create:]]
+</p>
+<messageplain>[[Choose the type of content you would like to create:]]</messageplain>
+#set($modules = $mediaarchive.query("module").exact("aicreationmethod","smartcreator").sort("name").cachedSearch()) 
+<ul>
+  #foreach($module in $modules)
+    <li style="text-transform: capitalize;"
+      data-prefix="Create a ${module.getName()}.">
+      <a class="ajax ai-func"
+        href="$apphome/views/modules/$module.getId()/editors/entitychat/chatterbox/changescenario.html"
+        data-targetdiv="chatterbox"
+        data-channel="$agentcontext.getChannel().getId()"
+        data-currentscenario="$agentcontext.getCurrentScenario().getId()"
+        data-functionname="chat_smartcreator_make_suggestions"
+        data-context_playbackentitymoduleid="$module.getId()"
+        data-oemaxlevel="1">
+        <span>#text( $module )</span>
+        <messageplain>#text( $module )</messageplain>
+      </a>
+    </li>
+  #end
+</ul>
+ 

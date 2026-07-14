@@ -1,0 +1,73 @@
+  <div class="emdata emdatatable">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr class="tableheader">
+                                        <th>[[Invoice #]]</th>
+                                        <th>[[Due Date]]</th>
+                                        <th>[[Paid On]]</th>
+                                        <th>[[Name]]</th>
+                                        ##<th>[[Description]]</th>
+                                        <th>[[Total Price]]</th>
+                                        <th>[[Status]]</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                #foreach($hit in $invoices)
+                                    #if ($hit.instance_status == "active")
+                                        #set($instancescount = $instancescount+1)
+                                    #end
+                                    <tr>
+                                        <td>$hit.invoicenumber</td>
+                                        <td>$!context.getDate($hit.duedate)</td>
+                                        <td>$!context.getDate($hit.invoicepaidon)</td>
+                                        <td>
+                                            #set($prods = $hit.getValue("productlist"))
+                                            #foreach($pr in $prods)
+                                                #set($prod = $mediaarchive.query("collectiveproduct").exact("id", "$pr.productid").searchOne())
+                                                $prod<br>
+                                            #end
+                                        </td>
+##                                        <td>
+##                                            #foreach($pr in $prods)
+##                                                #set($prod = $mediaarchive.query("collectiveproduct").exact("id", "$pr.productid").searchOne())
+##                                                $!mediaarchive.text($prod.productdescription, $hit.id)<br>
+##                                            #end
+##                                        </td>
+                                        <td style="text-align: right;">$ $!context.roundDouble($!hit.totalprice, 2)</td>
+                         <td style="text-align: center;">
+                            
+                             #set($status = $mediaarchive.query("invoicesentstatus").match("id", $hit.invoicesentstatus).searchOne())
+                             $!context.getText($status)
+                         </td>
+                         <td style="text-align: left;">
+                             #if( $canviewsettings )
+                                 <a
+                                     href="/find/views/settings/lists/datamanager/edit/edit.html?id=$hit.id&searchtype=collectiveinvoice"
+                                     class="btn btn-xs btn-secondary"
+                                     target="_blank">
+                                     <i class="fa fa-database"></i>
+                                 </a>
+                             #end
+                             #if ($hit.getValue("paymentstatus") == "invoiced")
+                                 <a
+                                     href="${projectlink}/services/paynow.html?invoiceid=${hit.id}&collectionid=$collectionid"
+                                     class="btn btn-xs btn-success">[[Pay Now]]</a>
+                                 #elseif ($hit.getValue("paymentstatus") == "autopayfailed" || $hit.getValue("paymentstatus") ==
+                                 "error")
+                                 <a
+                                     href="${projectlink}/services/paynow.html?invoiceid=${hit.id}&collectionid=$collectionid"
+                                     class="btn btn-xs btn-success">[[Pay Now]]</a>
+                                 #if ($hit.paymentstatusreason != "")
+                                     <div class="alert alert-danger">$hit.paymentstatusreason</div>
+                                 #end
+                             #elseif ($hit.getValue("paymentstatus") == "paid")
+                                 <a
+                                     href="${projectlink}/services/viewinvoice.html?invoiceid=${hit.id}&collectionid=$collectionid"
+                                     target="_blank"
+                                     class="btn btn-xs btn-secondary">[[View]]</a>
+                             #end
+                         </td>
+                     </tr>
+                 #end
+             </table>
+         </div>

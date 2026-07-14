@@ -1,0 +1,5 @@
+<page>
+	<property name="collectiveadminsection">transfers</property>
+<path-action name="FinanceModule.loadDateRange" />
+
+</page>

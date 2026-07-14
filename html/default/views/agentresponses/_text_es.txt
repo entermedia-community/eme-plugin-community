@@ -1,0 +1,27 @@
+#
+#Fri Jul 03 17:16:39 CST 2026
+Choose\ the\ type\ of\ content\ you\ would\ like\ to\ create\:=Seleccione el tipo de contenido que desea crear\:
+Created=Creado
+Do\ you\ have\ any\ questions?=\u00BFTiene alguna pregunta?
+Edit=Edici\u00F3n
+Error\ on\ AI\ Agent=Error en el agente de IA
+Here\ are\ some\ suggestions=Aqu\u00ED hay algunas sugerencias
+Here\ are\ some\ things\ I\ can\ help\ you\ with=Aqu\u00ED hay algunas cosas en las que puedo ayudarte.
+I\ can\ help\ you\ create\ tutorials,\ answer\ your\ questions,\ generate\ images,\ and\ more.=Puedo ayudarte a crear tutoriales, responder tus preguntas, generar im\u00E1genes y mucho m\u00E1s.
+I\ can\ help\ you\ with\ any\ query\ related\ to=Puedo ayudarle con cualquier consulta relacionada con
+Outline=\u00CDndice
+Quick\ Access=Acceso r\u00E1pido
+Tell\ me\ if\ you\ want=Dime si quieres
+View=Vista
+Welcome\ to=Bienvenido a
+Welcome\ to\ Smart\ Creator\ wizard=Bienvenido al asistente Smart Creator
+Welcome\ to\ the\ AI\ Agent\!=\u00A1Bienvenido al agente de IA\!
+What=\u00BFQu\u00E9?
+What\ would\ you\ like\ to\ search\ for?=\u00BFQu\u00E9 desea buscar?
+any\ more=Ning\u00FAn m\u00E1s.
+changes\ to\ the\ outline.\ If\ not\ just\ say\ "OK"\!=Si no, solo di "\u00A1OK"\!
+creation\ wizard=Asistente de creaci\u00F3n
+see\ less=ver menos
+see\ more=Ver m\u00E1s
+subject\ you\ would\ like\ to\ create?=\u00BFQu\u00E9 tema te gustar\u00EDa crear?
+to\ make\ any=para hacer cualquier

@@ -1,0 +1,5 @@
+<div class="alert alert-save fader" role="alert">
+<strong>[[This record has been converted. ]]</strong>
+</div>
+#set($params = $context.getRequestParamsAsList())
+$pages.include("$apphome/views/modules/asset/editor/attachments/index.html?$params", $context)

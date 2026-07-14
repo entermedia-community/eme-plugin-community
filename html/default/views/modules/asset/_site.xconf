@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page>
+  <style id="photoeditor-css" href="/${applicationid}/theme/styles/pages/photo-editor.css" sections="mediaviewer"/>
+  <property name="section">files</property>
+  <property name="fallbackdirectory">/${applicationid}/views/modules/default</property>
+  <property name="module">asset</property>
+  <property name="searchtype">${module}</property>
+  <property name="edithome">/${applicationid}/views/modules/asset/editors/viewfilescategory</property>
+  <inner-layout>/${applicationid}/theme/layouts/applicationcontent.html</inner-layout>
+</page>

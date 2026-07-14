@@ -1,0 +1,65 @@
+#set( $collectionid  = $context.getRequestParameter("collectionid"))
+#set( $parentcollectionid  = $context.getRequestParameter("parentcollectionid"))
+
+#set( $id  = $context.getRequestParameter("id"))
+
+<div style="margin: 0 20px;" id="moveform">
+	<form name="excelimport" id="submitform" method="post" data-id="$id" data-collectionid="$!collectionid" data-oemaxlevel="1"
+	action="${projectlink}/services/expenses/move/finish.html">
+
+	<p>Move to another project</p>
+
+	#set($data = $mediaarchive.getData($searchtype, $id))
+
+	<input type="hidden" name="id" value="$id" />
+	<input type="hidden" name="collectionid" value="$collectionid" />
+
+	$context.putPageValue("viewid", "collectiveexpensemoveexpense")
+	$context.putPageValue("data", $data)
+	$context.putPageValue("searcher", $mediaarchive.getSearcher("collectiveexpense"))
+
+       <script type="text/javascript">
+		var ignore = true;
+		function reloadform()
+		{
+				var options = $("#submitform").data();
+				options["parentcollectionid"] = $("#parentcollectionid").val();
+				
+				$.get("${projectlink}/services/expenses/move/move.html", options, function(data) {
+					console.log("changed",options)
+					$("#moveform").replaceWith(data);
+				});
+		}
+	</script>
+ 
+
+<div class="form-group row no-gutters g-0">
+    <label for="exampleTextarea" class="col">Project</label>
+    
+    <div class="col-10" style="padding-left:10px;">
+    
+<div class="emfield-list">
+	<select name="parentcollectionid" id="parentcollectionid" 
+		class="listautocomplete" onchange="reloadform()" 
+		data-searchfield="name" data-searchtype="librarycollection" 
+		data-placeholder="[[Choose Project]]" data-sortby="name">
+		#if( $parentcollectionid )
+		<option value="$parentcollectionid" selected>$mediaarchive.getCachedData("librarycollection",$parentcollectionid) </option>
+		#end
+	</select>
+</div>
+</div>
+	</div>
+
+#if( $parentcollectionid )
+	
+#if( $caneditcollection ||  $canviewsettings)	 
+	$pages.include("/$applicationid/components/xml/detaileditor4.html", $context)
+#else	
+	$pages.include("/$applicationid/components/xml/detaileditor4.html?detailsreadonly=true", $context)
+#end	
+
+#end
+	</form>
+</div>
+

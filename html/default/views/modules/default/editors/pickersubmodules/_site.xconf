@@ -1,0 +1,16 @@
+<page>
+
+
+	<path-action name="EntityModule.getEntity"/>
+
+	<property name="edithomename">pickersubmodules</property>
+
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/default</property>
+
+	<property name="showselections">false</property>
+
+	<property name="showaddnew">false</property>
+	<property name="enableactions">false</property>
+
+
+</page>

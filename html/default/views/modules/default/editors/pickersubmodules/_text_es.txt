@@ -1,0 +1,9 @@
+#
+#Fri Jul 03 17:15:06 CST 2026
+Adding=A\u00F1adir
+Create\ New=Crear nuevo
+Record\ Saved=Registro guardado
+Saving=Ahorro
+Select=Seleccionar
+asset=activo
+items=art\u00EDculos

@@ -1,0 +1,60 @@
+#set($nm = $mediaarchive.getNodeManager())
+#set($errors = $nm.getMappingErrors() )
+#if( $errors.size() > 0 )
+
+#foreach($error in $errors)
+
+<div class="well">
+<p>
+<h2>Inconsistent: $!error.getDetail()</h2>
+#set($map = $mediaarchive.getPropertyDetailsArchive().findSearchersWithDetail($error.getDetail()))
+<table class="table table-striped main-results-table" style="width: 100%">
+<tr>
+	<thead>
+	<td>Table</td>
+	<td>Is Analyzed</td>
+	<td>Field Settings</td>
+	<td>Reset Table</td>
+	
+	<td>Analyzer</td>
+	<td>Index Type</td>
+	<td>Data Type</td>
+	<td>Indexed</td>
+	</thead>
+	
+</tr>
+#foreach($tablename in $map.keySet())
+	#set($detail = false)
+	#set($detail = $map.get($tablename))
+	<tr>
+		<td>${tablename}.${error.getDetail()}</td>
+		<td>$detail.isAnalyzed()</td>
+		<td><a class="btn btn-light" href="$home$apphome/views/settings/lists/datamanager/properties/edit.html?id=$detail.id&catalogid=${catalogid}&searchtype=$tablename">$detail.getName()</a>
+		<td><a class="btn btn-light emdialog" data-hidefooter="true" data-dialogwidth="300"  href="resetsettings.html?searchtype=$tablename">Reset $tablename</a></td>
+		
+		<td>$!detail.analyzer</td>
+		<td>$!detail.indextype</td>
+		<td>$!detail.getDataType()</td>
+		
+		<td>$detail.isIndex()</td>
+		
+		
+	
+	</tr>
+#end
+</table>
+
+<h3>Error was on: $error.searchType</h3>
+<p>
+
+$error.getError()
+</p>
+
+</div>
+
+
+#end
+
+#else
+	<p>No errors detected</p>
+#end

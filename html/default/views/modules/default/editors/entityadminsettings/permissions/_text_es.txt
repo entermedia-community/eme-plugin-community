@@ -1,0 +1,17 @@
+#
+#Fri Jul 03 17:12:01 CST 2026
+Add=A\u00F1adir
+Additional\ Permissions=Autorizaciones adicionales
+Anyone\ Can\ View=Cualquiera puede ver
+Are\ you\ sure\ you\ want\ to\ remove\ this\ permission?=\u00BFEst\u00E1s seguro de que deseas eliminar este permiso?
+Can\ Edit=Puede editar
+Can\ View=Ver
+Combined\ view\ permissions\ from\ path\:=Permisos de vista combinados desde la ruta\:
+Custom\ Permissions=Permisos personalizados
+No\ view\ limits\ set=No se establecen l\u00EDmites de visi\u00F3n
+Others\ who\ can\ view\ or\ edit\ this\ folder\ and\ files=Otros que puedan ver o editar esta carpeta y los archivos
+Owner=Propietario
+Reset\ to\ Default=Restablecer a los valores predeterminados
+This\ record\ is\ now\ visible\ to\ anyone\ who\ has\ access\ to\ the\ module.=Este registro es ahora visible para cualquier persona que tenga acceso al m\u00F3dulo.
+Viewer\ Settings=Configuraci\u00F3n del reproductor
+Visibility=Visibilidad

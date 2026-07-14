@@ -1,0 +1,35 @@
+#set($moduleid = $module.getId())
+
+<div class="category-breadcrumb bookmark-breadcrumb #if($searchcategory) category-breadcrumb-tall #end">
+	<div class="d-flex">
+
+		<h5 class="me-auto p-0 m-0 ps-3">
+			<i class="bi bi-bookmarks-fill"></i> [[Bookmarks]]#if($organizedResults.isEmpty() ) <span class="text-secondary">($organizedResults.size())</span>#end
+		</h5>
+
+		#if($searchcategory)	
+			<p class="m-0"> 
+				<i class="bi bi-$module.moduleicon me-1 ms-3 "></i>  
+				#text($searchcategory) <span >($!hits.size())</span>
+			</p>
+		#end
+
+		<a href="$apphome/views/modules/modulesearch/bookmarksremove.html?moduleid=${selectedmodule.id}" 
+			class="ajax removemodulebookmarks  clear-bookmarks"
+			data-targetdiv="bookmarkscontainer"
+			data-oemaxlevel="1"
+			data-confirm="[[Are you sure to remove items from Bookmarks?]]"
+			title="[[Clear Bookmarks]]">
+			[[Clear]] #text($selectedmodule)
+		</a>
+
+		<a href="$apphome/views/modules/modulesearch/bookmarksremove.html?moduleid=${selectedmodule.id}" 
+			class="ajax removemodulebookmarks border-left"
+			data-targetdiv="bookmarkscontainer"
+			data-oemaxlevel="1"
+			data-confirm="[[Are you sure to remove items from Bookmarks?]]"
+			title="[[Clear Bookmarks]]">
+			[[Clear All]]
+		</a>
+	</div>
+</div>

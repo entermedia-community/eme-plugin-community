@@ -1,0 +1,13 @@
+<h3>[[Reloading Settings is complete]]</h3>
+
+<div class="mb-4">
+  
+	#foreach( $table in $tables )
+		$table  $searcherManager.getSearcher($catalogid,$table).getClass()<br/>
+	#end
+	
+	$!mediaarchive.clearCaches()
+
+<div class="my-3"><strong>	[[Cache is cleared]]</strong></div>
+  
+</div>

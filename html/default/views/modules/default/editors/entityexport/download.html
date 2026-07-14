@@ -1,0 +1,35 @@
+#set($defaultcategoryid = $context.getRequestParameter("defaultcategoryid"))
+
+#set($category = $mediaarchive.getCategory($defaultcategoryid))
+#if(!$category)
+	[[Missing Category]] $defaultcategoryid
+#else
+#set($catname = "#dash($category.name)")
+<div class="tabheader">[[Download All Files]]</div>
+
+
+#set($downloadurl = "$siteroot$apphome/views/modules/asset/downloads/bycategory/${defaultcategoryid}/${catname}.zip")
+<div class="mx-3 my-4">
+	<p>[[This link will download all the files and folders in a zip file.]]</p>
+		<div class="embedlink">
+		#ifnotnull($downloadurl )
+			<div id="embedalertdialog" style="display:none; position: absolute;" class="alert alert-save fader">[[Copied to Clipboard]]</div>
+				<div style="margin-bottom:20px">
+				<h5>[[Zip File]]:</h5> 
+				<div class="hyphenate hyphenate-bg" style="margin:5px 0">
+					<span class="sharelink">${downloadurl}</span>
+					<br> 
+					<a href="${downloadurl}" 
+						class="btn btn-sm btn-primary">
+						
+						<i class="bi bi-cloud-arrow-down me-1"></i> [[Download]]</a>
+				
+				
+					<input class="sharelink" style="position:absolute; top:-1000px;" id="previewlink" value="$downloadurl" />
+				
+				</div>
+				</div>
+		#end
+		</div>
+	</div>
+#end

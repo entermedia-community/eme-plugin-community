@@ -1,0 +1,20 @@
+#
+#Fri Jul 03 17:17:24 CST 2026
+Add=A\u00F1adir
+Add\ New=A\u00F1adir nuevo
+Add\ New\ View\ to=A\u00F1adir una nueva vista a
+Application\ Area=\u00C1rea de aplicaci\u00F3n
+Choose\ Table=Elige la tabla
+Custom\ Render\ Type=Tipo de renderizado personalizado
+Edit\ Fields=Editar campos
+Editing\ Views=Vistas de edici\u00F3n
+External\ ID=Identificador externo
+External\ Table=Tabla externa
+Internal\ Value\ Field=Campo de valor interno
+Save=Guardar
+Settings=Configuraci\u00F3n
+System\ View=Vista del sistema
+Table=Tabla
+View\ Id=ID de visualizaci\u00F3n
+View\ Name=Nombre
+selected=Seleccionado

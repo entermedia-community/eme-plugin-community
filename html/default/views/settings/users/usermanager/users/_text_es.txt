@@ -1,0 +1,14 @@
+#
+#Fri Jul 03 17:35:42 CST 2026
+Clear=Claro.
+Create\ User=Crear usuario
+Import/\ Export=Importaci\u00F3n/Exportaci\u00F3n
+Next=Siguiente
+No\ users\ found.=No se encontraron usuarios.
+Page=P\u00E1gina
+Previous=Anterior
+Role=Rol
+Search=B\u00FAsqueda
+Search\ by\ Username,\ Name\ or\ Email=Buscar por nombre de usuario, nombre o correo electr\u00F3nico
+Sort\ by=Ordenar por
+Users\ Management=Gesti\u00F3n de usuarios

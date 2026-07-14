@@ -1,0 +1,6 @@
+<page>
+  <page-action name="AutomationModule.runScenario">
+    <property name="automationscenario">smartcreator_publish</property>
+    <property name="nextskillenabledid">smartcreator_createquestions</property>
+  </page-action>
+</page>

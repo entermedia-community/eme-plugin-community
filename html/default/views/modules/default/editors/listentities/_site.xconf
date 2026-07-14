@@ -1,0 +1,6 @@
+<page>
+
+	<property name="edithomename">listentities</property>
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/default</property>
+
+</page>

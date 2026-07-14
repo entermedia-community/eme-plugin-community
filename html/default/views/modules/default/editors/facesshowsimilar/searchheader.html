@@ -1,0 +1,61 @@
+<div class="face-smilar-header">
+
+	#set($rendertype = $mediaarchive.getMediaRenderType($asset))
+
+	#if( $rendertype == "video")
+		#set( $offset = $face.getValue("timecodestart"))
+		#set($imageboxsource = $mediaarchive.asLinkToGenerateOffset($asset, "image1900x1080" , $offset) )
+	#else
+		#set($imageboxsource = $mediaarchive.asLinkToGenerated($asset, "image3000x3000"))
+	#end
+
+	#set($facelocation = "[${face.locationx},${face.locationy},${face.locationw},${face.locationh}]")
+
+	#set($pickerurl= "$apphome/views/modules/entityperson/editors/facepersonpicker/index.html")
+
+	#ifnotnull($entityperson)
+		#set($namefield = $mediaarchive.getSearcher("entityperson").getDetail("name"))
+		#set($facename = $mediaarchive.getSearcherManager().getValue($entityperson, $namefield, $context.getLocale()))
+		#set($personlink = "$apphome/views/modules/entityperson/editors/listentities/tabs/index.html?entityid=$entityperson.getId()&entitymoduleviewid=entitypersongeneral")
+	#end
+	
+	#ifnotnull($facename)
+		<div class="d-flex align-items-center">
+			<a href="$personlink" class="emdialog" data-emedialogid="entitypersonface">
+				#ifnotnull( $entityperson.primaryimage )
+					#set( $thumb = $mediaarchive.getAsset($entityperson.primaryimage))
+					#set($personimage = $mediaarchive.asLinkToGenerated($thumb, "image200x200"))
+					<img src="$!{personimage}" />
+				#end
+			</a>
+			<div class="d-flex flex-column ms-2">
+				<a href="$personlink" class="emdialog mb-1" data-emedialogid="entitypersonface">
+					<span>$!facename</span>
+				</a>
+				#if($permissions.canModule($module, "create"))
+				<a href="$pickerurl"
+					class="emdialog small"
+					data-dialogid="reassignperson" 
+					data-edithome="" 
+					data-includeeditcontext="true" 
+					data-hidefooter="true">
+					<i class="bi bi-pencil-square me-1 ns"></i> [[Reassign Person]]
+				</a>
+				#end
+			</div>
+		</div>
+	#end
+
+	#ifnull($facename) 
+		#set($faceembeddingid = $context.getRequestParameter("faceembeddingid"))
+		<a href="${pickerurl}"
+			data-faceembeddingid="$!{faceembeddingid}"
+			data-assetid="$asset.getId()"
+			class="emdialog btn btn-cta"
+			data-dialogid="tagpersondialog"
+			data-hidefooter="true">
+			<i class="bi bi-pencil-square me-1"></i> [[Assign Person]]
+		</a>
+	#end
+	
+</div>

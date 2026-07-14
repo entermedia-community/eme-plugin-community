@@ -1,0 +1,157 @@
+#ifnull($viewid)
+#set ($viewid = $context.getRequestParameter("viewid"))
+#end
+
+#set ($label = $context.getRequestParameter("label"))
+#set ($id = $context.getRequestParameter("id"))
+#set ($moduleid = $context.findValue("module"))
+#set ($columns = $context.getRequestParameter("columns"))
+#if ($columns)
+	$context.putPageValue("detailviewercolumns",$columns)
+#end
+#if(!$hitssessionid)
+	#set( $hitssessionid = $context.getRequestParameter("hitssessionid") )
+#end
+
+#set($collectionid = $context.getRequestParameter("collectionid"))
+
+#set( $url = "${edithome}/generalinformation/editform.html")
+#set( $url = "$url?oemaxlevel=1&edit=$!caneditasset&assetid=${asset.id}&viewid=${viewid}" )
+#set( $url = "$url&targetdiv=asset-detail-editor&editpath=${edithome}/generalinformation/save.html" )
+<div id="${edithomeid}${viewid}"
+	class="editdiv asseteditpanel dataeditedreload edit-panel-generic" 
+	data-assetid="$!asset.getId()" 
+	data-edithomeid="${edithomeid}"
+	data-url="#urlescape($url)"
+	data-assethitssessionid="$!hitssessionid"
+	data-viewid="${viewid}"
+	data-targetdiv="${edithomeid}${viewid}"
+	data-entitymoduleviewid="$!entitymoduleviewid"
+	
+	>
+#if( !$catalogid )
+	#set( $catalogid = $mediaarchive.getCatalogId() )
+#end
+
+#set ($searchtype = $context.findValue("module"))
+#if( $searchtype )
+	#set ( $searcher = $searcherManager.getSearcher($catalogid, $searchtype ) )
+#else		
+	#set ( $searcher = $mediaarchive.assetSearcher )
+#end
+
+#if(!$data)
+	#if( $asset )
+		#set( $data = $asset )
+
+	#else
+		#set ($data = $searcher.searchById($id))		
+	#end
+	$context.putPageValue("data", $data)	
+#end
+
+$context.putPageValue("searcher", $searcher)
+$context.putPageValue("searchtype", $searchtype)
+
+#set( $openview = $context.getRequestParameter("openview") )
+#set( $edit = $context.getRequestParameter("edit") )
+#set( $editpath = $context.getRequestParameter("editpath"))
+#if(!$editpath)
+	#set( $editpath = "${edithome}/genericsave.html" )
+#end
+
+#if($data.getId().startsWith("multiedit"))
+	#set($multiedit = true)
+#end
+
+#set( $viewdata = $mediaarchive.getCachedData("view",$viewid) )
+
+
+<h4>#text($viewdata)</h4>
+##th-large
+
+#if (($edit && $edit != "false") || ($openview && $openview == $view))
+	
+	#set( $targetdiv = $context.getRequestParameter("targetdiv"))
+	#if (!$targetdiv)
+		#set( $targetdiv = "tabsummarypanel")
+	#end
+	<form name="formedit$viewid" 
+			id="formedit$viewid" 
+			class="ajaxform" 
+			data-targetdiv="asset-detail-editor" 
+			method="post" 
+			action="$siteroot$editpath" 
+			data-includeeditcontext="true"
+			data-ajaxreloadtargets="dataeditedreload"
+		>
+	
+		<input type="hidden" name="saveasnew" value="false" />
+		<input name="oemaxlevel" type="hidden" value="1" />
+		<input type="hidden" name="save" value="true" />
+		<input type="hidden" name="viewid" value="$viewid" />
+		<input type="hidden" name="label" value="$label" />
+		<input type="hidden" name="module" value="$moduleid" />
+		
+		<input type="hidden" name="editedsince" value="now" />
+		
+		#if( $collectionid  )
+                	<input type="hidden" name="collectionid" value="$!collectionid" />
+		#end
+		#if( $searchtype == "asset" )
+			<input type="hidden" name="assetid" value="$asset.getId()" />
+		#end
+		
+		<input type="hidden" name="${searchtype}hitssessionid" value="$!hitssessionid" />
+		
+		##Generic Tables
+		#set ($parentid = $context.getRequestParameter("parentid"))
+		#set ($fieldexternalid = $context.getRequestParameter("fieldexternalid"))
+		#set ($fieldexternalvalue = $context.getRequestParameter("fieldexternalvalue"))
+		#if($fieldexternalid)
+			<input type="hidden" name="field" value="$fieldexternalid" />
+			<input type="hidden" name="${fieldexternalid}.value" type="hidden" value="$parentid" />
+			<input type="hidden" name="parentid" value="$parentid" />
+			<input type="hidden" name="viewid" value="$viewid" />
+			<input type="hidden" name="fieldexternalid" value="$fieldexternalid" />
+			<input type="hidden" name="fieldexternalvalue" value="$fieldexternalvalue" />
+			<input type="hidden" name="permissionname" value="$!permissionname" />
+			<input type="hidden" name="jumptomodule" value="$!jumptomodule" />
+		#end
+		#if ($data.id)
+			<input type="hidden" name="id" value="$!data.id" />
+		#end
+		
+		$context.putPageValue("origURL", "$apphome/assets/${asset.sourcePath}.html")
+		<div id="default-fields" class="fields-editor">
+			$pages.include("/$applicationid/components/xml/detaileditor.html?multiedit=$multiedit", $context)
+		</div>
+		<div class="container-fluid form-submit-btns">
+	 		<div class="row">
+		 		<div class="col">
+					<div class="d-flex justify-content-between align-items-center my-2">
+						<div class="d-flex align-items-center">
+							<a class="btn btn-accent submitform me-2" role="button">
+								<i class="fas fa-save me-1"></i> [[Save]]
+							</a>
+							#set( $args = "assetid=$!asset.getId()&viewid=$!viewid&assethitssessionid=$!hitssessionid")
+							<a class="ajax btn btn-secondary" style="margin-right:10px;" data-targetdiv="asset-detail-editor" data-oemaxlevel="1" 
+								href="${edithome}/generalinformation/metadatapanel.html?save=false&${args}">[[Cancel]]</a>
+						</div>
+					
+						#if($caneditmetadatasetup)
+						<a class="emdialog float-right btn btn-secondary"
+							 href="$siteroot$apphome/views/settings/modules/$!{moduleid}/metadata/views/dialog/index.html?viewid=${viewid}" 
+							 data-dialogid="fieldpicker" data-hidefooter="true"
+							 data-ajaxreloadtargetid="${edithomeid}${viewid}"
+							 title="[[Configure View]]"><i class="bi bi-gear-fill me-1"></i> [[Fields]]</a>
+						#end
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+#else
+	[[Missing Edit Permission]]
+#end ##edit
+</div>

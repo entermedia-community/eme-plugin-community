@@ -1,0 +1,27 @@
+#
+#Fri Jul 03 17:14:55 CST 2026
+AI\ Prompt=Por favor
+Add\ Existing=A\u00F1adir existente
+Add\ New=A\u00F1adir nuevo
+Bulk\ Folders\ from\ Files=Carpetas masivas de archivos
+Bulk\ Import\ YouTube\ Video\ or\ Playlist=Importaci\u00F3n masiva de videos o listas de reproducci\u00F3n de YouTube
+Bulk\ Upload\ from\ Files=Carga masiva desde archivos
+Cancel=Cancelar
+Create\ New=Crear nuevo
+Create\ With\ AI=Crear con IA
+Create\ or\ Choose\ Existing=Crear o elegir existente
+Create\ with\ AI=Crear con IA
+Created=Creado
+Creating=Creaci\u00F3n
+Esc\ to\ Close=Esc para cerrar
+Failed\ to\ create=Error al crear
+Import\ from\ YouTube=Importar desde YouTube
+Items=\u00CDtems
+Multi\ Edit=Edici\u00F3n m\u00FAltiple
+No\ Records\ Found=No se encontraron registros
+Profile=Perfil
+Save=Guardar
+Upload\ Spreadsheet=Subir la hoja de c\u00E1lculo
+With\ AI=Con IA
+successfully=con \u00E9xito
+with\ AI=con IA

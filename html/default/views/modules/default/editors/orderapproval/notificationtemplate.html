@@ -1,0 +1,46 @@
+$pages.include("${apphome}/theme/emails/layout-top.html", $context)
+
+<p>Thank you for your recent order.</p>
+
+<p>Here is the updated status of your order:</p> 
+
+Order Number: <strong>$data.getId()</strong><br>
+
+
+Order List:
+<table  style="width:80%; border-collapse: collapse;">
+	
+#foreach( $item in $orderitems )
+	 #set( $asset = $mediaarchive.getAssetBySourcePath($item.assetsourcepath))
+<tr style="border-bottom: 1px solid #333">
+	<td style="width:75%; padding:5px;">$asset.getName()</td>
+	<td style=" padding:5px;">
+	#set ($status = $item.status)
+	#if ($status == "rejected") Hi-res access rejected
+	#elseif ($status == "approved") 
+	 Hi-res access granted
+	#else Request Received
+	#end
+	</td>
+</tr>
+#end
+<tr>
+	<td style=" padding:5px;">Job Notes:</td>
+	<td></td>
+</tr>
+<tr>
+	<td>$!item.get("jobnotes")</td>
+	<td></td>
+</tr>
+</table>
+
+#set( $appid = $data.applicationid )
+#if( !$appid )
+	#set( $appid = "archive")
+#end	
+<p><a href="$context.siteRoot$home$apphome/views/modules/order/editors/orderdetailsuser/vieworder.html?orderid=${data.id}">
+Click here</a> to review your order and download your images.</p>
+
+<p>If you have any questions, please contact your Administrator.</p>
+
+$pages.include("${apphome}/theme/emails/layout-bottom.html", $context)

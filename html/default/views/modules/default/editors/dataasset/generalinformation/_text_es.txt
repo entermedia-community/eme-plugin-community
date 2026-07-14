@@ -1,0 +1,26 @@
+#
+#Fri Jul 03 17:13:33 CST 2026
+AI\ Informatics\ Updated=Actualizaci\u00F3n de Inform\u00E1tica de la IA
+Are\ you\ sure\ to\ Re-run\ AI\ Informatics?=\u00BFEst\u00E1s seguro de volver a ejecutar AI Informatics?
+Are\ you\ sure\ to\ Rewrite\ Metadata\ to\ the\ Original\ file?=\u00BFEst\u00E1 seguro de reescribir los metadatos en el archivo original?
+Are\ you\ sure\ to\ read\ Original\ Metadata?=\u00BFEst\u00E1s seguro de que has le\u00EDdo los metadatos originales?
+Edit=Edici\u00F3n
+Editing\ across=Edici\u00F3n transversal
+Failed\ to\ read\ Metadata=No se pueden leer los metadatos
+Failed\ to\ rewrite\ Metadata=No se pueden reescribir los metadatos
+Failed\ to\ run\ AI\ Informatics=No se pudo ejecutar AI Informatics
+Last\ edited\ by=\u00DAltima edici\u00F3n por
+Metadata\ read\ successfully=Metadatos le\u00EDdos con \u00E9xito
+Metadata\ rewrite\ successfully=Reescritura de metadatos exitosa
+Not\ view\ details\ defined\ on=No ver los detalles definidos en
+Re-run\ AI\ Informatics=Reejecutar AI Informatics
+Re-run\ AI\ Informatics\ in\ this\ Asset=Vuelva a ejecutar la inform\u00E1tica de IA en este activo
+Read\ Metadata=Leer los metadatos
+Read\ metadata\ from\ original\ file=Leer los metadatos del archivo original
+Reading\ Metadata=Lectura de metadatos
+Rewrite\ Metadata=Reescribir los metadatos
+Rewrite\ metadata\ to\ original\ file=Reescribir los metadatos en el archivo original
+Running\ AI\ Informatics=Inform\u00E1tica de IA en ejecuci\u00F3n
+ago=hace
+assets=Activos
+now=Ahora.

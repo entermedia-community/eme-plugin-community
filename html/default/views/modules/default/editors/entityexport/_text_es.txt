@@ -1,0 +1,8 @@
+#
+#Fri Jul 03 17:11:49 CST 2026
+Copied\ to\ Clipboard=Copiado al portapapeles
+Download=Descargar
+Download\ All\ Files=Descargar todos los archivos
+Missing\ Category=Categor\u00EDa faltante
+This\ link\ will\ download\ all\ the\ files\ and\ folders\ in\ a\ zip\ file.=Este enlace descargar\u00E1 todos los archivos y carpetas en un archivo comprimido en formato ZIP.
+Zip\ File=Archivo ZIP

@@ -1,0 +1,76 @@
+
+#set( $searcher = $mediaarchive.getSearcher($module.id) )
+$context.putPageValue("searcher",$searcher)
+
+#set($edit = $context.getRequestParameter("edit"))
+#if($edit!="true")
+	#set($edit="false")
+#end
+$context.putPageValue("edit", $edit)
+
+
+#set($viewid = "${module.id}addnew")
+#set($view = "${module.id}/$viewid")
+
+#set($action = "${edithome}/addnewsave.html")
+
+#set($ajaxreloadtargets = $context.getRequestParameter("ajaxreloadtargets"))
+	<form id="searchentitydataeditor" 
+			name="searchentitydataeditor" 
+			class="ajaxform checkCloseDialog autocloseform" 
+			data-targetdiv="submodulepicker"
+			method="post"  
+			action="$action"
+			enctype="multipart/form-data"
+			data-ajaxreloadtargets="$!ajaxreloadtargets"
+			>
+				<input name="save" type="hidden" value="true" />
+				<input name="id" type="hidden" value="$!id" />
+				<input name="entityid" type="hidden" value="$!entity.id" />
+				<input name="entitymoduleviewid" type="hidden" value="$!entitymoduleviewid" />
+				<input name="viewid" type="hidden" value="$!viewid" />
+				<input name="view" type="hidden" value="$!view" />
+				
+				#set ($fieldexternalid = $context.getRequestParameter("fieldexternalid"))
+				#set ($fieldexternalvalue = $context.getRequestParameter("fieldexternalvalue"))
+				#ifnull($data)
+					#ifnotnull($fieldexternalid)
+						#set($data = $mediaarchive.getSearcher($module.id).createNewData())
+						$data.setValue($fieldexternalid, $fieldexternalvalue)
+						<input name="fieldexternalid" type="hidden" value="$!fieldexternalid" />
+						<input name="fieldexternalvalue" type="hidden" value="$!fieldexternalvalue" />
+						
+						##second external field
+						#set ($fieldexternalid = $context.getRequestParameter("fieldexternalid2"))
+						#set ($fieldexternalvalue = $context.getRequestParameter("fieldexternalvalue2"))
+						#ifnotnull($fieldexternalid)
+								$data.setValue($fieldexternalid, $fieldexternalvalue)
+								<input name="fieldexternalid2" type="hidden" value="$!fieldexternalid" />
+								<input name="fieldexternalvalue2" type="hidden" value="$!fieldexternalvalue" />
+						#end
+						$context.putPageValue("data",$data)
+					#end
+				#end	
+		
+			#ifnull($showmedia)
+				#set($showmedia = $context.getRequestParameter("showmedia"))
+			#end
+			#ifnotnull($showmedia)
+				<input name="showmedia" type="hidden" value="$showmedia" />
+			#end
+				
+			$context.putPageValue("view", $view)
+			$context.putPageValue("viewid", $viewid)
+			
+			##1 or 2 colums feature
+			#set($detailviewercolumns = 1)
+			
+			$pages.include("/$applicationid/components/xml/detaileditor-entities.html?longform=true&detailviewercolumns=$detailviewercolumns", $context)
+		
+			<div class="d-flex align-items-center mt-3">
+				<a class="btn btn-cta submitform me-3"><i class="me-1 bi bi-floppy-fill me-1"></i> [[Save]]</a>
+				<button id="closebutton" type="button" class="btn btn-secondary" data-dismiss="modal">[[Cancel]]</button>
+			</div>
+	</form>
+
+

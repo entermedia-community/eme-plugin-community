@@ -1,0 +1,113 @@
+<div id="$edithomeid" class="editdiv" data-entityid="$entity.id">
+<div id="permissionarea" >
+	
+<div class="tabheader">
+	[[Additional Permissions]] <span class="mx-2">&middot;</span> 
+	<span class="hint">[[Others who can view or edit this folder and files]]</span>
+</div>
+
+<div id="embed-wrapper" class="mt-4 px-3">
+	<div class="row g-0 mb-3">
+		<div class="col-12 col-md-4">
+
+			<form name="savepermiossions" 
+				class="ajaxform autosubmitform force-validate-inputs mt-3 no-toast" 
+				data-targetdiv="permissionarea"
+				data-oemaxlevel="1"				
+				method="post"  
+				action="$apphome/views/modules/${module.id}/editors/entityadminsettings/permissions/permissionsave.html">
+				
+				
+				<h4>[[Custom Permissions]]</h4>
+				<div class="form-check mb-3 h-auto py-2 public-permission rounded" style="padding-left: 1.75rem;">
+					<input class="form-check-input" name="securityalwaysvisible" 
+						#if($entity.securityalwaysvisible == true) checked #end type="checkbox" value="true" id="makeEntityPublic" 
+					/>
+					<label class="form-check-label" for="makeEntityPublic">
+						[[Anyone Can View]]
+					</label>
+					<p class="checkedhint m-0">[[This record is now visible to anyone who has access to the module.]]</p>
+				</div>
+
+				<input name="entityid" type="hidden" value="$entity.id" />
+							
+			#foreach($permission in $entitypermissions)
+			<div class="d-flex align-items-center bg-light rounded px-2 py-1 mb-2 border" id="permission-${permission.getData().getId()}">
+				<span class="me-2 fw-bold">
+					#text( $permission.getData() )
+				</span>
+				<span class="bg-secondary text-white px-1 rounded fs-small" style="padding-bottom: 2px;">$permission.getPermissionType()</span>
+				<div class="d-flex align-items-center ms-auto">
+					<input type="hidden" name="dataid" value="$permission.getData().getId()" />
+					<input type="hidden" name="permissiontype" value="$permission.getPermissionType()" />
+					#if($permission.getData().getId() != $entity.get("owner"))
+					<select name="iseditor" class="form-control w-auto rounded py-1 px-2" >
+						<option value="false" #if( !$permission.isEditor() ) selected #end>[[Can View]]</option>
+						<option value="true" #if( $permission.isEditor() ) selected #end>[[Can Edit]]</option>
+					</select>
+					
+					<a class="ajax text-muted"
+						href="$apphome/views/modules/${module.id}/editors/entityadminsettings/permissions/permissionremove.html?id=$!{entity.id}"
+						data-dataid="$permission.getData().getId()"
+						data-targetdiv="permissionarea"
+						data-oemaxlevel="1"
+					 	data-confirm="[[Are you sure you want to remove this permission?]]" 
+						data-removeonsuccess="true" 
+						data-removetarget="permission-$permission.getData().getId()">
+						<i class="bi bi-x-circle ns ms-2 me-1"></i>
+					</a>
+					#else
+					<input type="hidden" name="iseditor" value="true" /> 
+					[[Owner]]
+					#end
+				</div>
+			</div>
+			#end
+			</form>
+			<div>
+				<a class="emdialog btn btn-cta" 
+					href="$apphome/views/modules/${module.id}/editors/entityadminsettings/permissions/permissionadd.html?id=$!{entityid}" 
+					data-dialogid="addpermission"
+					data-includeeditcontext="true"
+					data-edithomeid="${edithomeid}"
+					data-hidefooter="true">
+					<i class="bi bi-plus-lg me-1"></i>[[Add]]</a>
+			
+				#** <a class="emdialog btn btn-danger confirm" 
+					href="#?id=$!{entityid}" 
+					data-dialogid="addpermission"
+					data-includeeditcontext="true"
+					data-edithomeid="${edithomeid}"
+					data-hidefooter="true">
+					<i class="bi bi-reset me-1"></i>[[Reset to Default]]</a>
+					**#
+					<br>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="mt-4 mb-4">
+	<h4>#text($module) [[Visibility]]</h4>
+	</div>
+	#if( $parentpermissions.isEmpty() )<p> [[No view limits set]] </p>
+	#else
+	 <div class="text-muted mb-2">	[[Combined view permissions from path:]] <b>$entity.sourcepath</b></div>
+	#end
+	#foreach( $addedPermission in $parentpermissions)
+		<div class="d-flex my-2">
+			<span class="bg-secondary text-white px-1 rounded fs-small me-2 px-1 text-center" style="width:38px;">$addedPermission.getPermissionType()</span>
+			<span class="me-2 fw-bold">#text( $addedPermission.getData() )</span>
+		</div>
+	#end
+	#if($canviewsettings)
+	<a class="btn btn-primary" 
+		href="$apphome/views/settings/modules/${module.id}/permissions/viewers.html">
+		<i class="bi bi-sliders me-2"></i>[[Viewer Settings]]</a>
+	#end
+	</div>
+	
+</div>
+
+</div>
+</div>

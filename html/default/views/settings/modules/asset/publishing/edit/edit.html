@@ -1,0 +1,35 @@
+<div id="publishing" class="editlayoutdialog">
+	#set( $origURL = $context.getRequestParameter("origURL" ) )
+	#set( $categoryid = $context.getRequestParameter("categoryid" ) )
+
+	$context.putPageValue("viewid", "publishdestinationgeneral")
+	<form id="dataeditor" name="dataeditor" method="post" 
+		action="$siteroot$content.searchhome/edit/save.html"
+		class="ajaxform autocloseform "
+			data-targetdiv="publishing"
+			data-oemaxlevel="3">
+		<input name="save" type="hidden" value="true" />
+		<input name="id" type="hidden" value="$!data.id" />
+		<input name="categoryid" type="hidden" value="$!categoryid" />
+		<input name="catalogid" type="hidden" value="$searcher.catalogId" />
+		<input name="searchtype" type="hidden" value="$searcher.searchType" />
+		<input name="origURL"  type="hidden" value="$!origURL" />
+		$pages.include("$apphome/components/xml/detaileditor.html", $context)
+
+
+		<a href="#" class="btn btn-sm btn-primary submitform">[[Save]]</a>
+		<a class="btn btn-sm btn-secondary closedialog">[[Cancel]]</a>
+		#if($data.id)
+		<a class="btn btn-sm btn-danger ajax confirm" 
+			data-confirm="[[Are you sure?]]"
+			href='$siteroot$content.searchhome/edit/delete.html?id=$!data.id'
+			data-targetdivinner="publishing"
+			data-oemaxlevel="1">[[Delete]]</a>
+		#end
+		<div id="messagearea">$!message		</div>
+	</form>
+	#if( $savedok && $origURL )
+		<a href="$origURL">[[Go Back]]</a>	
+	#end
+
+</div>

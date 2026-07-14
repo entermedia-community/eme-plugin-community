@@ -1,0 +1,62 @@
+<div class="lightbox-header"> 
+  #set( $moduleicon = $selectedbox.moduleicon)
+	#ifnull($moduleicon)
+	  #set( $moduleicon = "check-circle-fill")
+	#end
+
+  <div class="d-flex align-items-center" title="#if($lightboxassets && $lightboxassets.size()>0) $lightboxassets.size() [[Assets]]#end">
+		#if( $browser.isNarrow() )
+			<button class="emdrawer btn icon-btn me-3" data-source="#lightboxessidemenu"><i class="bi bi-list mr-0"></i></button>
+		#end
+    #if($selectedbox)
+      <i class="bi bi-${moduleicon}"></i> 
+      <strong>#text($selectedbox)</strong>
+    #else
+      <i class="bi bi-image"></i>
+      <strong>[[All Files]]</strong>
+    #end
+  </div>
+
+  <small><span class="mx-2">&middot;</span>[[Drag and drop selected files from your desktop, to order them or to link with another box]]</small>
+	
+	<div class="d-flex align-items-center ms-auto mbl-hidden">
+		#set($showpublishbtn = false)
+		#if($permissions.canModule($module, "publishinggallery"))
+				#set($showpublishbtn = true) 
+		#end
+		
+		#if ($showpublishbtn) 
+			<a href="${edithome}/tabs/index.html"
+				class="lightbox-header-btn ajax tabactionexport" 
+				data-entitymoduleviewid="${module.id}entityexports"
+				data-entityid="$!entity.getId()" 
+				data-entitymoduleid="$!module.id"
+				data-targetdiv="entitydialog"
+				data-oemaxlevel="1"
+				data-tabsection="sharegallery"
+				data-includeeditcontext="false"
+				data-lightboxid="$!{selectedbox.id}">
+				<i class="bi bi-send-fill me-1 ns"></i> [[Publish as Gallery]]
+			</a> 
+		#end 
+
+		#set( $isowner = $entity.owner == $user.id)
+
+		#if($mediaarchive.isCatalogSettingTrue("ai_create_enabled") && $permissions.canEntity($module, $entity, "createassetswithai"))
+			#set($pickerurl = "$!{edithome}/aitools/createassets.html")
+			<a class="emdialog btn btn-accent ms-1"
+				data-dialogid="createassetswithai"
+				data-dialogwidth="600"
+				href="$siteroot$applink/views/modules/contentcreator/editors/contentcreatorasset/index.html?edit=true&addnew=true&withai=true" 
+				data-entitymoduleviewid="$entitymoduleviewid"
+				data-entitymoduleid="$!module.id"
+				data-entityedithome="$!edithome"
+				data-entityid="$!entity.id"							
+				data-targetdiv="editentitymetadata"
+				data-hidefooter="true"
+				title="[[Create New]] #text($submodule) [[With AI]]">
+				<i class="bi bi-brush me-1"></i> [[Create With AI]]
+			</a>
+		#end
+	</div>
+</div>

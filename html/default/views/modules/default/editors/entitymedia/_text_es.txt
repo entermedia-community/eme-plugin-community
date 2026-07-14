@@ -1,0 +1,3 @@
+#
+#Fri Jul 03 17:09:56 CST 2026
+Upload\ Source\ Path\ needs\ to\ be\ set\ in\ the\ Entity\ or\ Module.=La ruta de origen debe configurarse en la entidad o el m\u00F3dulo.

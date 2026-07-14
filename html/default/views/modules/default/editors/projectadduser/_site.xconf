@@ -1,0 +1,10 @@
+<page>
+
+	<property name="edithomename">projectadduser</property>
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/default</property>
+
+	<property name="showaddnew">false</property>
+
+	<property name="enableactions">false</property>
+
+</page>

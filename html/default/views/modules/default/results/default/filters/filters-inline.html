@@ -1,0 +1,140 @@
+#ifnull($hits)
+	#set($hits = $modulehits)
+#end
+
+#set($hitssessionid = $hits.getSessionId())
+
+#if(!$moduleid)
+#set($moduleid = $module.id)
+#end
+
+#if (!$nodeID)
+	#set($nodeID = $context.getRequestParameter("nodeID"))
+	$context.putPageValue("nodeID",$nodeID)
+#end
+
+#if(!$parentmoduleid)
+	#set ( $parentmoduleid = $context.getRequestParameter("topmoduleid") )
+#end
+
+#set($targetdiv = $maintargetdiv) 
+
+#set($filtercount = 0)
+
+#set( $terms = $hits.getFilteredTerms("${module.id}advancedsearch",$userprofile) )
+
+#if(($hits.getSearchQuery().hasMainInput()) || ($terms && $terms.size() > 0))
+	<div class="d-flex align-items-center justify-content-between selectedfilters">
+		<a class="btn text-primary border m-1 refreshautoreload" 
+			data-ajaxreloadtargets="dataeditedreload"
+			data-toastsuccess="[[Reloaded Results]]">
+			<i class="bi bi-arrow-clockwise"></i>
+		</a>
+		<div id="filtersselected" class="filtersselected overflow-x">
+			#if($hits.getSearchQuery().hasMainInput())
+
+				#set($href = "${searchhome}/filterremove.html?removeterm=description")
+				#set($oemaxlevel = "1")
+				<div class="d-flex align-items-center selected-filters">
+					<a href="$href"
+						class="ajax clearsearchbar"
+						title="[[Clear Search]]"
+						data-${module.id}hitssessionid="$!hits.getSessionId()"
+						data-edithomeid="${edithomeid}"
+						data-targetdiv="resultsdiv"
+						data-oemaxlevel="1"
+						data-updateurl="false"
+						data-includeeditcontext="true"
+						data-includesearchcontext="true"> 
+						[[Searching for]] <strong>$hits.getSearchQuery().getMainInput()</strong> 
+						<i class="bi bi-x ms-1"></i>
+					</a>
+				</div>
+			#end
+
+			#if(!$terms.isEmpty())
+			<div class="d-flex align-items-center selected-filters">		
+				#foreach( $term in $terms)
+					#if($term.getId() != "description")
+						#set($href = "${searchhome}/filterremove.html?removeterm=$!term.getId()")
+					
+						#ifnotnull($nodeID)
+							#set($href = $href + "&nodeID=${nodeID}")
+						#end
+						#ifnotnull($currentSort)
+							#set($href = $href + "&sortby=${currentSort}")
+						#end
+					
+						<a href="$href"
+							class="ajax"
+							title="[[Clear]] ${term.getDetail()}"
+							data-${module.id}hitssessionid="$!hits.getSessionId()"
+							data-edithomeid="${edithomeid}"
+							data-targetdiv="resultsdiv"
+							data-oemaxlevel="1"
+							data-updateurl="false"
+							data-includeeditcontext="true"
+							data-includesearchcontext="true">
+							$term.getDetail():
+							<span> 
+							#foreach( $val in $term.getValueCollection() )
+								#if($val && $term.getDetail().getId())
+								
+									#if ($term.getDetail().getId() == "keywords")
+										#if( $foreach.count > 1) [[and]] #end
+									#else
+										#if( $foreach.count > 1) [[or]] #end
+									#end
+									
+									#if($term.getDetail().isList())
+										#set($label = $searcherManager.getCachedData($catalogid, $term.getDetail().getListId(), $val))
+										<strong>$label</strong>
+									#elseif($term.getDetail().isBoolean())
+										#if($term.getValue() == "true")
+											<strong>[[True]]</strong>
+										#else
+											<strong>[[False]]</strong>
+										#end
+									#elseif($term.getDetail().isDate())
+										#set($op = $term.operation)
+										#if($op == "afterdate")
+											[[After]]
+										#elseif($op == "beforedate")
+											[[Before]]
+										#elseif($op == "betweendates")
+											[[Between]]
+										#end
+										
+										<strong>$term.getValue()</strong>
+									#else
+										#if($term.getValue())
+											<strong>$term.getValue()</strong>
+										#elseif($val)
+											<strong>$val</strong>
+										#end
+									#end
+								#end
+							#end
+							</span>
+							<i class="bi bi-x ms-1"></i>
+						</a>
+						#set($filtercount = $filtercount+1)
+					#end
+				#end
+			</div>
+			#end
+		</div>
+		#set($href = "${searchhome}/filterremove.html?removeterm=*")
+		<a href="${href}" 
+			title="[[Clear All Filters]]" 
+			data-${module.id}hitssessionid="$!hits.getSessionId()"
+			data-${moduleid}clearfilters="true"
+			class="clear-all ajax clearsearchbar" 
+			data-oemaxlevel="1" 
+			data-edithomeid="${edithomeid}"
+			data-includeeditcontext="true"
+			data-includesearchcontext="true"
+			data-targetdiv="resultsdiv"><i class="bi bi-x"></i> [[Clear All]]</a>
+	</div>
+#end
+

@@ -1,0 +1,6 @@
+#
+#Fri Jul 03 17:15:16 CST 2026
+Adding=A\u00F1adir
+Create\ New=Crear nuevo
+asset=activo
+items=art\u00EDculos

@@ -1,0 +1,46 @@
+
+
+<div id="asset-detail-editor" 
+	class="asset-details-editor" 
+	data-assetid="$!asset.getId()"
+	data-ajaxreloadtargets="resultsdiv">
+	
+	$context.putPageValue("asset",$asset)
+	
+	#set($views = $mediaarchive.query("view").exact("moduleid", "asset").exact("systemdefined","false").sort("orderingUp").named("view").search($context) )
+		
+	#foreach( $viewdata in $views )
+		#if ($viewdata.id!="assetfileproperties")
+			#set($permissionvalue = $permissions.canModule($module,$viewdata.getId() ) )
+		    #if($permissionvalue)
+				#if( !$viewdata.rendertable )				
+					$context.putPageValue("viewdata",$viewdata)
+					$pages.include("${edithome}/generalinformation/viewdetails.html", $context)
+					
+				#end
+				#set($permissionvalue = "")
+			#end
+		#end
+	#end
+	#set( $rendertype = $mediaarchive.getMediaRenderType($asset.fileformat))
+	
+	#if($canviewfaceprofile && ($rendertype == "image" || $rendertype == "video"))
+		$pages.include("${edithome}/generalinformation/faceprofiles.html", $context)
+	#end
+
+	$pages.include("${apphome}/views/modules/asset/editors/assetlistfolder/index.html",$context)
+	
+	##File Properties View
+	#set($viewdata = $mediaarchive.query("view").exact("moduleid", "asset").exact("id","assetfileproperties").named("view2").searchOne($context) )
+	#ifnotnull($viewdata)
+		#set($permissionvalue = $permissions.canModule($module,$viewdata.getId() ) )
+		#if($permissionvalue)
+	        $context.putPageValue("viewdata",$viewdata)
+	        $pages.include("${edithome}/generalinformation/viewdetails.html", $context)
+		#end
+	#end
+	
+	
+</div>
+
+

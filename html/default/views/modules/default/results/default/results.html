@@ -1,0 +1,151 @@
+#set( $moduleid = $module.id)
+
+#ifnull($viewid)
+	#set($viewid = $context.getRequestParameter("viewid"))
+#end
+#ifnull($viewid)
+	#set($viewid = "${moduleid}resultstable")
+#end
+$context.putPageValue("viewid", $viewid)
+
+#ifnull($resultview)
+	#set($resultview = $context.getRequestParameter("resultview${moduleid}"))
+#end
+#ifnull($resultview)
+	#set($resultview = $content.get("${moduleid}resultview"))
+#end
+##User preference will never override content setting
+#ifnull($resultview )
+	#set($resultview = $userprofile.get("${moduleid}resultview"))
+#end	
+#ifnull($resultview)
+	#set($resultview = $context.getRequestParameter("resultview"))
+#end
+#ifnull($resultview)
+	#set($resultview = $content.resultview)
+#end
+#ifnull($resultview)
+	#set($resultview = $module.get("moduleresultsview"))
+#end
+#ifnull($resultview)
+	#set($resultview = "table")
+#end
+#if($resultview == "gallery" && $module.id != "asset")
+	#set($resultview = "grid")   ##gallery only available for assets, use grid for everything else
+#end
+#ifnull($lightboxassetsresults)
+	#set($lightboxassetsresults = $context.getRequestParameter("lightboxassetsresults"))
+	$context.putPageValue("lightboxassetsresults", $lightboxassetsresults)
+#end
+
+#set($searchhomeid = $page.get("searchhomeid") )
+
+#ifnull($mixedentitysourcetypes)
+	#set( $mixedentitysourcetypes = $context.getRequestParameter("mixedentitysourcetypes"))
+	$context.putPageValue("mixedentitysourcetypes", $mixedentitysourcetypes)
+#end
+#if($mixedentitysourcetypes)
+	#set($enableactions = false)
+#end
+#ifnull($enableactions)
+	#set($enableactions = $context.getRequestParameter("enableactions"))
+#end
+#ifnull($enableactions)
+	#set($enableactions = $content.isPropertyTrue("enableactions",true))
+#end
+#if($enableactions == "true")
+	#set($enableactions = $permissions.canModule($module, "edit"))
+#end
+
+$context.putPageValue("enableactions", $enableactions)
+
+#set( $terms = $hits.getFilteredTerms("${module.id}advancedsearch",$userprofile) )
+#if(($hits.getSearchQuery().hasMainInput()) || ($terms && $terms.size() > 0))
+#set($filteredresults = true)
+$context.putPageValue("filteredresults", $filteredresults)
+#end
+
+#set($pickertargettype = "entity")
+#if($moduleid == "asset")
+	#set($pickertargettype = "asset")
+#end
+
+##Blockfind picker
+#if($picker && $picker.isPickerEnabled($pickertargettype, $moduleid))
+	#set($pickerenabled = true)
+	$context.putPageValue("pickerenabled", $pickerenabled)
+#end
+
+
+<div id="$!{searchhomeid}$!{edithomeid}" 
+	class="tableresults resultsdiv #if($filteredresults) filteredresults #end"
+	data-${hits.getSearchType()}hitssessionid="$!hits.getSessionId()" 
+	data-searchhome="$!{searchhome}"
+	data-targetdiv="${searchhomeid}$!{edithomeid}"
+	#if( $page.isPropertyTrue("storecategoryinsearchcontext",false) )
+		data-categoryid="$!category.id" ##Use the editor context or pass this in each time
+	#end
+	#if( $page.isPropertyTrue("filterbyentity",false) )   ##replaced by edit context?
+		data-field="$!{entitymodule.id}"
+		data-$!{entitymodule.id}value="$!entity.id"
+		data-operation="exact"
+		data-entityid="${entity.id}"
+		data-entitymoduleviewid="$!entitymoduleviewid"  ##this is used in sub-modules to keep the views right?
+	#end
+	data-resultview${moduleid}="$resultview"
+	#ifnull($urlbarprefix)
+		#set($urlbarprefix = $context.getRequestParameter("urlbarprefix"))
+		$context.putPageValue("urlbarprefix", $urlbarprefix)
+	#end
+	data-urlbarprefix="$!{urlbarprefix}"
+	data-pagenum="$!hits.getPage()"  
+	data-totalpages="$!hits.getTotalPages()"
+	#if($hits.getPosition())
+		data-addtopagetitle="[[Page]] $hits.getPage()"
+	#end
+	data-viewid="$!viewid"
+	data-section="$!content.section"
+	#if($lightboxassetsresults)
+		data-lightboxassetsresults="$lightboxassetsresults"
+	#end
+	#if($enableactions)
+		data-enableactions="$enableactions"
+	#end
+	#if($mixedentitysourcetypes)
+		data-mixedentitysourcetypes="true"
+	#end
+	#ifnotnull($pickerenabled)
+		data-pickerenabled="$pickerenabled"
+	#end
+	data-hitsname="$!hits.getSearchQuery().getHitsName()"
+	>
+					
+	$pages.include("${edithome}/searchheader.html", $context)	
+	
+	#set($searcher = $searcherManager.getSearcher($catalogid, $moduleid))
+	$context.putPageValue("searcher", $searcher)
+	
+	#if (!$nodeID)
+		#set($nodeID = $context.getRequestParameter("nodeID"))
+		$context.putPageValue("nodeID",$nodeID)
+	#end
+	
+	$context.putPageValue("searchtype", $moduleid)
+	$context.putPageValue("resultview",$resultview)
+	
+	#if($module.modulerendertype)
+		$context.putPageValue("modulerendertype",$module.modulerendertype)
+	#else
+		$context.putPageValue("modulerendertype","entity")
+	#end
+	
+	$context.putPageValue("moduletotalhits",$moduletotalhits)
+	
+	$pages.include("${searchhome}/resultviews.html", $context)
+		
+</div>
+
+
+
+
+

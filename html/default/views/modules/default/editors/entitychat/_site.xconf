@@ -1,0 +1,15 @@
+<page>
+
+	<property name="edithomename">entitychat</property>
+
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
+
+	<path-action name="EntityModule.getEntity"/>
+
+	<path-action name="ChatModule.loadChatChannel" />
+
+	<property name="chatterboxhomeX">${edithome}/chatterbox</property>
+
+	<property name="channeltype">agententitychat</property>
+
+</page>

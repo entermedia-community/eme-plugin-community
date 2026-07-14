@@ -1,0 +1,78 @@
+#set($moduleid = $module.id)
+<div class="entity-header d-flex align-items-center justify-content-between">
+			<div class="d-flex align-items-center">
+				<a href="#" class="ajax entityNavBack" data-targetdiv="entitydialog" data-entityid="$entity.id" data-oemaxlevel="1" style="display: none;">
+					<i class="fas fa-arrow-left"></i></span>
+				</a>
+				
+				<h2 class="d-flex align-items-center">
+					
+					#if ($module.moduleicon)
+						#set($moduleicon = $module.moduleicon)
+					#end
+					#ifnull($moduleicon)
+						#set($moduleicon = "grid")
+					#end
+					<i class="bi bi-${moduleicon} module-icon"></i> 
+					 
+					#if($moduleid == "faceprofilegroup")
+						#text($module) <i class="bi bi-chevron-right mx-1 bi-small"></i>
+						#if($entity.entitypeople)
+							#set($people =  $mediaarchive.getCachedData("entitypeople", $entity.entitypeople))
+							#set($label = "[[Profile]] $!people")
+						#else
+							#set($label = "$entity.samplecount")
+						#end
+					#else
+						#text($module) <i class="bi bi-chevron-right mx-1 bi-small"></i>
+						#if($ismulti)
+							[[Multi Edit]] $!entity.getSelectedResults().size() [[Items]]		
+						#else	
+							#if($addnew=='true')
+								#set($label = "[[Add New]]")
+								#text($label)	
+								$context.putPageValue("addnew", $addnew)
+							#elseif($module.getValue("customname"))
+								#set($detail= $mediaarchive.getSearcher($module.id).getDetail("name"))
+								#set($label = $searcherManager.renderMask($entity, $detail ,$module.getValue("customname"), null, $context.getLocale())) 
+								#text($label) 
+							#else
+								#set($label = $!entity.getName($context))
+								#text($label) 				
+							#end
+							
+						#end
+					#end 
+				</h2>
+				
+			
+			</div>
+	
+	
+			<div class="d-flex entity-actions-bar align-items-center text-white position-relative mbl-hidden">
+
+				<a class="btn btn-cta emdialog me-2"
+					href="$applink/views/modules/$!{module.id}/editors/bulkentitycreator/dialog.html?edit=true&addnew=true" 
+					data-entitymoduleviewid="$!{module.id}addnew"
+					data-entitymoduleid="$!module.id"
+					data-entityedithome="$!edithome"
+					data-targetdiv="editentitymetadata"
+					data-parentmoduleid="$module.id"
+					data-parententityid="$entity.id"
+					title="[[Bulk Folders from Files]]">
+					<i class="bi bi-stack me-1"></i> [[Bulk Folders from Files]]
+				</a>
+				
+				#set( $isowner = $entity.owner == $user.id)
+				
+				#if($mediaarchive.isCatalogSettingTrue("ai_create_enabled") && $permissions.canModule($module, "createassetswithai"))
+					<a href="#" class="btn btn-accent ms-1 addnewwithai" 
+						title="[[Create New]] #text($submodule) [[With AI]]"><i class="bi bi-brush me-1"></i> [[Create With AI]]</a>
+				#end
+							
+				<div class="entityclose">
+					<span title="[[Esc to Close]]" class="bi bi-x-lg ns"></span>
+				</div>
+			</div>
+			
+		</div>

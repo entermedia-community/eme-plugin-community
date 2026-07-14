@@ -1,0 +1,26 @@
+	<div class="searchcategorysidebar auto-active-container overflow-y">
+		
+		#foreach($module in $organizedResults.getModules() )
+			#set($idhits = $organizedResults.getByType($module.id,$context))
+
+			#set($moduleicon = "grid")
+			#if ($module.moduleicon)
+				#set($moduleicon = $module.moduleicon)
+			#end
+			#set($url = "$edithome/index.html?selectedmoduleid=${module.id}")
+			#set($count = $organizedResults.getCount($module.id))
+			
+			<div class="mb-2 auto-active-row #if($selectedmodule.id == $module.id) current #end">
+				<a href="$url" 
+					class="ajax btn btn-wide auto-active-link" 
+					data-targetdiv="${edithomeid}" 
+					data-updateurl="true" 
+					data-oemaxlevel="1"
+					data-includeeditcontext="false"
+					data-includesearchcontext="false"
+					>
+					<i class="bi bi-$!{moduleicon} module-icon ns"></i> <span>#text($module) ($!{count})</span>
+				</a>
+			</div>
+		#end
+	</div>

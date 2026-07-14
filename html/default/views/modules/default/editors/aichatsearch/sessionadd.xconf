@@ -1,0 +1,6 @@
+<page>
+	<path-action name="ChatModule.loadChatChannel"/>
+	<path-action name="AgentModule.loadAgentContext" />
+	<path-action name="AgentModule.sendWelcomeIfNeeded" />
+
+</page>

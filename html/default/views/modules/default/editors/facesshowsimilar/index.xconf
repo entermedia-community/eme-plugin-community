@@ -1,0 +1,19 @@
+<page>
+
+	<inner-layout>/${applicationid}/theme/layouts/dialoglayout.html</inner-layout>
+
+	<path-action name="MediaArchiveModule.getAsset" />
+
+	<path-action name="DataEditModule.loadData" allowduplicates="true">
+		<property name="searchtype">faceembedding</property>
+		<property name="idname">faceembeddingid</property>
+		<property name="pageval">face</property>
+	</path-action>
+
+	<path-action name="FaceProfileModule.viewAllRelatedFaces" >
+		<property name="hitsname">faceassets</property>
+		<property name="assetcache">false</property>
+	</path-action>	
+
+
+</page>

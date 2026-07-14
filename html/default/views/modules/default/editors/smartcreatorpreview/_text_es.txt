@@ -1,0 +1,12 @@
+#
+#Fri Jul 03 17:19:03 CST 2026
+Create\ a=Crear una
+Create\ a\ new=Crear uno nuevo
+Export=Exportar
+Failed\ to\ publish=No se pudo publicar
+Make\ a\ copy=Hacer una copia
+Publish=Publicar
+Publishing\ $\!{playbackentity.name}=Publicando $\!{playbackentity.name}
+Share=Compartir
+Successfully\ published=Publicado con \u00E9xito
+Versions=Versiones

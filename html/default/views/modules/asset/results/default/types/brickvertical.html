@@ -1,0 +1,122 @@
+#ifnull($lightboxassetsresults)
+	#set($lightboxassetsresults = $context.getRequestParameter("lightboxassetsresults"))
+#end
+#ifnull($lightboxid)
+	#set($lightboxid = $context.getRequestParameter("lightboxid"))
+#end
+#ifnull($dialogresults)
+	#set($dialogresults = $context.getRequestParameter("dialogresults"))
+#end
+
+#ifnull($sortableassets)
+	#set($sortableassets = $context.getRequestParameter("sortableassets"))
+	$context.putPageValue("sortableassets",$sortableassets)
+#end
+
+#set($loop = $hits)
+#if($lightboxassets && !$lightboxassets.isEmpty())
+	#set($loop = $lightboxassets)
+	#set( $hits = $assethits )
+	$context.putPageValue("hits",$hits)
+#end
+
+#if( $hideheader &&  $hideheader != "true")
+	$pages.include("${searchhome}/resultheader.html",$context)
+#end
+
+#set($isdraggable = false)
+#if($module && $permissions.canModule($module, "assign_files"))
+	#set($isdraggable = true)
+#end
+
+
+<div class="scrollview position-relative" style="overflow-x: hidden;">
+	<div class="brickvertical brickverticalsortable" 
+		#ifnotnull($minbrickwidth) 
+			data-minwidth="$minbrickwidth"
+		#end
+		data-stackedviewpath="${apphome}/views/modules/asset/results/default/types/brickvertical.html">
+	
+	#set($count = 0)
+	#set($viewerlink = $content.get("assetviewerlink") )
+	#set($stackedfield = $mediaarchive.getCatalogSettingValue("stackedgalleryfield"))
+
+	#set( $rowcount = 0)
+	#set( $colcount = 0)
+		
+	#foreach( $brick in $loop.getPageOfHits())
+	 
+	 	#ifnotnull( $hitassetlookup )
+		 	#set( $hit = $hitassetlookup.get($brick.getId()) )
+	 	#end
+
+	 	#ifnull( $hitassetlookup )
+			#set( $hit = $brick)
+	 	#end
+
+		$context.putPageValue("brick", $brick)
+		$context.putPageValue("hit", $hit)
+		$context.putPageValue("asset", $hit)
+
+		#set($type = $hit.getSearchHit().getType())
+		$context.putPageValue("type", $type)
+	
+		#set($rendertype = $mediaarchive.getMediaRenderType($hit.fileformat))
+		$context.putPageValue("rendertype", $rendertype)
+	
+		#set($sourcepath = $hit.sourcepath)
+		$context.putPageValue("sourcepath", $hit.sourcepath )
+		
+		$context.putPageValue("assetid", $hit.id)
+		$context.putPageValue("count", $count )
+	
+		$context.putPageValue("thumbsize", "mediumplus" )
+		
+		#set($assetwidth = $mediaarchive.getRealImageWidth($hit))
+		$context.putPageValue("assetwidth", "assetwidth" )
+		
+		#set($assetheight = $mediaarchive.getRealImageHeight($hit))
+		$context.putPageValue("assetheight", "assetheight" )
+		
+		#set($click = "$siteroot$viewerlink?hitssessionid=${hits.getSessionId()}&assetid=${hit.id}")
+		$context.putPageValue("click", "click" )
+
+		#if($colcount > 5 )
+			#set( $colcount = 0)
+			#set( $rowcount = $rowcount + 1)
+		#end		
+		
+		#set($cellleft = ($colcount * 250) + ($colcount * 5))
+		#set($celltop = ($rowcount * 300) + ($rowcount * 5))
+
+		#set( $colcount = $colcount + 1)
+
+		<div class="resultsdivdata masonry-grid-cell #if($isdraggable)assetdraggable#end"
+			id="gallerycell_$!{hit.id}"
+			data-assetid="$!{hit.id}"
+			data-dataid="$!{hit.id}"
+			data-assetlightboxid="$!{brick.id}"
+			data-ordering="$!{brick.ordering}"
+			style="position: absolute; top: ${celltop}px; left: ${cellleft}px;overflow: hidden;width: 250px; height: 300px;"
+			
+			#if($rendertype == "audio")
+				data-width="250"
+				data-height="140"
+			#else
+				data-width="$assetwidth"
+				data-height="$assetheight"
+				$context.putPageValue("thumbheight", "180" ) 
+			#end
+			>
+			<div class="#if($isdraggable)assetdroppable sort-droppable #end" data-dataid="$hit.id">
+			$pages.include("${searchhome}/thumbnails/brick.html", $context)
+			</div>
+		</div>
+	    #set ( $count = $count + 1) 
+	    
+	#end
+	#if ( $loop.getPageOfHits().size() == 0 )
+		$pages.stream("$!{searchhome}/empty.html", $context)
+	#end
+</div>
+</div>

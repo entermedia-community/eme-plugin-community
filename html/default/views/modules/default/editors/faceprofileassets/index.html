@@ -1,0 +1,26 @@
+<div id="$edithomeid" 
+	class="editdiv entity-tab-content entity-tab-media tabtypemedia dataeditedreload faceprofileassetsearch" 
+	data-entityid="$!entity.id"
+	data-entitymoduleid="$!entitymodule.id"
+	data-entitymoduleviewid="$entitymoduleviewid"
+	
+	data-categoryid="$!selectedcategory.getId()"
+	data-rootcategory="$!selectedcategory.getId()"
+
+	data-edithome="$!{edithome}"
+	data-autoreloadurl="$!{edithome}/index.html">
+
+<div id="$!submodulepickerid" class="submodulepicker entity-tab-content border-bottom">
+		##Display MEDIA based in a custom query, may require custom 
+
+		$context.putPageValue("viewid", "assetresultstable")
+		$context.putPageValue("searchhome", "$apphome/views/modules/asset/results/faceprofileassets")
+		$context.putPageValue("module", $mediaarchive.getCachedData("module","asset"))
+		$context.putPageValue("faceprofilegroups", [$entity])
+		$pages.include("$apphome/views/modules/asset/results/faceprofileassets/search.html", $context)
+	
+	<div class="clearfix"></div>
+</div>
+</div>
+
+

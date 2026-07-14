@@ -1,0 +1,8 @@
+#
+#Fri Jul 03 16:16:54 CST 2026
+Delete\ this\ session=Eliminar esta sesi\u00F3n
+New\ Session=Nueva sesi\u00F3n
+Retrieve\ this\ session=Recuperar esta sesi\u00F3n
+Session=Sesi\u00F3n del Consejo
+Session\ History=Historial de sesiones
+Sure\ you\ want\ to\ delete\ session?=\u00BFEst\u00E1s seguro de que quieres borrar la sesi\u00F3n?

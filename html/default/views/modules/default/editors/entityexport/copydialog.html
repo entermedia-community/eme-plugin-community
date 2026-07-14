@@ -1,0 +1,55 @@
+#set($moduleid = $context.getRequestParameter("moduleid"))
+#set($entityid = $context.getRequestParameter("entityid"))
+#if( !$entity)
+	#set( $entity  = $mediaarchive.getCachedData($moduleid, $entityid) )
+#end
+
+#set($addtourl = "${edithome}/copyentity.html")
+
+<div class="tabheader">[[Copy]] $module</div>
+<div class="mx-3 my-4">
+<p>
+	[[Copies files and metadata to a specific location (Does not effect the original file).]]
+</p>
+<div id="embed-wrapper" class="mx-3 my-4" >
+	<form action="$addtourl" class="ajaxform" data-targetdivinner="tabexportcontent" data-oemaxlevel="1" method="post" data-ajaxreloadtargets="topmodulecontainer">
+		<input type="hidden" name="copyingsearchtype" value="$!module.getId()" />
+		<input type="hidden" name="copyingentityid" value="$!entity.id" />
+		<input type="hidden" name="entityid" value="$!entity.id" />
+		<input type="hidden" name="moduleid" value="$!module.id" />
+		
+		<div class="w-75 text-left mb-3">
+			<div class="emfield-textarea">
+				<label>[[New Name]]:</label>
+				<input name="nameoverwrite" id="" class="form-control"type="text" value="#text($entity.name)" />
+			</div>
+		</div>
+		<div class="w-75 text-left mb-3">
+			<label>[[Copy To]]:</label>
+			<select class="form-control" name="entitymoduleid">
+			#foreach ( $amodule in $userprofile.getEntities() )
+				#set($amoduleid = $amodule.getId())
+				#if($amodule.getBoolean("enableuploading"))
+					#if($permissions.canModule($amodule, "create") && $amoduleid!="faceprofilegroup" && $amoduleid!="asset" && $amoduleid!="modulesearch")
+						<option value="$amodule.getId()"> #text($amodule)</option>
+					#end
+				#end
+			#end
+			</select>
+		</div>
+		<div class="w-75 text-left mb-3" style="display: none;">
+			<input type="checkbox" id="deleteoriginal" class="me-2">
+			<label for="deleteoriginal" class="m-0">[[Move]] #text($module) / #text($entity)</label> 
+		</div>
+		<div class="w-100 text-left mb-3">
+			<input type="submit" value="[[Ok]]" class="btn btn-brand">
+		</div>
+	</form>	
+	
+	#ifnotnull($saveddata)
+	<div class="mt-4 mb-4">
+		<a href='$applink/views/modules/${saveddata.get("entitysourcetype")}/index.html?entityid=${saveddata.getId()}'
+			class="action-link">$saveddata.getName()</a> [[created]].</div>
+	#end
+</div>
+</div>

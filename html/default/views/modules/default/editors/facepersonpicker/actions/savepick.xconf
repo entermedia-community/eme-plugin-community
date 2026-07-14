@@ -1,0 +1,9 @@
+<page>
+
+	<path-action name="MediaArchiveModule.getAsset"  />
+
+	<path-action name="FaceProfileModule.addPersonToEmbedding"/>
+			
+	<inner-layout />
+	
+</page>

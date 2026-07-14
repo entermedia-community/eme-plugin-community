@@ -1,0 +1,33 @@
+#set($moduleid = $module.id)
+#set($expandedmodule = $moduleid)
+
+#set($rendertype = "entity")
+#if ($module.modulerendertype)
+	#set($rendertype = $module.modulerendertype)
+#end
+
+$context.putPageValue("rendertype", $rendertype)
+
+#if(!$hits.isEmpty())
+	#set( $count = $hits.size())
+#end
+$context.putPageValue("count", $count)
+
+#set( $parentmodule = $module)
+$context.putPageValue("topmodule", $parentmodule)
+
+
+<div id="$!{moduleid}topcontainer"
+	class="topmodulecontainer $!{moduleid}topcontainer"
+	data-${module.id}hitssessionid="$!hits.getSessionId()"
+	data-url="$apphome/views/modules/$!{module.id}/index.html"
+	data-oemaxlevel="2">
+
+	$pages.include("$searchhome/filters/filters-selected.html", $context)
+	
+	$pages.includeContent()
+
+</div>
+
+
+

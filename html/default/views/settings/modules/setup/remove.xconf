@@ -1,0 +1,10 @@
+<page>
+	
+	<path-action name="DataEditModule.deleteData" />
+	
+	<path-action name="MediaArchiveModule.clearCache" />
+	
+	<property name="save">true</property>
+
+			
+</page>

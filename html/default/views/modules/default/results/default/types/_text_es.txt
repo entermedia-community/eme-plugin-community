@@ -1,0 +1,6 @@
+#
+#Fri Jul 03 16:16:21 CST 2026
+Click\ to\ open=Haga clic para abrir
+Edit\ Table\ Header=Editar el encabezado de la tabla
+Pick=Elige
+Select\ All\ on\ This\ Page=Seleccionar todo en esta p\u00E1gina

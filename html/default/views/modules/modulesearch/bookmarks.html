@@ -1,0 +1,55 @@
+<div id="bookmarkscontainer" class="bookmarksarea" data-url="$!{page.path}" data-oemaxlevel="1">
+<div class="finder-title">
+	<h2><i class="bi bi-bookmarks-fill"></i> [[Bookmarks]]</h2>
+</div>
+  
+ <div class="favoritescontainer">
+
+ 
+ #foreach($bmodule in $organizedResults.getModules())
+ 
+ 		#set($idhits = $organizedResults.getByType($bmodule.id,$context))
+		
+		<div class="emgrid-subtitle">
+		<h3 class="pt-2 pb-2">
+			#set($moduleicon = "grid")
+			#if ($bmodule.moduleicon)
+				#set($moduleicon = $bmodule.moduleicon)
+			#end
+		
+			#set($entityurl = "$!siteroot$apphome/views/modules/$!{bmodule.id}/index.html?$!{module.id}page=1&hitssessionid=$!hits.getSessionId()")
+		
+			<i class="bi bi-$!{moduleicon} module-icon" style="font-size:0.9em;line-height:1;"></i> 
+
+			#set( $count = $organizedResults.getCount($bmodule) ) 
+			#text($bmodule) ($count)
+	
+			<a href="$apphome/views/modules/modulesearch/bookmarksremove.html?moduleid=${bmodule.id}" 
+				class="ajax removemodulebookmarks rounded btn btn-sm btn-brand clear-bookmarks ms-2"
+				data-targetdiv="bookmarkscontainer"
+				data-oemaxlevel="1"
+				data-confirm="[[Are you sure to remove items from Bookmarks?]]"
+				title="[[Clear Bookmarks]]"><i class="bi bi-bookmark-x me-1"></i>[[Remove All]]</a>
+	</h3>
+	</div>
+	$context.putPageValue("hits", $idhits)
+	$context.putPageValue("module", $bmodule)
+
+	#if($bmodule.id != "asset")
+	  	
+	   	#set( $favorites = $userprofile.get("favorites_"+$bmodule.id))
+		$context.putPageValue("favorites", $favorites)
+		
+		#set($edithome = "$apphome/views/modules/${bmodule.id}/editors/listentities")
+		$context.putPageValue("edithome", $edithome)
+
+		$pages.include("${edithome}/index.html", $context)
+		
+	#else
+		$context.putPageValue("showheader", true)
+		$pages.include("$apphome/views/modules/asset/index.html", $context)
+		
+	#end 
+#end
+</div>
+</div>

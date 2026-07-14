@@ -1,0 +1,36 @@
+<page>
+	<inner-layout>/${applicationid}/views/modules/${module}/userview/index.html</inner-layout>
+
+	<property name="loginroot">/${applicationid}/authentication</property>
+
+	<path-action name="Admin.allowViewing" >
+		<property name="showpageanyways">true</property>
+	</path-action>
+	
+	<path-action name="DataEditModule.loadData">
+		<searchtype>${module}</searchtype>
+		<property name="pageval">entity</property>
+		<property name="idlevel">1</property>
+	</path-action>
+	
+	
+	<path-action name="EntityModule.assignUserToEntities" />
+	
+	<path-action name="DataEditModule.loadPageOfSearch"/>
+	
+	<property name="virtual">true</property>
+
+	<property name="assetclearfilters">true</property>
+	<property name="assetclearselection">true</property>
+	
+	<property name="showentitiesheader">false</property>
+	
+	
+
+	<path-action name="DataEditModule.search">
+		<searchtype>${module}</searchtype>
+		<property name="hitsname">hits</property>
+	</path-action>
+
+
+</page>

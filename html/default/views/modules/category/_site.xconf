@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page>
+  <property name="fallbackdirectory">/${applicationid}/views/modules/default</property>
+  <property name="enforcesecurity">true</property>
+  <property name="module">category</property>
+  <permission name="delete">
+    <or>
+      <userprofile name="viewsettings" value="true"/>
+      <pagevalue name="editcategorytree" equals="true"/>
+    </or>
+  </permission>
+  <permission name="editdata">
+    <or>
+      <userprofile name="viewsettings" value="true"/>
+      <pagevalue name="editcategorytree" equals="true"/>
+    </or>
+  </permission>
+  <path-action name="DataEditModule.loadData" allowduplicates="true">
+    <pageval>selectedcategory</pageval>
+    <idname>categoryid</idname>
+    <searchtype>category</searchtype>
+  </path-action>
+</page>

@@ -1,0 +1,9 @@
+#
+#Fri Jul 03 17:12:08 CST 2026
+Are\ you\ sure=\u00BFEst\u00E1 seguro?
+Change\ Icon=Cambiar el icono
+Delete=Eliminar
+Open\ Database\ Table=Tabla de base de datos abierta
+Properties=Propiedades
+Save=Guardar
+table=tabla

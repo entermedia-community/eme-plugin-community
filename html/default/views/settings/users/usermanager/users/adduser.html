@@ -1,0 +1,103 @@
+#set( $memberSearcher = $searcherManager.getSearcher($catalogid,"member"))
+<div class="mb-4">
+<form action="$siteroot$usermanagerhome/users/adduser-finish.html"
+	name="adduser"
+	method="post" 
+	id="adduser"
+	class="ajaxform"
+	data-targetdivinner="settingssubtab"
+	data-toastsuccess="[[User saved]]">
+	<input type="hidden" name="method" value="adduser"/>
+
+	#set( $userSearcher = $searcherManager.getSearcher($catalogid,"user"))
+	$context.putPageValue("searcher", $userSearcher)
+	$context.putPageValue("viewid", "simpleuseradd")
+	$pages.include("${apphome}/components/xml/detaileditorcss.html", $context)
+
+	#set ($userProfileSearcher = $searcherManager.getSearcher($catalogid, "userprofile"))
+	$context.putPageValue("searcher", $userProfileSearcher)	 
+	$context.putPageValue("viewid", "userprofileedit")	
+	##$context.putPageValue("data", $userprofile)
+	$pages.include("${apphome}/components/xml/detaileditorcss.html", $context)
+
+	<div class="hr" style="margin: 20px 0; padding: 0;"></div>
+	<input class="btn btn-primary btn-sm" type="submit" value="[[Create]]" >
+
+	<a 	class="btn btn-secondary btn-sm closedialog"
+		style="margin-left:10px;">[[Cancel]]</a>
+</form>
+
+</div>
+
+<script language="JavaScript" type="text/javascript">
+//email.value
+		
+		jQuery(document).ready(function() 
+		{ 
+		
+			$("#adduser").validate({
+				ignore: ".ignore",
+			    rules: {
+					  'email.value': {
+						  required: true,
+						  email: true,
+						  duplicatedemail: false,
+						  remote: "verifyemail.html"
+						},
+						'id.value': {
+							useridvalidator: true
+							
+						}
+			  },
+			  messages: {
+				  'email.value': {
+				  remote: "Email already Exists."
+				}
+			  },
+			  submitHandler: function(form){
+		        $('form input[type=submit]').attr('disabled', 'disabled');
+		        form.trigger("submit");
+				}
+			});
+			jQuery.validator.addMethod("useridvalidator", function(value, element) {
+			        return this.optional(element) || /^[a-zA-Z0-9._]+$/.test(value);
+			    }, "Please enter only alphanumeric characters, dots, and underscores. No spaces allowed.");
+		});
+</script>
+
+
+<script language="JavaScript" type="text/javascript">
+//email.value
+		jQuery.validator.addMethod("validId", function(value, element) {
+  		return this.optional( element ) || /^[a-zA-Z0-9]+$/.test( value );
+		}, 'Please enter a unique string/numeric Id.');
+
+		jQuery(document).ready(function() 
+		{ 
+		
+			$("#adduser").validate({
+				ignore: ".ignore",
+			  rules: {
+				  'email.value': {
+				  required: true,
+				  email: true,
+				  duplicatedemail: false,
+				  remote: "verifyemail.html"
+				},
+				'id.value':{
+					validId:true
+				}
+			  },
+			  messages: {
+				  'email.value': {
+				  remote: "Email already Exists."
+				}
+			  },
+			  submitHandler: function(form){
+		        $('form input[type=submit]').attr('disabled', 'disabled');
+		        form.submit();
+				}
+			});
+		});
+</script>
+

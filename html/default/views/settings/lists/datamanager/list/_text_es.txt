@@ -1,0 +1,32 @@
+#
+#Fri Jul 03 17:04:35 CST 2026
+Add\ New=A\u00F1adir nuevo
+Back=Atr\u00E1s
+Choose\ Table=Elige la tabla
+Copy\ to\ defaults=Copiar a los valores predeterminados
+Customize\ Fields=Personalizar campos
+Customize\ Views=Personalizar vistas
+Data=Datos
+Database=Base de datos
+Delete=Eliminar
+Delete\ Records=Eliminar registros
+Delete\ Table=Eliminar la tabla
+Elastic\ System\ Info=Informaci\u00F3n de Elastic Search
+Export=Exportar
+Export\ Text=Texto de exportaci\u00F3n
+Forward=Pr\u00F3ximo
+Found=Encontrado
+Import=Importar
+New\ Table=Nueva tabla
+Page=P\u00E1gina
+Please\ export\ data\ first=Por favor, exporte los datos primero.
+Records=Registros
+Reindex=Reindexar
+Reset\ Settings=Reiniciar configuraciones
+Restore\ Table=Restaurar tabla
+Search=B\u00FAsqueda
+Select\ a\ Table=Seleccione una tabla
+Table=Tabla
+View\ Mapping=Mapeo
+of=de
+selected=Seleccionado

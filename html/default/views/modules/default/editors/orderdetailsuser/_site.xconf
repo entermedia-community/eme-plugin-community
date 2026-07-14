@@ -1,0 +1,6 @@
+<page>
+
+	<property name="edithomename">orderdetailsuser</property>
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/default</property>
+
+</page>

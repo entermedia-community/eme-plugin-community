@@ -1,0 +1,8 @@
+
+#set( $searcher = $searcherManager.getSearcher($catalogid,"user"))
+$context.putPageValue("details",$searcher.getDetailsForView("usernormalsearch", $user))	
+<div id="usersearchresultspanel">
+$pages.include("./results.html", $context)
+</div>
+
+

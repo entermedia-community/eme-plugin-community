@@ -1,0 +1,12 @@
+<div class="alert alert-save fader" role="alert">
+<strong>[[Saved]]</strong>
+</div>
+
+$context.putPageValue("module", $data)
+
+#set($viewid = $context.getRequestParameter("viewid"))
+#if ($viewid == "moduleeditors")
+	$pages.include("./editors.html", $context)
+#else
+$pages.include("./viewers.html", $context)
+#end

@@ -1,0 +1,11 @@
+#
+#Fri Jul 03 17:11:53 CST 2026
+Activity\ History=Historial de actividades
+Bulk\ Downloader=Descargador masivo
+Copy=\u00BFQu\u00E9 es eso?
+Download\ All\ Files=Descargar todos los archivos
+Download\ Zip=Descargar ZIP
+Move=Mueve.
+Permissions=Autorizaciones
+Publish\ Carousel=Publicar el carrusel
+Publish\ Gallery=Publicar galer\u00EDa

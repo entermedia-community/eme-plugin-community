@@ -1,0 +1,8 @@
+#
+#Fri Jul 03 17:11:25 CST 2026
+Add\ Existing\ Folders=A\u00F1adir carpetas existentes
+Bulk\ Uploader=Cargador masivo
+Importing=Importaci\u00F3n
+Search\ Files=Buscar archivos
+Upload\ Files=Subir archivos
+Upload\ with\ URL=Subir con URL

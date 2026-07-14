@@ -1,0 +1,31 @@
+#set($currentscenario = $agentcontext.getCurrentScenario())
+
+<div class="ai-functions">
+  <div class="d-flex align-items-center">
+		<div class="dropup">
+			<a class="btn btn-cta dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+				<span class="pe-1">
+					#text($currentscenario.getScenarioData())
+				</span> 
+			</a>
+			<div class="dropdown-menu dropdown-menu-end">
+
+				#set($scenarios = $mediaarchive.query("automationscenario").exact("enabled","true").exact("chatenabled","true").sort("ordering").cachedSearch())
+
+				#foreach( $scenario in $scenarios )
+						<a class="dropdown-item  ajax ai-func #if($currentscenario.getId() == $scenario.getId())active#end me-2"
+							href="${chatterboxhome}/changescenario.html"
+							data-targetdiv="chatterbox"
+							data-channel="$!{currentchannel.getId()}"
+							data-currentscenario="$scenario.id"
+							data-functionname="${scenario.id}_welcome"
+							data-context_showsuggestions="true"
+							data-oemaxlevel="1">
+							<span>#text( $scenario )</span>
+						</a>
+				#end 
+			</div>	
+		</div>
+  </div>
+  
+</div>

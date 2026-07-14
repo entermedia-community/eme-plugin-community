@@ -1,0 +1,422 @@
+##Header for Modules (not asset)
+
+#set( $searchhome = $context.findValue("searchhome") )
+
+#set($moduleid = $module.id)
+$context.putPageValue("moduleid", $moduleid)
+
+#if(!$parentmoduleid)
+	#set($parentmoduleid = $context.getRequestParameter("topmoduleid"))
+#end
+#set( $fieldexternalid = $context.getRequestParameter("fieldexternalid"))
+#set( $fieldexternalvalue = $context.getRequestParameter("fieldexternalvalue"))
+#ifnull($entityid)
+	#set($entityid = $context.getRequestParameter("entityid"))
+#end
+
+#if(!$tabletype)
+	#set($tabletype = $context.getRequestParameter("tabletype"))
+#end
+
+#set($resulttype = $userprofile.get("${moduleid}-display"))
+#if(!$resulttype)
+	#set($resulttype = "table")
+#end
+$context.putPageValue("resulttype", $resulttype)
+
+#set( $edit = $context.getRequestParameter("editheader"))
+#if( !$edit || $edit == "false")
+	#set( $edit = false)
+#end
+
+#set($entityrendertype = "entity")
+#if ($module.modulerendertype)
+	#set($entityrendertype = $module.modulerendertype)
+#end
+$context.putPageValue("entityrendertype", $entityrendertype)
+
+#set($defaultview = $userprofile.getDefaultViewForModule($module.id) )
+
+#if(!$resultview)
+	#set($resultview = $userprofile.get("$!{module.getId()}resultview"))
+	
+	#if (!$resultview)
+		#set($resultview = $content.get("resultview"))
+	#end
+	#if (!$resultview)
+		#set($resultview = "table")
+	#end
+#end
+
+#set($preference = "minimize$!{moduleid}summary")
+#set($isminimized = $userprofile.getBoolean($preference))
+
+#ifnull($showaddnew)
+	#set($showaddnew = $context.getRequestParameter("showaddnew"))
+#end
+
+#ifnull($showaddnew)
+	#set($showaddnew = $content.isPropertyTrue("showaddnew",true))
+#end
+#if($content.section == "favorites")
+	#set($showaddnew = false)
+#end
+
+#ifnull(mixedentitysourcetypes)
+	#set( $mixedentitysourcetypes = $context.getRequestParameter("mixedentitysourcetypes"))
+#end
+#if($mixedentitysourcetypes)
+	#set($enableactions = false)
+#end
+
+#ifnull($enableactions)
+	#set($enableactions = $context.getRequestParameter("enableactions"))
+#end
+#ifnull($enableactions)
+	#set($enableactions = $content.isPropertyTrue("enableactions",true))
+#end
+#if($enableactions == "true")
+	#set($enableactions = $permissions.canModule($module, "edit"))
+#end
+
+$context.putPageValue("enableactions", $enableactions)
+
+
+##set($islightheader = $module.id == "searchcategory" || $module.id == "modulesearch")
+<div id="resultsheader" 
+	class="#if($islightheader) lighttheme #end resultsheader #if($!hits.getSelectionSize() > 0)hasselections#end ">
+	<div id="sub-nav" class="search-views emsubnav sub-nav-$!moduleid">
+		
+		<ul class="resultsnav mbl-hideexcept">
+			#set($pickertarget = $context.getRequestParameter("pickertarget"))
+			
+			#ifnull($pickertarget)
+				#if($permissions.canModule($module, "create") && $showaddnew != "false")
+					<li>
+						<div class="dropdown">
+							<a class="dropdown-toggle btn-cta resultsnavlink no-icon" href="#" data-toggle="dropdown">
+								<i class="bi bi-plus-lg"></i> 
+							</a>
+							<div class="dropdown-menu" style="margin-left: 1px;">
+								<a class="dropdown-item emdialog"
+									href="$applink/views/modules/$!{module.id}/editors/bulkentitycreator/dialog.html?edit=true&addnew=true" 
+									data-entitymoduleviewid="$!{module.id}addnew"
+									data-entitymoduleid="$!module.id"
+									data-entityedithome="$!edithome"
+									data-parentmoduleid="$entitymodule.id"
+									data-parententityid="$entity.id"
+									title="[[Bulk Upload from Files]] &middot; #text($module)">
+									<i class="bi bi-stack me-1"></i> [[Bulk Upload from Files]]
+								</a>
+								<a href="$applink/views/modules/$!{module.id}/editors/entityexport/csvupload/picker.html" 
+									class="dropdown-item emdialog"
+									data-dialogid="entitypicker"
+									
+									data-includeeditcontext="true"
+									data-hidefooter="true"
+									title="[[Upload Spreadsheet]] &middot; #text($module)">
+									<i class="bi bi-file-spreadsheet me-2"></i> [[Upload Spreadsheet]]
+								</a>
+								<a class="dropdown-item emdialog"
+									href="$applink/views/modules/$!{module.id}/editors/youtubeimporter/dialog.html?edit=true&addnew=true" 
+									data-entitymoduleviewid="$!{module.id}addnew"
+									data-entitymoduleid="$!module.id"
+									data-entityedithome="$!edithome"
+									data-parentmoduleid="$entitymodule.id"
+									data-parententityid="$entity.id"
+									data-hidefooter="true"
+									title="[[Bulk Import YouTube Video or Playlist]] &middot; #text($module)">
+									<i class="bi bi-youtube me-2"></i> [[Import from YouTube]]
+								</a>
+							</div>
+						</div>
+					</li>
+					<li class="mbl-except"> 
+						#ifnotnull($entity)
+							#set($addnew = "${edithome}/addnew.html")
+							<a href="$addnew"
+							class="resultsnavlink emdialog btn-cta"
+							data-dialogid="entitypickeraddnew"
+							data-dialogwidth="1400"
+							data-hidefooter="true"
+							data-includeeditcontext="true"
+							data-autosetformtargetdiv="editdiv"
+							##data-parentmoduleid="$entitymodule.id"
+							##data-parententityid="$entity.id"
+							#ifnotnull( $entityviewdata )
+								data-entitymoduleviewid="$!{entityviewdata.getId()}"
+							#end
+							#ifnull( $entityviewdata )
+								data-entitymoduleviewid="${module.id}general"
+							#end	
+							title="[[Create New]] #text($module)">
+							<span class="mbl-hidden">[[Create New]]</span></a>
+						#end
+						
+						#ifnull($entity)
+							#set($addnew = "${edithome}/tabs/index.html?edit=true&addnew=true&viewid=$!{moduleid}addnew")
+							<a href="$addnew"
+								class="resultsnavlink emdialog btn-cta createnewentityfolder" 
+								data-addnew="true"
+								data-moduleid="$moduleid"
+								data-entitymoduleviewid="${module.id}general"
+								title="[[Add New Record]]">
+								<span class="mbl-hidden">[[Create New]]</span>
+							</a>
+						#end
+					</li>
+				#end
+			#end
+			#if($hits && $enableactions != "false")
+			<li class="dropdown">
+				<a class="resultsnavlink dropdown-toggle #if($!hits.getSelectionSize() > 0)btn-accent#end" 
+					data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					
+					#if($!hits.getSelectionSize() > 0)
+						[[Folders]] ($!hits.getSelectionSize())
+					#else
+						[[Folders]]
+					#end
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a class="dropdown-item  selectpage" 
+						href="${searchhome}/togglepage.html"
+						data-targetdiv="resultsheader"
+						data-action="all"
+						data-includesearchcontext="true"
+						data-includeeditcontext="true"
+						title="[[Select All results]]">[[Select All]]</a>
+						</li>
+						<li>				
+						<a class="dropdown-item selectpage" 
+						href="${searchhome}/togglepage.html"
+						data-targetdiv="resultsheader"
+						data-action="page"
+						data-includesearchcontext="true"
+						data-includeeditcontext="true"
+						title="[[Select this page of results]]">[[Select Only This Page]]</a>
+						</li>
+						<li>
+						<a class="dropdown-item  selectpage" 
+						href="${searchhome}/togglepage.html"
+						data-targetdiv="resultsheader"
+						data-action="none"
+						data-includesearchcontext="true"
+						data-includeeditcontext="true"
+						title="[[Deselect all results]]">[[Select None]]</a>
+						</li>
+					
+				#if($enableactions != "false" && $!hits.getSelectionSize() > 0)
+					
+					#if($permissions.canModule($module, "edit"))
+					#set($previewediturl = "${edithome}/tabs/index.html?entityid=multiedit:$!hits.sessionId&hitssessionid=$!hits.sessionId&searchtype=$moduleid&edit=true")
+					<li><a class="dropdown-item emdialog" 
+						href="$previewediturl"
+						title="[[Multi edit selected items]]">[[Bulk Edit]] $!hits.getSelectionSize() [[Records]]</a>
+					</li>
+					#end
+					
+					
+					#if($entity.id)			
+						#set($removefrom = "${edithome}/actions/removeselections.html")
+						<li><a class="dropdown-item ajax"
+							data-targetdiv="tab_media" 
+								data-entityid="${entity.id}"
+								data-entitymoduleid="${entitymodule.id}"
+								data-moduleid="${module.id}"
+								data-removinghitssessionid="$hits.getSessionId()"
+								data-ajaxreloadtargets="dataeditedreload"
+								title="[[Remove selected records from]]: #text($entity)"
+								href="$removefrom" >[[Remove selected records from]]: #text($entity)</a>
+						</li>
+					#end
+					
+					#ifnull($tabid)
+					#set($tabid = $context.getRequestParameter("tabid"))
+					#end
+					#ifnull($viewid)
+					#set($viewid = $context.getRequestParameter("viewid"))
+					#end
+					
+					#if($permissions.canModule($module, "delete"))
+						 <li><a class="dropdown-item ajax" 
+						 data-confirm="[[Delete items?]]" 
+						     data-includesearchcontext="true"
+							 data-includeeditcontext="true"
+							 data-oemaxlevel="3" 
+							 data-targetdiv="resultsdiv" 
+							 href ="${edithome}/actions/deleteselections.html?hitssessionid=$hits.sessionId"
+							 #set($entitymoduleviewid = $context.getRequestParameter("entitymoduleviewid"))
+							 data-entitymoduleviewid="$entitymoduleviewid"
+							 data-entityid="$entityid"
+						 title="[[Delete selected items]]">[[Delete]] $!hits.getSelectionSize() [[Records]]</a></li>
+					#end
+					
+					<li class="dropend">
+						<a class="dropdown-item  dropdown-toggle" href="#" data-bs-toggle="dropdown">[[Export]]</a>
+							<ul class="submenu dropdown-menu">
+								<li><a class="dropdown-item" href="$!{siteroot}${apphome}/views/modules/${moduleid}/export/download/export_${moduleid}.csv?hitssessionid=$hits.sessionId&exportselection=true"
+									title="[[Export reults to CSV]]">[[Export]]  $!hits.getSelectionSize() [[Records Using IDs]]</a></li>
+								<li><a class="dropdown-item" href="$!{siteroot}${apphome}/views/modules/${moduleid}/export/download/export_${moduleid}.csv?hitssessionid=$hits.sessionId&friendly=true&view=${moduleid}/${moduleid}resultstable"
+									title="[[Export results to CSV (Friendly)]]">[[Export]] $!hits.getSelectionSize() [[Records Using Text]]</a></li>
+							</ul>
+					</li>
+					
+					
+		
+				#if($permissions.canModule("searchcategory", "create"))
+					#set($edithome = "$apphome/views/modules/${module.id}/editors/picksearchcategory")
+					#set($addurl = "$!{edithome}/index.html") 
+					<li><a 
+					class="dropdown-item emdialog" 
+							href="$addurl" 
+							data-dialogid="pickeraddnew" ##This is the same as the ADD new dialog
+							data-copyingsearchtype="$module.id"
+							data-copyinghitssessionid="$hits.getSessionId()"	
+							data-originaledithomeid="${edithomeid}"
+							data-hidefooter="true"
+							title="[[Add To Category]]"
+							data-dialogwidth="1200"><i class="bi bi-category me-2"></i>[[Assign]] #text( $mediaarchive.getCachedData("module","searchcategory") )</a></li>
+			 	#end	
+				
+				#if($canrunaiinformatics)
+					#set($reseturl = "$apphome/views/modules/${module.id}/editors/aitools/resetinformatics.html")
+					<li><a 
+						class="dropdown-item ajax" 
+							href="$reseturl" 
+							data-targetdiv="nada"
+							data-hitssessionid="$hits.getSessionId()"	
+							data-toastmessage="[[Reseting Informatics]]"
+							data-toastsuccess="[[Reset Informatics Scheduled]]"
+							title="[[Reset Informatics]]"
+							><i class="bi bi-robot me-2"></i>[[Reset Informatics]]</a></li>
+					
+				#end
+				
+			#end ##Selection					
+			
+			</ul>
+		</li>
+		#end
+				
+			#if($resultview == "grid")
+				#if($hits.getTotalPages() >  1  )
+					$pages.include("${apphome}/views/modules/${moduleid}/navigate.html", $context)
+				
+				#end
+			#end
+				
+			#if($moduleid != "faceprofilegroup")
+				#if(!$edit)
+				
+					#if($enableactions != "false" && $hits && $resultview == "table" && $hits.hasSelections())
+					
+						$pages.include("${searchhome}/selectionactions.html", $context)
+					#end
+				#end
+			#end
+			
+		</ul>
+			
+		#if($hits)
+			<ul class="resultsnavright">
+				#if($edit != "true")
+					#if($resultview != "stackedgallery" && $resultview != "brickvertical")
+						#set($total = $hits.getTotalPages() )
+						#if( $total > 1)
+								$pages.include("${searchhome}/positions.html", $context)
+						#end
+					#end
+				#end
+
+				#if (!$resultview || $resultview == 'table')
+					#if($canedittablecolumns)
+						#if($edit)
+							<li class="resultsnavitem s2h" style="min-width:180px">
+								#set ($alldetails = $searcher.getUserPropertyDetails() )
+								<select class="form-select form-control-sm select2 tableresultsaddcolumn" 
+										name="addcolumn"
+										data-componenthome="${searchhome}/addremovecolumns.html?searchtype=$!moduleid&${hits.getSearchType()}hitssessionid=$hits.getSessionId()&editheader=true&moduleid=$!moduleid&viewid=$!{moduleid}resultstable"
+										data-targetdiv="$!{moduleid}resultsarea"
+										data-oemaxlevel="1" 
+										data-allowclear="false" 
+									>
+									<option>[[Add Column]]</option>
+									#foreach( $detail in $alldetails) 
+										<option value="$detail.id">$detail.getText($context)</option>
+									#end
+								</select>
+								##<span class="hint">*[[Drag columns to move them]]</span>
+								<a href="${searchhome}/resetcolumns.html?searchtype=$!moduleid&${hits.getSearchType()}hitssessionid=$hits.getSessionId()&moduleid=$!moduleid&viewid=$!{moduleid}resultstable&$!{moduleid}clearresults=true"
+									data-targetdiv="$!{moduleid}resultsarea"
+									data-oemaxlevel="1"
+									data-confirm="[[Are you sure you want to reset all columns?]]"
+									class="ajax reset-columns">
+									<i class="bi bi-arrow-counterclockwise me-1"></i>
+									[[Reset Columns]]
+								</a>
+							</li>
+							##Close Icon
+						#end	
+					#end								
+				#end
+				
+				<li>
+				#if($resultview != "table")
+					<a class="px-3 border-left ajax" data-changeresultview="table" data-resultviewsearchcategory="table"
+						data-targetdiv="resultsdiv" data-oemaxlevel="1"  href="$searchhome/changeresultview.html" title="[[Change to Table View]]">
+						<i class="bi bi-layout-three-columns"></i>
+					</a>
+				#else
+					<a class="px-3 border-left ajax" 	data-changeresultview="brickvertical" data-resultviewsearchcategory="brickvertical"
+						data-targetdiv="resultsdiv" data-oemaxlevel="1" 	href="$searchhome/changeresultview.html" title="[[Change to Column View]]">
+						<i class="bi bi-list-task" style="transform: scale(1.4);"></i>
+					</a>
+				#end
+				</li>	
+				
+				<li>
+
+					<a href="${searchhome}/filters/dialogsort.html" 
+						class="emdialog emsort #if($isminimized) closed #end"
+						data-dialogid="sortdialog"
+						data-hidebackdrop="true"
+						data-hidefooter="true"
+						data-modalsize="sm"
+						data-includesearchcontext="true"						
+						data-includeeditcontext="true"
+						style="padding:0 8px 0 10px;" 
+						title="[[Sort Results]]"><i class="bi bi-sort-down"></i> [[Sort]]</a>
+				</li>
+				#if($resultview != "stackedgallery")
+					<li class="resultsnavitem rpp" title="[[Results per page]]">
+						#set( $currenthitsperpage = $hits.getHitsPerPage())
+						#set($hitcountoptions = $mediaarchive.getList("hitcount"))
+						<select class="form-select hitsperpagechange" 
+								id="hitsperpagechange$!{moduleid}"
+								data-allowclear="false">
+							#foreach($ho in $hitcountoptions)
+								<option value="$ho.id" #if($currenthitsperpage==$ho.id) selected="selected"#end>#text($ho)</option>
+							#end	
+						</select>
+					</li>		
+				#end
+				
+				#ifnull($isminimized)
+					#set($isminimized = false)
+				#end
+				<li class="resultsnavitem" style="border: none;">
+					<button class='btn summary-toggler summary-opener #if(!$isminimized) closed #end' data-preferencename="$preference">
+						<i class="bi bi-chevron-left"></i> [[Summary]]
+					</button>
+				</li>
+			</ul>
+		#end
+	</div>
+	
+	#if($content.section != "favorites")
+		$pages.include("${searchhome}/filters/filters-inline.html", $context)
+	#end
+</div>
+

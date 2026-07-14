@@ -1,0 +1,11 @@
+#
+#Fri Jul 03 17:15:31 CST 2026
+Choose\ Files=Seleccionar archivos
+Close=Cerrar
+Create\ Bulk\ Folders\ from\ Files=Crear carpetas en masa a partir de archivos
+Create\ Folders\ From\ Files=Crear carpetas a partir de archivos
+Drop\ files\ here=Arrastra y suelta los archivos aqu\u00ED.
+Folders\ Created=Carpetas creadas
+Folders\ Details=Detalles de las carpetas
+Remove\ from\ Queue=Eliminar de la cola
+Uploading...=Subiendo...

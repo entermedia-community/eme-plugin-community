@@ -1,0 +1,9 @@
+<page>
+
+	<property name="edithomename">entitydesktopdrop</property>
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/dataentity</property>
+
+	<path-action name="EntityModule.getEntity"/>
+
+
+</page>

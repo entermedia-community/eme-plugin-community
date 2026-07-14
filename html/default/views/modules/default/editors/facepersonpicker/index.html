@@ -1,0 +1,30 @@
+#set($faceembeddingid = $context.getRequestParameter("faceembeddingid"))
+$context.putPageValue("faceembeddingid", $faceembeddingid)
+
+<div id="$edithomeid" class="editdiv pickerresults facepickerperson" 
+
+	data-edithome="${edithome}"
+	data-edithomeid="${edithomeid}"
+	data-assetid="$!{asset.id}"
+	data-faceembeddingid="$!{faceembeddingid}" 
+	
+>
+	<div class="clickableresultlist"
+		data-oemaxlevel="1"
+		data-url="${edithome}/actions/savepick.html"
+		data-targetdiv="editfaceprofiles"  ##global
+		data-assetid="$!{asset.id}"
+		data-faceembeddingid="$!{faceembeddingid}" 
+	>	
+		<div class="overflow-y">
+			
+			
+		
+		#set($searchhome = "$apphome/views/modules/${module.id}/results/default")
+		$context.putPageValue("searchhome", $searchhome)
+		
+		$pages.include("${searchhome}/searchinclude.html",$context)
+		</div>
+	</div>
+
+</div>

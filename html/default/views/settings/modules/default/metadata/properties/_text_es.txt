@@ -1,0 +1,9 @@
+#
+#Fri Jul 03 17:16:58 CST 2026
+Add\ New\ Field=A\u00F1adir un nuevo campo
+Copy\ to\ catalog\ defaults=Copiar al cat\u00E1logo predeterminado
+Delete=Eliminar
+Field\ Name=Nombre del campo
+Field\ Type=Tipo de campo
+ID=Identificaci\u00F3n
+Save=Guardar

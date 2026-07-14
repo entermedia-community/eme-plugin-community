@@ -1,0 +1,6 @@
+<page>
+
+	<property name="assetminbrickwidth">250</property>
+
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/results/default</property>
+</page>

@@ -1,0 +1,6 @@
+<page>
+
+	<property name="searchhome">/${applicationid}/views/settings/modules/asset/presetconfig</property>
+	<inner-layout />
+	
+</page>

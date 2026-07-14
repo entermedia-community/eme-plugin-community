@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<page>
+	<path-action name="Script.run" >
+		<script>./scripts/addmember.groovy</script>
+	</path-action>
+
+    <path-action name="Script.run" allowduplicates="true" >
+		<script>/${catalogid}/events/scripts/users/setuplibraries.groovy</script>
+	</path-action>
+    
+</page>

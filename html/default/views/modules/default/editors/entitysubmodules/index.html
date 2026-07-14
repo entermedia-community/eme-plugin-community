@@ -1,0 +1,61 @@
+#ifnull($entitymoduleviewid) 
+	#set($entitymoduleviewid = $context.getRequestParameter("entitymoduleviewid"))
+#end
+
+#set($entitymoduleviewdata = $mediaarchive.getCachedData("view",$entitymoduleviewid))
+#set($submoduleid = $!entitymoduleviewdata.rendertable) ##Sub module
+
+#set($submodule = $mediaarchive.getCachedData("module",$submoduleid))
+
+<div id="$edithomeid" class='editdiv entitysubmodules dataeditedreload #if($submodule.enableuploading == "true") dropentity #end' 
+	data-entityid="$!entity.id"
+	data-entitymoduleid="$!entitymodule.id"
+	data-moduleid="$!submodule.id"
+	data-entitymoduleviewid="$!entitymoduleviewid"
+	data-url= "${apphome}/views/modules/${entitymodule.id}/editors/entitysubmodules/index.html"
+	data-edithome="${edithome}"
+	data-edithomeid="${edithomeid}"
+>
+	#set($entitymoduleid = $!entitymoduleviewdata.moduleid)   ##Parent module
+	#set($entitymodule = $mediaarchive.getCachedData("module",$entitymoduleid))
+	$context.putPageValue("entitymodule", $entitymodule)
+	
+
+<div class='#if($submoduleid!="asset")clickableresultlist #else mediavieweropener#end'
+	data-targetdiv="entitydialog"
+	data-oemaxlevel="1"
+	data-includeeditcontext="false"
+	data-includesearchcontext="false"
+	data-url= "${apphome}/views/modules/${submoduleid}/editors/default/tabs/index.html"
+	data-baseurlbar="${apphome}/views/modules/${submoduleid}/index.html"
+	data-parententitymoduleviewid="$!entitymoduleviewid"
+>	
+	#set($module = $mediaarchive.getCachedData("module",$submoduleid))
+	$context.putPageValue("module", $module)
+	
+	
+	#set($searchhome = "$apphome/views/modules/${submoduleid}/results/submoduleslist")
+	$context.putPageValue("searchhome", $searchhome)
+	
+	#set($renderexternalid = $entitymoduleviewdata.renderexternalid)
+	
+	#set($sortby = $!viewdata.rendersort)
+	
+	#set($renderinternalid = $entitymoduleviewdata.renderinternalid)
+	#ifnull($renderinternalid)
+		#set($renderinternalid = "id")
+	#end
+	#set($renderinternalvalue = $entity.get($renderinternalid))
+	#ifnull($renderinternalvalue)
+		[[No Records Found]]
+	#end
+	#ifnotnull($renderinternalvalue)
+		#set($args = "field=$!{renderexternalid}&$!{renderexternalid}.value=$!{renderinternalvalue}&operation=exact")
+		#set($args = "$args&sortby=$!sortby&entitymoduleviewid=$entitymoduleviewid&${module.id}setpage=1")
+		
+		$context.putPageValue("viewid", $entitymoduleviewid)
+		$pages.include("${searchhome}/search.html?$!args",$context)
+	#end
+</div>	
+		
+</div>

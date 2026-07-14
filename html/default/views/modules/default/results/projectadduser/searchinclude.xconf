@@ -1,0 +1,9 @@
+<page>
+
+	<page-action name="DataEditModule.search">
+		<searchtype>user</searchtype>
+	</page-action>
+
+	<property name="enableactions">false</property>
+	
+</page>

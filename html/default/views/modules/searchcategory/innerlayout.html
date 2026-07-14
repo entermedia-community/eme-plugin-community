@@ -1,0 +1,28 @@
+$context.putPageValue("hits", $searchcategoryhits)
+
+#set($moduleid = $module.id)
+#set($expandedmodule = $moduleid)
+
+#set($rendertype = "entity")
+#if ($module.modulerendertype)
+	#set($rendertype = $module.modulerendertype)
+#end
+
+$context.putPageValue("rendertype", $rendertype)
+
+#if(!$hits.isEmpty())
+	#set( $count = $hits.size())
+#end
+$context.putPageValue("count", $count)
+
+#set( $parentmodule = $module)
+$context.putPageValue("topmodule", $parentmodule)
+
+#set($topentityid = $context.getRequestParameter("topentityid"))
+	
+
+		$pages.includeContent()
+
+
+
+

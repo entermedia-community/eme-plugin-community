@@ -1,0 +1,32 @@
+#set( $origURL = $context.getRequestParameter("origURL" ) )
+#set( $viewid = $context.findValue("editview") )
+
+#ifnull($view )
+	#set( $view = "${searcher.searchType}addnew")
+#end
+
+$context.putPageValue("viewid", $view)
+#set( $targetselect = $context.getRequestParameter("update" ) )
+
+<form class="inlinedata" name="dataeditor" action="$!{finderhome}/views/settings/lists/datamanager/edit/inlinesave.json"   >
+	<input name="save" type="hidden" value="true" />
+	<input name="id" type="hidden" value="$!data.id" />
+	<input name="catalogid" type="hidden" value="$searcher.catalogId" />
+	<input name="searchtype" type="hidden" value="$searcher.searchType" />
+	<input name="origURL"  type="hidden" value="$!origURL" />
+	<div id="edit-data" class="p-3">	
+	$pages.include("/${applicationid}/components/xml/detaileditor.html", $context)
+	<input id="" data-targetselect="$targetselect" class="btn btn-sm btn-primary float-right inlinesave"  type="button" value="[[Save]]" />
+
+	</div>
+	<div id="messagearea">$!message</div>
+</form>
+
+
+<script type="text/javascript">
+
+$(document).on("keypress", "form", function(event) { 
+    return event.keyCode != 13;
+});
+
+</script>

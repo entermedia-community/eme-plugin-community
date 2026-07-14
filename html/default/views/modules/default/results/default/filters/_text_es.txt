@@ -1,0 +1,28 @@
+#
+#Fri Jul 03 17:10:39 CST 2026
+After=Despu\u00E9s
+Before=Antes
+Between=Entre
+Category\ Path=Ruta de categor\u00EDa
+Clear=Claro.
+Clear\ All=Borrar todo
+Clear\ All\ Filters=Eliminar todos los filtros
+Clear\ Search=B\u00FAsqueda clara
+Customize\ Summary\ Contents=Personaliza el contenido del resumen
+Default=Por defecto
+Description=Descripci\u00F3n
+False=Falso
+Filter\ not\ applicable=Filtro no aplicable
+Related\ Entity=Entidad relacionada
+Reloaded\ Results=Resultados recargados
+Searching\ for=Buscando
+Show\ Active\ Filters=Mostrar filtros activos
+Show\ All=Mostrar todo
+Showing=Mostrando
+Sort\ Results=Ordenar resultados
+Sorted\ by=Ordenados por
+Summary=Resumen
+True=Verdadero.
+View\ Files=Ver archivos
+and=y
+or=o

@@ -1,0 +1,26 @@
+<div id="$edithomeid"  
+	class="editdiv dataeditedreload listsearchcategories" 
+	data-autoreloadurl="${edithome}/index.html"
+	data-edithome="${edithome}"
+	data-edithomeid="${edithomeid}"
+	data-entitymoduleid="searchcategory" 
+>
+	<div class="clickableresultlistinline heightExcludingHeaderFooter"
+		data-${module.id}hitssessionid="$!hits.getSessionId()"
+		data-includesearchcontext="false"
+		data-targetdiv="$edithomeid"
+		data-edithome=""
+		data-url="$apphome/views/modules/searchcategory/editors/listsearchcategoriesresults/index.html"
+	>
+		##Search for searchcategories 
+		#set($searchhome = "$apphome/views/modules/searchcategory/results/searchcategory")
+
+		$context.putPageValue("searchhome", $searchhome)
+		
+		$pages.include("${edithome}/categorybreadcrumb.html", $context)
+		
+		$pages.include("${searchhome}/searchinclude.html",$context)
+	</div>
+</div>
+
+

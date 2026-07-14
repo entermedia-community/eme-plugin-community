@@ -1,0 +1,8 @@
+#
+#Fri Jul 03 17:13:37 CST 2026
+Add\ to\ Entity=A\u00F1adir a la entidad
+Add\ to\ Folder=A\u00F1adir a la carpeta
+Folders=Carpetas
+Open\ Folder=Abrir carpeta
+Pick\ Folder=Seleccione la carpeta
+View=Ver

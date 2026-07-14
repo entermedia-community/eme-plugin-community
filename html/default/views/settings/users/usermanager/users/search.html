@@ -1,0 +1,67 @@
+<div class="tab-actions ">
+	<div id="user-search"> 
+	#set ($userSearcher = $searcherManager.getSearcher($catalogid, "user"))
+	$context.putPageValue("searcher", $userSearcher)     
+	#set($viewid = "usernormalsearch")
+	#set( $viewdata = $mediaarchive.getCachedData("view",$viewid) )
+	#set ($details = $viewdata.getDetailsForView($context.getUserProfile()))
+	#ifnull($details)
+		No details for view: $viewid
+	#end
+	$context.putPageValue("details",$details)	
+	
+		<form class="ajaxform" id="usersearchform" name="search" 
+			data-targetdiv="usersearchresultspanel" 
+			action="$siteroot$usermanagerhome/users/fieldsearch.html">
+			<input type="hidden" name="hitsperpage" value="15"/>
+			<input type="hidden" name="sortby" value="$hits.getSearchQuery().getSortBy()"/>
+			<input type="hidden" name="search" value="true"/>
+			<input type="hidden" name="userhitssessionid" value="$hits.sessionId"/>
+			<div class="d-flex align-items-center justify-content-between mb-3">
+				<div class="me-auto">
+					
+					<a class="btn btn-primary emdialog"
+						data-dialogid="adduserdialog"
+						data-updateurl="false"
+						data-hidefooter="true"
+						href='$siteroot$usermanagerhome/users/adduser.html'>[[Create User]]</a>
+
+					<a class="btn btn-secondary ajax"
+						data-targetdivinner="applicationcontent"
+						data-oemaxlayout="3"
+						data-updateurl="true"
+						data-autoactivecontainer="datamanager-system-menu"
+						href='$applink/views/settings/lists/datamanager/list/index.html?searchtype=user'>[[Import/ Export]]</a>	 
+				</div>
+				
+				
+				<div class="" style="width:25%"> 
+				
+				<div class="me-1 mb-4">
+					<div class="emsearchfield mr-2"> 
+					[[Search]]
+					</div> 
+					#set($searchingby = $context.getRequestParameter("description.value"))
+					<div id="detail_search" class="emsearchfieldvalue">
+						<input name="field" value="description" type="hidden">
+						<input name="operation" value="startswith" type="hidden" />
+						<input type="text" autocomplete="off" 
+							class="form-control detail_description textinput autosubmitedX " 
+							value="#esc($searchingby)" id="description.value" name="description.value" placeholder="[[Search by Username, Name or Email]]">
+					</div>
+					</div>
+				</div>
+				
+				
+				##$pages.include("${apphome}/components/xml/searchfields.html",$context)
+				#set($searching = $context.getRequestParameter("search"))
+				
+				#if($searching)
+				<div class="ml-1"><a href="$siteroot$usermanagerhome/users/index.html" class="btn btn-primary btn-sm">[[Clear]]</a></div>
+				#end
+				
+			</div>
+		</form>
+	</div>
+</div>
+<div class="clearfix"></div>

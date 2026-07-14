@@ -1,0 +1,5 @@
+<page>
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/contentcreator</property>
+	<property name="edithomename">contentcreatortoplevel</property>
+
+</page>

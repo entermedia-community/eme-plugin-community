@@ -1,0 +1,22 @@
+
+
+<div id="$!{searchhomeid}$!{edithomeid}results" 
+	 class="tableresults resultsdiv categoryresults"
+	 >
+			<div class="categorypathpicker overflow-y  mb-2">
+				#foreach( $hit in $hits.getPageOfHits() )
+					<div class="categorypath resultsdivdata" data-dataid="$hit.getId()">
+						##href="$applink/components/categories/asset/listassetcategories.html"
+						<span>#esc($hit.categorypath)</span>
+					</div>
+				#end	
+				
+			</div>
+			
+			#set($resultsPage = "${searchhome}/searchinline.html?categoryhitssessionid=$hits.getSessionId()")
+			$context.putPageValue("resultsPage", $resultsPage)
+			
+			$context.putPageValue("targetdiv", "searchcategorydialogresults")
+			$pages.include("${searchhome}/pages.html",$context)
+
+		</div>

@@ -1,0 +1,216 @@
+<div id="vieweditorarea">
+
+#set( $viewid = $context.getRequestParameter("viewid") )
+
+#set( $moduleid = $context.findValue("module") )
+
+#set( $viewsroot = $content.viewsroot )
+
+<ul class="emsettingslist"  viewid="$viewid" catalogid="$catalogid" searchtype="$moduleid" path="$siteroot$viewsroot/movefields.html">
+
+#if( $viewid )
+	#set( $view = $searcherManager.getData("$catalogid", "view", $viewid) )
+	<li class="header no-sort" id="views-header" >
+	    <span id="name">$context.getText($view)</span>
+	    #if ( $view.rendertable )
+	    <span class="type">[[Table]]: $view.rendertable</span>
+	    #end
+	    
+	    #set ( $systemdefined = "false" )
+        #set ( $systemdefined = $context.findValue("systemdefined") )
+		
+    #if( $canviewsettings )   
+	<a class="float-right btn btn-sm" title="$context.getText($view) [[Settings]]" id="setup-view"><i class="bi bi-gear-fill"></i></a>
+	#end
+	
+	<div id="views-settings" style="display: none;">
+	    
+	    <div class="inner clearfix">
+	    
+        <form id="changename" name="newgroup" method="post" action="$siteroot$viewsroot/changeviewname.html?id=$viewid&viewid=$viewid&save=true&searchtype=view">
+            <div class="form-group">
+            <input type="hidden" name="field" value="name" />
+            <label>[[View Id]]</label>
+            <input class="form-control"  value="$view.id" disabled />
+            </div>
+            
+            <div class="form-group">
+            <input type="hidden" name="field" value="name" />
+            <label>[[View Name]]</label>
+            <input class="form-control" name="name.value" value="$view.name" />
+            </div>
+            
+			<div class="form-group">
+           		
+           			<input type="hidden" value="rendertype" name="field" />
+	                <label>[[Custom Render Type]]</label>
+	            	<select name="rendertype.value" class="form-control form-control-sm">
+	            		<option value="default"></option>
+	            		#foreach( $type in $mediaarchive.getList("entitytabrendertype") )
+	            			<option value="$type.getId()" #if($type.getId() == $view.rendertype) [[selected]] #end>$type</option>
+	            		#end
+	            	</select>
+	            
+            </div>
+            
+			<div class="form-group">
+				<div class="form-check">
+	    		<input id="systemdefined.value" class="form-check-input" type="checkbox" name="systemdefined.value" value="true" #if($view.systemdefined == "true") checked #else #end/>
+                <label class="form-check-label" for="systemdefined.value">[[System View]]</label>
+            	<input type="hidden" value="systemdefined" name="field" />
+				</div>
+            
+            </div>
+            
+           
+            <div class="row">
+            	<div class="col-md-6">
+		            <div class="form-group">
+		                <label>[[External Table]]</label>
+		            	<input type="hidden" value="rendertable" name="field" />
+				                
+		                
+		                <select name="rendertable.value" onchange="" class="select2 form-control">
+						<option value="">[[Choose Table]]</option>
+							#foreach( $type in $searchtypes )
+								#if($type != "CVS")
+									<option value="$type" #if($type == $!view.rendertable) [[selected]] #end>$type</option>
+								#end
+							#end
+						</select>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+		                <label>[[External ID]]</label>
+		            	<input type="hidden" value="renderexternalid" name="field" />
+						#set($externalid = $view.renderexternalid)
+						#ifnull($externalid)
+							#set($externalid = $module.id)
+						#end
+		                <input class="field form-control" name="renderexternalid.value" value="${externalid}" />
+						
+	
+					</div>
+				</div>
+            </div>
+		
+
+        <div id="rendertableoptions">
+	  
+				<div class="row">
+            	<div class="col-md-6">
+					
+		        </div>
+		        <div class="col">
+		            <div class="form-group">
+						<label>[[Internal Value Field]]</label>
+						<input type="hidden" value="renderinternalid" name="field" />
+		                ##<input class="field form-control" name="renderinternalid.value" value="$!view.renderinternalid" placeholder="id" >
+						#set($internalid = $view.renderinternalid)
+						#ifnull($internalid)
+							#set($internalid = "id")
+						#end
+						<select id="renderinternalpicker" 
+								name="renderinternalid.value" 
+								class=" form-control" 
+								data-allowclear="false"
+								>
+							<option value=""></option>
+							#set($searcher = $mediaarchive.getSearcher($module.id))
+							#foreach( $type in $searcher.getPropertyDetails() )
+								<option value="$type.getId()" #if($type.getId() == ${internalid}) [[selected]] #end>#text($type)</option>
+							#end
+						</select>
+					</div>
+				</div>
+				</div>
+          </div>
+         <div class="form-group">
+            <input class="btn btn-sm btn-primary" type="submit" value="[[Save]]" />
+         </div>
+        </form>
+          
+		  <div id="permissionedit"></div>
+	    </div>
+    </div>
+	</li>
+				
+	<li class="no-sort add-to subheader">
+	    #if( $view.rendertable)
+            #set($searchtype = $view.rendertable)
+        #else
+            #set($searchtype = $moduleid)
+        #end
+        #if( $canviewsettings )
+        
+        <div class="subheader-title">
+		<a class="btn btn-xs btn-primary ajax" data-targetdiv="applicationcontent" data-oemaxlevel="6" href="$siteroot$apphome/views/settings/lists/datamanager/properties/index.html?&searchtype=$searchtype" id="addnewfield">[[Edit Fields]]</a>	    
+		</div>
+	    #end
+	    <form name="addtoview" class="ajaxform" data-targetdiv="vieweditorarea" id="addtoview" action="$siteroot$viewsroot/addtoview.html" data-ajaxreloadtargets="resultsdiv">
+            <input type="hidden" name="catalogid" value="$!catalogid"/>
+            <input type="hidden" name="searchtype" value="$moduleid"/>
+            <input type="hidden" name="oemaxlevel" value="1"/>
+            <input type="hidden" name="viewid" value="$viewid"/>
+			#if( $view.rendertable)
+				#set($searcher = $searcherManager.getSearcher($catalogid, $view.rendertable))
+			#else
+				#set($searcher = $searcherManager.getSearcher($catalogid, $moduleid))
+			#end	
+            <select id="fieldnames" 
+					name="detailid"
+					class="form-control form-control-sm2 float-right selectsubmitform" 
+					style="#if( $canviewsettings ) ; #else display:none;  #end" 
+					 >
+                <option value=""> </option>
+                #foreach( $detail in $searcher.getUserPropertyDetails() )
+				<option value="$detail.id">$detail.getText($context)</option>
+                #end
+            </select>
+            <select id="tableid" 
+				name="tableid"
+				class="form-control form-control-sm2 float-right"  
+				style="#if( $canviewsettings ) ; #else display:none;  #end" 
+            	onchange='$("#fieldnames").load("$siteroot$apphome/views/settings/modules/${moduleid}/metadata/views/listfieldoptions.html?searchtype=" + $("#tableid").val())'  >
+                <option value=""> </option>
+                #foreach( $table in $searcher.getPropertyDetailsArchive().listSearchTypes() )
+				<option value="$table" #if( $table == $searcher.getSearchType() ) selected #end>$table</option>
+                #end
+            </select>
+        </form>
+        <div class="clearfix"></div>
+	</li>
+#end
+</ul>
+
+<ul class="emsettingslist listsort" 
+  data-ajaxreloadtargets="resultsdiv"
+	data-path="$siteroot$viewsroot/saveview.html?viewpath=$viewpath&searchtype=$moduleid&assettype=$assettype&viewid=$viewid" >
+			#set($details = false)
+			#set($details =  $searcher.getDetailsForView($viewid))
+			#foreach( $element in $details)
+				#set( $pid = "${element.searchType}.${element.id}")
+				<li id="$pid" > 
+					#if( $canviewsettings )
+					<a class="sortableitem ajax" 
+						data-targetdivinner="applicationcontent" 
+						data-oemaxlevel="3" 
+						href="$siteroot$apphome/views/settings/lists/datamanager/properties/edit.html?id=$pid&searchtype=$searchtype">
+						<i class="bi bi-chevron-expand me-1"></i> ${element.searchType} / $element.getText($context)<span class="type-of-field">#if( $element.getDataType() ) $element.getDataType() #else textbox #end</span>
+					</a>
+					#else	
+						<a href="#">
+							$element.getText($context)<span class="type-of-field">#if( $element.getDataType() ) $element.getDataType() #else textbox #end</span>
+						</a>
+					#end	
+					<a class="ajax delete-row" data-targetdivinner="vieweditorarea" href="$siteroot$viewsroot/removefromview.html?searchtype=$moduleid&detailid=$pid&viewid=$viewid&oemaxlevel=1" data-ajaxreloadtargets="resultsdiv">
+						<i class="bi bi-x"></i>
+					</a>
+				</li>
+			#end		
+		
+</ul>
+<div class="clearfix"></div>
+
+</div>

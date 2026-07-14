@@ -1,0 +1,31 @@
+#set($currentrole = $context.getRequestParameter("settingsgroupid")) 
+#set($permissiontype = $context.getRequestParameter("permissiontype")) 
+#set ($roleSearcher = $searcherManager.getSearcher($catalogid, "settingsgroup"))
+
+#set( $moduleid = $module.getId() )
+
+<div id="eml-tab-subnav"  class="emsubnav">
+	<ul >
+		
+   		<li class="current">
+			<a href="${apphome}/views/settings/modules/${module.id}/permissions/enabled.html" class="ajax auto-active-link" data-targetdiv="workarea" data-oemaxlevel="1" data-updateurl="true">[[Enabled For]]</a>
+		</li>
+		<li>
+			<a href="${apphome}/views/settings/modules/${module.id}/permissions/viewers.html" class="ajax auto-active-link" data-targetdiv="workarea" data-oemaxlevel="1" data-updateurl="true">[[Viewers]]</a>
+		</li>
+		<li>
+			<a href="${apphome}/views/settings/modules/${module.id}/permissions/editors.html" class="ajax auto-active-link" data-targetdiv="workarea" data-oemaxlevel="1" data-updateurl="true">[[Editors]]</a>
+		</li>
+		<li>
+			<a href="${apphome}/views/settings/modules/${module.id}/permissions/actionpermissions/index.html" class="ajax auto-active-link" data-targetdiv="workarea" data-oemaxlevel="2" data-updateurl="true">[[Action Permissions]]</a>
+		</li>
+
+
+	</ul>
+</div>
+<div id="eml-tab-green-container" class="eml-tab-content">
+	$pages.includeContent()
+</div>
+
+
+

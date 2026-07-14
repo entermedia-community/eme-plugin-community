@@ -1,0 +1,21 @@
+#
+#Fri Jul 03 16:16:50 CST 2026
+Add\ New=A\u00F1adir nuevo
+Back\ to=Volver
+Bulk\ Folders\ from\ Files=Carpetas masivas de archivos
+Create\ Manually=Crear manualmente
+Create\ new=Crear nuevo
+Create\ with\ AI=Crear con IA
+Esc\ to\ Close=Esc para cerrar
+Export=Exportar
+Import=Importaci\u00F3n
+Items=\u00CDtems
+Multi\ Edit=Edici\u00F3n m\u00FAltiple
+Next=Siguiente
+Please\ select\ a\ tab\ for=Por favor, seleccione una pesta\u00F1a para
+Prev=Anterior
+Profile=Perfil
+Security=Seguridad
+Settings=Configuraci\u00F3n
+Share=Compartir
+with\ AI=con IA

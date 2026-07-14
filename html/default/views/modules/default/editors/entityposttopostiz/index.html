@@ -1,0 +1,133 @@
+
+<div id="${edithomeid}"	
+	class="editdiv"
+	data-entityid="$!entity.id"
+	data-entitymoduleid="$!entitymodule.id">
+
+	<div class="tabheader">
+		<div class="d-flex justify-content-between">
+			<span>[[Share to Postiz]]</span>
+		</div>
+	</div>
+
+	#set($selectedprofile = $userprofile.get("socialmediaprofile"))
+	#set($profiles = $mediaarchive.getList("socialmediaprofile"))
+	<div class="postiz-postform my-3 px-3">
+		<div class="bg-light p-2 rounded" style="max-width: 720px;">
+		#if(!$profiles)
+			[[No Social Media Profiles Found. Please create one first in: socialmediaprofile]]
+		#else
+			<div class="d-flex align-items-center justify-content-center pt-1 pb-3">
+				<h5 class="my-0">[[Select Media Profile]]</h5> 
+				<form class="ajaxform autosubmitform ms-3" 
+					action="$edithome/selectmediaprofile.html?oemaxlevel=1" 
+					data-targetdiv="${edithomeid}" 
+					method="post">
+					
+					<select name="socialmediaprofile" class="custom-select">
+						<option></option>
+						#foreach($profile in $profiles)
+						<option value="$profile.getId()" #if($selectedprofile == $profile.getId()) selected="selected" #end>
+							$profile.getName()
+						</option>
+						#end
+					</select>
+				</form>
+			</div>
+		#end
+			<div class="collapse #ifnotnull($selectedprofile) show #end">
+				<form class="ajaxform d-flex flex-column bg-white p-2" action="$edithome/post.html?oemaxlevel=1" data-targetdiv="${edithomeid}" method="post">
+	
+					<div class="form-group">
+						<label for="postcontent" class="fw-bold">Post Content:</label>
+						
+						#set($postcontent = $entity.get("maincontent"))
+						#ifnull($postcontent)
+						#set($postcontent = $entity.get("longcaption"))
+						#end
+						
+						<textarea name="postcontent" id="postcontent" rows="15" class="form-control" autofocus required>$!postcontent</textarea>
+						<div class="d-flex align-items-center justify-content-end position-relative w-100">
+							<button type="button" class="btn postiz-format" data-format="bold">
+								<i class="bi bi-type-bold"></i>
+							</button>
+							<button type="button" class="btn postiz-format" data-format="italic">
+								<i class="bi bi-type-italic"></i>
+							</button>
+							<button type="button" class="btn postiz-format" data-format="underline">
+								<i class="bi bi-type-underline"></i>
+							</button>
+							<div id="emojipicker" data-textarea="postcontent" style="left:auto;right:0"></div>
+							<a class="btn chatter-emoji"
+								href="${apphome}/views/modules/${module.id}/editors/aichatsearch/chatterbox/emojipicker.html"
+								data-oemaxlevel="1"
+								data-targetdivinner="emojipicker"
+								title="[[Emoji]]">
+								<i class="bi bi-emoji-smile"></i>
+							</a>
+						</div>
+					</div>
+				
+					<div class="form-group">
+						<label for="date" class="fw-bold">[[Post Date (optional)]]:</label>
+						#set($postdate = $entity.get("entity_date"))
+						<input type="datetime-local" name="date.value" class="form-control" value="$context.getDateTime($postdate, "yyyy-MM-dd'T'HH:mm")" />
+					</div>
+					
+					<div class="form-group">
+						<label for="date" class="fw-bold">[[Asset (optional)]]:</label>
+						#set( $value = $entity.get("primarymedia") )
+						#ifnull($value)
+							#set( $value = $entity.get("primaryimage") )
+						#end
+						#set($detail = $mediaarchive.getSearcher($entitymodule.id).getDetail("primarymedia").copy() )
+						 
+						$detail.setId("assetid")
+						
+						$context.putPageValue("data",$entity)
+						$context.putPageValue("detail",$detail)
+						#set( $xmledithome = "$apphome/components/xml")
+						$context.putPageValue("xmledithome",$xmledithome)
+						$context.putPageValue("value",$value)
+						$pages.include("${xmledithome}/types/asset.html")
+						
+						
+					</div>
+	
+					<div class="form-group">
+						<label class="fw-bold">[[Select Channels]]:</label>
+						<div class="postiz-channels">
+							#if($postoptions && $postoptions.size() > 0)
+								#foreach($postoption in $postoptions)
+								$postoption
+								<div class="postiz-channel"> 
+									<label  for="integration_${postoption.id}" title="#ID: $postoption.id">
+										<input type="checkbox" name="integrations" value="$postoption.id" id="integration_${postoption.id}">
+										<div style="width:32px;height: 32px;" class="mx-2">
+											<img src="$postoption.picture" class="img-fluid rounded-circle" />
+										</div>
+										<span>$postoption.name</span>
+									</label>
+									
+									##only for reddit for now
+									
+									#if($postoption.identifier == "reddit")
+										$pages.include("./channels/reddit.html", $context)
+									#end
+									</div>
+								#end
+							#else
+								<p>[[No integrations available]].</p>
+							#end
+						</div>
+					</div>
+					
+					<div class="form-group w-100 text-center mt-2">
+						<button type="submit" class="btn btn-lg btn-primary">[[Send It!]]</button>
+					</div>
+	
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

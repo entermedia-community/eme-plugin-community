@@ -1,0 +1,10 @@
+<page>
+
+	<property name="searchhomename">projectadduser</property>
+	<property name="searchhome">/${applicationid}/views/modules/${module}/results/${searchhomename}</property>
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/results/default</property>
+
+	<property name="enableactions">false</property>
+	<property name="hitsperpage">15</property>
+
+</page>

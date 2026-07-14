@@ -1,0 +1,15 @@
+#
+#Fri Jul 03 17:13:48 CST 2026
+Add\ New=A\u00F1adir nuevo
+Are\ you\ sure?=\u00BFEst\u00E1s seguro?
+Cancel=Cancelar
+Configure\ View=Configurar vista
+Delete=Eliminar
+Fields=Campos
+Missing\ Edit\ Permission=Falta permiso de edici\u00F3n
+No\ data\ has\ been\ entered=No se han introducido datos
+Relationships=Las relaciones
+Save=Guardar
+Save\ Values=Guardar valores
+Your\ entry\ is\ invalid.\ \ Please\ check\ your\ values\ and\ try\ again.=Su entrada no es v\u00E1lida. Por favor, compruebe sus valores e int\u00E9ntelo de nuevo.
+see\ more\ details=Ver m\u00E1s detalles

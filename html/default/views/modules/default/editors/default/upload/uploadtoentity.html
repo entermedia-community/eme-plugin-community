@@ -1,0 +1,12 @@
+<div class="uploadshowuploads"  
+	data-entityid="$!{entity.id}"
+	data-entitymodule="$!{entitymodule.id}"
+	#set($moduleviewid = $mediaarchive.getEntityManager().findFilesView($module))
+	data-entitymoduleviewid="$moduleviewid"
+	data-targetdiv="entitydialog"
+	data-oemaxlevel="1"
+	data-url= "${apphome}/views/modules/${entitymodule.id}/editors/default/tabs/index.html"
+>
+
+	$pages.include("${edithome}/upload/uploadform.html", $context)
+</div>

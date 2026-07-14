@@ -1,0 +1,125 @@
+#set( $viewsroot = $content.viewsroot )
+
+#set($viewid = $context.getRequestParameter("viewid"))
+
+#set ( $systemdefined = "false" )
+#set ( $systemdefined = $context.findValue("systemdefined") )
+
+#set ( $moduleid = $context.findValue("module") )		
+
+#set( $viewid = $context.getRequestParameter("viewid") )
+
+#set( $viewdata = $mediaarchive.getCachedData("view",$viewid))
+
+#set( $ids = [])
+#set( $viewsroot = $content.viewsroot )
+
+#if( $viewdata.rendertable)
+	#set($searcher = $searcherManager.getSearcher($catalogid, $viewdata.rendertable))
+#else
+	#set($searcher = $searcherManager.getSearcher($catalogid, $module.id))
+#end	
+
+#set($details = false)
+#set($details = $searcher.getDetailsForView($viewdata, $userprofile))
+
+
+#set($ajaxreloadtargetid =  $context.getRequestParameter("ajaxreloadtargetid"))
+
+<div id="viewpicker" 
+	class="viewpickereditor" 
+	data-viewid="$viewid" 
+	data-oemaxlevel="1" 
+	data-url="$siteroot$viewsroot/dialog/index.html" 
+	data-ajaxreloadtargetid="$!{ajaxreloadtargetid}">
+<div class="emsettingslist  p-3" >
+	
+#if($canviewsettings)
+	<div class="pb-2" style="text-align:right;">
+	<input class="changeuserprofile" 
+			name="saveforall"
+			id="saveforall"
+			data-propertyname="view_saveforallenabled" 
+			type="checkbox" 
+			data-ajaxreloadtargets = "viewpickereditor" 
+			value="true" #if($userprofile.isEnabled("view_saveforallenabled"))checked#end 
+	/> 
+	<label for="saveforall">[[Edit For All Users]]</label>
+	</div>
+
+#end
+
+<ul class="emsettingslist listsort" 
+	data-ajaxreloadtargets="dataeditedreload"  
+	data-path="$siteroot$viewsroot/dialog/saveview.html?searchtype=$module.id&assettype=$!{assettype}&viewid=$!{viewid}&ajaxreloadtargetid=$!{ajaxreloadtargetid}">
+
+	#set( $moduleid = $context.findValue("module") )
+
+	#foreach( $detail in $details)
+		#set( $pid = $detail.id)
+		#ifnotnull($detail.getSearchType())
+			#if($moduleid != $detail.getSearchType())
+				#set( $pid = "${detail.searchType}.${detail.id}")	
+			#end
+		#end
+		
+		#set( $null = $!ids.add($detail.id) )
+		<li id="$pid">  
+			<div class="sortableitem" style="cursor: hand;" title="$detail.getText($context) ($detail.id)" >
+				<i class="bi bi-chevron-expand me-1"></i>
+				$detail.getText($context) 
+				<a href="">
+				<span class="type-of-field">#if( $detail.getViewType() ) $mediaarchive.getCachedData("datarendertype" , $detail.getViewType() ) #else Text #end</span>
+				</a>
+			</div>
+						
+			<a class="ajax delete-row" 
+				data-targetdivinner="viewpicker"
+				#if($ajaxreloadtargetid)  
+				data-ajaxreloadtargetid="$!{ajaxreloadtargetid}"
+				#else
+					data-ajaxreloadtargets="dataeditedreload"
+				#end
+			 	href="$siteroot$viewsroot/dialog/removefromview.html?searchtype=$moduleid&detailid=$pid&assettype=$assettype&viewid=$viewid&oemaxlevel=1&ajaxreloadtargetid=$!{ajaxreloadtargetid}" 
+			 >
+			 <i class="bi bi-x"></i>
+			</a>
+		</li>
+	#end
+	</ul>	
+</div>
+
+<div class="emsettingslistd p-3" >
+		<form name="addtoview" 
+			class="ajaxform d-flex flex-grow-1 flex-column" 
+			data-targetdiv="viewpicker" 
+			id="addtoview" 
+			action="$siteroot$viewsroot/dialog/addtoview.html"
+		 	
+			#if($ajaxreloadtargetid)
+				data-ajaxreloadtargetid="$!ajaxreloadtargetid"
+			#else
+				data-ajaxreloadtargets="dataeditedreload"
+			#end
+			>
+		 	##ToFix: resultsdiv needs one of this classes and the data-url to reload it self
+		 
+			<input type="hidden" name="oemaxlevel" value="1"/>
+			<input type="hidden" name="viewid" value="$viewid"/>
+			<input id="tableid" name="tableid" type="hidden" value="$moduleid">
+			<input type="hidden" name="ajaxreloadtargetid" value="$!ajaxreloadtargetid"
+
+			<div class="d-flex justify-content-between align-items-center mb-2">
+			<select id="fieldnames" name="detailid" class="select2 selectsubmitform" placeholder="[[Add another field]]">
+			 	<option value="">[[Add another field]]</option>
+				#foreach( $detail in $searcher.getUserPropertyDetails() )
+					#if( !$ids.contains($detail.getId()))
+					<option value="$detail.id">$detail.getText($context)</option>
+					#end
+				#end
+			</select>
+			</div>
+		</form> 
+</div>
+
+</div>

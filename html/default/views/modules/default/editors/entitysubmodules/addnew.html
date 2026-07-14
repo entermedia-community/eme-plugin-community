@@ -1,0 +1,112 @@
+#set($submoduleid = $entitymoduleviewdata.rendertable)
+#set($module = $mediaarchive.getCachedData("module", $submoduleid))
+
+#set ($fieldexternalid = $entitymodule.id)
+#set ($fieldexternalvalue = $entity.id)
+#ifnull($data)
+	#ifnotnull($fieldexternalid)
+		#set($data = $mediaarchive.getSearcher($module.id).createNewData())
+		$data.setValue($fieldexternalid, $fieldexternalvalue)
+		$context.putPageValue("data",$data)
+	#end
+#end
+
+#set( $searcher = $mediaarchive.getSearcher($module.id) )
+$context.putPageValue("searcher",$searcher)
+
+#set($viewid = "${module.id}addnew")
+
+#set($action = "$apphome/views/modules/${module.id}/editors/entitysubmodules/addnewsave.html")
+
+#set($edithomeid = $context.getRequestParameter("edithomeid"))
+#set($ajaxreloadtargetsvalue = $context.getRequestParameter("ajaxreloadtargetsvalue"))
+	
+
+$pages.include("$apphome/views/modules/${module.id}/editors/entitysubmodules/addnewheader.html")
+
+<div class="modal-body">
+	
+<div class="createnewtoggle">
+<form id="searchentitydataeditor"
+	name="searchentitydataeditor"
+	action="$action" 
+	class="ajaxform checkCloseDialog autocloseform" 
+	data-edithomeid="$!{edithomeid}"
+	data-closedialogid="entitysubmoduleaddexisting"
+	data-targetdiv="$!{edithomeid}"
+	data-includeeditcontext="true"
+	data-ajaxreloadtargets="$!{ajaxreloadtargetsvalue}"
+	method="post"  
+	enctype="multipart/form-data"
+	>
+
+		<input name="save" type="hidden" value="true" />
+		<input name="id" type="hidden" value="$!id" />
+
+		#ifnotnull($fieldexternalid )
+		<input type="hidden" name="field" value="$fieldexternalid" />
+		<input type="hidden" name="${fieldexternalid}.value" value='$fieldexternalvalue'/>
+		#end
+
+		$context.putPageValue("viewid", $viewid)
+		#set($detailviewercolumns = 2)
+		
+		$pages.include("/$applicationid/components/xml/detaileditor-entities.html?longform=true&detailviewercolumns=$detailviewercolumns", $context)
+	
+		<div class="d-flex align-items-center mt-3">
+			<a class="btn btn-cta submitform me-3"><i class="me-1 bi bi-floppy-fill me-1"></i> [[Save]]</a>
+			<button id="closebutton" type="button" class="btn btn-secondary" data-dismiss="modal">[[Cancel]]</button>
+		</div>
+</form>
+
+</div>
+
+
+#set($viewdata = $mediaarchive.getCachedData("view","${module.id}addnew"))
+#set($aiaction = "$apphome/views/modules/${module.id}/editors/contentcreatorchild/finish.html")
+  <div class="bg-white createnewtoggle" style="display: none;" >
+    <form	class="ajaxform autocloseform checkCloseDialog"
+			data-includeeditcontext="true"
+			data-targetdiv="importdone"
+			action="$aiaction"
+			data-toastmessage="[[Creating]] #text($submodule) [[with AI]]"
+			data-toastsuccess="[[Created]] #text($submodule) [[successfully]]"
+			data-toasterror="[[Failed to create]] #text($submodule)">
+			<input type="hidden" name="entitymoduleviewid.value" value='$entitymoduleviewdata.id'/>
+			<input type="hidden" name="field" value="entitymoduleviewid" />
+			<input type="hidden" name="entityid.value" value='$entity.id'/>
+			<input type="hidden" name="field" value="entityid" />
+			
+			<input type="hidden" name="save" value='true'/>
+
+			$context.putPageValue("viewid", "contentcreatorchild")
+			$context.putPageValue("details",null)
+			$context.putPageValue("searcher",$mediaarchive.getSearcher("contentcreator"))
+			
+			<div class="updateaitemplate #if($customprompt) customized #end"
+				data-template="$edithome/aitools/createassetinstructions.html"
+				data-targetarea="aiInstruction">
+				$pages.include("$apphome/components/xml/detaileditor-entities.html", $context)
+			</div>
+		
+			<label for="aiInstruction" class="mb-1">[[AI Prompt]]: </label>
+			<input type="hidden" name="field" value="llmprompt" />
+			
+			<textarea name="llmprompt.value" id="aiInstruction" class="form-control rounded" rows="8" required autocomplete="off" data-gramm="false">$pages.include("$edithome/createentityinstructions.html", $context)</textarea>
+
+			<div class="d-flex align-items-center mt-3">
+				<button type="submit" class="btn btn-cta  me-3">
+					<i class="bi bi-brush me-1"></i>
+					[[Create with AI]]
+				</button>
+				<button id="closebutton" type="button" class="btn btn-secondary" data-dismiss="modal">[[Cancel]]</button>
+			</div>
+    </form>
+    <div id="importdone"></div>
+</div>
+
+
+</div>
+
+
+

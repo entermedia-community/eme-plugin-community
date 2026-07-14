@@ -1,0 +1,7 @@
+#
+#Fri Jul 03 17:18:54 CST 2026
+Cancel\ Reply=Cancelar respuesta
+Message=Mensaje
+Processing=Procesamiento
+Replying\ to=En respuesta a
+Send=Enviar

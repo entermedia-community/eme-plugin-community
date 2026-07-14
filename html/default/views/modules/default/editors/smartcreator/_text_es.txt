@@ -1,0 +1,12 @@
+#
+#Fri Jul 03 17:18:52 CST 2026
+Create\ a=Crear una
+Create\ a\ new=Crear uno nuevo
+Generate\ Questions=Generar preguntas
+Import=Importaci\u00F3n
+Make\ a\ copy=Hacer una copia
+No\ sections\ created\ yet=A\u00FAn no se han creado secciones
+Redo=Rehacer
+Share=Compartir
+Undo=Deshacer
+View=Vista

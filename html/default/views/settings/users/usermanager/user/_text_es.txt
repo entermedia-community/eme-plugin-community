@@ -1,0 +1,22 @@
+#
+#Fri Jul 03 17:36:05 CST 2026
+Act\ As\ this\ user\ temporarily=Act\u00FAe como este usuario temporalmente
+Are\ you\ sure?=\u00BFEst\u00E1s seguro?
+Cancel=Cancelar
+Delete\ User=Eliminar usuario
+Edit\ Password=Editar contrase\u00F1a
+Generate\ Temporary\ EnterMedia\ Key=Generar clave temporal de EnterMedia
+Groups=Grupos
+Id=Identificaci\u00F3n
+Password\ Error=Error de contrase\u00F1a
+Profile=Perfil
+Reset\ 2\ Factor\ Authentication\ Key=Restablecer la clave de autenticaci\u00F3n de dos factores
+Role=Rol
+Role\ Saved=Rol guardado
+Save\ Changes=Guardar cambios
+Select\ a\ user=Seleccione un usuario
+Send\ Magick\ Link=Env\u00EDa el enlace de Magick
+Unable\ to\ change\ password\ at\ this\ time.\ \ If\ this\ persists,\ please\ talk\ to\ your\ system\ administrator.=No es posible cambiar la contrase\u00F1a en este momento. Si esto persiste, comun\u00EDquese con su administrador del sistema.
+User\ Saved=Usuario guardado
+Users\ are\ assigned\ a\ unique\ role\ within\ a\ catalog.\ This\ feature\ is\ often\ used\ for\ within\ enterprise\ deployments\ with\ numerous\ and\ complex\ catalog\ permissions.=A los usuarios se les asigna un rol \u00FAnico dentro de un cat\u00E1logo. Esta caracter\u00EDstica se utiliza a menudo en implementaciones empresariales con numerosos y complejos permisos de cat\u00E1logo.
+View\ Asset\ Permissions=Ver permisos de activos

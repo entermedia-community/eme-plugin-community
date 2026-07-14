@@ -1,0 +1,23 @@
+<div class="creator-navigation"
+  id="smart-section-nav" 
+  data-url="$apphome/views/modules/${module.id}/editors/smartcreator/section-nav-reload.html" 
+  data-playbackentityid="${playbackentity.id}"
+  data-playbackentitymoduleid="${playbackentitymodule.id}"
+  data-targetdiv="smart-section-nav">
+  <div class="collapse collapse-horizontal #if($componentsections.size() > 1) show #end" id="collapseSmartCreator">
+    <div class="d-flex flex-column p-1" style="width: 280px;">
+      <a class="btn btn-accent mx-auto mb-2 ajax"
+        href="$apphome/views/modules/${module.id}/editors/smartcreator/createquestions.html"
+        data-playbackentityid="${playbackentity.id}"
+        data-playbackentitymoduleid="${playbackentitymodule.id}">[[Generate Questions]]</a>
+      #foreach($componentsection in $componentsections)
+        $context.putPageValue("section", $componentsection)
+        $context.putPageValue("count", $foreach.count)
+        $pages.include("$edithome/section/section-title.html", $context)
+      #end
+      #if($componentsections.size() == 0)
+        <div class="text-muted p-2">[[No sections created yet]]</div>
+      #end
+    </div>
+  </div>
+</div>

@@ -1,0 +1,170 @@
+#set( $reloadface = $context.getRequestParameter("reloadface") )
+
+#if($asset.isLocked())
+	#set($userlock = $asset.getLockOwner())
+	#if($userlock.id != $user.id)
+		#set($caneditasset = false)	
+		$context.putPageValue("caneditasset", $caneditasset)
+	#end
+#end
+
+#ifnotnull($reloadface)	
+	#set( $facemanager = $mediaarchive.getBean("faceProfileManager") )
+	#set( $faceboxescollection =  $facemanager.collectFaceBoxesAllPeople($asset) )
+#end
+
+<div id="editfaceprofiles" 
+	class="#ifnull($reloadface) ajaxonce #end asset-data-detail asset-data-preview assetpanel-editor-box edit-panel-generic"
+	data-reloadface="true"
+	data-assetid="$asset.getId()"
+	data-ajaxpath="$page.path"
+	data-runwhenhidden="true"
+	data-oemaxlevel="1"
+	data-showloader="true"
+	data-caneditasset="${caneditasset}"
+>
+	<div class="d-flex align-items-center justify-content-between me-3">
+		<h4 class="m-0">[[People]]</h4>
+	</div>
+
+#ifnotnull($reloadface)	
+		
+	#set ($viewtype = "faceprofiles")
+	<div class="$!{detailviewercolumnclass} asset-data-detail emdatafield-$!viewtype p-3" id="editfaceprofilesfaces">
+
+		#set($rendertype = $mediaarchive.getMediaRenderType($asset))
+		$context.putPageValue("thumbsize",$thumbsize)
+
+		<div class="emfield-scroll" id="entitypickerentityperson">
+			<ul class="entity-value-list d-flex flex-wrap">
+				#foreach( $row in $faceboxescollection )
+					#set( $rowdata = $row.getEmbeddedData())
+					#set( $person = false)
+					#set( $person = $row.getPerson() )
+
+					<li class="position-relative mb-2 me-2">
+
+						#set($similarfaceslink = "$!siteroot$applink/views/modules/asset/editors/facesshowsimilar/index.html?hitssessionid=$!hits.sessionId")
+
+						#if($person)
+							#set($namefield = $mediaarchive.getSearcher("entityperson").getDetail("name"))
+							#set($facename = $mediaarchive.getSearcherManager().getValue($person, $namefield, $context.getLocale()))
+						#else
+							#set($facename = false)
+						#end
+
+						#if( $rendertype == "video")
+							#set( $offset = $rowdata.getValue("timecodestart") )
+							#set( $imageboxsource = $mediaarchive.asLinkToGenerateOffset($asset, "image1900x1080" , $offset) )
+							#set( $secs = $mediaarchive.formatTime($rowdata.get("timecodestart")) )
+						#else
+							#set( $imageboxsource = $mediaarchive.asLinkToGenerated($asset, "image3000x3000"))
+						#end 
+
+						<a href="$!similarfaceslink" 
+							class="emdialog showimagebox d-flex align-items-center justify-content-between facepf-item"
+							data-dialogwidth="1200"
+							data-hidefooter="true"
+							data-showboxtarget="mediaplayer"
+							data-dialogid="faceprofiledialog"
+							data-faceembeddingid="$rowdata.getId()"
+							data-assetid="$asset.getId()"
+							data-location="${row.toJsonArray()}"
+							data-originalwidth="${rowdata.originalwidth}"
+							data-confidence="$rowdata.face_confidence"
+							#if($facename)
+								data-facename="#elidemiddle($facename, 100)"
+							#end
+							#if($rowdata.hasotherfaces=="true")
+								title="[[View More Similar Faces]]"
+							#else
+								title="[[No Similar Faces Found]]"
+							#end
+							data-dialogtitle="[[Similar Faces]]"
+							#if( $rendertype == "video")
+								data-vjs='videopreview-${rowdata.get("assetid")}'
+								data-seekto="$offset"
+							#end
+						>
+							<div class="d-flex flex-column align-items-center">
+								<div class="facepf"
+									data-location="${row.toJsonArray()}"
+									data-originalwidth="${rowdata.originalwidth}"
+									data-originalheight="${rowdata.originalheight}"
+									style='background-image: url("${imageboxsource}")'></div>
+							</div>
+							<div class="vr"></div>
+							<div class="d-flex flex-column align-items-center position-relative">
+								#ifnotnull($secs)
+									<span>$secs</span>
+								#end
+								#if($facename)
+									<span>$!facename</span>
+								#else
+									<span class="text-muted text-center">
+										#if($rowdata.hasotherfaces=="true") [[View Similar]] #else [[Assign Person]] #end
+									</span>
+								#end
+							</div>
+						</a>
+						
+						#if($caneditasset)
+							#set($pickerurl= "$apphome/views/modules/entityperson/editors/facepersonpicker/index.html")
+							<a href="${pickerurl}"
+								data-faceembeddingid="$rowdata.getId()"
+								data-assetid="$asset.getId()"
+								class="emdialog face-assign-btn"
+								data-dialogid="tagpersondialog"
+								data-hidefooter="true"
+								title="#if($facename) [[Reassign Person]] #else [[Assign Person]] #end">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+							#set($deleteurl= "$apphome/views/modules/asset/editor/faceprofiles/facedelete.html")
+							<a href="${deleteurl}"
+								data-faceembeddingid="$rowdata.getId()"
+								data-targetdiv="main-media-container"
+								data-assetid="$asset.getId()"
+								class="ajax face-delete-btn"
+								data-confirm="[[Are you sure you want to remove this face]]?"
+								data-toastmessage="[[Deleting face]]"
+								data-toastsuccess="[[Face deleted]]"
+								data-toasterror="[[Error deleting face]]"
+								title="[[Remove Face]]">
+								<i class="bi bi-trash-fill"></i>
+							</a>
+						#end
+					</li>
+				#end
+			</ul>
+
+			#if($faceboxescollection.isEmpty())
+				<p class="text-muted">[[No face detected]]</p>
+			#end
+			
+			#if($caneditasset && $rendertype == "image")
+				
+				<a href="$siteroot$apphome/views/modules/asset/editor/faceprofiles/rescanfaces.html?assetid=$asset.id&" 
+					class="btn btn-accent d-inline-block my-3 ajax"
+					data-targetdiv="main-media-container"
+					data-toastmessage="[[Rescaning asset]]"
+					data-toastsuccess="[[Face scan complete]]"
+					data-toasterror="[[Error deleting faces]]">
+					<i class="bi bi-plus-circle me-1"></i>
+					[[Find Faces]]
+				</a>
+				<a href="#" class="manual-fp btn btn-accent d-inline-block my-3 me-1">
+					<i class="bi bi-plus-circle me-1"></i>
+					[[Create Box]]
+				</a>
+				
+				
+			#end
+			
+			<hr class="m-0 themed-hr">
+			
+		</div>
+	</div>
+
+#end	
+	
+</div>

@@ -1,0 +1,20 @@
+<div class="creator-navigation"
+  id="smart-section-nav" 
+  data-url="$siteroot$applink/views/modules/${module.id}/editors/smartcreator/section-nav.html" 
+  data-playbackentityid="${playbackentity.id}"
+  data-playbackentitymoduleid="${playbackentitymodule.id}"
+  data-targetdiv="smart-section-nav"
+  data-oemaxlevel="1">
+  <div class="collapse collapse-horizontal #if($componentsections.size() > 1) show #end" id="collapseSmartCreator">
+    <div class="d-flex flex-column p-1" style="width: 280px;">
+      #foreach($componentsection in $componentsections)
+        $context.putPageValue("section", $componentsection)
+        $context.putPageValue("count", $foreach.count)
+        $pages.include("$edithome/section/section-title.html", $context)
+      #end
+      #if($componentsections.size() == 0)
+        <div class="text-muted p-2">[[No sections created yet]]</div>
+      #end
+    </div>
+  </div>
+</div>

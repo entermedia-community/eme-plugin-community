@@ -1,0 +1,6 @@
+<page>
+	<property name="edithomename">assetlistfolderpicker</property>
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/default</property>
+
+	<property name="showaddnew">false</property>
+</page>

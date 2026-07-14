@@ -1,0 +1,63 @@
+#set($entitymoduleviewid = $context.getRequestParameter("entitymoduleviewid"))
+#set($viewdata = $mediaarchive.getCachedData("view",$entitymoduleviewid))
+#set($submoduleid = $!viewdata.rendertable)
+
+#ifnull($enableactions)
+	#set($enableactions = $content.isPropertyTrue("enableactions",true))
+#end
+#if($enableactions)
+	#set($enableactions = $permissions.canModule($module, "edit"))
+#end
+$context.putPageValue("enableactions", $enableactions)
+
+$context.putPageValue("showassetpicker", true)
+
+##Edithome might be wrong because the parent has one set
+
+<div id="$!{edithomeid}" class="editdiv pickersubmodules" 
+	data-entityid="$!entity.id"
+	data-entitymoduleid="$!entitymodule.id"
+	data-entitymoduleviewid="$entitymoduleviewid"
+	data-edithome="$!{edithome}"
+	data-edithomeid="$!{edithomeid}"
+	data-setpagetitle="[[Select]] #text($module)"
+	data-enableactions="$!{enableactions}"
+	data-showaddnew="false"
+>
+
+#set($submoduleid = $!entitymoduleviewdata.rendertable)
+
+	<div class="overflow-y">
+		<div class="clickableresultlist"
+		data-edithomeid="$!{edithomeid}"
+		data-url= "${apphome}/views/modules/${submoduleid}/editors/pickersubmodules/actions/savesubmodule.html"
+		data-entityid="$!entity.id"
+		data-entitymoduleid="$!entitymodule.id"
+		data-entitymoduleviewid="$entitymoduleviewid"
+		data-toastmessage="[[Saving]]"
+		data-toastsuccess="[[Record Saved]]"
+		data-closedialog="true"
+		data-ajaxreloadtargets="entitysubmodules"  ##this reloads any
+		
+		>
+		
+	#set($module = $mediaarchive.getCachedData("module",$submoduleid))
+	$context.putPageValue("module", $module)
+	#set($searchhome = "$apphome/views/modules/${submoduleid}/results/submodulesexcludelist")
+	$context.putPageValue("searchhome", $searchhome)
+	
+	#set($renderexternalid = $entitymoduleviewdata.renderexternalid)
+	
+	#set($sortby = $!viewdata.rendersort)
+	#set($args = "field=$!{renderexternalid}&$!{renderexternalid}.value=$!{entity.id}&operation=not")
+	#set($args = "$args&sortby=$!sortby&entitymoduleviewid=$entitymoduleviewid&viewid=$entitymoduleviewid&${module.id}setpage=1")
+	$pages.include("${searchhome}/search.html?$!args",$context)
+
+
+		</div>
+	</div>
+
+</div>
+
+
+		

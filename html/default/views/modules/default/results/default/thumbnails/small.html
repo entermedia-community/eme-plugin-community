@@ -1,0 +1,80 @@
+#ifnull($hit)
+	#set($hit = $asset)
+#end
+#set ($sourcepath = $hit.sourcepath)
+#if(!$title)
+	#if(!$asset)
+		#set( $asset = $mediaarchive.getAsset($hit.getId()) )
+	#end		         	
+	#if( $asset.assettitle )
+		#set($title =  $asset.getText("assettitle",$context)) 
+	#else 
+		#set($title = $asset.getText("name",$context) )
+	#end
+#end
+#ifnull($alwaysmime)
+	#set($alwaysmime = false)
+#end
+
+#set ($thumbsize = $context.getPageValue("thumbsize"))
+
+
+<div class="small-thumb-container draggholder" >
+
+	#if( $hit.previewstatus == "mime" || $alwaysmime)
+		
+		$pages.include("${searchhome}/thumbnails/mime.html", $context)
+		
+	#elseif( ($hit.previewstatus != "2" && $hit.previewstatus != "exif" && $hit.previewstatus != "1" && $hit.previewstatus != "generated") && !$mediaarchive.isCatalogSettingTrue("realtimethumbs"))
+    
+		$pages.include("${searchhome}/convertqueue/previewstatus.html?assetid=$!{hit.id}",$context)
+		
+	#else   
+		
+		
+		#set($detail = $mediaarchive.getSearcher($module.id).getDetail("primarymedia"))
+		#if( $viewtype == "documentpage")
+		#end
+		
+		#set( $type = $mediaarchive.getMediaRenderType($hit.fileformat))
+		
+		#if( $type == "audio" || $type == "default" || $type == "document")
+			$pages.include("${searchhome}/thumbnails/${type}.html", $context)
+		
+		#else
+			#set($tabletarget = $mediaarchive.getCatalogSettingValue("tablethumbnail"))
+			#if($tabletarget)
+				#set( $imagepath = $mediaarchive.asLinkToGenerated($hit, $tabletarget))  
+			#else
+				
+				#set($imagesize = "image110x62cropped")
+				#set( $imagepath = $mediaarchive.asLinkToGenerated($hit, $imagesize))
+				 
+			#end
+			
+			$context.putPageValue("imagepath", $imagepath)
+			
+			#if($pickerenabled || $content.isPropertyTrue("showassetpicker"))
+					#set($originalLink = "$siteroot/${mediadbappid}/services/module/asset/downloads/originals/"+$mediaarchive.asLinkToOriginal($hit))
+					<div class="pickfromiframe asset" 
+						data-imageurl="$originalLink"
+						title="[[Pick]]: #if($title)#esc($title)#else$!{hit.name}#end">
+						<i class="bi bi-check-lg"></i>
+					</div>
+			#end
+				
+			#if($type =="video")
+				<div class="videoplay-button"><span class="videoplay-icon"></span></div>
+			#end
+			
+			<img class="smallthumb assetdragdrop" 
+				draggable="true" 
+				data-sourcepath="$hit.sourcepath" 
+				data-name="#if($title)#esc($title)#else$!{hit.name}#end" 
+				src="${imagepath}" 
+				alt="#if($title)#esc($title)#else$!{hit.name}#end" 
+			/>
+			
+		#end			   
+   #end
+</div>    

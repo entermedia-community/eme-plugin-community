@@ -1,0 +1,47 @@
+<thead>
+<tr id="tableheader" class="tableheader">
+
+#if($enableactions)
+	<th class="firstheader p-0" id="th-checkbox">
+		<div class="d-flex align-items-center justify-content-center">
+		<input name="pagetoggle" type="checkbox" #if($hits.isAllSelected()) checked #end title="[[Select All on This Page]]"  />
+		</div>
+	</th>
+#end	
+
+	<th id="th-thumbnail"> [[Thumbnail]]  </th>
+	#set( $sortby = $hits.getSearchQuery().getSortBy() )
+	#foreach( $detail in $details)
+	
+		<th  class="sortable #if( $sortby.startsWith($detail.getId() ) ) currentsort #if($sortby.endsWith("Up"))up #else down#end #end"
+			id="th-$detail.id" 
+			sortby="$detail.id" 
+			data-sortby="$detail.id"
+			title="[[Sort by]] #text( $detail.name )">
+					
+			<div id="$detail.id" assethitssessionid="$hits.getSessionId()"  > 
+					#text( $detail )
+					#if ($sortby.startsWith($detail.getId()))
+		 				#if($sortby.endsWith("Up"))
+		 					#set($sorticon="up")
+		 				#else
+		 					#set($sorticon="down")
+		 				#end	
+		 				&nbsp;<span class="sorticon bi bi-caret-$sorticon-fill"></span>
+					#end
+			</div>
+		 </th>
+	#end
+	
+	<th class="lastheader">
+		#if($canedittablecolumns)
+		<a class="emdialog nav-hover text-center" 
+			id="table-editor-close" 
+			title="[[Edit Table Header]]"
+			href="$applink/views/settings/modules/${module.id}/metadata/viewssystem/dialog/index.html?viewid=$viewid" class="emdialog bg-brand summary-gear text-center" data-hidefooter="true" data-dialogid="defaulttablecolumns" data-oemaxlevel="3"><i class="bi bi-pencil-square"></i></a>
+		#end
+	</th>
+	
+	
+</tr>
+</thead>

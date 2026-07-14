@@ -1,0 +1,3 @@
+<div class="alert alert-save fader" role="alert">[[Paramter Deleted]]</div>
+#set($parameterdata = $context.getRequestParameter("parameterdata"))
+$pages.include("$!{apphome}/views/settings/modules/asset/presetconfig/edit/edit.html?id=${parameterdata}", $context)

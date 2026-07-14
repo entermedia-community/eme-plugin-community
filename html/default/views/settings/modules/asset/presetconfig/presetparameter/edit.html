@@ -1,0 +1,34 @@
+
+<div id="editlayout">
+#set( $origURL = $context.getRequestParameter("origURL" ) )
+
+$context.putPageValue("viewid", "presetparametergeneral")
+
+<form id="dataeditor-settings" 
+	class="ajaxform autocloseform"
+	data-targetdiv="editlayout"
+	data-oemaxlevel="1"
+	name="dataeditor-settings" method="post" action="$!{apphome}/views/settings/modules/asset/presetconfig/presetparameter/save.html" >
+	<input name="save" type="hidden" value="true" />
+	#if($data.id)
+		<input name="id" type="hidden" value="$!data.id" />
+	#end
+	#set($parameterdata = $context.getRequestParameter("parameterdata"))
+	<input name="parameterdata" type="hidden" value="${parameterdata}" />
+	<input name="field" type="hidden" value="parameterdata" />
+	<input name="parameterdata.value" type="hidden" value="${parameterdata}" />
+	$pages.include("$apphome/components/xml/detaileditor.html", $context)
+
+	<div class="ui-widget-actions">
+	<a class="btn btn-sm btn-primary submitform" href="#"><span>[[Save]]</span></a>
+	<a class="btn btn-sm btn-secondary closedialog" href="#"><span>[[Cancel]]</span></a>
+	#if($data.id)
+	<a class="btn btn-sm btn-danger ajax confirm closedialog" 
+		data-confirm="[[Are you sure?]]"
+		data-targetdiv="editlayout" 
+		data-oemaxlevel="1"
+		href='$home$content.searchhome/delete.html?id=$!data.id&parameterdata=${parameterdata}'>[[Delete]]</a>
+	#end
+	</div>
+</form>
+

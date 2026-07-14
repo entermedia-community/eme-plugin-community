@@ -1,0 +1,8 @@
+<page>
+	<path-action name="PathEventModule.getPathEvents" />
+	
+	<permission name="view">
+		<pagevalue name="canviewsettings"  equals="true" />
+	</permission>
+	
+</page>

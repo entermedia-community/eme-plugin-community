@@ -1,0 +1,6 @@
+<page>
+	<page-action name="Script.run">
+	<script>/${catalogid}/events/scripts/collections/autopopulatecollection.groovy</script>
+	
+	</page-action>
+</page>

@@ -4,9 +4,10 @@
 	name="adduser"
 	method="post" 
 	id="adduser"
-	class="ajaxform"
+	class="ajaxform autocloseform autoreloadsource"
 	data-targetdivinner="settingssubtab"
-	data-toastsuccess="[[User saved]]">
+	data-toastsuccess="[[User saved]]"
+	data-openedfrom="${apphome}/views/settings/users/usermanager/users/index.html">
 	<input type="hidden" name="method" value="adduser"/>
 
 	#set( $userSearcher = $searcherManager.getSearcher($catalogid,"user"))

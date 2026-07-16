@@ -4,17 +4,7 @@
 
 
     #if($canviewhomelink)
-      <div class="sidebar-togglers #if($sidebarcomponent == "eme") sidebar-selected contrast #end" style="margin-bottom:15px;">
-        #set( $link="$!apphome/index.html")
-        #ifnotnull($siteroot)
-          #set( $link="$siteroot")
-        #end
-        
-        <a href="$link?sidebarcomponent=eme" title="[[Home]]" 
-        class="sidebar-toggler-show">
-          <i class="bi bi-house-door-fill"></i>
-        </a>
-      </div>
+      $pages.include("./homelink.html",$context)
     #end
     
     #if( $userprofile.hasModule("asset") )

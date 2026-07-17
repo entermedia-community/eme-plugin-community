@@ -1,6 +1,6 @@
 #set($collectionid = $librarycol.getId())
 #ifnotnull($collectionid)
-<div class="team-list"  id="subscriberssidebar">
+<div class="team-list subscriberssidebar"  id="subscriberssidebar" data-url="$apphome/project/channel/subscribers/index.html" data-collectionid="$!{collectionid}" >
 	<div class="d-flex align-items-center justify-content-between sidebar-list-header">
 		<h3>[[Team Circle]]</h3> 
 		#if($user)

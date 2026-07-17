@@ -603,10 +603,9 @@ $(document).ready(function () {
 		var rowid = row.data("dataid");
 		clickableresultlist.data("id", rowid);
 		clickableresultlist.data("dataid", rowid);
+		var modal = clickableresultlist.closest(".modal");
 		clickableresultlist.runAjax(function () {
-			//Chain
-			closeemdialog(clickableresultlist.closest(".modal"));
-			//Reload parent
+			closeemdialog(modal);
 		});
 	});
 

@@ -30,7 +30,7 @@ $context.putPageValue("sidebarcomponent", $sidebarcomponent)
 			#if($canviewsettings)
 				$pages.includeContent()
 			#else
-				#if($topmenu.isEmpty())
+				#if($user && $topmenu.isEmpty())
 					$pages.include("$apphome/welcome.html")
 				#else
 					$pages.includeContent()

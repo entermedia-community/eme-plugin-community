@@ -11,13 +11,15 @@ $context.putPageValue("searcher",$searcher)
 	#set( $viewid = "proposalgeneral")
 #else
 	#if($canviewsettings)
-		#set( $viewid = "agentedit")
+		#set( $viewid = "librarycollectionagentedit")
 	#else
-		#set( $viewid = "general")
+		#set( $viewid = "librarycollectiongeneral")
 	#end
 #end
 
-$context.putPageValue("viewid", "librarycollection${viewid}")
+$context.putPageValue("viewid", "${viewid}")
+
+
 $context.putPageValue("data", $librarycol)
 
 ##Legacy project URL 
@@ -50,7 +52,7 @@ $context.putPageValue("data", $librarycol)
 <div class="py-4">
 		<a class="btn btn-primary submitform ">[[Save]]</a>
 			
-		#if($canviewsettings && ($view == "agentedit" || $view == "edit"))	
+		#if($canviewsettings && ($view == "librarycollectionagentedit" || $view == "edit"))	
 		<a class="btn btn-danger confirm"
 			style="margin: 0px 0 0 10px;" 
 			data-confirm="[[Are you sure]]?" 

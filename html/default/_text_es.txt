@@ -1,0 +1,7 @@
+#
+#Fri Jul 17 13:53:44 CST 2026
+Login=Iniciar sesi\u00F3n
+Login\ if\ you\ already\ have\ an\ account=Inicie sesi\u00F3n si ya tiene una cuenta
+The\ one\ stop\ place\ to\ organize\ and\ enjoy\ all\ your\ digital\ content.=El \u00FAnico lugar para organizar y disfrutar de todo su contenido digital.
+Welcome\ to\ eMedia\ Library=Bienvenido a eMedia Library
+Your\ account\ needs\ to\ be\ approved\ by\ an\ administrator=Su cuenta debe ser aprobada por un administrador.

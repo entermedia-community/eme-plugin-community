@@ -1,13 +1,16 @@
 
-<div id="$edithomeid" 
-	class="editdiv pickerresults genericpicker" 
+<div id="projectadduser" 
+	class="editdiv pickerresults genericdialogpicker" 
 	data-edithome="${edithome}"
-	data-edithomeid="${edithomeid}"
+	data-edithomeid="projectadduser"
 >
 	<div class="clickableresultlist"
 		data-oemaxlevel="1"
-		data-url="${edithome}/actions/savepick.html"
+		data-url="$apphome/project/channel/subscribers/addsave.html"
 		data-targetdiv="clickableresultlist" 
+		data-addtoteam="true"
+		#set($collectionid = $context.getRequestParameter("collectionid"))
+		data-collectionid="$!{collectionid}"
 	>	
 		<div class="overflow-y">
 

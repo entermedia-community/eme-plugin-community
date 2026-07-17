@@ -591,6 +591,25 @@ $(document).ready(function () {
 		});
 	});
 
+	lQuery(".genericdialogpicker .resultsdivdata").livequery("click", function (e) {
+		if (!isValidTarget(e)) {
+			return true;
+		}
+		var row = $(this);
+		row.css("pointer-events", "none");
+
+		var clickableresultlist = row.closest(".clickableresultlist");
+
+		var rowid = row.data("dataid");
+		clickableresultlist.data("id", rowid);
+		clickableresultlist.data("dataid", rowid);
+		clickableresultlist.runAjax(function () {
+			//Chain
+			closeemdialog(clickableresultlist.closest(".modal"));
+			//Reload parent
+		});
+	});
+
 
 	//Assets or Categories and you import into a entity
 	lQuery(".pickerresultscopy .resultsdivdata").livequery("click", function (e) {

@@ -173,19 +173,36 @@ public class ProjectLoader extends BaseManager implements PageLoader, CatalogEna
 		if (librarycollection != null)
 		{
 			String template = null;
-			if (anythingelse == null)
+			if (anythingelse != null)
 			{
-				template = apphome + "/project/chat/index.html";
-			}
-			else
 				if (anythingelse.startsWith("/modules"))
 				{
-					template = apphome + "/views/modules/" + url[3] + "/editors/listentities/tabs/rendertypes/" + url[4] + ".html";
+					String viewid = url[4];
+					if (viewid != null)
+					{
+						//remove the .html if it exists
+						if (viewid.endsWith(".html"))
+						{
+							viewid = viewid.substring(0, viewid.length() - 5);
+						}
+						Data viewdata = getMediaArchive().query("view").exact("moduleid", "librarycollection").exact("id", viewid).searchOne();
+						if (viewdata != null)
+						{
+							String rendertype = viewdata.get("rendertype");
+							template = apphome + "/views/modules/" + url[3] + "/editors/listentities/tabs/rendertypes/" + rendertype + ".html";
+						}
+					}
+					
 				}
 				else
 				{
 					template = apphome + "/project" + anythingelse;
 				}
+			}
+			if (template == null)
+			{
+				template = apphome + "/components/chat-dashboard/intro.html";
+			}
 
 			String justname = PathUtilities.extractFileName(template);
 			if (!justname.contains("."))

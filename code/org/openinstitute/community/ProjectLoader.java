@@ -181,11 +181,8 @@ public class ProjectLoader extends BaseManager implements PageLoader, CatalogEna
 					if (viewid != null)
 					{
 						//remove the .html if it exists
-						if (viewid.endsWith(".html"))
-						{
-							viewid = viewid.substring(0, viewid.length() - 5);
-						}
-						Data viewdata = getMediaArchive().query("view").exact("moduleid", "librarycollection").exact("id", viewid).searchOne();
+						Data viewdata = getMediaArchive().getCachedData("view", viewid);
+
 						if (viewdata != null)
 						{
 							String rendertype = viewdata.get("rendertype");

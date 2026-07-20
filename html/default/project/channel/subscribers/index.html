@@ -2,7 +2,7 @@
 #ifnotnull($collectionid)
 <div class="team-list subscriberssidebar"  id="subscriberssidebar" data-url="$apphome/project/channel/subscribers/index.html" data-collectionid="$!{collectionid}" >
 	<div class="d-flex align-items-center justify-content-between sidebar-list-header">
-		<h3>[[Team Circle]]</h3> 
+		<h3>[[Agents]]</h3> 
 		#if($user)
 			<a class="btn btn-xs emdialog" data-cancelsubmit="true"
 				title="[[View Members]]"
@@ -70,8 +70,8 @@
 		#if( $caneditcollection || $canviewsettings)
 		<div class="d-flex align-items-center justify-content-between w-100 flex-wrap mt-2">
 			<a href="${apphome}/project/channel/subscribers/usersearch.html?collectionid=${collectionid}"
-				class="emdialog btn btn-light btn-xs me-1" title="[[Add Users to Team]]">
-				<i class="fas fa-search me-1"></i> [[Add to Team]]
+				class="emdialog btn btn-light btn-xs me-1" title="[[Add Agent]]">
+				<i class="fas fa-search me-1"></i> [[Add Agent]]
 			</a>
 			<a href="${apphome}/project/channel/subscribers/addnew.html?collectionid=${collectionid}"
 				class="emdialog btn btn-light btn-xs" title="[[Add New User to Team]]">

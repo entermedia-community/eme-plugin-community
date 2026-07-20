@@ -84,41 +84,41 @@ $context.putPageValue("enttiyviews", $enttiyviews)
 	#end
 	>
 
-		#set($parententityid = $context.getRequestParameter("parententityid"))
-		$context.putPageValue("parententityid", $parententityid)
+	#set($parententityid = $context.getRequestParameter("parententityid"))
+	$context.putPageValue("parententityid", $parententityid)
 
-		#set($parententitymoduleid = $context.getRequestParameter("parententitymoduleid"))
-		$context.putPageValue("parententitymoduleid", $parententitymoduleid)
-		
-		#set($parententitymoduleviewid = $context.getRequestParameter("parententitymoduleviewid"))
-		$context.putPageValue("parententitymoduleviewid", $parententitymoduleviewid)
+	#set($parententitymoduleid = $context.getRequestParameter("parententitymoduleid"))
+	$context.putPageValue("parententitymoduleid", $parententitymoduleid)
+	
+	#set($parententitymoduleviewid = $context.getRequestParameter("parententitymoduleviewid"))
+	$context.putPageValue("parententitymoduleviewid", $parententitymoduleviewid)
 
-		$pages.include("${edithome}/tabs/dialogheader.html", $context)
+	$pages.include("${edithome}/tabs/dialogheader.html", $context)
 
-		$pages.include("${edithome}/tabs/dialogtabbuttons.html", $context)
-		
-		#set($rendertype = $entityviewdata.rendertype)
-		
-		#ifnull($rendertype)
-			#set($rendertype = "data")  
+	$pages.include("${edithome}/tabs/dialogtabbuttons.html", $context)
+	
+	#set($rendertype = $entityviewdata.rendertype)
+	
+	#ifnull($rendertype)
+		#set($rendertype = "data")  
+	#end
+	
+	#if($rendertype == "table")
+		#set($rendertype = "tabsubmodulehome")
+	#end
+	<div class="entity-content tabtype$!rendertype overflow-x">
+	
+
+
+		#ifnull($entityviewdata)
+			[[Please select a tab for]] $entitymoduleviewid		
 		#end
 		
-		#if($rendertype == "table")
-			#set($rendertype = "tabsubmodulehome")
+		#ifnotnull($entityviewdata)
+			$context.putPageValue("viewdata", $entityviewdata)
+
+			$pages.include("${edithome}/tabs/rendertypes/${rendertype}.html", $context)
 		#end
-		<div class="entity-content tabtype$!rendertype overflow-x">
-		
-
-
-			#ifnull($entityviewdata)
-				[[Please select a tab for]] $entitymoduleviewid		
-			#end
-			
-			#ifnotnull($entityviewdata)
-				$context.putPageValue("viewdata", $entityviewdata)
-
-				$pages.include("${edithome}/tabs/rendertypes/${rendertype}.html", $context)
-			#end
-		</div>
+	</div>
 			
 </div>

@@ -1,5 +1,6 @@
 #set($xmledithome = $context.getPageProperty("xmledithome"))
 $context.putPageValue("xmledithome",$xmledithome)
+
 #if (!$viewtype)
 	#set($viewtype = $detail.viewType)
 #end

@@ -1008,7 +1008,7 @@ img.cat-thumb {
 	text-transform: uppercase;
 	color: #333;
 	font-weight: 600;
-	margin-bottom: 0;
+	margin: 0;
 }
 .explore-blog-list a {
 	margin-bottom: 0.5rem;

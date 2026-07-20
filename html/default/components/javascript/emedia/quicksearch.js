@@ -140,8 +140,13 @@ $(document).ready(function () {
 				lastTypeAhead.abort();
 			}
 
+			var resultsurl = mainSearchInput.closest("#mainsearchcontainer").data("searchresultshome");
+			if (!resultsurl) {
+				resultsurl = `${apphome}/components/quicksearch/results.html`;
+			}
+
 			lastTypeAhead = $.ajax({
-				url: `${apphome}/components/quicksearch/results.html`,
+				url: resultsurl,
 				async: true,
 				type: "GET",
 				data: terms,

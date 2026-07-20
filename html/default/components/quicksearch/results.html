@@ -78,7 +78,8 @@ $pages.include("./preview.html", $context)
 					$context.putPageValue("hits", $hits)
 					
 					$context.putPageValue("searchresults", true)
-					$context.putPageValue("searchhome", "$apphome/views/modules/${module.id}/results/default")
+					#set($searchhome = "$apphome/views/modules/${module.id}/results/default")
+					$context.putPageValue("searchhome", $searchhome)
 				
 				<div class="emgridflex">  	
 					<div id="galleryimg-entitiy" 
@@ -114,6 +115,12 @@ $pages.include("./preview.html", $context)
 	#end
 #end
 
+
+
+## Assets
+
+
+
 #if($organizedResults.getAssetResults() )
 	
 	#set($hits = $organizedResults.getAssetResults() )
@@ -138,40 +145,41 @@ $pages.include("./preview.html", $context)
 		$context.putPageValue("pickerenabled", true)
 	#end
 
+	#set($searchhome = "$apphome/views/modules/asset/results/default")
 
 	#set( $count = $hits.size())
 	<div class="mt-2 qsresultsEntity d-flex align-items-center">
 		<i class="bi bi-$!{moduleicon} module-icon" style="font-size:0.9em;line-height:1;opacity:0.85;"></i> 
 		#if($suggestedassets)
-		<span class="qsresultsEntitytext">Recent #text($module)</span>
+			<span class="qsresultsEntitytext">[[Recent]] #text($module)</span>
 		#else
-		<span class="qsresultsEntitytext">#text($module)</span>
+			<span class="qsresultsEntitytext">#text($module)</span>
 		#end
 
 		#if($count > 10)
-		<span class="mx-1">&middot;</span>
-		#ifnotnull($suggestedassets)
-			#set($entityurl = "$apphome/views/modules/asset/editors/viewfilescategory/index/All.html")
-			<a href="$entityurl" 
-					class="ajax btn btn-sm btn-accent"
+			<span class="mx-1">&middot;</span>
+			#ifnotnull($suggestedassets)
+				#set($entityurl = "$apphome/views/modules/asset/editors/viewfilescategory/index/All.html")
+				<a href="$entityurl" 
+						class="ajax btn btn-sm btn-accent"
+						data-targetdiv="applicationcontent" 
+						data-oemaxlayout="3"
+						data-assetclearfilters=true
+						data-updateurl="true" 
+						title="[[View]] $count: #text($module)">
+						<span class="qsresultsEntitytext">[[View]] $count</span>
+					</a>
+			#end
+			#ifnull($suggestedassets)
+				<a href="$entityurl" 
+					class="ajax qsresultsEntityall btn btn-sm btn-accent"
 					data-targetdiv="applicationcontent" 
 					data-oemaxlayout="3"
-					data-assetclearfilters=true
 					data-updateurl="true" 
 					title="[[View]] $count: #text($module)">
 					<span class="qsresultsEntitytext">[[View]] $count</span>
 				</a>
-		#end
-		#ifnull($suggestedassets)
-			<a href="$entityurl" 
-				class="ajax qsresultsEntityall btn btn-sm btn-accent"
-				data-targetdiv="applicationcontent" 
-				data-oemaxlayout="3"
-				data-updateurl="true" 
-				title="[[View]] $count: #text($module)">
-				<span class="qsresultsEntitytext">[[View]] $count</span>
-			</a>
-		#end
+			#end
 		#end
 	</div>
 	
@@ -183,6 +191,7 @@ $pages.include("./preview.html", $context)
 		#set($count = 0)
 		
 		#foreach( $hit in $hits.getPageOfHits() )
+		
 			#if($count < 30)
 				$context.putPageValue("hit", $hit)
 				$pages.include("${searchhome}/types/media.html", $context)

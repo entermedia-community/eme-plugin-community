@@ -81,17 +81,19 @@ public void init()
 	context.putPageValue("subscription",subscription);
 	
 //	Set template path with applicationid instead of just 'apphome'
-	String apphome = context.getPageValue("apphome");
+	String apphome = context.getPageValue("apphome"); 
 	String template = apphome + "/theme/emails/collection-add-teammember.html";
 	
 	Data librarycol = archive.getCachedData("librarycollection", collectionid);
 	Data community = archive.getCachedData("communitytag", librarycol.get("communitytag"));
 	
 	if (librarycol == null)
-		{
-			log.error("No Collection: " + librarycol);
-			return;
-		}
+	{
+		log.error("No Collection: " + librarycol);
+		return;
+	}
+
+	String logourl = apphome + "/theme/logo.png";
 	
 
 	WebEmail templatemail = archive.createSystemEmail(teamuser, template);
@@ -116,6 +118,7 @@ public void init()
 	objects.put("applink", context.getPageValue("applink"));
 	objects.put("siteroot", getSiteRoot());
 	objects.put("apphome", apphome);
+	objects.put("logourl", logourl);
 	objects.put("community",community);
 		
 	log.info("Sending add to Project email  " + teamuserid);

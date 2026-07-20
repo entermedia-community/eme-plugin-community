@@ -789,7 +789,7 @@ table {
 }
 .emwidget-header {
 	padding: 8px 15px;
-	background-color: #277371;
+	
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -797,7 +797,7 @@ table {
 .emwidget-name {
 	font-size: 1rem;
 	font-weight: bold;
-	color: #fff;
+	
 }
 .emwidget-name .chanel-teamonly {
 	font-size: 0.8rem;

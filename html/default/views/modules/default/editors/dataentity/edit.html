@@ -46,6 +46,10 @@ $context.putPageValue("edit", $edit)
 #set($viewid = $context.getRequestParameter("viewid"))
 #end
 
+#ifnull($viewid)
+#set($viewid = $context.getRequestParameter("entitymoduleviewid"))
+#end
+
 $context.putPageValue("viewid", $viewid)
 
 #if($ismulti)

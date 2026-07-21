@@ -22,7 +22,7 @@ $context.putPageValue("data", $data)
 	*[[You can't edit an invoiced product/service]]
 	</div>
 #else
-	<form name="saveproject" id="saveproject" action="${projectlink}/services/editsave.html" class="ajaxform autocloseform" data-targetdiv="collectivebilling" method="post">
+	<form name="saveproject" id="saveproject" action="${projectlink}/services/editsave.html" class="modal-dialog-form ajaxform autocloseform" data-targetdiv="collectivebilling" method="post">
 		<input type="hidden" name="oemaxlevel" value="1" />
 		<input type="hidden" name="id" value="$id" />
 		<input type="hidden" name="save" value="true" />

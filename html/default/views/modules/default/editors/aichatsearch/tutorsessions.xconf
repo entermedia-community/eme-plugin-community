@@ -1,0 +1,7 @@
+<page>
+
+	<generator name="velocityGenerator" mimetypes="text/json"/>
+	<path-action bean="jsonUtil" name="PageValue.loadPageVariable" allowduplicates="true" alltypes="true" />
+	<path-action name="JsonAssetModule.preprocess" alltypes="true"/>
+
+</page>

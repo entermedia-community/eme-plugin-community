@@ -1,0 +1,26 @@
+#set($entitytutorialid = $context.getRequestParameter("tutorialid"))
+
+#set( $hits = $mediaarchive.query("channel").exact("channeltype", "agenttutorchat").exact("dataid", $entitytutorialid).exact("searchtype", "entitytutorial").exact("user", $user).sort("refreshdateDown").search($context))
+
+{
+  "response": {
+    "status": "ok",
+    "userid": "$user.id"
+  },
+  "channels": [
+    #foreach($hit in $hits)
+      #if($foreach.count > 1),#end
+      {
+        "id": #jesc($hit.id),
+        "channeltype": #jesc($hit.get("channeltype")),
+        "chatapplicationid": #jesc($hit.get("chatapplicationid")),
+        "name": #jesc($hit.get("name")),
+        "dataid": #jesc($hit.get("dataid")),
+        "searchtype": #jesc($hit.get("searchtype")),
+        "user": #jesc($hit.get("user")),
+        "refreshdate": #jesc($hit.get("refreshdate")),
+        "date": #jesc($hit.get("date"))
+      }
+    #end
+  ]
+}

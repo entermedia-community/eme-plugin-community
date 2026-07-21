@@ -1,0 +1,21 @@
+#set($rendertype = $viewdata.rendertype)
+
+#ifnull($rendertype)
+    #set($rendertype = "data")  
+#end
+
+#if($rendertype == "table")
+    #set($rendertype = "tabsubmodulehome")
+#end
+
+<div class="entity-content tabtype$!rendertype overflow-x">
+
+    #ifnull($entitymoduleviewid)
+        [[Please select a tab for]] $entitymoduleviewid		
+    #end
+    
+    #ifnotnull($entitymoduleviewid)
+        #set($render = "$apphome/views/modules/emeprofile/editors/default/tabs/rendertypes/${rendertype}.html")
+        $pages.include("${render}", $context)
+    #end
+</div>

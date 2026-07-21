@@ -1,8 +1,21 @@
+#set($canchat = true)
 #set($collectionid = $librarycol.getId())
+#ifnull($collectionid)
+	#set($canchat = false)
+#end 
+#set($privacylevel = $librarycol.priviacylevel)
 
-#if($collectionid)
+#if (!$user)
+	#if($privacylevel == "commercial")
+		#set($canchat = false)
+		
+	#end
+#end
+#if($canchat)
 	<div class="emwidget emwidget-chatterbox">
 		
 		$pages.include("$apphome/project/chat/index.html", $context)
 	</div> 
+#else
+	<div class="m-2 p-2">[[Not allowed to be here, contact an administrator]].</div>
 #end

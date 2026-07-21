@@ -5,13 +5,13 @@
 #if($collectionid)
 #set( $subscribers = $mediaarchive.query("librarycollectionlikes").exact("collectionid",$collectionid).exact("enabled", true).search($context) )
 #set( $subscriberssize = $subscribers.size())
-<div class="project-likes" id="projectlikes">
+<div class="project-likes mt-2" id="projectlikes">
 	
 	
 	<div class="d-flex align-items-center justify-content-between">
 		<div class="project-likes-count">
 			#if($user)<a href="${projectlink}/channel/subscribers/likessearch.html" title="[[View Followers]]" class="btn btn-sm btn-light emdialog">#end
-				$subscriberssize #if($subscriberssize==1)[[Follow]] #else [[Followers]]#end
+				$subscriberssize #if($subscriberssize==1)[[Follower]] #else [[Followers]]#end
 			#if($user)</a>#end
 			</div>
 		<div>

@@ -175,30 +175,12 @@ public class ProjectLoader extends BaseManager implements PageLoader, CatalogEna
 			String template = null;
 			if (anythingelse != null)
 			{
-				if (anythingelse.startsWith("/modules"))
-				{
-					String viewid = url[4];
-					if (viewid != null)
-					{
-						//remove the .html if it exists
-						Data viewdata = getMediaArchive().getCachedData("view", viewid);
-
-						if (viewdata != null)
-						{
-							String rendertype = viewdata.get("rendertype");
-							template = apphome + "/views/modules/" + url[3] + "/editors/listentities/tabs/rendertypes/" + rendertype + ".html";
-						}
-					}
-					
-				}
-				else
-				{
-					template = apphome + "/project" + anythingelse;
-				}
+				template = apphome + "/project" + anythingelse;
 			}
 			if (template == null)
 			{
-				template = apphome + "/components/chat-dashboard/intro.html";
+				// template = apphome + "/components/chat-dashboard/intro.html";
+				template = apphome + "/project/chat/index.html";
 			}
 
 			String justname = PathUtilities.extractFileName(template);
@@ -212,6 +194,7 @@ public class ProjectLoader extends BaseManager implements PageLoader, CatalogEna
 			// //log.info("Cant find " + template);
 			// }
 			right.putParam("collectionid", librarycollection.getId());
+
 			librarycollection = getMediaArchive().getSearcher("librarycollection").loadData(librarycollection);
 			right.putPageValue("librarycol", librarycollection);
 			right.putPageValue("urlname", "/" + librarycollection.get("urlname"));

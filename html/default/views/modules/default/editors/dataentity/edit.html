@@ -56,6 +56,7 @@ $context.putPageValue("viewid", $viewid)
 	$context.putPageValue("multiedit", $ismulti)
 #end
 
+
 #ifnull($entitycategoryid)
 	#set( $originalcategory = $mediaarchive.getEntityManager().loadDefaultFolder($entitymodule, $entity, $user))
 	#ifnotnull($originalcategory)

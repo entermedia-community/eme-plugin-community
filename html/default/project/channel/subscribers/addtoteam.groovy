@@ -93,17 +93,19 @@ public void init()
 		return;
 	}
 
-	String logourl = apphome + "/theme/logo.png";
-	
-
 	WebEmail templatemail = archive.createSystemEmail(teamuser, template);
-
+	String logourl = null;
 	if (community != null) {
 		templatemail.setSubject(community.getName() + ": Added to Team"); //TODO: Translate
+		logourl = community.get("externaldomain") + "/theme/logo.png";
 	}
 	else 
 	{
 		templatemail.setSubject("Added to Team " + librarycol.getName()); //TODO: Translate
+		if (getSiteRoot() != null) {
+			logourl = getSiteRoot() + "/theme/logo.png";
+		}
+		
 	}
 
 	Map objects = new HashMap();

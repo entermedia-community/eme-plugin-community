@@ -30,7 +30,7 @@ $pages.include("$apphome/views/modules/${module.id}/editors/entitysubmodules/add
 <form id="searchentitydataeditor"
 	name="searchentitydataeditor"
 	action="$action" 
-	class="ajaxform checkCloseDialog autocloseform" 
+	class="modal-dialog-form ajaxform checkCloseDialog autocloseform" 
 	data-edithomeid="$!{edithomeid}"
 	data-closedialogid="entitysubmoduleaddexisting"
 	data-targetdiv="$!{edithomeid}"
@@ -65,7 +65,7 @@ $pages.include("$apphome/views/modules/${module.id}/editors/entitysubmodules/add
 #set($viewdata = $mediaarchive.getCachedData("view","${module.id}addnew"))
 #set($aiaction = "$apphome/views/modules/${module.id}/editors/contentcreatorchild/finish.html")
   <div class="bg-white createnewtoggle" style="display: none;" >
-    <form	class="ajaxform autocloseform checkCloseDialog"
+    <form	class="modal-dialog-form ajaxform autocloseform checkCloseDialog"
 			data-includeeditcontext="true"
 			data-targetdiv="importdone"
 			action="$aiaction"

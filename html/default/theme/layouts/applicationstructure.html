@@ -6,16 +6,16 @@
 	$pages.include("$componenthome/sidebars/index.html",$context)
 #end
 
-#set( $sidebarwidth = $userprofile.get("sidebarwidth"))
+#ifnull($sidebarcomponent)
+  #set( $sidebarcomponent = $userprofile.get("sidebarcomponent"))
+  $context.putPageValue("sidebarcomponent", $sidebarcomponent)
+#end
 
+#set( $sidebarwidth = $userprofile.get("sidebarwidth"))
 #if(!$sidebarwidth || $sidebarwidth=='' || $sidebarwidth=='undefined')
   #set($sidebarwidth = 300)
 #end
 $context.putPageValue("sidebarwidth", $sidebarwidth)
-
-#set( $sidebarcomponent = $userprofile.get("sidebarcomponent"))
-
-$context.putPageValue("sidebarcomponent", $sidebarcomponent)
 
 
 <div id="applicationstructure" class="col-main col-content-main #ifnull($user) loggedout #end">

@@ -10,4 +10,6 @@
 		<property name="hitsname">entityhits</property>
 	</path-action>
 
+	<inner-layout>${edithome}/tabs/dialoglayout.html</inner-layout>
+
 </page>

@@ -22,11 +22,11 @@
   #end
 
   #ifnotnull($forcedsidebarcomponent)
-    #set( $sidebarcomponent = $forcedsidebarcomponent )
+    ###set( $sidebarcomponent = $forcedsidebarcomponent )
   #end
 
   #ifnull($sidebarcomponent)
-    #set( $sidebarcomponent = $userprofile.get("sidebarcomponent"))
+      #set( $sidebarcomponent = $userprofile.get("sidebarcomponent"))
   #end
 
   ##very first time

@@ -196,7 +196,18 @@ $(document).ready(function () {
 			editdiv.data("entitymoduleid"),
 		);
 
-		submoduleOpener.runAjax();
+
+		var emdialog = submoduleOpener.closest(".modal");
+		if (emdialog.length) 
+		{
+			submoduleOpener.runAjax();
+		}
+		else {
+			submoduleOpener.data("oemaxlevel", "2");
+			submoduleOpener.emDialog(null, function () {
+				row.css("pointer-events", "auto");
+			});
+		}
 	});
 
 	//CB working. Uses edithome for searchcategory clicking

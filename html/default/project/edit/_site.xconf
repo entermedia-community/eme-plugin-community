@@ -12,7 +12,7 @@
 	<script id="videojs" src="/${applicationid}/components/javascript/videojs/8.20.0/video.min.js" defer="true" />
 	<style  id="videojs-css"  href="/${applicationid}/components/javascript/videojs/8.20.0/video-js.min.css" />
 	
-	<style id="results" href="/${applicationid}/theme/styles/pages/results.css"/>
+	<style id="results-css" href="/${applicationid}/theme/styles/pages/results.css"/>
 	<script id="results" src="/${applicationid}/components/javascript/results.js"/> 
 	
 	<page-action name="ProjectModule.loadCollection" />

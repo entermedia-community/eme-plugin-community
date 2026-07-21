@@ -13,7 +13,7 @@
 	<property name="uploadtab">single</property>
 	
 		
-	<style id="results" href="/${applicationid}/theme/styles/pages/results.css"/>
+	<style id="results-css" href="/${applicationid}/theme/styles/pages/results.css"/>
 	<script id="results" src="/${applicationid}/components/javascript/results.js"/> 
 	
 	<path-action name="ProjectModule.loadCollection">

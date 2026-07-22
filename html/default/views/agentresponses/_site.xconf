@@ -11,4 +11,6 @@
 
 	<path-action name="TranslationModule.loadTranslationManager" />
 
+	<path-action bean="jsonUtil" name="PageValue.loadPageVariable" allowduplicates="true"/>
+
 </page>

@@ -1,10 +1,10 @@
 {
-  "id": #jesc($topcomponent.id),
-  "sectionid": #jesc($topcomponent.sectionid),
-  "componentid": #jesc($topcomponent.componentid),
-  "content": #jesc($!topcomponent.content),
-  "contenttype": "$!topcomponent.componenttype",
-  "contentrole": "$!topcomponent.contentrole"
+  "id": #jesc($!topcomponent.getId()),
+  "sectionid": #jesc($sectionid),
+  "componentid": #jesc($componentid),
+  "content": #jesc($!topcomponent.get("content")),
+  "componenttype": "$!topcomponent.get("componenttype")",
+  "contentrole": "$!topcomponent.get("contentrole")"
   #if($topcomponent.assetid)
     ,"assetthumbnail": "$siteroot$mediaarchive.asLinkToPreview($topcomponent.assetid, 'image200x200')"
     ,"asseturl": "$siteroot$mediaarchive.asLinkToPreview($topcomponent.assetid, 'image3000x3000')"
@@ -13,12 +13,18 @@
     #set($question = $mediaarchive.getData("entityquestion", $topcomponent.questionid))
     ,"question": {
       "id": #jesc($question.id),
-      "question": #jesc($question.question),
+      "question": #jesc("$question.question"),
       "options": {
         "option_a": #jesc($question.option_a),
         "option_b": #jesc($question.option_b),
         "option_c": #jesc($question.option_c),
         "option_d": #jesc($question.option_d)
+        #ifnotnull($question.option_e)
+          ,"option_e": #jesc($question.option_e)
+        #end
+        #ifnotnull($question.option_f)
+          ,"option_f": #jesc($question.option_f)
+        #end
       },
       "correctoption": "$question.correctoption",
       "rationale": #jesc($question.rationale),

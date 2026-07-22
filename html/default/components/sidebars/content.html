@@ -1,59 +1,28 @@
 #if($sidebarcomponent != "")
 
-  #if($sidebarcomponent == "libraries" )
-    #set($sidebarurl = "$apphome/components/sidebars/libraries/index.html")
-  #end
-
-  #if($sidebarcomponent == "eme" )
-    #set($sidebarurl = "$apphome/components/sidebars/eme/index.html")
-  #end
-
-  #if($sidebarcomponent == "guide" )
-    #set($sidebarurl = "$apphome/components/sidebars/guide/index.html")
-  #end
-
-  #if($sidebarcomponent == "topics" )
-    #set($sidebarurl = "$apphome/components/sidebars/tags/index.html")
-  #end
-
-  #if($sidebarcomponent == "faceprofiles" )
-    #set($sidebarurl = "$apphome/components/sidebars/faceprofiles/index.html")
-  #end
-
-  #if($sidebarcomponent == "favorites" )
-    #set($sidebarurl = "$applink/views/modules/modulesearch/favorites.html?clearselection=true&clearfilters=true")
-  #end
-
-
-  #if($sidebarcomponent == "categories" )
-    #if( $canviewcategorynav )
-      #set($sidebarurl = "$apphome/components/sidebars/categories/index.html")
-    #end
-  #end
-
-  #if($sidebarcomponent == "localdrives" )
+  #if($sidebarcomponent == "settings" )
+    #set($sidebarurl = "$apphome/components/sidebars/settings/index.html")
+  #elseif($sidebarcomponent == "localdrives" )
     #if($canviewcategorynav && $desktop)
       #set( $selectedModuleId = $userprofile.get("desktop_lastselected_module") )
-      
       #ifnull($selectedModuleId )
         #set( $selectedModuleId = $module.id )
       #end
       #set($sidebarurl = "$apphome/views/modules/${selectedModuleId}/components/sidebars/localdrives/index.html")
     #end
-  #end
-
-  #if($sidebarcomponent == "addentity" )
-    #set($sidebarurl = "$apphome/components/sidebars/addentity/index.html?selectedmodule=$!module.id")
-  #end
-
-  #if($sidebarcomponent == "userdownloads" )
+  #elseif($sidebarcomponent == "categories" )
+    #if( $canviewcategorynav )
+      #set($sidebarurl = "$apphome/components/sidebars/categories/index.html")
+    #end
+  #elseif($sidebarcomponent == "userdownloads" )
     #if($candownload || $canconvert || $candownloadfpo)
       #set($sidebarurl = "$apphome/components/sidebars/userdownloads/index.html")
     #end
-  #end
-
-  #if($sidebarcomponent == "settings" )
-    #set($sidebarurl = "$apphome/components/sidebars/settings/index.html")
+  #else
+    #set($sidebarurl = "$apphome/components/sidebars/${sidebarcomponent}/index.html")
+    #if(!$pages.doesExist($sidebarurl))
+      #set($sidebarurl = "$apphome/components/sidebars/addentity/index.html")
+    #end
   #end
 
   $userprofile.setValue("sidebarcomponent", $sidebarcomponent)

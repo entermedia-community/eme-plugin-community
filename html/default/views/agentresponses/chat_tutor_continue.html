@@ -1,1 +1,28 @@
-chat_tutor_continue
+{
+  "id": #jesc($topcomponent.id),
+  "sectionid": #jesc($topcomponent.sectionid),
+  "componentid": #jesc($topcomponent.componentid),
+  "content": #jesc($!topcomponent.content),
+  "contenttype": "$!topcomponent.componenttype",
+  "contentrole": "$!topcomponent.contentrole"
+  #if($topcomponent.assetid)
+    ,"assetthumbnail": "$siteroot$mediaarchive.asLinkToPreview($topcomponent.assetid, 'image200x200')"
+    ,"asseturl": "$siteroot$mediaarchive.asLinkToPreview($topcomponent.assetid, 'image3000x3000')"
+  #end
+  #if($topcomponent.questionid)
+    #set($question = $mediaarchive.getData("entityquestion", $topcomponent.questionid))
+    ,"question": {
+      "id": #jesc($question.id),
+      "question": #jesc($question.question),
+      "options": {
+        "option_a": #jesc($question.option_a),
+        "option_b": #jesc($question.option_b),
+        "option_c": #jesc($question.option_c),
+        "option_d": #jesc($question.option_d)
+      },
+      "correctoption": "$question.correctoption",
+      "rationale": #jesc($question.rationale),
+      "cognitivelevel": "$!question.mcqcognitivelevel"
+    }
+  #end
+}

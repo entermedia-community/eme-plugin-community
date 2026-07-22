@@ -17,25 +17,11 @@
   </div>
   
   <div class="d-flex">
-    <div class="theme-sidebar">
-      <a href="$home$apphome/views/settings/applicationsetup/theme/index.html" data-targetdiv="editlayout" data-updateurl="true" data-oemaxlevel="1" class="ajax btn btn-wide mb-2 #if($themeid == 'select') active #end">
-        <i class="bi bi-gear ns me-1 mb-2"></i>
-        [[Select Default]]
-      </a>
-      <a href="$home$apphome/views/settings/applicationsetup/theme/change.html?themeid=themelight" data-targetdiv="editlayout" data-updateurl="true" data-oemaxlevel="1" class="ajax btn btn-wide mb-2 #if($themeid == 'lighttheme') active #end">
-        <i class="bi bi-sun ns me-1 mb-2"></i>
-        [[Light Theme]]
-      </a>
-      <a href="$home$apphome/views/settings/applicationsetup/theme/change.html?themeid=theme" data-targetdiv="editlayout" data-updateurl="true" data-oemaxlevel="1" class="ajax btn btn-wide mb-2 #if($themeid == 'defaulttheme') active #end">
-        <i class="bi bi-moon ns me-1 mb-2"></i>
-        [[Dark Theme]]
-      </a>
-    </div>
+    
+    $pages.include("$apphome/views/settings/applicationsetup/theme/theme-list.html", $context)
+    
     <div style="flex: 1;">
-
-      
       #set($data = $mediaarchive.getData("theme", $themeid))
-      
       $context.putPageValue("searcher", $searcher)
       $context.putPageValue("data", $data)
       

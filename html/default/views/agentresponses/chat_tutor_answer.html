@@ -1,0 +1,36 @@
+#set($correctoptiontext = $question.get($question.correctoption))
+#set($confidence = $answer.answerconfidence)
+
+#if($question.correctoption == $answer.selectedoption)
+✅ **Nice work - that's correct!**
+
+#if($confidence == "noidea")
+You got it right despite low confidence. Want a simple way to recognize this pattern faster next time?
+#elseif($confidence == "notsure")
+You were unsure and still got it right. Want a short explanation to build confidence for similar questions?
+#elseif($confidence == "mostlysure")
+Great intuition. Want a quick check-list to confirm answers like this with confidence?
+#elseif($confidence == "confident")
+Strong and accurate. Want a deeper explanation or a slightly harder follow-up question?
+#else
+Want a quick recap to lock this in?
+#end
+
+#else
+❌ **Wrong answer!**
+
+Correct answer: **$correctoptiontext**
+
+#if($confidence == "noidea")
+No worries at all. We can start from the basics and work through one simple example together.
+#elseif($confidence == "notsure")
+That makes sense if you felt unsure. I can show the key clue that points to the correct answer.
+#elseif($confidence == "mostlysure")
+You were close. I can explain the small detail that changes this from your choice to the correct one.
+#elseif($confidence == "confident")
+You were confident in your attempt. Let’s pinpoint exactly where the reasoning diverged so you can correct it fast.
+#else
+I can break this down in one minute if you want.
+#end
+
+#end

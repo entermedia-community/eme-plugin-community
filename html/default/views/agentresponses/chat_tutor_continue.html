@@ -2,16 +2,15 @@
   "id": #jesc($!topcomponent.getId()),
   "sectionid": #jesc($sectionid),
   "componentid": #jesc($componentid),
-  "content": #jesc($!topcomponent.get("content")),
-  "componenttype": "$!topcomponent.get("componenttype")",
-  "contentrole": "$!topcomponent.get("contentrole")"
+  "content": #jesc($topcomponent.get("content")),
+  "componenttype": #jesc($topcomponent.get("componenttype")),
+  "contentrole": #jesc($topcomponent.get("contentrole"))
   #if($topcomponent.assetid)
     ,"assetthumbnail": "$siteroot$mediaarchive.asLinkToPreview($topcomponent.assetid, 'image200x200')"
     ,"asseturl": "$siteroot$mediaarchive.asLinkToPreview($topcomponent.assetid, 'image3000x3000')"
   #end
-  #if($topcomponent.questionid)
-    #set($question = $mediaarchive.getData("entityquestion", $topcomponent.questionid))
-    ,"question": {
+  #ifnotnull($question),
+    "question": {
       "id": #jesc($question.id),
       "question": #jesc("$question.question"),
       "options": {
@@ -26,9 +25,9 @@
           ,"option_f": #jesc($question.option_f)
         #end
       },
-      "correctoption": "$question.correctoption",
+      "correctoption": #jesc($question.correctoption),
       "rationale": #jesc($question.rationale),
-      "cognitivelevel": "$!question.mcqcognitivelevel"
+      "cognitivelevel": #jesc($question.mcqcognitivelevel)
     }
   #end
 }

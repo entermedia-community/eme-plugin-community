@@ -9,7 +9,8 @@
     ,"assetthumbnail": "$siteroot$mediaarchive.asLinkToPreview($topcomponent.assetid, 'image200x200')"
     ,"asseturl": "$siteroot$mediaarchive.asLinkToPreview($topcomponent.assetid, 'image3000x3000')"
   #end
-  #ifnotnull($question),
+  #ifnotnull($topcomponent.questionid),
+    #set($question = $mediaarchive.getData("entityquestion", $topcomponent.questionid))
     "question": {
       "id": #jesc($question.id),
       "question": #jesc("$question.question"),

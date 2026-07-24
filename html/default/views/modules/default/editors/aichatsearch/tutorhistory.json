@@ -1,0 +1,25 @@
+#set($channelid = $context.getRequestParameter("channel"))  
+#set($chatsearcher = $mediaarchive.getSearcher("chatterbox"))
+#set( $messages = $chatsearcher.query().exact("channel", $channelid).orgroup("user", "${user.getId()} agent").sort("dateDown").search() )
+{
+  "response": {
+    "status": "ok",
+    "userid": "$user.id"
+  },
+  "messages": [
+#foreach($message in $messages)
+  #if($message.messagetype != "system")
+    #if($foreach.count > 1),#end
+    {
+      "channel": #jesc($message.get("channel")),
+      "chatapplicationid": #jesc($message.get("chatapplicationid")),
+      "date": #jesc($message.get("date")),
+      "messageid": #jesc($message.get("id")),
+      "message": #jesc($message.get("message")),
+      "replytoid": #jesc($message.get("replytoid")),
+      "user": #jesc($message.get("user"))
+    }
+  #end
+#end
+  ]
+}

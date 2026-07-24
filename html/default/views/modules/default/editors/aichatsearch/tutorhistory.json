@@ -1,6 +1,7 @@
 #set($channelid = $context.getRequestParameter("channel"))  
 #set($chatsearcher = $mediaarchive.getSearcher("chatterbox"))
 #set( $messages = $chatsearcher.query().exact("channel", $channelid).orgroup("user", "${user.getId()} agent").sort("dateDown").search() )
+#set( $answers = $mediaarchive.query("tutoranswer").exact("channel", $channelid).exact("user", "$user.getId()").sort("dateDown").search() )
 {
   "response": {
     "status": "ok",
@@ -21,5 +22,17 @@
     }
   #end
 #end
+  ],
+  "answers": [
+  #foreach($answer in $answers)
+    #if($foreach.count > 1),#end
+    {
+      "answerid": #jesc($answer.get("id")),
+      "channel": #jesc($answer.get("channel")),
+      "questionid": #jesc($answer.get("entityquestion")),
+      "confidence": #jesc($answer.get("answerconfidence")),
+      "selectedoption": #jesc($answer.get("selectedoption"))
+    }
+  #end
   ]
 }

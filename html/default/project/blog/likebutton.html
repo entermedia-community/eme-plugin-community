@@ -4,7 +4,7 @@
 		href="${projectlink}/blog/liketoggle.html"
 		class="blog-likes-btn icon ajax #if($likedbyme) active #end"
 	#else
-		href="/authentication/login.html"
+		href="$apphome/authentication/login.html"
 		class="blog-likes-btn icon #if($likedbyme) active #end"
 	#end
 	data-userpostid="${userpostid}"

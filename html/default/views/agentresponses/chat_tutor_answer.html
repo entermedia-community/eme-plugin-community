@@ -1,7 +1,4 @@
-#set($correctoptiontext = $question.get($question.correctoption))
-#set($confidence = $answer.answerconfidence)
-
-#if($question.correctoption == $answer.selectedoption)
+#if($iscorrect)
 ✅ **Nice work - that's correct!**
 
 #if($confidence == "noidea")

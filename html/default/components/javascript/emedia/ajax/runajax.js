@@ -417,7 +417,7 @@ $(document).ready(function () {
 
 			// Warn if ajax status is called more than 10 times
 			if (totalRun >= WARN_CAP && totalRun % WARN_CAP == 0) {
-				console.warn("Ajax Status for " + uid + " ran " + totalRun + " times");
+				console.log("Ajax Status for " + uid + " ran " + totalRun + " times");
 			}
 
 			var path = cell.attr("ajaxpath");

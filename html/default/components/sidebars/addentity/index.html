@@ -27,7 +27,7 @@
 						#if ($amodule.moduleicon)
 							#set($moduleicon = $amodule.moduleicon)
 						#end
-						<i class="bi bi-$moduleicon ns me-2" style="font-size: 14px"></i>#text($amodule)</a>
+						<i class="bi bi-$moduleicon ns me-2"></i>#text($amodule)</a>
 					#if($canviewsettings)
 						<a class="ajax action" style="position:absolute; right: 0; top:0;"
 							href="$apphome/views/settings/modules/${amodule.getId()}/info/module-setup.html"

@@ -72,11 +72,11 @@ $context.putPageValue("details",$details)
 			#end
 			</table>
 			<form name="editrow" 
-				action="$siteroot$content.dataroot/edit/edit.html"
+				action="$content.dataroot/edit/edit.html"
 				class="ajaxform"
 				data-targetdiv="propertyEditPanel"
 				data-updateurl="true"
-				
+				data-oemaxlevel="1"
 			>
 				##<input type="hidden" name="oemaxlevel" value="1" />
 				#if($origURL)

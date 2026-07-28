@@ -222,7 +222,7 @@ $(document).ready(function () {
 	function adjustDataManagerTable() {
 		if ($(".datamanagertable").length) {
 			var height = $(window).height() - desktopOffset;
-			$(".datamanagertable").height(height - 352);
+			$(".datamanagertable").height(height - 480);
 		}
 	}
 

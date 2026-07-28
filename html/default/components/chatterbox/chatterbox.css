@@ -447,6 +447,13 @@
 	margin-left: 16px;
 	color: var(--text-link-color) !important;
 }
+.msg-body-content .processing-message {
+	font-style: italic;
+	color: #888888;
+}
+.msg-body-content .processing-message .fas {
+	margin-right: 4px;
+}
 .chat-icon {
 	position: absolute;
 	/*padding: 0 5px;*/

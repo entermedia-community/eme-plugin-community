@@ -22,7 +22,7 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 		#set($cansendchat = true)
 	#end
 #end
-x1
+
 <div class='chatterbox #if($cansendchat == "false") chatterbox-readonly#end'
 	#ifnotnull($entity)data-entityid="$!entity.id"#end
 	#ifnotnull($collectionid)data-collectionid="$!collectionid"#end  

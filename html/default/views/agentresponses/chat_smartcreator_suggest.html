@@ -1,11 +1,7 @@
 #set($creatortype = $inflector.singularize($playbackentitymodule.getName()))
-<p class="m-0">
-  [[Welcome to]] $creatortype [[creation wizard]].
-</p>
-<messageplain>[[Welcome to]] $creatortype [[creation wizard]].</messageplain>
-<h5 class="mb-2">
+<p>
   [[What]] $creatortype [[subject you would like to create?]]
-</h5>
+</p>
 <messageplain>[[What]] $creatortype [[subject you would like to create?]]</messageplain>
 
 #if($semantictopics.isEmpty())

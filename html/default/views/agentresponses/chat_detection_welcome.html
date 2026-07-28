@@ -3,9 +3,9 @@
 	#ifnotnull($entity)
 		<div class="d-flex">
 			<div class="flex-grow-1">
-				<p>
+				<h5 class="mb-1">
 					[[Welcome to the AI Agent!]]
-				</p>
+				</h5>
 				<messageplain>[[Welcome to the AI Agent!]]</messageplain>
 				<p>
 					[[I can help you with any query related to]] <strong>#text($entity)</strong>.
@@ -35,7 +35,7 @@
 		</div>
 		<div class="d-flex">
 			<div class="d-flex flex-column me-2 flex-grow-1">
-				<h5 class="my-2">[[Here are some things I can help you with]]:</h5>
+				<p>[[Here are some things I can help you with]]:</p>
 				<messageplain>[[Here are some things I can help you with]]:</messageplain>
 				#set($scenarios = $mediaarchive.query("automationscenario").exact("enabled","true").exact("chatenabled","true").sort("ordering").cachedSearch())
 				<ul>
@@ -60,7 +60,7 @@
 				#end
 			</div>
 			<div class="d-flex flex-column flex-grow-1">
-				<h5 class="my-2">[[Quick Access]]:</h5>
+				<p class="my-2">[[Quick Access]]:</p>
 				<ul>
 					<li>
 						<a class="ajax"

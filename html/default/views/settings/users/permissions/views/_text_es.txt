@@ -1,0 +1,6 @@
+#
+#Wed Jul 29 17:20:16 CST 2026
+Are\ you\ sure\ you\ want\ to\ delete\ the\ security\ group=\u00BFEst\u00E1 seguro de que desea eliminar el grupo de seguridad?
+Delete=Eliminar
+Please\ select\ a\ Security\ Group=Seleccione un grupo de seguridad
+Save=Guardar

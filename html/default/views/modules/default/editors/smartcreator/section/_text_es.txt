@@ -1,0 +1,12 @@
+#
+#Wed Jul 29 17:14:28 CST 2026
+Add\ Component=A\u00F1adir componente
+Add\ Section=A\u00F1adir secci\u00F3n
+Click\ to\ edit=Haga clic para editar
+Content\ Role=Rol del contenido
+Delete=Eliminar
+Duplicate=Duplicado
+Move\ Down=Bajar
+Move\ Up=Subir
+Select\ Component\ Type=Seleccione el tipo de componente
+Set\ role=Establecer el rol

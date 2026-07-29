@@ -1,0 +1,8 @@
+#
+#Wed Jul 29 17:20:10 CST 2026
+Add\ New\ Role=A\u00F1adir un nuevo rol
+Choose\ Role=Elige el rol
+Choose\ View=Elige Vista
+Permissions=Autorizaciones
+Show\ All=Mostrar todo
+Users\ in\ the\ group=Usuarios del grupo

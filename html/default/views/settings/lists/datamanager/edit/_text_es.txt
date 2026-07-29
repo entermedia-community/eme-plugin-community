@@ -1,0 +1,6 @@
+#
+#Wed Jul 29 17:19:26 CST 2026
+Cancel=Cancelar
+Delete=Eliminar
+Delete\ Database\ Record?=\u00BFEliminar el registro de la base de datos?
+Save=Guardar

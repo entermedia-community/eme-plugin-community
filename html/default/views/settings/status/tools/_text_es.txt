@@ -1,0 +1,34 @@
+#
+#Wed Jul 29 16:29:42 CST 2026
+Authentication=Autenticaci\u00F3n
+Catalog\ ID=ID del cat\u00E1logo
+Change\ Elastichsearch\ Database\ Master=Cambiar el maestro de la base de datos Elasticsearch
+Clear\ Cached\ Data=Borrar datos en cach\u00E9
+Clearing\ cached\ data...=Limpiando datos en cach\u00E9...
+Cluster\ ID=ID del grupo
+Connect\ Google\ oAuth=Conectar con OAuth de Google
+Create=Crear
+Create\ New=Crear nuevo
+Data\ Entities=Entidades de datos
+Data\ Management=Gesti\u00F3n de datos
+Database\ Snapshots=Instant\u00E1neas de la base de datos
+Disabled=Personas con discapacidad
+Disabling=Deshabilitaci\u00F3n
+Enabled=Habilitado
+Enabling=Habilitaci\u00F3n
+Full\ Reindex=Re\u00EDndice completo
+Node\ ID=ID del nodo
+Reindex=Reindexar
+Reindexed\!=\u00A1Re\u00EDndice\!
+Reindexing...=Reindexando...
+Reload\ lists=Listas de recarga
+Reloading\ lists...=Recargando las listas...
+Save\ All\ Modules=Guardar todos los m\u00F3dulos
+Search\ Logs=Registros de b\u00FAsqueda
+Server\ Status=Estado del servidor
+Snapshots\ are\ used\ by\ ElasticSearch\ to\ store\ and\ restore\ database\ state=Las instant\u00E1neas se utilizan por Elasticsearch para almacenar y restaurar el estado de la base de datos.
+This\ allows\ lists\ loaded\ from\ the\ installation\ to\ be\ integrated\ with\ your\ own\ lists=Esto permite integrar las listas cargadas desde la instalaci\u00F3n con sus propias listas.
+View\ Elastic\n\t\tMappings=Vista de mapeo el\u00E1stico
+View\ Elastic\ Search\ logs\ in\ the\ console=Ver los registros de Elastic Search en la consola
+View\ Mapping\ Conflicts=Ver conflictos de mapeo
+View\ Snapshots=Ver instant\u00E1neas

@@ -1,6 +1,8 @@
-#if($sidebarcomponent != "")
-
-  #if($sidebarcomponent == "settings" )
+#ifnotnull($sidebarcomponent)
+  #if($sidebarcomponent == "none" )
+    #set($sidebarcomponent = $nonexistingnullvariable)
+    #set($sidebarwidth = $nonexistingnullvariable)
+  #elseif($sidebarcomponent == "settings" )
     #set($sidebarurl = "$apphome/components/sidebars/settings/index.html")
   #elseif($sidebarcomponent == "localdrives" )
     #if($canviewcategorynav && $desktop)
@@ -26,15 +28,17 @@
   #end
 
   $userprofile.setValue("sidebarcomponent", $sidebarcomponent)
-
+  
 #end
 
-##SIDEBAR WIDTH
-
-#set( $sidebarwidth = $userprofile.get("sidebarwidth"))
-#if($sidebarwidth=='' || $sidebarwidth=='undefined')
-  #set($sidebarwidth = 280)
+#ifnotnull($sidebarcomponent)
+  ##SIDEBAR WIDTH
+  #set( $sidebarwidth = $userprofile.get("sidebarwidth"))
+  #if($sidebarwidth=='' || $sidebarwidth=='undefined')
+    #set($sidebarwidth = 280)
+  #end
 #end
+
 
 #ifnotnull($sidebarurl)
   <div class="col-main col-mainsidebar #if($sidebarwidth && $sidebarwidth>320)sidebarwide #end"

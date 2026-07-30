@@ -128,6 +128,7 @@ $(document).ready(function () {
 		var source = sourceSelect.val();
 		var target = targetSelect.val();
 		var detailid = sourceSelect.data("detailid");
+		var moduleid = sourceSelect.data("searchtype");
 
 		if (!source) {
 			customToast("Please select a source language!", {
@@ -188,6 +189,9 @@ $(document).ready(function () {
 
 		if (targets.size == 0) {
 			console.log("No missing translation found!");
+			customToast("No missing translation found!", {
+				positive: false,
+			});
 			return;
 		}
 
@@ -196,7 +200,7 @@ $(document).ready(function () {
 
 		var parsedTargets = parseLangCodes(targets);
 		$.ajax({
-			url: `/${mediadb}/services/module/translation/translate.json`,
+			url: `/${mediadb}/services/module/${moduleid}/translate.json`,
 			method: "POST",
 			data: JSON.stringify({
 				source: source,

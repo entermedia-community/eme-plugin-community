@@ -24,8 +24,9 @@ $context.putPageValue("xmledithome",$xmledithome)
 	No viewdata found for viewid: <strong>$viewid</strong>, searchtype:<strong> $searcher.getSearchType()</strong>, at <strong>$content.path</strong>
 #end
 
-<div class="oeinputform validate-inputs">
+
 	<div id="allerrors"></div>
+	<div class="$!detaileditorclass">
 	#foreach( $detail in $details )
 		<div class="inputformrow">
 			#set( $val = "" )
@@ -85,7 +86,7 @@ $context.putPageValue("xmledithome",$xmledithome)
 			#end
 		</div>
 	#end
-</div>
+	</div>
 
 #if( $usedhtml && $readonly !=  "true") 
 	$pages.include("/system/tools/html/textarea.html?$usedhtml")	

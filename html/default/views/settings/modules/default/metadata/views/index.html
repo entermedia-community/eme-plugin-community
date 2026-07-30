@@ -25,43 +25,17 @@
 	
 	<div id="views-settings" style="display: none;">
 	    
-	    <div class="inner clearfix">
+	    <div class="inner">
 	    
         <form id="changename" name="newgroup" method="post" action="$siteroot$viewsroot/changeviewname.html?id=$viewid&viewid=$viewid&save=true&searchtype=view">
-            <div class="form-group">
-            <input type="hidden" name="field" value="name" />
-            <label>[[View Id]]</label>
-            <input class="form-control"  value="$view.id" disabled />
-            </div>
-            
-            <div class="form-group">
-            <input type="hidden" name="field" value="name" />
-            <label>[[View Name]]</label>
-            <input class="form-control" name="name.value" value="$view.name" />
-            </div>
-            
-			<div class="form-group">
-           		
-           			<input type="hidden" value="rendertype" name="field" />
-	                <label>[[Custom Render Type]]</label>
-	            	<select name="rendertype.value" class="form-control form-control-sm">
-	            		<option value="default"></option>
-	            		#foreach( $type in $mediaarchive.getList("entitytabrendertype") )
-	            			<option value="$type.getId()" #if($type.getId() == $view.rendertype) [[selected]] #end>$type</option>
-	            		#end
-	            	</select>
-	            
-            </div>
-            
-			<div class="form-group">
-				<div class="form-check">
-	    		<input id="systemdefined.value" class="form-check-input" type="checkbox" name="systemdefined.value" value="true" #if($view.systemdefined == "true") checked #else #end/>
-                <label class="form-check-label" for="systemdefined.value">[[System View]]</label>
-            	<input type="hidden" value="systemdefined" name="field" />
-				</div>
-            
-            </div>
-            
+			<div class="p-2 w-75">
+			#set( $searcher = $mediaarchive.getSearcher("view") )
+			$context.putPageValue("searcher",$searcher)
+			$context.putPageValue("viewid", "viewedit")
+			$context.putPageValue("data", $view)
+			##$context.putPageValue("detaileditorclass", "detaileditor-2colums")
+			$pages.include("/$applicationid/components/xml/detaileditorcss.html", $context)
+			
            
             <div class="row">
             	<div class="col-md-6">
@@ -80,52 +54,9 @@
 						</select>
 					</div>
 				</div>
-				<div class="col">
-					<div class="form-group">
-		                <label>[[External ID]]</label>
-		            	<input type="hidden" value="renderexternalid" name="field" />
-						#set($externalid = $view.renderexternalid)
-						#ifnull($externalid)
-							#set($externalid = $module.id)
-						#end
-		                <input class="field form-control" name="renderexternalid.value" value="${externalid}" />
-						
-	
-					</div>
-				</div>
             </div>
-		
+		</div>
 
-        <div id="rendertableoptions">
-	  
-				<div class="row">
-            	<div class="col-md-6">
-					
-		        </div>
-		        <div class="col">
-		            <div class="form-group">
-						<label>[[Internal Value Field]]</label>
-						<input type="hidden" value="renderinternalid" name="field" />
-		                ##<input class="field form-control" name="renderinternalid.value" value="$!view.renderinternalid" placeholder="id" >
-						#set($internalid = $view.renderinternalid)
-						#ifnull($internalid)
-							#set($internalid = "id")
-						#end
-						<select id="renderinternalpicker" 
-								name="renderinternalid.value" 
-								class=" form-control" 
-								data-allowclear="false"
-								>
-							<option value=""></option>
-							#set($searcher = $mediaarchive.getSearcher($module.id))
-							#foreach( $type in $searcher.getPropertyDetails() )
-								<option value="$type.getId()" #if($type.getId() == ${internalid}) [[selected]] #end>#text($type)</option>
-							#end
-						</select>
-					</div>
-				</div>
-				</div>
-          </div>
          <div class="form-group">
             <input class="btn btn-sm btn-primary" type="submit" value="[[Save]]" />
          </div>

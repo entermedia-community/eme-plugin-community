@@ -11,16 +11,16 @@ $!context.putPageValue("readonly", $readonly)
  
 #ifnull($details)
 	#set( $viewdata = $mediaarchive.getCachedData("view",$viewid) )
-	
-	#set ($details = $viewdata.getDetailsForView($context.getUserProfile()))
+	#set( $details = $viewdata.getDetailsForView($context.getUserProfile()))
 #end	
 #ifnull($details)
-	#set ($details = $searcher.getDetailsForView($viewid, $context.getUserProfile()))
-	
+	#set( $details = $searcher.getDetailsForView($viewid, $context.getUserProfile()))
 #end	
 
 #ifnull($details)
-	No details found for $viewid - Searchtype: $searcher.getSearchType() in $content.path
+	No details found for view: $viewid - Searchtype: $searcher.getSearchType() in $content.path
+	Viewdata: $viewdata
+	
 #end
 
 #ifnull($multiedit)

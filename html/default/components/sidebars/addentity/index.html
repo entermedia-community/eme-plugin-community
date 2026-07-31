@@ -35,20 +35,15 @@
 							title="#text($amodule) [[Properties]]"><i class="bi bi-gear-fill"></i></a>
 							#if($moduleid==$amodule.id)
 								<ul class="sidebar-sublist auto-active-container">
-									<li id="setup" #if( $tab == "setup" || !$tab ) class="current" #end>
-										<a href="$!home$apphome/views/settings/modules/${module.id}/info/module-setup.html" class="ajax auto-active-link" 
-										data-targetdiv="applicationcontent" 
-										data-updateurl="true" 
-										data-oemaxlayout="3"
-										title="#text($amodule) [[Properties]]">[[Properties]]</a>
-									</li>
-									#set( $searcher = $searcherManager.getSearcher($catalogid,"settingsmenumodule") )
+									#set( $searcher = $searcherManager.getSearcher($catalogid,"settingsmenu") )
 									#set( $query = $searcher.createSearchQuery() )
 									#set( $null = $query.addExact("menulevel","toplevel") )
 									#set( $null = $query.addExact("moduleid",$amodule.id) )
 									$!query.addSortBy("ordering")
 									#set($screens =  $searcher.search($query))
-									
+									#ifnull($tab)
+										#set($tab = $screens.get(0).id)
+									#end
 									#foreach($screen in $screens) 
 										<li id="$!{screen.id}" 
 											#if( $tab == "$screen.id" ) class="current" #end

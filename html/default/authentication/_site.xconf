@@ -2,6 +2,6 @@
 
 <page>
   
-  <property name="fallback">/community/authentication</property>
+  <property name="fallbackdirectory">/community/authentication</property>
   
 </page>

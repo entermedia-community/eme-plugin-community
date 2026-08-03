@@ -16,12 +16,4 @@
    	
   	<path-action name="Admin.allowViewing"/>
 	
-	<path-action name="DataPermissionModule.loadCustomModulePermissions">
-		<property name="parameterid">collectionid</property>
-		<property name="parametertype">librarycollection</property>
-		
-		<property name="parentparameterid">library</property>
-	</path-action>   
-	   
-	
 </page>

@@ -1,13 +1,13 @@
 $context.putPageValue("previewmode", "true")
 
-<input
+<div id="smartautomationmain" class="automation modal-dialog modal-lg" data-setpagetitle="[[Smart Organizer]]">
+  <input
 	id="brandLogo"
 	type="hidden"
 	value="$!{siteroot}$themeprefix/logo.png"
 	style="display: none"
 />
 
-<div id="smartautomationmain" class="automation" data-setpagetitle="[[Smart Organizer]]">
   <div class="automation-inner">
     
     $pages.include("./header.html", $context)

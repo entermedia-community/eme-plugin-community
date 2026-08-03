@@ -247,6 +247,7 @@ findClosest = function (link, inid) {
 					if (newcell.length > 0) {
 						$(window).trigger("setPageTitle", [newcell]);
 					}
+					$(document).trigger("domchanged", [newcell]);
 
 					//on success execute extra JS
 					if (anchorData["onsuccess"]) {

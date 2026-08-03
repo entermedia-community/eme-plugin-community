@@ -40,6 +40,7 @@ $.ajaxSetup({
 		return cleaned;
 	};
 
+	/*
 	var oldLoad = $.fn.load;
 	$.fn.load = function (inArg, maybeData, inComplete) {
 		var oldscope = this;
@@ -101,7 +102,7 @@ $.ajaxSetup({
 		$(document).trigger("domchanged", [div.parent()]);
 		return returned;
 	};
-
+	*/
 	var oldajaxSubmit = $.fn.ajaxSubmit;
 
 	$.fn.ajaxSubmit = function () {

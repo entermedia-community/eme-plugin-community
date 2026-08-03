@@ -237,7 +237,9 @@
 					}
 				}
 				$(window).trigger("resize");
-
+				
+				var parent = $(targetdiv).parent();
+				$(document).trigger("domchanged", [parent]);
 				//on success execute extra JS
 				if (form.data("onsuccess")) {
 					var onsuccess = form.data("onsuccess");

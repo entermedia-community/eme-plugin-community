@@ -817,7 +817,9 @@ jQuery(document).ready(function () {
 
 					$(window).trigger("resize");
 
+					$(document).trigger("domchanged", [$(cell).parent()]);
 					history.pushState($("#application").html(), null, url);
+
 				},
 				xhrFields: {
 					withCredentials: true,

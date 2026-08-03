@@ -219,7 +219,8 @@
 
 					$(window).trigger("resize");
 				});
-
+				$(document).trigger("domchanged", [modaldialog]);
+				//console.log('Saving the modal dialog');
 				// adjustZIndex(modaldialog);
 
 				if (

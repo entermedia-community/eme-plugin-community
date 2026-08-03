@@ -10,6 +10,11 @@
         href="$apphome/views/modules/${module.id}/editors/smartcreator/createquestions.html"
         data-playbackentityid="${playbackentity.id}"
         data-playbackentitymoduleid="${playbackentitymodule.id}">[[Generate Questions]]</a>
+      <a class="btn btn-accent mx-auto mb-2 ajax" data-targetdiv="creator-maker"
+        href="$apphome/views/modules/${module.id}/editors/smartcreator/section/create-section.html"
+        data-playbackentityid="${playbackentity.id}"
+        data-playbackentitymoduleid="${playbackentitymodule.id}">+ [[Add Section]]</a>
+
       #foreach($componentsection in $componentsections)
         $context.putPageValue("section", $componentsection)
         $context.putPageValue("count", $foreach.count)

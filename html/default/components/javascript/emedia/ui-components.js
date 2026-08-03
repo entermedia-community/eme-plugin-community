@@ -171,7 +171,7 @@ jQuery(document).ready(function () {
 		}
 	});
 
-	lQuery(".entityclose").livequery("mousedown", function (event) {
+	lQuery(".closeemdialog").livequery("mousedown", function (event) {
 		event.preventDefault();
 		var targetModal = $(this).closest(".modal");
 		confirmModalClose(targetModal);

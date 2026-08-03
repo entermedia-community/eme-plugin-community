@@ -11,10 +11,12 @@
 
 <div class="modal-dialog #if($customdialogclass) modal-$customdialogclass #end" id="searcharea">
 	<div class="modal-content">
-		<div class="modal-header">
+		<div class="modal-header justify-content-between">
 			<h5 class="modal-title"></h5>
+			<div class="closeemdialog" data-bs-dismiss="modal" aria-label="[[Close]]">
+				<span title="[[Esc to Close]]" class="bi bi-x-lg ns"></span>
+			</div>
 			
-			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="[[Close]]"></button>
 		</div>
 		<div class="modal-body">
 			$pages.includeContent()

@@ -1587,9 +1587,12 @@ $(document).ready(function () {
 	});
 
 	window.onbeforeunload = function () {
-		var changed = canvasContainer.data("changed");
-		if (changed) {
-			return "You have unsaved changes. Are you sure you want to leave?";
+		if (canvasContainer)
+		{
+			var changed = canvasContainer.data("changed");
+			if (changed) {
+				return "You have unsaved changes. Are you sure you want to leave?";
+			}
 		}
 	};
 

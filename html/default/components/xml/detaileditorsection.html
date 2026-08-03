@@ -32,8 +32,6 @@ $context.putPageValue("xmledithome",$xmledithome)
 		#set ($viewtype = "default")
 	#end
 	
-	
- 	
 	#set( $target = "${detail.id}.value" )
 				
 	#set($values = false)
@@ -49,11 +47,8 @@ $context.putPageValue("xmledithome",$xmledithome)
 		$!context.putPageValue("detail",$detail)
 		$!context.putPageValue("value", $value)
 		$!context.putPageValue("values",$values)
-	
 		
 	 	<div class="$detailviewercolumnclass editor-data-detail emdatafield-$!viewtype">
-	
-		 
 		
 		###if( $editrow   || !$detail.isEditable() || $detail.dataType == "searchjoin" )
 				

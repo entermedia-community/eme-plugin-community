@@ -200,8 +200,9 @@
 				var parentcontainer;
 				var targetdivinner = form.data("targetdivinner");
 				if (targetdivinner) {
-					$("#" + $.escapeSelector(targetdivinner)).html(result);
+					targetdivinner = $("#" + $.escapeSelector(targetdivinner));
 					parentcontainer = targetdivinner.parent();
+					targetdivinner.html(result);
 				} else {
 					if (targetdiv) {
 						parentcontainer = targetdiv.parent();

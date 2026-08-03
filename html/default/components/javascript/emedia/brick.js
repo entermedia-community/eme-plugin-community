@@ -162,6 +162,7 @@
 					//make sure it exists and it is a function
 					callback(); //execute it
 				}
+				$(document).trigger("domchanged", [$(div).parent()]);
 			},
 			xhrFields: {
 				withCredentials: true,
@@ -273,7 +274,7 @@
 				grid.append(code);
 				gridResize(grid); //was resize event
 				$(window).trigger("resultsgenerated", [grid]);
-
+				$(document).trigger("domchanged", [grid]);
 				stopautoscroll = false;
 			},
 		});

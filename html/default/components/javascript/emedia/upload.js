@@ -206,28 +206,6 @@ $(document).ready(function () {
 					e.preventDefault();
 					e.stopPropagation();
 					var uploadTarget = $(".webUploadButton");
-					// if (ipcRenderer) {
-					// 	const { webUtils } = require("electron");
-					// 	var filePaths = [];
-					// 	for (const f of e.originalEvent.dataTransfer.files) {
-					// 		filePaths.push(webUtils.getPathForFile(f));
-					// 	}
-					// 	var data = uploadTarget.data();
-					// 	div.removeClass("filehover");
-					// 	ipcRenderer.send("filesDropped", { data: data, files: filePaths });
-					// 	customToast(
-					// 		filePaths.length +
-					// 			" file" +
-					// 			(filePaths.length > 1 ? "s" : "") +
-					// 			" added to upload process!",
-					// 		{
-					// 			autohideDelay: 5000,
-					// 			btnText: "Show",
-					// 			btnClass: "btn btn-sm px-2 mx-2 btn-outline-primary",
-					// 		}
-					// 	);
-					// 	return;
-					// }
 					uploadTarget.data("toastmessage", "Processing files...");
 					uploadTarget.data("toastsuccess", "Ready to upload!");
 					uploadTarget.runAjax(function () {
@@ -432,7 +410,7 @@ $.fn.initUpload = function () {
 				entityuploadPicker.parent().find(".hideonupload").hide();
 				entityuploadPicker.next(".loadericon").css("display", "inline-block");
 			}
-
+			$(document).trigger("documentchanged", [uploadformarea]);
 			return true;
 			//Loop over all the files. add rows
 			//alert("start");
@@ -472,6 +450,7 @@ $.fn.initUpload = function () {
 			uploadformarea
 				.find(".progress_report_bar" + currentupload)
 				.css("width", "100%");
+			$(document).trigger("documentchanged", [uploadformarea]);
 		},
 		onError: function (event, name, error) {
 			customToast("Error while uploading file " + name, {
@@ -510,6 +489,7 @@ $.fn.initUpload = function () {
 				var form = $(startb.closest("form"));
 
 				$(window).trigger("checkautoreload", [form]);
+				$(document).trigger("documentchanged", [uploadformarea]);
 				var formmodal = form.closest(".modal");
 				if (formmodal.length > 0 && form.hasClass("autocloseform")) {
 					closeemdialog(formmodal);

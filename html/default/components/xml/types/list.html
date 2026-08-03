@@ -59,7 +59,7 @@
 		#set($query = $lsearcher.query().all() )
 	#end
 	#if($query)
-		$query.sort($detail.getDefaultSort())
+		#set($query = $query.sort($detail.getDefaultSort()) )
 	#end
 	
 	#set ($types = $query.cachedSearch())

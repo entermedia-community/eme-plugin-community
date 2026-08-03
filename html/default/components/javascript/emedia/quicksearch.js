@@ -157,7 +157,8 @@ $(document).ready(function () {
 				success: function (data) {
 					if (data) {
 						$("#mainsearchresults").html(data);
-						jQuery(window).trigger("resize");
+						$(window).trigger("resize");
+						$(document).trigger("domchanged", [$("#mainsearchresults")]);
 					}
 					var entityIds = [];
 					$("#mainsearchresults .emfolder-wrapper").each(function () {
@@ -241,10 +242,11 @@ $(document).ready(function () {
 				if (data) {
 					semanticMatches.html(data);
 					$("#semanticLoading").removeClass("show");
-					jQuery(window).trigger("resize");
+					$(window).trigger("resize");
 				} else {
 					semanticMatches.html("");
 				}
+				$(document).trigger("domchanged", [semanticMatches]);
 			},
 			error: function () {
 				semanticMatches.html("");

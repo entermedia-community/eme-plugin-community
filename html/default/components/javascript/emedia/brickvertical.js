@@ -261,6 +261,7 @@
 				grid.append(code);
 				grid.brickvertical("resize");
 				$(window).trigger("resultsgenerated", [grid]);
+				$(document).trigger("domchanged", [grid]);
 				stopautoscroll = false;
 			},
 		});

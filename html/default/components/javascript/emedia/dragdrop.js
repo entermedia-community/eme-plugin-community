@@ -655,6 +655,7 @@ onloadselectors = function () {
 									targetdiv.removeClass("dragoverselected");
 								});
 							}
+							$(document).trigger("domchanged", [$(targetdiv).parent()]);
 						},
 					});
 				},
@@ -711,6 +712,7 @@ onloadselectors = function () {
 								targetdiv.replaceWith(data);
 							}
 							node.removeClass("dragoverselected");
+							$(document).trigger("domchanged", [$(targetdiv).parent()]);
 						},
 					});
 				},
@@ -756,7 +758,7 @@ onloadselectors = function () {
 							var editdiv = resultsdiv.closest(".editdiv");
 							//autoreload(editdiv, null, "editdiv");
 							$(window).trigger("autoreload", [editdiv, null, "editdiv"]);
-
+							$(document).trigger("domchanged", [editdiv]);
 							//$(window).trigger("checkautoreload", [resultsdiv]);
 						},
 					});
@@ -789,6 +791,7 @@ onloadselectors = function () {
 					//$(window).trigger("checkautoreload", [resultsdiv]);
 					var editdiv = resultsdiv.closest(".editdiv");
 					$(window).trigger("autoreload", [editdiv, null, "editdiv"]);
+					$(document).trigger("domchanged", [editdiv]);
 				},
 			});
 		});

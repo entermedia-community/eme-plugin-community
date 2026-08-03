@@ -226,6 +226,7 @@ $(document).ready(function () {
 								addLanguageInput($(this), translations[code]);
 							}
 						});
+						$(document).trigger("domchanged", [div]);
 					}
 				}
 				mask.removeClass("active");

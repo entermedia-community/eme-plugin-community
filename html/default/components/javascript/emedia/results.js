@@ -59,6 +59,7 @@ jQuery(document).ready(function (url, params) {
 			data: params,
 			success: function (data) {
 				targetdiv.replaceWith(data);
+				$(document).trigger("domchanged", [$(targetdiv).parent()]);
 			},
 			xhrFields: {
 				withCredentials: true,
@@ -331,6 +332,7 @@ jQuery(document).ready(function (url, params) {
 				success: function (data) {
 					$("#filteredresults").html(data);
 					$(window).trigger("resize");
+					$(document).trigger("domchanged", [$("#filteredresults")]);
 				},
 			});
 		}
@@ -1389,6 +1391,7 @@ jQuery(document).ready(function (url, params) {
 					success: function (data) {
 						targetdiv.replaceWith(data);
 						$(window).trigger("resize");
+						$(document).trigger("domchanged", [$(targetdiv).parent()]);
 					},
 				});
 			}
@@ -1493,6 +1496,7 @@ jQuery(document).ready(function (url, params) {
 					url: url,
 					success: function (data) {
 						$("#basket-paint").replaceWith(data);
+						$(document).trigger("domchanged", [$("#basket-paint").parent()]);
 						if (action == "remove") {
 							var checkoutpage = $("#collectionbasket");
 							if (checkoutpage.length > 0) {

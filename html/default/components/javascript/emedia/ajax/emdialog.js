@@ -219,7 +219,7 @@
 
 					$(window).trigger("resize");
 				});
-				$(document).trigger("domchanged", [modaldialog]);
+				
 				//console.log('Saving the modal dialog');
 				// adjustZIndex(modaldialog);
 
@@ -256,6 +256,7 @@
 					}
 				}
 
+				
 				$(window).trigger("resize");
 			},
 			error: function () {
@@ -265,6 +266,9 @@
 				if (alwaysFunc) {
 					alwaysFunc();
 				}
+				$(document).trigger("domchanged", [modaldialog]);
+				
+				
 			},
 		});
 
@@ -278,8 +282,8 @@
 			} else {
 				$(this)
 					.find("input[type=text],textarea,select")
-					.filter(":visible:first")
-					.focus();
+					.filter(":visible:first");
+				$(this).trigger("focus");
 			}
 		});
 

@@ -287,6 +287,7 @@ jQuery(document).ready(function () {
 			options.oemaxlevel = 1;
 			$.get(messagesUrl, options, function (data) {
 				chatterbox.replaceWith(data);
+				$(document).trigger("domchanged", [$(chatterbox).parent()]);
 				scrollToChat();
 			});
 		});
@@ -333,11 +334,12 @@ jQuery(document).ready(function () {
 				const msgBody = $(existing).find(".msg-body-content");
 				if (msgBody.length) {
 					msgBody.html(message.message);
+					$(document).trigger("domchanged", [msgBody]);
 				} else {
 					const chatMsg = $(existing).find(".chat-msg");
 					chatMsg.html(message.message);
+					$(document).trigger("domchanged", [chatMsg]);
 				}
-
 				$(existing).data("functionname", message.functionname);
 				$(existing).data("nextfunctionname", message.nextfunctionname);
 			}
@@ -382,6 +384,7 @@ jQuery(document).ready(function () {
 		$.get(renderMessageUrl, options, function (data) {
 			listArea.append(data);
 			sortChatterbox(listArea);
+			$(document).trigger("domchanged", [listArea]);
 			scrollToChat();
 		});
 	}

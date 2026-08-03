@@ -197,12 +197,14 @@
 						dataname,
 					]);
 				}
+				var parentcontainer;
 				var targetdivinner = form.data("targetdivinner");
-
 				if (targetdivinner) {
 					$("#" + $.escapeSelector(targetdivinner)).html(result);
+					parentcontainer = targetdivinner.parent();
 				} else {
 					if (targetdiv) {
+						parentcontainer = targetdiv.parent();
 						targetdiv.replaceWith(result);
 					}
 				}
@@ -222,8 +224,6 @@
 					}
 				}
 
-				//OLD? $("#resultsdiv").data("reloadresults", true);
-
 				//TODO: Move this to results.js
 				if (form.hasClass("hideMediaViewer")) {
 					$(window).trigger("hideMediaViewer");
@@ -236,10 +236,11 @@
 						window.location.replace(link);
 					}
 				}
+
 				$(window).trigger("resize");
 				
-				var parent = $(targetdiv).parent();
-				$(document).trigger("domchanged", [parent]);
+				$(document).trigger("domchanged", [$(parentcontainer)]);
+
 				//on success execute extra JS
 				if (form.data("onsuccess")) {
 					var onsuccess = form.data("onsuccess");

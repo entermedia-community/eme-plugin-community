@@ -413,8 +413,8 @@ $(document).ready(function () {
 						data: options,
 						success: function (data) {
 							var entity = $(".entitydialog");
-							//autoreload(entity);
 							$(window).trigger("autoreload", [entity]);
+							$(document).trigger("domchanged", [entity]);
 							//pickertarget.replaceWith(data);
 						},
 					});
@@ -658,6 +658,7 @@ $(document).ready(function () {
 							targetdiv.replaceWith(data);
 						}
 					}
+					$(document).trigger("domchanged", [$(targetdiv).parent()]);
 					closeemdialog(clicked.closest(".modal"));
 				},
 			});

@@ -814,10 +814,9 @@ jQuery(document).ready(function () {
 					$(".pushcontent").css("margin-left", sidebarwidth + "px");
 
 					$(window).trigger("setPageTitle", [cell]);
-
 					$(window).trigger("resize");
-
 					$(document).trigger("domchanged", [$(cell).parent()]);
+
 					history.pushState($("#application").html(), null, url);
 
 				},
@@ -891,6 +890,7 @@ jQuery(document).ready(function () {
 
 				$(window).trigger("setPageTitle", [targetdiv]);
 				$(window).trigger("resize");
+				$(document).trigger("domchanged", [$(targetdiv).parent()]);
 			},
 		});
 	};
@@ -1024,18 +1024,9 @@ jQuery(document).ready(function () {
 			form.find(".emneedselection").each(function () {
 				clicked.removeAttr("disabled");
 			});
-			//form.submit();
-			// var targetdiv = form.data("targetdiv");
-			/*if ((typeof targetdiv) != "undefined") {
-						$(form).ajaxSubmit({
-							target : "#" + $.escapeSelector(targetdiv), 
-							data:data
-							
-						});
-					} else {
-						*/
+
 			$(form).trigger("submit");
-			//}
+
 			if (form.hasClass("autoclose")) {
 				closeemdialog(form.closest(".modal"));
 			}
@@ -1046,7 +1037,6 @@ jQuery(document).ready(function () {
 				emselectable.emDialog(null, function () {
 					clicked.css("pointer-events", "auto");
 				});
-				//showmodal(emselectable, url);;
 			} else {
 				parent.document.location.href = url + rowid; //?
 			}

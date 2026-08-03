@@ -666,6 +666,7 @@ $(document).ready(function () {
 				//Refresh imageeditor
 				success: function (data) {
 					$("#photo-editor-container").html(data);
+					$(document).trigger("domchanged", [$("#photo-editor-container")]);
 				},
 			});
 		});
@@ -737,6 +738,7 @@ $(document).ready(function () {
 				//Refresh imageeditor
 				success: function (data) {
 					$("#photo-editor-container").html(data);
+					$(document).trigger("domchanged", [$("#photo-editor-container")]);
 				},
 			});
 		});

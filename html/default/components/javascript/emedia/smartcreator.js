@@ -256,6 +256,7 @@ $(document).ready(function () {
 			},
 			success: function () {
 				editorEl.html(`<h1>${content}</h1>`);
+				$(document).targeted("domchanged", [editorEl]);
 			},
 			complete: function () {
 				btn.prop("disabled", false);

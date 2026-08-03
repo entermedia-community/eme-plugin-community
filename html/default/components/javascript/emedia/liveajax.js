@@ -40,7 +40,7 @@ $.ajaxSetup({
 		return cleaned;
 	};
 
-	/*
+	
 	var oldLoad = $.fn.load;
 	$.fn.load = function (inArg, maybeData, inComplete) {
 		var oldscope = this;
@@ -58,7 +58,7 @@ $.ajaxSetup({
 		});
 		return returned;
 	};
-
+/*
 	var oldhtml = $.fn.html;
 	$.fn.html = function (arg) {
 		if (arguments.length == 0) {
@@ -169,7 +169,7 @@ $.ajaxSetup({
 		if (element == null) {
 			element = document;
 		}
-		//console.log("domchanged reload on ",element);
+		console.log("domchanged reload on ",element);
 		$.each(regelements, function () {
 			//Everyone
 			var item = this;

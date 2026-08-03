@@ -110,6 +110,7 @@ function initializeUI() {
 		if (allowClear == undefined) {
 			allowClear = true;
 		}
+
 		if ($.fn.select2) {
 			theinput.select2({
 				placeholder: placeholder,
@@ -269,11 +270,13 @@ function initializeUI() {
 			if (targetDiv) {
 				var cell = $("#" + targetDiv);
 				cell.html(data);
+				$(document).trigger("domchanged", [cell]);
 			} else {
 				if (!targetDiv) {
 					targetDiv = inlink.data("targetdivinner");
 					var cell = $("#" + targetDiv);
 					cell.replaceWith(data);
+					$(document).trigger("domchanged", [cell.parent()]);
 				}
 			}
 			$(window).trigger("resize");
@@ -2121,57 +2124,6 @@ function initializeUI() {
 		}
 	});
 
-	lQuery(".favclick").livequery("click", function (e) {
-		e.preventDefault();
-		var item = $(this);
-		var itemid = item.data("id");
-		var moduleid = item.data("moduleid");
-		var favurl = item.data("favurl");
-		var targetdiv = item.data("targetdiv");
-		var options = item.data();
-		if (itemid) {
-			if (item.hasClass("itemfavorited")) {
-				jQuery.ajax({
-					url:
-						apphome +
-						"/components/userprofile/favoritesremove.html?profilepreference=" +
-						"favorites_" +
-						moduleid +
-						"&profilepreference.value=" +
-						itemid,
-					success: function () {
-						//item.removeClass("ibmfavorited");
-						jQuery.get(favurl, options, function (data) {
-							$("." + targetdiv)
-								.replaceWith(data)
-								.hide()
-								.fadeIn("slow");
-						});
-					},
-				});
-			} else {
-				jQuery.ajax({
-					url:
-						apphome +
-						"/components/userprofile/favoritesadd.html?profilepreference=" +
-						"favorites_" +
-						moduleid +
-						"&profilepreference.value=" +
-						itemid,
-					success: function () {
-						//item.addClass("ibmfavorited");
-						jQuery.get(favurl, options, function (data) {
-							$("." + targetdiv)
-								.replaceWith(data)
-								.hide()
-								.fadeIn();
-						});
-					},
-				});
-			}
-		}
-	});
-
 	lQuery(".seemorelink").livequery("click", function (e) {
 		e.preventDefault();
 		var textbox = $(this).data("seemore");
@@ -2295,7 +2247,9 @@ function initializeUI() {
 			async: true,
 			data: options,
 			success: function (data) {
-				$("#chatter-message-" + messageid).replaceWith(data);
+				var message= $("#chatter-message-" + messageid);
+				message.replaceWith(data);
+				$(document).trigger("chattermessageupdated", [$(message).parent()]);
 			},
 		});
 	});
@@ -2332,29 +2286,6 @@ function switchsubmodulebox(item) {
 	item.hide();
 }
 
-//Old not used
-/*
-replaceelement = function (url, div, options, callback) {
-	jQuery.ajax({
-		url: url,
-		async: false,
-		data: options,
-		success: function (data) {
-			//Look for img and add ?cache=false
-			div.replaceWith(data);
-
-			if (callback && typeof callback === "function") {
-				//make sure it exists and it is a function
-				callback(); //execute it
-			}
-		},
-		xhrFields: {
-			withCredentials: true,
-		},
-		crossDomain: true,
-	});
-};
-*/
 lQuery(".changeimportmodule").livequery("change", function () {
 	var select = $(this);
 	var moduleid = select.val();
@@ -2376,8 +2307,9 @@ lQuery(".changeimportmodule").livequery("change", function () {
 			"&profilepreference.value=" +
 			moduleid,
 		success: function (data) {
-			var cell = $("#" + targetDiv);
+			var cell = $("#" + targetdiv);
 			cell.replaceWith(data);
+			$(document).trigger("domchanged", [$(cell).parent()]);
 		},
 		xhrFields: {
 			withCredentials: true,

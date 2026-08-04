@@ -1,42 +1,45 @@
 <div id="serverstatus">
 <h2 class="mt-1 mb-3">[[Server Status]]</h2>
-<p class="text-muted">
+<div class="bg-light p-3 w-50 rounded">
+
 	<strong>[[Node ID]]</strong>: $mediaarchive.getNodeManager().getLocalNodeId()
 	<br>
 	<strong>[[Cluster ID]]</strong>: $mediaarchive.getNodeManager().getLocalClusterId()
 	<br>
 	<strong>[[Catalog ID]]</strong>: $mediaarchive.getCatalogId()
-</p>
 
-<p><a class="ajax btn btn-secondary" href="clearcaches.html" 
+</div>
+<div class="my-2">
+	<a class="ajax btn btn-secondary" href="clearcaches.html" 
 		data-targetdiv="application"
 		data-oemaxlayout="1"
-		data-sidebarcomponent="settings" data-toastmessage="[[Clearing cached data...]]">[[Clear Cached Data]]</a></p>
-
-<p><a class="btn btn-secondary emdialog" data-hidefooter="true" data-dialogid="makemasterconfirm"
-		href="makemasterconfirm.html">[[Change Elastichsearch Database Master]]</a></p>
+		data-sidebarcomponent="settings" data-toastmessage="[[Clearing cached data...]]">[[Clear Cached Data]]</a>
+		<a class="btn btn-secondary emdialog ms-2" data-hidefooter="true" data-dialogid="makemasterconfirm"
+		href="makemasterconfirm.html">[[Change Elastichsearch Database Master]]</a>
+</div>
 
 <hr />
 
 <h3>[[Data Management]]</h3>
 
-<p><a class="ajax btn btn-secondary" href="reindexall.html" 
+<div class="my-2">
+	<a class="ajax btn btn-secondary me-3" href="reindexall.html" 
 		data-targetdiv="application" 	
 		data-oemaxlayout="1"
 		data-sidebarcomponent="settings" 
 		title="[[Full Reindex]]"
 		data-toastmessage="[[Reindexing...]]" 
-		data-toastsuccess="[[Reindexed!]]">[[Reindex]]</a></p>
-<p>
-	<a class="ajax btn btn-secondary" href="mappingerrors.html" data-targetdiv="serverstatus"
+		data-toastsuccess="[[Reindexed!]]">[[Reindex]]</a>
+		<a class="ajax btn btn-secondary me-2" href="mappingerrors.html" data-targetdiv="serverstatus"
 		data-oemaxlevel="1">[[View Mapping Conflicts]]</a>
 
-	<a class="btn btn-secondary ms-4 emdialog" data-hidefooter="true" data-dialogwidth="500"
+	<a class="btn btn-secondary me-4 emdialog" data-hidefooter="true" data-dialogwidth="500"
 		href="viewmappings.html?searchtype=$!key" data-oemaxlevel="3">[[View Elastic
 		Mappings]]</a>
-</p>
+</div>
+
 <p>
-	<a class="ajax btn btn-secondary" href="reloadlists.html" 
+	<a class="ajax btn btn-secondary mt-2" href="reloadlists.html" 
 		data-targetdiv="application"
 		data-oemaxlayout="1"
 		data-sidebarcomponent="settings" 
@@ -64,18 +67,19 @@
 
 <h3>[[Data Entities]]</h3>
 <p>
-	<a class="btn btn-secondary ajax" href="$home$apphome/views/settings/modules/setup/add-new-module.html"
+	<a class="btn btn-secondary ajax me-3" href="$home$apphome/views/settings/modules/setup/add-new-module.html"
 	data-targetdiv="serverstatus"
 	data-oemaxlevel="1"
 		title="[[Create New]]">
 		[[Create]]
 	</a>
-</p>
-<p>
 	<a class="btn btn-secondary ajax" data-toastmessage="Saving modules..." data-toastsuccess="Saved all modules!"
 		href="$home$apphome/views/settings/modules/setup//setupmodules.html">
 		[[Save All Modules]]
 	</a>
+</p>
+<p>
+	
 </p>
 
 <hr />

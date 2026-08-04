@@ -21,9 +21,13 @@
 					#if($screen.id != "modules")
 						<li id="$screen.id">
 							#set( $parentid = $context.findValue("tab") )
+							#set($menuicon = $screen.menuicon)
+							#ifnull($menuicon)
+								#set($menuicon = "gear-fill")
+							#end
 							<a href="${apphome}${screen.path}" class="ajax auto-active-link ${screen.id}-system-menu"
 								data-targetdiv="applicationcontent" data-updateurl="true" data-oemaxlayout="3"
-								data-scrolltotop="true">#text($screen)</a>
+								data-scrolltotop="true"><i class="bi bi-${menuicon} me-1"></i> #text($screen)</a>
 						</li>
 					#end
 				#end

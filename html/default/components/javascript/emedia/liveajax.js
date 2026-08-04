@@ -169,7 +169,7 @@ $.ajaxSetup({
 		if (element == null) {
 			element = document;
 		}
-		console.log("domchanged reload on ",element);
+		//console.log("domchanged reload on ",element);
 		$.each(regelements, function () {
 			//Everyone
 			var item = this;

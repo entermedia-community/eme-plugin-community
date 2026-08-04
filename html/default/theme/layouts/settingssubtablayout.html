@@ -22,13 +22,16 @@
 						data-targetdiv="applicationcontent" 
 						data-oemaxlayout="3"
 						data-updateurl="true">
-						#if ( $screen.sublabel ) $context.getText($screen.sublabel.toString()) #else $context.getText($screen.toString()) #end
+						#if ( $screen.sublabel ) #text($screen.sublabel) 
+						#else #text($screen) #end
+						
 					</a>
 					
 				</li>
 				#end
 			#else
-			<li class="current"><a href="">$!subtab</a></li>
+				#set($screen = $mediaarchive.getCachedData("settingsmenu", $subtab))
+			<li class="current"><a href="">#text($screen)</a></li>
 			#end
 		</ul>
 	</div>

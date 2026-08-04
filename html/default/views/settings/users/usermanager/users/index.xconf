@@ -2,5 +2,5 @@
 
 <page>
 	<path-action name="User.findAllUsers" />
-
+	<property name="hitsname">userhits</property>
 </page>

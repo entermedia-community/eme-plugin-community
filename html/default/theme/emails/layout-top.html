@@ -100,16 +100,21 @@
         <tr><td colspan="2" style="padding:4px"><p></p></td></tr>
         <tr>
           <td style="padding-left: 6px;">
-			#ifnotnull($logourl)
-				<img src="$!{logourl}"
-					 style="border:0;height:75px;border-width:0px!important;object-fit:contain"
-					 height="75"
-					 alt="#if($project.name)${project.name} - #end $!{community.name}" />
-			#end
+					#ifnotnull($communitytag)
+						<a href="${communitytag.externaldomain}">
+							<img src="${communitytag.externaldomain}${communitytag.primaryimagepath}"
+								style="border:0;height:75px;max-width:150px;object-fit:contain;border-width:0px!important;object-fit:contain"
+								height="75"
+								alt="#if($project.name)${project.name} - #end #text($communitytag)" />
+						</a>
+					#end
           </td>
+
           <td align="right" style="padding-right: 6px;">
-            <h1 style="font-size:20px;line-height: 22px;margin: 0">#if($project.name)${project.name}<br>#end
-				#ifnotnull($community)<span style="font-size:14px;">${community.name}</span>#end</h1>
+            <h1 style="font-size:20px;line-height: 22px;margin: 0">
+							#if($project.name)#text(${project.name})<br>#end
+							#ifnotnull($communitytag)<span style="font-size:14px;">#text($communitytag)</span>#end
+						</h1>
           </td>
         </tr>
         <tr><td colspan="2" style="border-bottom: 1px solid #efefef;padding:8px"></td></tr>

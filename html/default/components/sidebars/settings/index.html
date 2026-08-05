@@ -17,19 +17,28 @@
 				#set( $null = $query.addExact("moduleid","system") )
 				$!query.addSortBy("ordering")
 				#set( $results = $searcher.search($query) )
-				#foreach($screen in  $results)
-					#if($screen.id != "modules")
-						<li id="$screen.id">
-							#set( $parentid = $context.findValue("tab") )
-							#set($menuicon = $screen.menuicon)
-							#ifnull($menuicon)
-								#set($menuicon = "gear-fill")
-							#end
-							<a href="${apphome}${screen.path}" class="ajax auto-active-link ${screen.id}-system-menu"
-								data-targetdiv="applicationcontent" data-updateurl="true" data-oemaxlayout="3"
-								data-scrolltotop="true"><i class="bi bi-${menuicon} me-1"></i> #text($screen)</a>
-						</li>
+				#if($results)
+					#foreach($screen in  $results)
+						#if($screen.id != "modules")
+							<li id="$screen.id">
+								#set( $parentid = $context.findValue("tab") )
+								#set($menuicon = $screen.menuicon)
+								#ifnull($menuicon)
+									#set($menuicon = "gear-fill")
+								#end
+								<a href="${apphome}${screen.path}" class="ajax auto-active-link ${screen.id}-system-menu"
+									data-targetdiv="applicationcontent" data-updateurl="true" data-oemaxlayout="3"
+									data-scrolltotop="true"><i class="bi bi-${menuicon} me-1"></i> #text($screen)</a>
+							</li>
+						#end
 					#end
+				#else
+					<li id="">
+
+						<a href="${apphome}/views/settings/status/tools/index.html" class="ajax auto-active-link ${screen.id}-system-menu"
+							data-targetdiv="applicationcontent" data-updateurl="true" data-oemaxlayout="3"
+							data-scrolltotop="true"><i class="bi bi-gear me-1"></i> [[Settings]]</a>
+					</li>
 				#end
 			</ul>
 		</div>

@@ -1,8 +1,8 @@
 <div style="padding:20px;">
 	
-	<h2 class="float-left"><a href="$!siteroot$apphome/views/settings/modules/asset/hotfolders/index.html" title="[[Hot Folders]]">[[Hot Folders]]</a></h2>
+	<h3 class="settings-title"><a href="$!siteroot$apphome/views/settings/modules/asset/hotfolders/index.html" title="[[Hot Folders]]">[[Hot Folders]]</a></h3>
 	
-	<a class="btn  btn-primary float-right ajax" style="margin-left:10px;" 
+	<a class="btn  btn-primary float-right ajax" 
 		href="$siteroot$apphome/views/settings/modules/asset/hotfolders/add-new-folder.html"
 		data-targetdivinner="hotfolderscontainer"
 		data-oemaxlevel="1">[[Add Hot Folder]]</a>
@@ -11,7 +11,7 @@
 	#if( $event.isRunning() )
 		<a class="btn btn-primary float-right">[[Scan in Progress]]</a>
 	#else
-		<a class="btn btn-secondary float-right" 
+		<a class="btn btn-secondary float-right ms-2" 
 			href="$siteroot$apphome/views/settings/events/triggers/edit/edit.html?eventpath=/$catalogid/events/importing/importfolders.html"
 			##data-targetdivinner="applicationcontent"
 			##data-autoactivecontainer="scheduler-system-menu"

@@ -7,7 +7,7 @@
 			#set( $searcher = $searcherManager.getSearcher($catalogid,"settingsmenu") )
 			#set( $query = $searcher.query().exact("parentid", $parentid ).exact("moduleid", $module) )
 			$!query.sortBy("ordering")
-			#set($tabs = $query.search())		 
+			#set($tabs = $query.search())	
 		<ul>
 		
 			#if($tabs)

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <page>
-   <property name="subtab">${module}modulefields</property>
-   <property name="tab">${module}views</property>
+   <property name="subtab">${module}fields</property>
+   
+   <property name="tab">${module}fields</property>
    
    <property name="searchtype">${module}</property>
    

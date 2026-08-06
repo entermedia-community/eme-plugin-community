@@ -6,5 +6,6 @@
 	<property name="subtab">${module}systemviews</property>
 	<property name="viewsroot">/${applicationid}/views/settings/modules/${module}/metadata/viewssystem</property>
 	<property name="editPath">/${applicationid}/views/modules/${module}/_site.xconf</property>
+	<property name="tab">${module}fields</property>
 	
 </page>

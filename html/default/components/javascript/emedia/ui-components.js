@@ -799,6 +799,7 @@ jQuery(document).ready(function () {
 				success: function (data) {
 					//data = $(data);
 					var cell = findClosest(toggler, "#" + targetdiv);
+					var parent = cell.parent();
 					cell.replaceWith(data); //Cant get a valid dom element
 					var sidebarwidth = toggler
 						.closest("#col-sidebars")
@@ -815,7 +816,7 @@ jQuery(document).ready(function () {
 
 					$(window).trigger("setPageTitle", [cell]);
 					$(window).trigger("resize");
-					$(document).trigger("domchanged", [$(cell).parent()]);
+					$(document).trigger("domchanged", [$(parent)]);
 
 					history.pushState($("#application").html(), null, url);
 
@@ -878,6 +879,7 @@ jQuery(document).ready(function () {
 				...options,
 			},
 			success: function (data) {
+				var parent = targetdiv.parent();
 				targetdiv.replaceWith(data); //Cant get a valid dom element
 
 				var sidebarwidth = toggler
@@ -890,7 +892,7 @@ jQuery(document).ready(function () {
 
 				$(window).trigger("setPageTitle", [targetdiv]);
 				$(window).trigger("resize");
-				$(document).trigger("domchanged", [$(targetdiv).parent()]);
+				$(document).trigger("domchanged", [$(parent)]);
 			},
 		});
 	};

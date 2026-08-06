@@ -11,12 +11,78 @@ jQuery(document).ready(function (url, params) {
 		headerHeight = 0;
 	}
 
+	function initTableColumnResizers() {
+		var table = document.getElementById("main-results-table");
+		if (!table) {
+			return;
+		}
+
+		var headers = table.querySelectorAll("thead th.sortable");
+		headers.forEach(function (header) {
+			var handle = header.querySelector(".col-resizer-handle");
+			if (!handle) {
+				handle = document.createElement("div");
+				handle.className = "col-resizer-handle";
+				header.appendChild(handle);
+			}
+
+			if (handle.dataset.resizerBound === "true") {
+				return;
+			}
+			handle.dataset.resizerBound = "true";
+
+			handle.addEventListener("mousedown", function (event) {
+				event.preventDefault();
+				event.stopPropagation();
+
+				var startX = event.clientX;
+				var startWidth = header.offsetWidth;
+				var colIndex = header.cellIndex;
+				var newwidth = startWidth;
+				var active = true;
+
+				document.body.style.cursor = "col-resize";
+				document.body.style.userSelect = "none";
+
+				function onMove(moveEvent) {
+					if (!active) {
+						return;
+					}
+					var delta = moveEvent.clientX - startX;
+					newwidth = Math.max(80, startWidth + delta);
+					header.style.width = newwidth + "px";
+
+				}
+
+				function onUp(moveEvent) {
+					if (!active) {
+						return;
+					}
+					moveEvent.preventDefault();
+					moveEvent.stopPropagation();
+					active = false;
+					document.removeEventListener("mousemove", onMove);
+					document.removeEventListener("mouseup", onUp);
+					document.body.style.cursor = "";
+					document.body.style.userSelect = "";
+				}
+
+				document.addEventListener("mousemove", onMove);
+				document.addEventListener("mouseup", onUp);
+			});
+		});
+	}
+
 	lQuery("div.masonry-grid").livequery(function () {
 		$(this).brick();
 	});
 
 	lQuery("div.brickvertical").livequery(function () {
 		$(this).brickvertical();
+	});
+
+	lQuery("#main-results-table").livequery(function () {
+		initTableColumnResizers();
 	});
 
 	lQuery("#entityNavBarContainer").livequery(function () {
@@ -1292,7 +1358,7 @@ jQuery(document).ready(function (url, params) {
 		);
 	});
 
-	lQuery("th.sortable").livequery("click", function () {
+	lQuery("th.sortable").livequery("mousedown", function () {
 		//.emselectable ?
 		var column = $(this);
 		var id = column.data("sortby");

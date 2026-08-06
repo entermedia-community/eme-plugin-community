@@ -13,13 +13,16 @@
 	#set( $sortby = $hits.getSearchQuery().getSortBy() )
 	#foreach( $detail in $details)
 	
-		<th  class="sortable #if( $sortby.startsWith($detail.getId() ) ) currentsort #if($sortby.endsWith("Up"))up #else down#end #end"
+		<th  class="sortable resizable-col-header #if( $sortby.startsWith($detail.getId() ) ) currentsort #if($sortby.endsWith("Up"))up #else down#end #end"
 			id="th-$detail.id" 
 			sortby="$detail.id" 
 			data-sortby="$detail.id"
-			title="[[Sort by]] #text( $detail.name )">
+			title="[[Sort by]] #text( $detail.name )"
+			style="position: relative; min-width: 80px;">
 					
-			<div id="$detail.id" assethitssessionid="$hits.getSessionId()"  > 
+			<div id="$detail.id" assethitssessionid="$hits.getSessionId()"  
+			class="col-resizer-cell" > 
+				<span class="col-resizer-handle" aria-hidden="true" ></span>
 					#text( $detail )
 					#if ($sortby.startsWith($detail.getId()))
 		 				#if($sortby.endsWith("Up"))

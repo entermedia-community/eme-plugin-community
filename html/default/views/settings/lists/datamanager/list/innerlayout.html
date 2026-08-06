@@ -1,7 +1,7 @@
 <div id="listselector" class="datamanagerworkarea">
 	#set($currentsearch = $context.getRequestParameter("searchtype"))
 	#set( $action = "$content.dataroot/list/index.html" )
-	<div class="d-flex align-items-center justify-content-between my-2 ms-1">
+	<div class="d-flex align-items-center justify-content-between mb-2">
 		<h3 class="settings-title">[[Database]]</h3>
 		<form action="$action" class="ajaxform autosubmitform d-flex align-items-center" data-targetdiv="listselector" method="get">
 			<input type="hidden" name="catalogid" value="$catalogid" style="display: none;" />

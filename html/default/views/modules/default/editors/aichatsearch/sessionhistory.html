@@ -1,7 +1,13 @@
 <div class="sessionhistory overflow-y">
   <div class="d-flex justify-content-center mt-3 mb-2">
-    <a class="btn btn-accent ajax"  data-targetdiv="aichatsearch" data-oemaxlevel="1" data-createnew="true" 
-	href="$edithome/sessionadd.html">
+    <a class="btn btn-accent ajax" 
+        data-targetdiv="aichatsearch" 
+        data-oemaxlevel="1" 
+        data-createnew="true" 
+        data-entityid="$!entity.id"
+        data-entitymoduleid="$!module.getId()"
+        data-includeeditcontext="false"
+        href="$edithome/sessionadd.html">
       <i class="bi bi-plus-lg me-1"></i> [[New Session]]
     </a>
   </div>
@@ -32,7 +38,9 @@
 
       <a class="ajax item d-flex flex-column" 
         data-targetdiv="chatterbox"
-        data-channel="$hit.id"
+        data-channel="$!{hit.id}"
+        data-entityid="$!entity.id"
+        data-entitymoduleid="$!module.getId()"
         data-oemaxlevel="1"
 	      href="$edithome/sessionrestore.html" 
         title="[[Retrieve this session]]">

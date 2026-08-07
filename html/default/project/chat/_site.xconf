@@ -18,15 +18,17 @@
 	<script id="twemoji" src="/${applicationid}/components/javascript/twemoji/twemoji.js" defer="true" />
 	<script id="simplelightbox" src="/${applicationid}/components/javascript/simpleLightbox/simple-lightbox.jquery.min.js" />
 	
-	<property name="module">librarycollection</property>
-	
-	<path-action name="MediaArchiveModule.loadModule" />
-	
-	<path-action name="ProjectModule.loadCollection" />
-	
 	<path-action name="OiModule.loadCommunityCategory" />
-	
-	<page-action name="ProjectModule.loadChatChannel"/>
+
+	<property name="channeltype">emeteamchat</property>
+	<property name="channeldatamodule">collectiveproject</property>
+	<path-action name="ProjectModule.loadChatTopic"/>
+
+	<path-action name="ChatModule.loadChatChannel" />
+	<path-action name="AgentModule.loadAgentContext" />
+
+	<property name="defaultscenarioid">emechat_responder</property>
+	<path-action name="AgentModule.sendWelcomeIfNeeded" />
 
 	<property name="chatterboxhome">/${applicationid}/project/chat/chatterbox</property>
 	<property name="chatterboxgoalsenabled">true</property>

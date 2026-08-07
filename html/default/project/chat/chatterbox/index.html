@@ -14,7 +14,7 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 	#set($cansendchat = false)
 #end
 
-#if ($currentchannel.teamproject == "true")
+#if ($currenttopic.teamproject == "true")
 	#if($caneditcollection)
 		#set($cansendchat = true)
 	#end
@@ -29,10 +29,11 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 	#ifnotnull($entity)data-entityid="$!entity.id"#end
 	#ifnotnull($collectionid)data-collectionid="$!collectionid"#end  
 	data-moduleid="$!moduleid"
+	data-dataid="$!{currenttopic.getId()}"
 	data-renderurl="${chatterboxhome}/index.html" 
 	data-chatterboxhome="${chatterboxhome}"
 	data-channel="$!{currentchannel.getId()}"
-	data-channeltype="$!{page.channeltype}" 
+	data-channeltype="$!{currentchannel.channeltype}" 
 	data-user="$!{user.id}" 
 	data-catalogid="$!{catalogid}"
 	data-broadcastall="false">

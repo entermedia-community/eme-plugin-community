@@ -218,9 +218,11 @@ findClosest = function (link, inid) {
 						}*/
 					var onpage;
 					var newcell;
+					var parent;
 					if (targetappendtype == "replace") {
 						//Call replacer to pull $scope variables
 						onpage = targetdiv.parent();
+						parent = targetdiv.parent();
 						var targetdivid = "";
 						if (targetdiv.attr("id") !== undefined) {
 							targetdivid = "#" + targetdiv.attr("id");
@@ -228,18 +230,22 @@ findClosest = function (link, inid) {
 						targetdiv.replaceWith(data); //Cant get a valid dom element
 						newcell = findClosest(onpage, targetdivid);
 					} else if (targetappendtype == "children") {
+						parent = targetdiv.parent();
 						onpage = targetdiv;
 						targetdiv.html(data);
 						newcell = onpage.children(":first");
 					} else if (targetappendtype == "insertbefore") {
+						parent = targetdiv.parent();
 						onpage = targetdiv;
 						$(data).insertBefore(targetdiv);
 						newcell = findClosest(onpage, targetdivid).prev();
 					} else if (targetappendtype == "insertafter") {
+						parent = targetdiv.parent();
 						onpage = targetdiv;
 						$(data).insertAfter(targetdiv);
 						newcell = findClosest(onpage, targetdivid).next();
 					} else if (targetappendtype == "append") {
+						parent = targetdiv.parent();
 						onpage = targetdiv;
 						targetdiv.append(data);
 						newcell = onpage.children(":last");
@@ -247,7 +253,7 @@ findClosest = function (link, inid) {
 					if (newcell.length > 0) {
 						$(window).trigger("setPageTitle", [newcell]);
 					}
-					$(document).trigger("domchanged", [$(newcell).parent()]);
+					$(document).trigger("domchanged", [$(parent)]);
 
 					//on success execute extra JS
 					if (anchorData["onsuccess"]) {

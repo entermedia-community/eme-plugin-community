@@ -286,8 +286,9 @@ jQuery(document).ready(function () {
 			if (!options) options = {};
 			options.oemaxlevel = 1;
 			$.get(messagesUrl, options, function (data) {
+				var parent = chatterbox.parent();
 				chatterbox.replaceWith(data);
-				$(document).trigger("domchanged", [$(chatterbox).parent()]);
+				$(document).trigger("domchanged", [$(parent)]);
 				scrollToChat();
 			});
 		});

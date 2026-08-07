@@ -707,7 +707,12 @@ $(document).ready(function () {
 					return;
 				}
 
+				const htmlLang = document.documentElement.lang || "en";
+
 				let label = scenario.name;
+				if (typeof label === "object" && label[htmlLang]) {
+					label = label[htmlLang];
+				}
 				label = label.replace(/[^A-Za-z0-9 ]/g, " ");
 				label = label.replace(/\s+/g, " ");
 

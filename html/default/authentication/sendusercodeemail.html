@@ -2,13 +2,16 @@
 	#set($community = $communitytag)
 #end
 $context.putPageValue("community", $community)
+#ifnull($project)
+	#set($project = $librarycol)
+#end
+$context.putPageValue("project", $project)
 
 $pages.include("${apphome}/theme/emails/layout-top.html", $context)
 
 <p>[[Hello]],</p>  
 <p>[[A login code was requested for]]: $mail</p>
 <div style="margin:10px 20px; padding:10px; background-color:#f2f2f2;">
-
 
 	<p id="entermediakey" style="text-align:center; font-weight:bold; font-size:120%;">	[[Use login code]]
 	<br>$templogincode</p>

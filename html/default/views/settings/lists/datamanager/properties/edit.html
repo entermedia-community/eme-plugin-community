@@ -40,11 +40,11 @@
 		#end
 
 		<div id="edit-data" class="datamanager-editor oeinputform validate-inputs">	
-			$context.putPageValue("searchtype", "propertydetail")
 			$context.putPageValue("moduleid", "propertydetail")
+			
+			$context.putPageValue("searchtype", "propertydetail")
 			$context.putPageValue("viewid", "propertydetailedit")
 			$context.putPageValue("data", $property)
-
 			$context.putPageValue("searcher",$mediaarchive.getSearcher("propertydetail"))
 
 			$pages.include("$apphome/components/xml/detaileditor.html", $context)

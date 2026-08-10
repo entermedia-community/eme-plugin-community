@@ -27,7 +27,7 @@
 					$customloginmessage
 				#end
 				#ifnull($customloginmessage)
-					Enter your email and we'll send a one-time code.
+					[[Enter your email and we'll send a one-time code.]]
 				#end
 			</p>
 
@@ -41,7 +41,7 @@
 				#end
 				<input type="hidden" name="subject" value="[[Your Login Info]]"/>
 
-				<label for="loginemail">Email</label>
+				<label for="loginemail">[[Email]]</label>
 				<input
 					id="loginemail"
 					type="email"
@@ -60,7 +60,7 @@
 					$context.removeSessionValue("oe-exception")
 				#end
 				
-				<button class="btn-primary mt-3" id="nextBtn" type="submit">Next</button>
+				<button class="btn-primary mt-3" id="nextBtn" type="submit">[[Next]]</button>
 			</form>
 		</div>
 	</div>

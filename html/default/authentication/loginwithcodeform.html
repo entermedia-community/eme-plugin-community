@@ -12,7 +12,7 @@
 				<div class="dot active" id="d2"></div>
 			</div>
 
-			<a class="ajax d-block mb-3" href="$!{home}${content.loginroot}/ajaxlogin.html" data-targetdiv="ajaxlogincontainer">
+			<a class="ajax d-block mb-3" href="$!{home}${content.loginroot}/ajaxlogin.html" data-targetdiv="ajaxlogincontainer" title="[[Back]]">
 				<i class="fas fa-chevron-left me-1"></i>
 				[[Back]]
 			</a>
@@ -26,8 +26,8 @@
 				$context.removeSessionValue("oe-exception")
 			#end
 
-			<h1>Check your inbox</h1>
-			<p class="subtitle">We sent a 6-digit code to</p>
+			<h1>[[Check your inbox]]</h1>
+			<p class="subtitle">[[We sent a 6-digit code to]]</p>
 
 			#if( $email )
 			<div class="email-chip">
@@ -41,7 +41,7 @@
 				#if( $email )
 					<input type="hidden" name="email" value="$email" />
 				#else
-					<label for="loginemail">Email</label>
+					<label for="loginemail">[[Email]]</label>
 					<input
 						id="loginemail"
 						type="email"
@@ -52,7 +52,7 @@
 					/>
 				#end
 
-				<label>Verification code</label>
+				<label>[[Verification code]]</label>
 				<div class="otp-row">
 					<input
 						class="form-control otp"
@@ -107,7 +107,7 @@
 					<input type="hidden" name="categoryid" value="$!userCategory.id" />
 				#end
 
-				<button class="btn-primary" id="loginBtn" type="submit">Login</button>
+				<button class="btn-primary" id="loginBtn" type="submit">[[Login]]</button>
 			
 			</form>   
 		</div>

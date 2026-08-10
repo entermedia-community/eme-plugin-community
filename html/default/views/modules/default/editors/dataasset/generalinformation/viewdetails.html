@@ -29,7 +29,7 @@ $context.putPageValue("asset",$asset)
 			</div>
 		#end
 	</div>
-	
+
 	$context.putPageValue("clearfilters","true")	
 	#set($details = $searcher.getDetailsForView($viewdata, $context.getUserProfile()))
 	$context.putPageValue("details", $details)

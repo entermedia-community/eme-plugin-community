@@ -8,6 +8,8 @@
 	$context.putPageValue("asset",$asset)
 	
 	#set($views = $mediaarchive.query("view").exact("moduleid", "asset").exact("systemdefined","false").sort("orderingUp").named("view").search($context) )
+
+	
 		
 	#foreach( $viewdata in $views )
 		#if ($viewdata.id!="assetfileproperties")
@@ -21,6 +23,8 @@
 				#set($permissionvalue = "")
 			#end
 		#end
+
+		
 	#end
 	#set( $rendertype = $mediaarchive.getMediaRenderType($asset.fileformat))
 	
@@ -31,11 +35,12 @@
 	$pages.include("${apphome}/views/modules/asset/editors/assetlistfolder/index.html",$context)
 	
 	##File Properties View
-	#set($viewdata = $mediaarchive.query("view").exact("moduleid", "asset").exact("id","assetfileproperties").named("view2").searchOne($context) )
-	#ifnotnull($viewdata)
-		#set($permissionvalue = $permissions.canModule($module,$viewdata.getId() ) )
+	#set($fileviewdata = $mediaarchive.getCachedData("view","assetfileproperties") )
+
+	#ifnotnull($fileviewdata)
+		#set($permissionvalue = $permissions.canModule($module,$fileviewdata.getId() ) )
 		#if($permissionvalue)
-	        $context.putPageValue("viewdata",$viewdata)
+	        $context.putPageValue("viewdata",$fileviewdata)
 	        $pages.include("${edithome}/generalinformation/viewdetails.html", $context)
 		#end
 	#end

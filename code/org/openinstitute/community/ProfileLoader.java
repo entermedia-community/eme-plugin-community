@@ -139,7 +139,7 @@ public class ProfileLoader extends BaseManager implements PageLoader, CatalogEna
 		}
 
 		// Must be a project with something on the end?
-		QueryBuilder query = getMediaArchive().query("emeprofile").exact("urlname", profileurlname).hitsPerPage(1);
+		QueryBuilder query = getMediaArchive().query("emeprofile").exact("urlname", "profiles/" + profileurlname).hitsPerPage(1);
 		HitTracker hits = getMediaArchive().getCachedSearch(query);
 		Data emeprofile = (Data) hits.first();
 		if (emeprofile != null)

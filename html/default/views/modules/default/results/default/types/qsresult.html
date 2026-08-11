@@ -13,21 +13,30 @@
 
 $context.putPageValue("data", $hit) 
 
-#set($previewurl = "$apphome/views/modules/${moduleid}/editors/default/tabs/index.html?entityid=$entityid")
+
  <div class="emfolder-wrapper compact emgrid-type-$!moduleid entitycontainer entity$!moduleid$!entityid" 
 	id="emgridentity$!moduleid$!entityid"
 	data-id="${entityid}"
 	data-moduleid="$!{moduleid}"
 	data-rendertype="entity">
 
+	#set($entityurl = $entity.urlname)
+
 	<a id="clickid${entityid}"  
-		href="$!{previewurl}" 
-		class="emdialog entity-dialog disableinpicker"
-		data-dialogid="entitydialog"
-		data-updateurl="true"
-		data-urlbar="$!{siteroot}$apphome/views/modules/$!{moduleid}/index.html?entityid=$entityid"
-		data-hidefooter="true" 
-		data-hideheader="true" 
+		#ifnull($entityurl)
+			#set($previewurl = "$apphome/views/modules/${moduleid}/editors/default/tabs/index.html?entityid=$entityid")
+			href="$!{previewurl}" 
+			class="emdialog entity-dialog disableinpicker"
+			data-dialogid="entitydialog"
+			data-updateurl="true"
+			data-urlbar="$!{siteroot}$apphome/views/modules/$!{moduleid}/index.html?entityid=$entityid"
+			data-hidefooter="true" 
+			data-hideheader="true" 
+		#end
+		#ifnotnull($entityurl)
+			#set($previewurl = "/${entityurl}")
+			href="$!{previewurl}"
+		#end
 		data-categorypath="$!entity.sourcepath"
 		data-id="${entityid}"
 		data-moduleid="$!moduleid"

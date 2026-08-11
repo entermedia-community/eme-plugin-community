@@ -14,6 +14,13 @@
     #end
     
     #ifnotnull($entitymoduleviewid)
+        #set($moduleid = $viewdata.rendertable)
+        #ifnull($moduleid)
+            #set($moduleid = $viewdata.moduleid)
+        #end
+        
+        #set($module = $mediaarchive.getCachedData("module", $moduleid))
+        $context.putPageValue("module", $module)
         #set($render = "$apphome/views/modules/emeprofile/editors/default/tabs/rendertypes/${rendertype}.html")
         $pages.include("${render}", $context)
     #end

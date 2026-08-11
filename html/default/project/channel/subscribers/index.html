@@ -28,7 +28,7 @@
 					#set( $emeprofile = $mediaarchive.query("emeprofile").exact("owner", $followeruser.getId()).searchOne() )
 
 					#ifnotnull($emeprofile)
-						#set( $userlink = "$!{siteroot}/profiles/${emeprofile.urlname}" )
+						#set( $userlink = "$!{siteroot}/${emeprofile.urlname}" )
 					#end
 
 					#set( $userimageurl = $mediaarchive.asLinkToUserProfile($followeruser) )

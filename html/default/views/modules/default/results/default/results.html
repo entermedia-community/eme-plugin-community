@@ -59,7 +59,15 @@ $context.putPageValue("viewid", $viewid)
 
 $context.putPageValue("enableactions", $enableactions)
 
-#set( $terms = $hits.getFilteredTerms("${module.id}advancedsearch",$userprofile) )
+#ifnull($hits)
+	#set($hitsname = $context.findValue("hitsname"))
+	#ifnotnull($hitsname)
+		#set($hits = $context.get($hitsname))
+		$context.putPageValue("hits", $hits)
+	#end
+#end
+
+#set($terms = $hits.getFilteredTerms("${module.id}advancedsearch",$userprofile) )
 #if(($hits.getSearchQuery().hasMainInput()) || ($terms && $terms.size() > 0))
 #set($filteredresults = true)
 $context.putPageValue("filteredresults", $filteredresults)

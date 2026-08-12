@@ -5,7 +5,9 @@
 	#set( $id = $context.getRequestParameter("id"))
 	$context.putPageValue("id", $id)
 #end
-
+#ifnull($id)
+	#set($id = $entity.getId())
+#end
 #set( $ismulti = $id.startsWith("multiedit:") || $context.getRequestParameter("multi") == "true")
 
 #set($data = $entity)

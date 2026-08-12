@@ -12,6 +12,7 @@
 	data-rowid="$hit.id"  
 	data-dataid="$hit.id"  
 	#if($mixedentitysourcetypes)  data-entitymoduleid="$!{moduleid}" #end
+	#if($hit.urlname) data-urlname="$!{hit.urlname}" #end
 	title="[[Click to open]] #text($hit)">
 
 	<td class="borderedcell checkbox" noclick="true">

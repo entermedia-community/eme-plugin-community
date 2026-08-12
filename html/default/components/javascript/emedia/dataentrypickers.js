@@ -195,18 +195,26 @@ $(document).ready(function () {
 			"parententitymoduleid",
 			editdiv.data("entitymoduleid"),
 		);
+		
+		var moduleid = editdiv.data("moduleid");
 
-
-		var emdialog = submoduleOpener.closest(".modal");
-		if (emdialog.length) 
+		if(moduleid == "librarycollection" && row.data("urlname") != "" && row.data("urlname") != undefined)
 		{
-			submoduleOpener.runAjax();
+			var url = `${siteroot}/${row.data("urlname")}`;
+			window.location.href = url;
 		}
 		else {
-			submoduleOpener.data("oemaxlevel", "2");
-			submoduleOpener.emDialog(null, function () {
-				row.css("pointer-events", "auto");
-			});
+			var emdialog = submoduleOpener.closest(".modal");
+			if (emdialog.length) 
+			{
+				submoduleOpener.runAjax();
+			}
+			else {
+				submoduleOpener.data("oemaxlevel", "2");
+				submoduleOpener.emDialog(null, function () {
+					row.css("pointer-events", "auto");
+				});
+			}
 		}
 	});
 

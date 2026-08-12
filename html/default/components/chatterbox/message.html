@@ -19,8 +19,13 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 	#set($goal = $goalsinmessages.get($chat.id))
 	$context.putPageValue("goal", $goal)
 #end
-
-#set($chatuser = $mediaarchive.getUser($chat.user) ) 
+#set($chatuserid = $chat.user)
+#set($isalias = false)
+#ifnotnull($chat.useralias)
+	#set($chatuserid = $chat.useralias)
+	#set($isalias = true)
+#end
+#set($chatuser = $mediaarchive.getUser($chatuserid) ) 
 #set($attachedassets = $attachmentspermessage.get($chat.id))
 #set($otherassets = $messageidwithassets.get($chat.id))
 
@@ -39,7 +44,7 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 	>
 	<div class="chatterbox-chat" role="alert" >
 		<div class="chat-icon">
-			#if ($chat.user == "agent")
+			#if ($chatuserid == "agent")
 				#set( $userimageurl = "${chatterboxhome}/images/aiagent.svg" )
 				<a href="#" title="$chatuser.getAnonNickName()" class="msg-avt">
 					<img src="${userimageurl}" class="img-fluid">
@@ -47,7 +52,7 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 			#else
 				#set( $userimageurl = $mediaarchive.asLinkToUserProfile($chatuser))
 				#ifnull($userimageurl) #set( $userimageurl = "${chatterboxhome}/images/user.svg" ) #end
-				<a href="#esc($userlink)" title="$chatuser.getAnonNickName()" class="msg-avt">
+				<a href="#esc($userlink)" title="#if($isalias)EME#end chatuser.getAnonNickName() " class="msg-avt">
 					<img src="${userimageurl}" class="img-fluid">
 				</a>
 			#end
@@ -57,11 +62,11 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 		
 		<div class="chat-msg">
 			<div class="chat-author">
-				#if ($chat.user == "agent")
-					<strong>EME #text($entity)</strong>
+				#if ($chatuserid == "agent")
+					<strong>$chatuser.getAnonNickName()</strong>
 				#else
 					<a href="#esc($userlink)" title="$context.getDateTime($chat.date)">
-						<strong>$chatuser.getAnonNickName()</strong>
+						<strong>#if($isalias)EME#end $chatuser.getAnonNickName()</strong>
 					</a>
 				#end
 			<span class="chat-timestamp">$context.getDateTime($chat.date)</span>

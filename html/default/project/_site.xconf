@@ -21,4 +21,11 @@
 	<script id="dragdrop" src="/${applicationid}/components/javascript/emedia/dragdrop.js" defer="true" />
 	<style id="results-css" href="/${applicationid}/theme/styles/pages/results.css" />
 
+	<permission name="editcollection">
+		<or>
+			<action name="ProjectModule.canEditCollection" />
+			<action name="ProjectModule.isOnTeam" />
+		</or>
+	</permission>
+
 </page>

@@ -19,14 +19,16 @@
 
                                 <a
                                     href="${projectlink}/services/bankaccounts/transactions.html?paidfromaccount=$hit.id&collectionid=$librarycol.id"
-                                    class="btn btn-xs btn-secondary"
-                                    data-hidefooter="true" data-updateurl="true"
+                                    class="btn btn-xs btn-secondary ajax"
+                                    data-targetdiv="investmentreport"
+                                    data-hidefooter="true" data-updateurl="false"
                                     ><i class="fa fa-edit"></i>[[View All Trasactions]]</a>
 
                                 <a
                                     href="${projectlink}/services/bankaccounts/investments.html?paidfromaccount=$hit.id&collectionid=$librarycol.id"
-                                    class="btn btn-xs btn-primary"
-                                    data-hidefooter="true" data-updateurl="true"
+                                    class="btn btn-xs btn-primary ajax"
+                                    data-targetdiv="investmentreport"
+                                    data-hidefooter="true" data-updateurl="false"
                                     ><i class="fa fa-edit"></i>[[View Investments]]</a>
 
                             #if( $caneditcollection )

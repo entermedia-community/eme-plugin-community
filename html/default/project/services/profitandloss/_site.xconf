@@ -1,10 +1,11 @@
 <page>
 	<property name="collectiveadminsection">finances</property>
+
 	
+
 	<permission name="view">
-		
 		<action name="ProjectModule.canViewProfitAndLoss" />
-		
 	</permission>
+
 	
 </page>

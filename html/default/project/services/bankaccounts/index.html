@@ -9,7 +9,8 @@
 	              #set( $hits = $mediaarchive.query($content.searchtype).exact("collectionid",$collectionid).sort("name").named("hits").search($context))
 	              $context.putPageValue("hits",$hits)
 		#end
-	      <div>       
+	      <div>  
+			     
 	      #if( $caneditcollection )  
 	       
 	           <a style="margin-left:6px"

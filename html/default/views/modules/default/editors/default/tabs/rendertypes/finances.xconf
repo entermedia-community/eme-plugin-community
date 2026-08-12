@@ -22,5 +22,5 @@
   </permission>
 
 
-  <inner-layout>/${applicationid}/project/services/layout.html</inner-layout>
+  <inner-layout />
 </page>

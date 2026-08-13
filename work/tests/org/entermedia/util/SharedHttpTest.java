@@ -15,7 +15,7 @@ public class SharedHttpTest
 	@Test
 	public void testFormatLength() throws Exception
 	{
-		HttpSharedConnection connection = new org.entermediadb.net.HttpSharedConnection();//(HttpSharedConnection)archive.getBean("httpSharedConnection");
+		HttpSharedConnection connection = new org.openedit.util.HttpSharedConnection();//(HttpSharedConnection)archive.getBean("httpSharedConnection");
 		String url = "http://47.186.29.91:53739";
 		String url2 = "https://test.emediaworkspace.com";
 		for (int i = 0; i < 10; i++)

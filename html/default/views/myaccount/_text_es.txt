@@ -1,0 +1,6 @@
+#
+#Thu Aug 13 10:39:10 CST 2026
+Change\ Password=Cambio de contrase\u00F1a
+Groups=Los grupos
+Save=Guardar
+User\ Profile=Perfil de usuario

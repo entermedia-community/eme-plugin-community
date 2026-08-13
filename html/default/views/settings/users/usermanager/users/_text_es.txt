@@ -2,7 +2,7 @@
 #Fri Jul 03 17:35:42 CST 2026
 Clear=Claro.
 Create\ User=Crear usuario
-Import/\ Export=Importaci\u00F3n/Exportaci\u00F3n
+Import/\ Export=Importar/Exportar
 Next=Siguiente
 No\ users\ found.=No se encontraron usuarios.
 Page=P\u00E1gina

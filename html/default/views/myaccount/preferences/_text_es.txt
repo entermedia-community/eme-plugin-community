@@ -1,0 +1,4 @@
+#
+#Thu Aug 13 10:39:12 CST 2026
+Preferences=Preferencias
+Save\ Preferences=Guardar preferencias

@@ -1,15 +1,19 @@
 #
-#Fri Jul 03 17:10:39 CST 2026
+#Thu Aug 13 10:38:47 CST 2026
 After=Despu\u00E9s
+Ascending=En ascenso
 Before=Antes
 Between=Entre
 Category\ Path=Ruta de categor\u00EDa
+Change\ sort\ by=Cambio de orden por
 Clear=Claro.
 Clear\ All=Borrar todo
 Clear\ All\ Filters=Eliminar todos los filtros
 Clear\ Search=B\u00FAsqueda clara
+Current\ sort\ by=Ordenamiento actual por
 Customize\ Summary\ Contents=Personaliza el contenido del resumen
 Default=Por defecto
+Descending=Descenso
 Description=Descripci\u00F3n
 False=Falso
 Filter\ not\ applicable=Filtro no aplicable
@@ -20,6 +24,7 @@ Show\ Active\ Filters=Mostrar filtros activos
 Show\ All=Mostrar todo
 Showing=Mostrando
 Sort\ Results=Ordenar resultados
+Sort\ by=Ordenar por
 Sorted\ by=Ordenados por
 Summary=Resumen
 True=Verdadero.

@@ -41,7 +41,7 @@ $context.putSessionValue("fullOriginalEntryPage", $!loginokpage)
 					$customloginmessage
 				#end
 				#ifnull($customloginmessage)
-					Enter your email and we'll send a one-time code.
+					[[Enter your email and we'll send a one-time code.]]
 				#end
 			</p>
 			
@@ -92,7 +92,7 @@ $context.putSessionValue("fullOriginalEntryPage", $!loginokpage)
 					$context.removeSessionValue("oe-exception")
 				#end
 
-				<button class="btn-primary mt-3" id="nextBtn" type="submit">Next</button>
+				<button class="btn-primary mt-3" id="nextBtn" type="submit">[[Next]]</button>
 				<input type="hidden" name="subject" value="[[Your Login Info]]"/>
 			</form>
 		</div>

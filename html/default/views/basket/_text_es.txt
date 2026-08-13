@@ -1,0 +1,6 @@
+#
+#Thu Aug 13 10:38:58 CST 2026
+Cart=Carro de viaje
+Checkout\ Orders=Orden de pago
+No\ Items\ in\ Cart=No hay art\u00EDculos en el carrito
+Pending\ Orders=Ordenes pendientes

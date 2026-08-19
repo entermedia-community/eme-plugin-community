@@ -1,6 +1,7 @@
 #
-#Fri Jul 17 14:04:17 CST 2026
+#Tue Aug 18 16:49:54 CST 2026
 Add=to Team\=Agregar al Equipo
+Add\ Agent=A\u00F1adir agente
 Add\ Billing\ Contact=Agregar contacto de facturaci\u00F3n
 Add\ Member=A\u00F1adir miembro
 Add\ New\ User\ to\ Project=Agregar nuevo usuario al proyecto
@@ -10,6 +11,7 @@ Add\ Users\ to\ Team=A\u00F1adir usuarios al equipo
 Add\ to\ Team=Agregar al equipo
 Add\ to\ team=agregar al equipo
 Added=Adicional
+Agents=Agentes
 Community=Comunidad
 Donate\ Now=Done ahora
 Donations=Donaciones

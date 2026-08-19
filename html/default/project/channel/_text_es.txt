@@ -1,5 +1,5 @@
 #
-#Fri Jul 17 14:04:17 CST 2026
+#Tue Aug 18 16:49:57 CST 2026
 Add\ a\ Topic=A\u00F1adir un tema
 All=Todos
 All\ Posts=Todos los mensajes
@@ -13,6 +13,7 @@ Edit\ Project\ Intro=Editar introducci\u00F3n del proyecto
 Edit\ Topics=Editar temas
 Follow=Seguir
 Follow\ this\ Project=Sigue este proyecto
+Follower=Seguidor
 Followers=Seguidores
 Following=Siguiente
 For\ Team\ Only=Solo para equipo

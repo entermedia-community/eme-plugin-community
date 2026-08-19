@@ -1,9 +1,10 @@
 #
-#Tue Apr 07 17:54:08 CST 2020
-Edit\ a\ Topic=Editar un tema
-Topics=Temas
+#Tue Aug 18 16:49:52 CST 2026
 Create\ a\ Topic=Crea un tema
 Direct\ Messages=Mensajes directos
+Edit\ a\ Topic=Editar un tema
+No\ topics\ started=No hay temas iniciados
+Not\ allowed\ to\ be\ here,\ contact\ an\ administrator=No se permite el acceso aqu\u00ED; contacte a un administrador
 Suscribers=Suscriptores
 Team=Equipo
-No\ topics\ started=No hay temas iniciados
+Topics=Temas

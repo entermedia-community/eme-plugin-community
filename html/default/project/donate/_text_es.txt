@@ -1,24 +1,26 @@
 #
-#Mon Jun 27 19:36:23 CDT 2022
-Recent\ Donations=Donaciones recientes
-We\ have\ raised=Hemos acumulado
-Monthly=Mensual
-Once=Una vez
-No\ goals\ yet=A\u00FAn no hay metas
+#Tue Aug 18 16:49:56 CST 2026
 Amount=Monto
+Be\ a\ Part\ of\ This\ Project=Sea parte de este proyecto
+Card\ Info=Informaci\u00F3n de la tarjeta
+Donate=Donar
+Donation\ Type=Tipo de donaci\u00F3n
+Donations=Donaciones
+Edit\ Donation\ Description=Editar la descripci\u00F3n de la donaci\u00F3n
 Edit\ your\ Goals=Edita tus objetivos
 Goal=Meta
-Weekly=Semanalmente
-Card\ Info=Informaci\u00F3n de la tarjeta
-Secure\ payment=pago seguro
-Donate=Donar
-Donations=Donaciones
-Donation\ Type=Tipo de donaci\u00F3n
-Yearly=Anual
-from=de
 Goals=Metas
-Remaining=Restante
+Monthly=Mensual
+No\ goals\ yet=A\u00FAn no hay metas
+Once=Una vez
 Other\ Income=Otros Ingresos
 Our\ Goal=Nuestro objetivo
-on=en
+Recent\ Donations=Donaciones recientes
+Remaining=Restante
+Secure\ payment=pago seguro
 Spent=Gastado
+We\ have\ raised=Hemos acumulado
+Weekly=Semanalmente
+Yearly=Anual
+from=de
+on=en

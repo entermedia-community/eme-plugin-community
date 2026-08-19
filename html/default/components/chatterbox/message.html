@@ -2,7 +2,6 @@
 	#set($chatterboxhome = "${edithome}/chatterbox")
 #end
 $context.putPageValue("chatterboxhome", $chatterboxhome)
-
 #set($goalsenabled = $content.isPropertyTrue("chatterboxgoalsenabled",false))
 $context.putPageValue("goalsenabled", $goalsenabled)
 
@@ -104,6 +103,7 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 				#if($caneditcollection && $goal)
 					$context.putPageValue("chat",$chat)
 					$context.putPageValue("goal",$goal)
+					$chat.message
 					$pages.include("${chatterboxhome}/goalrow.html",$context)
 				#else
 				

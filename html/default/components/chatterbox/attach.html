@@ -37,7 +37,7 @@
 	</div>
 	
 
-	<form name="attach${chat.id}" 
+	<form name="attach$!{chat.id}" 
 		method="post" 
 		enctype="multipart/form-data" 
 		action="${chatterboxhome}/attachmentupload.html" 
@@ -45,19 +45,8 @@
 		data-targetdiv="chatter-message-$!{chat.id}"
 		data-includeeditcontext="true" 
 		data-onsuccess="hideAttachFile">
-	
-		##<input type="hidden" name="searchtype" value="chatterbox" />
-
-		<input type="hidden" name="id" value="$!chat.id" />
-		
-		<input type="hidden" name="moduleid" value="$!moduleid" />
-		
-		#set($entityid = $context.getRequestParameter("entityid"))
-		<input type="hidden" name="entityid" value="$!entityid" />
 		<input type="hidden" name="collectionid" value="$!entityid" />  ##legacy
-		
 		<input type="hidden" name="channel" value="$!currentchannel.id" />
-		
 		<input type="hidden" name="messageid" value="$!chat.id" />
 		<input type="hidden" name="messageids" value="$!chat.id" />
 		<input type="hidden" name="assetid" class="pickedassetid" value="" id="chatattachment" />

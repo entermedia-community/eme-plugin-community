@@ -37,17 +37,18 @@
 				
 				#if(!$page.chatattachmentsdisabled && $permissions.canModule($module, "chat_add_attachments"))
 					<div class="position-relative">
-						<div id="attachfileonchat" class="attachfileonchat"></div>
-						<a class="btn chatter-attachfile"
-							href="${chatterboxhome}/attach.html"
-							data-targetdivinner="attachfileonchat"
-							data-channel="$!currentchannel.getId()"  
-							#if($librarycol.getId())data-entityid="$librarycol.getId()"#end
-							data-messageid="X"
-							data-allowclose="true"
-							title="[[Attachments]]">
-							<i class="fas fa-paperclip"></i>
-						</a>
+						<div id="attachfileonchat" class="attachfileonchat">
+							<a class="btn chatter-attachfile"
+								href="${chatterboxhome}/attach.html"
+								data-targetdivinner="attachfileonchat"
+								data-channel="$!currentchannel.getId()"  
+								#if($librarycol.getId())data-entityid="$librarycol.getId()"#end
+								data-messageid="X"
+								data-allowclose="true"
+								title="[[Attachments]]">
+								<i class="fas fa-paperclip"></i>
+							</a>
+						</div>
 					</div>
 					
 				#end

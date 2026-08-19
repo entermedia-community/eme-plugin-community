@@ -34,6 +34,20 @@ jQuery(document).ready(function () {
 			const chatter = button.closest(".chatterbox");
 			let data = chatter.data();
 
+			const sendactions = button.data("sendactions");
+			if (sendactions === "sendattachments") {
+				const attachform = chatter.find(".chatattachasset");
+				if (attachform.length > 0) {
+					attachform.find('input[name="chatmessage"]').val(
+						$("#chatter-msg").val(),
+					);
+					attachform.trigger("submit");
+					$("#chatter-msg").val("");
+					$(".chatter-attachfile-cancel").trigger("click");
+					return;
+				}
+			}
+
 			data = $.extend({}, data); //So we can edit it
 			data.command = button.data("command");
 			data.functionname = lookupFunctionName(chatter);
@@ -327,10 +341,35 @@ jQuery(document).ready(function () {
 			renderMessageUrl = chatterboxHome + "/message.html";
 		}
 
+		let options = chatterbox.cleandata();
+		if (!options) options = {};
+		const editdiv = chatterbox.closest(".editdiv");
+		if (
+			chatterbox.data("includeeditcontext") === undefined ||
+			chatterbox.data("includeeditcontext") === true
+		) {
+			if (editdiv.length > 0) {
+				const otherdata = editdiv.cleandata();
+				options = {
+					...otherdata,
+					...options,
+				};
+			}
+		}
+
+		options.id = message.messageid;
+
 		const existing = listArea.find("#chatter-message-" + message.messageid);
 		if (existing.length) {
 			if (message.command === "messageremoved") {
 				existing.remove();
+			} else if (message.command === "messagereload") {
+				options.chatid = message.messageid;
+				$.get(renderMessageUrl, options, function (data) {
+					existing.replaceWith(data);
+					$(document).trigger("domchanged", [listArea]);
+					scrollToChat();
+				});
 			} else {
 				const msgBody = $(existing).find(".msg-body-content");
 				if (msgBody.length) {
@@ -350,37 +389,7 @@ jQuery(document).ready(function () {
 			return;
 		}
 
-		scrollToChat();
-
-		let options = chatterbox.cleandata();
-		if (!options) options = {};
-		const editdiv = chatterbox.closest(".editdiv");
-		if (
-			chatterbox.data("includeeditcontext") === undefined ||
-			chatterbox.data("includeeditcontext") === true
-		) {
-			if (editdiv.length > 0) {
-				const otherdata = editdiv.cleandata();
-				options = {
-					...otherdata,
-					...options,
-				};
-			}
-		}
-
-		options.id = message.messageid;
-
-		/*
-	var params = {};
-	params.id = message.id;
-	params.channel = message.channel;
-	if (message.entityid != null) {
-		params.entityid = message.entityid;
-		params.collectionid = message.entityid;
-	} else {
-		params.entityid = message.collectionid;
-		params.collectionid = message.collectionid;
-	}*/
+		//scrollToChat();
 
 		$.get(renderMessageUrl, options, function (data) {
 			listArea.append(data);
@@ -548,9 +557,18 @@ jQuery(document).ready(function () {
 	lQuery(".chatter-attachfile").livequery("click", function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		hideEmojiPicker();
-		$(this).addClass("active");
+		//hideEmojiPicker();
+		$(this).hide();
+		$(".chatter-send").data("sendactions", "sendattachments");
 		$(this).runAjax();
+		
+	});
+	lQuery(".chatter-attachfile-cancel").livequery("click", function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(".attachfileonchat").html("");
+		$(".chatter-attachfile").show();
+		$(".chatter-send").data("sendactions", "");
 	});
 
 	lQuery("#emojinav a").livequery("click", function (e) {

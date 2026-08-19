@@ -73,18 +73,6 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 			
 			<div class="msg-body #if($chat.user == $user.id) me #end" style=" #if($attachedassets) min-height: 110px; #end">
 				
-			
-				
-			##Attachments
-	
-			#if($otherassets)
-				$context.putPageValue("otherassets", $otherassets)
-				$context.putPageValue("chat", $chat)
-				$pages.include("${chatterboxhome}/listassets.html",$context)
-			#end
-			
-	
-				
 			#ifnotnull($chat.replytoid)
 				#if ($chat.user != "agent")
 					#set( $otherchat = $mediaarchive.getCachedData("chatterbox",$chat.replytoid))
@@ -103,19 +91,27 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 				#if($caneditcollection && $goal)
 					$context.putPageValue("chat",$chat)
 					$context.putPageValue("goal",$goal)
-					$chat.message
 					$pages.include("${chatterboxhome}/goalrow.html",$context)
 				#else
 				
 					#ifnotnull($chat.message)
 						#if($chat.user == "agent")
-							<div class="msg-body-content">$chat.message</div>
+							<div class="msg-body-content">$!{chat.message}</div>
 						#else
 							<div class="msg-body-content">$url_util.escapeMessage($chat.message)</div>
 						#end
 					#end
 
 				#end
+
+				##Attachments
+		
+				#if($otherassets)
+					$context.putPageValue("otherassets", $otherassets)
+					$context.putPageValue("chat", $chat)
+					$pages.include("${chatterboxhome}/listassets.html",$context)
+				#end
+			
 			</div>
 			#set( $reactions = $reactionspermessage.get($chat.id) )
 			#if(!$reactions.isEmpty())

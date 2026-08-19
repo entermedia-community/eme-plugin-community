@@ -25,44 +25,30 @@
 	$context.putPageValue("val", $attechedchatassetid)
 #end
 
-<div class="message-attach-box">
-	<div class="d-flex align-items-center justify-content-between mb-2">
-		<div><strong>[[Attachments]]</strong></div>
-		#set($allowclose = $context.getRequestParameter("allowclose"))
-		#if($allowclose)
-			<button class="btn " title="[[Cancel Attachment]]" id="closeattachfileonchat">
-				<i class="fas fa-times text-muted"></i>
-			</button>
-		#end
-	</div>
-	
 
-	<form name="attach$!{chat.id}" 
+<div id="attachfileonchat" class="attachfileonchat">
+	<form name="attach" 
 		method="post" 
 		enctype="multipart/form-data" 
 		action="${chatterboxhome}/attachmentupload.html" 
-		class="ajaxform autosubmit chatattachasset closeattachbox" 
-		data-targetdiv="chatter-message-$!{chat.id}"
-		data-includeeditcontext="true" 
-		data-onsuccess="hideAttachFile">
+		class="ajaxform chatattachasset row row-cols-lg-auto g-3 align-items-center" 
+		data-targetdiv="attachfileonchat"
+		data-includeeditcontext="true">
 		<input type="hidden" name="collectionid" value="$!entityid" />  ##legacy
+		
 		<input type="hidden" name="channel" value="$!currentchannel.id" />
-		<input type="hidden" name="messageid" value="$!chat.id" />
-		<input type="hidden" name="messageids" value="$!chat.id" />
+		<input type="hidden" name="chatmessage" value="" />
+		
 		<input type="hidden" name="assetid" class="pickedassetid" value="" id="chatattachment" />
-		<!-- <input type="hidden" name="collectionid" value="$collectionid" /> -->
-
 	
 		#ifnotnull($attachedasset)
 			<input type="hidden" name="attachedassetid" value="$!{attachedasset.id}" />
 		#end
 	
-	
-	
-	$pages.include("${apphome}/views/modules/${moduleid}/editors/assetattacher/index.html", $context)
+		$pages.include("${apphome}/views/modules/${moduleid}/editors/assetattacher/index.html", $context)
 
 	</form>
 
+	<a href="#" class="btn btn-secondary chatter-attachfile-cancel ms-2">[[Cancel]]</a>
 </div>
-
 

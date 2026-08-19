@@ -206,9 +206,7 @@
 	position: relative;
 }
 .attachfileonchat {
-	position: absolute;
-	left: 0;
-	bottom: 100%;
+	display: flex;
 }
 .chatterbox-chat .goalstatus {
 	padding: 1px;

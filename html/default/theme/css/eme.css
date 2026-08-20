@@ -4,6 +4,26 @@
 #application:has(#chatSidebar) .pushcontent {
 	margin-left: 258px;
 }
+
+.personal-brand,
+.top-breadcrumb {
+	line-height: 32px;
+	font-weight: bold;
+	font-size: 1.25rem;
+	color: #4a4a4a;
+}
+.chat-main {
+	padding-top: 72px;
+}
+
+.mediacenterheader .btn-topnav-profile {
+	background: #f3f4f6;
+	color: #111827;
+}
+.mediacenterheader li.dropdown:hover .btn-topnav-profile {
+	background: var(--themed-nav-btn-hover);
+    color: var(--themed-nav-btn-text);
+}
 /* ── Chat Dashboard Layout ───────────────────────────────────────────────── */
 .personal-dashboard {
 	display: flex;

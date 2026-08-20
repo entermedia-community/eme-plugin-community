@@ -1,5 +1,5 @@
 
-#set($channeltype = "agententitychat")
+#set($channeltype = "emeteamchat")
 $context.putPageValue("channeltype", $channeltype)
 
 <div id="${edithomeid}" 
@@ -9,7 +9,6 @@ $context.putPageValue("channeltype", $channeltype)
 	data-moduleid="$!module.getId()"
 	data-currenttab="$!viewid"
 	data-channel="$!{currentchannel.id}"
-	data-url=""
 	data-channeltype="$!{channeltype}"
 >
 $pages.include("./sessionhistory.html", $context)

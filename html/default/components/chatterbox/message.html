@@ -42,21 +42,25 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 	data-nextfunctionname="$!{chat.nextfunctionname}"
 	>
 	<div class="chatterbox-chat" role="alert" >
-		<div class="chat-icon">
-			#if ($chatuserid == "agent")
-				#set( $userimageurl = "${chatterboxhome}/images/aiagent.svg" )
-				<a href="#" title="$chatuser.getAnonNickName()" class="msg-avt">
-					<img src="${userimageurl}" class="img-fluid">
-				</a>
-			#else
-				#set( $userimageurl = $mediaarchive.asLinkToUserProfile($chatuser))
-				#ifnull($userimageurl) #set( $userimageurl = "${chatterboxhome}/images/user.svg" ) #end
-				<a href="#esc($userlink)" title="#if($isalias)EME#end chatuser.getAnonNickName() " class="msg-avt">
-					<img src="${userimageurl}" class="img-fluid">
-				</a>
-			#end
+		<div class="chat-left">
+			<div class="chat-icon #if($isalias) chatuser-alias #end">
+				#if ($chatuserid == "agent")
+					#set( $userimageurl = "${chatterboxhome}/images/aiagent.svg" )
+					<a href="#" title="$chatuser.getAnonNickName()" class="msg-avt">
+						<img src="${userimageurl}" alt="$chatuser.getAnonNickName()">
+					</a>
+				#else
+					#set( $userimageurl = $mediaarchive.asLinkToUserProfile($chatuser))
+					#ifnull($userimageurl) #set( $userimageurl = "${chatterboxhome}/images/user.svg" ) #end
+					<a href="#esc($userlink)" title="#if($isalias)EME#end $chatuser.getAnonNickName() " class="msg-avt">
+						<img src="${userimageurl}" alt="$chatuser.getAnonNickName()" >
+					</a>
+				#end
+				#if($isalias)
+					<span class="icon-alias"><i class="fa fa-robot" aria-hidden="true"></i></span>
+				#end
+			</div>
 		</div>
-		
 		$pages.include("${chatterboxhome}/message-menu.html",$context)
 		
 		<div class="chat-msg">

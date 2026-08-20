@@ -366,7 +366,7 @@
 .msg-bubble {
 	margin-top: 20px;
 }
-.msg-bubble .msg-avt {
+.msg-bubble .chat-icon .msg-avt {
 	border-radius: 8px;
 	background: #e8e8e880;
 	width: 40px;
@@ -376,10 +376,31 @@
 	justify-content: center;
 	padding: 4px;
 }
+.chat-icon {
+	width: 40px;;
+}
 .chat-icon img {
 	width: 34px;
 	height: 34px;
 	border-radius: 6px;
+}
+.msg-bubble .chatuser-alias .msg-avt {
+	background: rgba(125, 249, 255, 1.0);
+}
+.icon-alias {
+	position: absolute;
+	display:flex;
+	bottom: -5px;
+	right: 0px;
+	width:18px;
+	height: 18px;
+	background: rgba(125, 249, 255, 1.0);
+	border-radius: 50%;
+	padding: 2px;
+}
+.icon-alias i {
+	font-size: 0.7rem;
+	
 }
 .msg-bubble .msg-body {
 	color: #444;
@@ -452,7 +473,7 @@
 .msg-body-content .processing-message .fas {
 	margin-right: 4px;
 }
-.chat-icon {
+.chat-left {
 	position: absolute;
 	/*padding: 0 5px;*/
 	width: 50px;

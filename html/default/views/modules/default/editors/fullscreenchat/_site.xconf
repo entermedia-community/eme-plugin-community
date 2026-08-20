@@ -6,10 +6,11 @@
 
   <path-action name="EntityModule.getEntity"/>
 
+  <property name="channeltype">emechat</property>
+  <property name="defaultscenarioid">emechat_responder</property>
+
   <path-action name="ChatModule.loadChatChannel" />
 
   <property name="chatterboxhomeX">${edithome}/chatterbox</property>
 
-  <property name="channeltype">agententitychat</property>
-
-</page>
+  </page>

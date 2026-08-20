@@ -18,8 +18,7 @@
     <strong>[[Session History]]</strong>
   </p>
 
-  #set($toplevelfunctionid = $agentcontext.getTopLevelFunctionName())
- 
+  
   #if ($page.channeltype == "agententitychat")
   	###set( $hits = $mediaarchive.query("channel").exact("user", $user).exact("searchtype", "user").sort("refreshdateDown").search($context))
 

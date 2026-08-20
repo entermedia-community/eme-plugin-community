@@ -2,15 +2,15 @@
 
   <property name="edithomename">fullscreenchat</property>
 
-  <property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
+  <path-action name="EntityModule.getEntity" />
 
-  <path-action name="EntityModule.getEntity"/>
-
-  <property name="channeltype">emechat</property>
-  <property name="defaultscenarioid">emechat_responder</property>
+  <property name="channeltype">agententitychat</property>
+  <!-- property name="defaultscenarioid">emechat_responder</property -->
 
   <path-action name="ChatModule.loadChatChannel" />
 
   <property name="chatterboxhomeX">${edithome}/chatterbox</property>
+
+  <property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
 
   </page>

@@ -157,6 +157,10 @@
 	border-radius: 9px;
 	overflow: hidden;
 	margin-bottom: 1px;
+	padding:0.5rem;
+}
+.session-row:hover {
+	background: #f3f4f6;
 }
 .session-thumb {
 	width: 40px;
@@ -227,7 +231,9 @@
 	object-fit: contain;
 	flex-shrink: 0;
 }
-
+.session-row.active {
+	background: #eff6ff;
+}
 /* ── File items ──────────────────────────────────────────────────────────── */
 .file-row {
 	display: flex;

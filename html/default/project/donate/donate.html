@@ -1,8 +1,8 @@
 #set($paypalclientid = $mediaarchive.getCatalogSettingValue("paypalclientid"))
-<div class="currentcampaign py-3">		
+<div class="emwidget currentcampaign">
 	##$pages.include("$apphome/project/donate/donationlist.html", $context)
 	##<hr style="opacity: 0.8;">
-	<div class="sidebar-list-header text-center">
+	<div class="sidebar-list-header">
 		<h3>[[Donate]]</h3>
 	</div>
 	<div class="d-flex align-items-center justify-content-between mb-3">
@@ -24,7 +24,7 @@
 		#end
 	</div>
 	<div class="d-flex justify-content-center">
-		<a href="${projectlink}/donate/index.html" class="btn btn-sm btn-follow btn-donate">
+		<a href="${projectlink}/donate/index.html" class="btn btn-sm btn-cta btn-donate">
 			<i class="fas fa-credit-card mr-1"></i> [[Donate]]
 		</a> 
 	</div>

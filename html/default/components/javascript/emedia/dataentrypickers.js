@@ -674,6 +674,22 @@ $(document).ready(function () {
 	});
 });
 
+window.addEventListener("message", function (event) {
+	if (event.origin !== window.location.origin) return;
+	if (
+		typeof event.data === "object" &&
+		event.data.name === "eMediaAssetPicked" &&
+		event.data.target === "chatattachment"
+	) {
+		$(window).trigger("assetpicked", [event.data]);
+		var pickermodal = $("#dialogpickerassetpicker");
+		if (!pickermodal.length) {
+			pickermodal = $("#blockfindpicker").closest(".modal");
+		}
+		closeemdialog(pickermodal);
+	}
+});
+
 //Not used?
 $(window).on(
 	"updatepickertarget",

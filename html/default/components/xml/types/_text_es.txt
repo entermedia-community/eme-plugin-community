@@ -1,5 +1,5 @@
 #
-#Fri Jul 03 17:31:34 CST 2026
+#Thu Aug 20 17:39:42 CST 2026
 Add=A\u00F1adir
 Add\ New=A\u00F1adir nuevo
 Add\ a\ Language=A\u00F1adir un idioma
@@ -14,6 +14,7 @@ No\ values\ found=No se encontraron valores
 Over=encima
 Overwrite\ All=Sobrescribir todo
 Remove=Eliminar
+Search\ =B\u00FAsqueda
 Select=Seleccionar
 Translate=Traducir
 Translating...=Traduciendo...

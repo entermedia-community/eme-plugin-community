@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	//Show Upload Preview on assetpicker
 	lQuery(".assetpicker .assetInput").livequery("change", function () {
 		var input = $(this);
 		var detailId = input.data("detailid");
@@ -19,8 +20,6 @@ $(document).ready(function () {
 			if (/\.(jpe?g|png|gif|webp)$/i.test(assetName)) {
 				var img = $("<img>");
 				img.attr("src", e.target.result);
-				img.attr("height", "140px");
-				img.attr("width", "auto");
 				preview.append(img);
 			} else if (/\.(mp4|mov|mpeg|avi)$/i.test(assetName)) {
 				var img = $("<i>");
@@ -31,6 +30,40 @@ $(document).ready(function () {
 			preview.append(
 				`<div class="p-1"><span class="mr-2">${assetName}</span><a href="#" class="removefieldassetvalue" title="Remove Selected Asset" data-detailid="${detailId}"><i class="bi bi-x"></i></a></div>`,
 			);
+		};
+		fileReader.readAsDataURL(asset);
+	});
+	//Show Upload Preview on chatterbox
+	lQuery(".attachfileonchat .assetInput").livequery("change", function () {
+		var input = $(this);
+		var detailId = input.data("detailid");
+		var assetName = input.val();
+		var assets = input.prop("files");
+		if (assets.length == 0) return;
+		var asset = assets[0];
+		if (asset.name) assetName = asset.name;
+		var fileReader = new FileReader();
+		fileReader.onload = function (e) {
+			if (!assetName && e.target.fileName) {
+				assetName = e.target.fileName;
+			}
+			var preview = preview = input.closest(".attachfileonchat").find(".render-type-thumbnail");
+			preview.html("");
+			if (/\.(jpe?g|png|gif|webp)$/i.test(assetName)) {
+				var img = $("<img>");
+				img.attr("src", e.target.result);
+				preview.append(img);
+			} else if (/\.(mp4|mov|mpeg|avi)$/i.test(assetName)) {
+				var img = $("<i>");
+				img.attr("class", "bi bi-film");
+				preview.append(img);
+			}
+			const chatterboxMessages = input.closest(".chatterbox").find("#chatterboxmessages");
+			if (chatterboxMessages.length) {
+				const currentHeight = chatterboxMessages.height();
+				chatterboxMessages.height(currentHeight - 60);		
+			}
+
 		};
 		fileReader.readAsDataURL(asset);
 	});

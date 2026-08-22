@@ -79,7 +79,7 @@
 	height: calc(100% - 48px) !important;
 }
 .chatterbox-messages {
-	height: calc(100% - 150px) !important;
+	height: calc(100% - 150px);
 }
 .chatterbox:has(.ai-functions) .chatterbox-messages {
 	height: calc(100% - 200px) !important;
@@ -198,6 +198,11 @@
 }
 .attachfileonchat {
 	display: flex;
+	flex-direction: column;
+}
+.attachfileonchat .render-type-thumbnail img {
+	width: 40px;
+	max-height: 40px;
 }
 .chatterbox-chat .goalstatus {
 	padding: 1px;

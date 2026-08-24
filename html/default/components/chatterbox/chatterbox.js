@@ -32,17 +32,21 @@ jQuery(document).ready(function () {
 		lQuery(".chatter-send").livequery("click", function () {
 			const button = $(this);
 			const chatter = button.closest(".chatterbox");
-			let data = chatter.data();
+			const chattermsg = chatter.find("#chatter-msg");
+			if (chattermsg.length === 0) {
+				return; //no message box?
+			}
 
+			let data = chatter.data();
 			const sendactions = button.data("sendactions");
 			if (sendactions === "sendattachments") {
 				const attachform = chatter.find(".chatattachasset");
 				if (attachform.length > 0) {
 					attachform.find('input[name="chatmessage"]').val(
-						$("#chatter-msg").val(),
+						chattermsg.val(),
 					);
 					attachform.trigger("submit");
-					$("#chatter-msg").val("");
+					chattermsg.val("");
 					$(".chatter-attachfile-cancel").trigger("click");
 					return;
 				}
@@ -51,15 +55,15 @@ jQuery(document).ready(function () {
 			data = $.extend({}, data); //So we can edit it
 			data.command = button.data("command");
 			data.functionname = lookupFunctionName(chatter);
-			console.log(data);
-
-			const input = $("#chatter-msg");
-			const replytoid = input.data("replytoid");
+			
+			const replytoid = chattermsg.data("replytoid");
 			if (replytoid) {
 				data.replytoid = replytoid;
 			}
-			const message = input.val();
+			const message = chattermsg.val();
 			data.message = message;
+
+			console.log(data);
 
 			const json = JSON.stringify(data);
 
@@ -69,17 +73,15 @@ jQuery(document).ready(function () {
 			}
 			const toggle = button.data("toggle");
 			if (toggle === true) {
-				$(".chatter-toggle").toggle();
+				$(".chatter-toggle", chatter).toggle();
 			}
 
-			if ($("#chatter-msg").val() !== "") {
+			if (chattermsg.val() !== "") {
 				chatConnection.send(json);
 
-				//Clear editing area
-				const area = $("#chatterbox-write");
-				$("#chatter-msg", area).val("");
-				$("#chatter-msg").data("replytoid", "");
-				$(".chatterboxreplyto", area).hide();
+				chattermsg.val("");
+				chattermsg.data("replytoid", "");
+				$(".chatterboxreplyto", chatter).hide();
 
 				scrollToChat();
 
@@ -114,7 +116,7 @@ jQuery(document).ready(function () {
 			if (e.keyCode === 13 && !e.shiftKey) {
 				//$("#chatter-msg").val("");
 				e.preventDefault();
-				const button = $('button[data-command="messagereceived"]');
+				const button = $(this).closest(".chatterbox").find('button[data-command="messagereceived"]');
 				button.trigger("click");
 				return false;
 			} else {

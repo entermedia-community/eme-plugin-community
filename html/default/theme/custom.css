@@ -39,6 +39,10 @@
 	--themed-btn-cta-hover:linear-gradient(45deg, #bdefbd 50%, #FBFEFB 100%);
 	--themed-btn-cta-text:#0F3E0F;
 
+	--themed-btn-cta-ai: #855ad3;
+	--themed-btn-cta-ai-hover: #5e38a4;
+	--themed-btn-cta-ai-text: #ffffff;
+
 	--themed-btn:linear-gradient(45deg, #444444 40%, #6A6A6A 100%);
 	--themed-btn-hover:linear-gradient(45deg, #5e5e5e 50%, #848484 100%);
 	--themed-btn-text:#FFFFFF;

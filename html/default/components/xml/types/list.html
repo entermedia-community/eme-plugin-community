@@ -82,7 +82,7 @@
 	#if($types)
 	<select id="${fieldname}value" 
 		name="${fieldname}value"
-		class="listdropdown choose-select detail-select form-control #if($detail.isRequired() && !$multiedit) required #end" 
+		class="listdropdown choose-select detail-select form-control #if($detail.isRequired() && !$multiedit && !$insearch) required #end" 
 		listid="$listid"
 		data-listid="$listid"
 		data-searchtype= "$listid"

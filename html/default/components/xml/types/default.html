@@ -2,7 +2,7 @@
 	#set($val = $value)
 #end
 
-#if($detail.isRequired() && $multiedit != "true")
+#if($detail.isRequired() && $multiedit != "true" && !$insearch)
 	#set($isrequired = "true")
 #end
 
@@ -77,8 +77,8 @@
 		autocomplete="off"
 		id="${detail.getId()}.value"
 		name="$!{detailprefix}${detail.getId()}.value"
-		class="autogrow form-control #if($detail.isRequired() && !$multiedit) required #end"
-		#if($detail.isRequired() && !$multiedit) required #end
+		class="autogrow form-control #if($detail.isRequired() && !$multiedit && !$insearch) required #end"
+		#if($detail.isRequired() && !$multiedit && !$insearch) required #end
 		placeholder="$!detail.getText($context)"
 		rows="1">#esc($!val)</textarea>
 #end

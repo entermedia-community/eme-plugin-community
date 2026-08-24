@@ -93,7 +93,7 @@ $lsearcher.addShowOnly($context, $query)
 	<select 
 		multiple="multiple" 
 		name="$!detailprefix${valueid}.values" 
-		class="select2  #if($detail.isRequired() && !$multiedit) required #end" 
+		class="select2  #if($detail.isRequired() && !$multiedit && !$insearch) required #end" 
 		listid="$listid" 
 		id="${valueid}value"
 		data-listid="$listid" 

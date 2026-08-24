@@ -5,11 +5,8 @@
   <path-action name="EntityModule.getEntity" />
 
   <property name="channeltype">agententitychat</property>
-  <!-- property name="defaultscenarioid">emechat_responder</property -->
 
   <path-action name="ChatModule.loadChatChannel" />
-
-  <property name="chatterboxhomeX">${edithome}/chatterbox</property>
 
   <property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
 

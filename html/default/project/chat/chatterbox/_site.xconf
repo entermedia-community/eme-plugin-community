@@ -1,3 +1,6 @@
 <page>
+	<path-action name="ChatModule.loadChatChannel" />
+	<path-action name="AgentModule.loadAgentContext" />
+	
 	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch/chatterbox</property>
 </page>

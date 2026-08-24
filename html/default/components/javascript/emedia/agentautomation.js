@@ -1495,7 +1495,6 @@ $(document).ready(function () {
 			offsetLeft = 100;
 		}
 
-		const zoom = width / (containerWidth - offsetLeft * 2) + 0.1;
 
 		if (isEditor) {
 			canvasContainer.css({
@@ -1507,6 +1506,9 @@ $(document).ready(function () {
 			return;
 		}
 
+
+		//Make the zoom fit all the viewBoxHeight and viewBoxWidth into the container
+		const zoom = (height - 10) / containerHeight; //width of actual content / containerWith  2000 / 500  2 bigger is bigger? 
 		canvas.setZoom(zoom);
 
 		const viewBox = canvasContainer.find("svg").attr("viewBox");
@@ -1514,12 +1516,16 @@ $(document).ready(function () {
 		const viewBoxWidth = parseFloat(viewBoxValues[2]);
 		const viewBoxHeight = parseFloat(viewBoxValues[3]);
 		const scale = 4000 / viewBoxHeight;
-		canvasContainer.css({
-			top: containerHeight / 2 + 80 * scale,
-			left: containerWidth / 2 - 100 * scale,
+		//Centering
+		//Take a diference in gap and scale it up by the zoom
+		canvasContainer.css({  
+			top: (containerHeight / 2) - 80,
+			left: (containerWidth / 2) ,
 			marginTop: (4000 * (1 - scale)) / 2,
 			marginLeft: (4000 * (1 - scale)) / 2,
 		});
+
+
 	}
 
 	var maxLeft = Math.floor(canvasWidth / 2 + 100);

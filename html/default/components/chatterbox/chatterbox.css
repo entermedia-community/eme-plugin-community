@@ -79,12 +79,14 @@
 	height: calc(100% - 48px) !important;
 }
 .chatterbox-messages {
-	height: calc(100% - 150px);
+	height: calc(100% - 150px) !important;
 }
 .chatterbox:has(.ai-functions) .chatterbox-messages {
 	height: calc(100% - 200px) !important;
 }
-
+.chatterbox-messages.attachment-preview {
+	height: calc(100% - 210px) !important;
+}
 .chatterbox-write .chatterbox-media {
 	height: 24px;
 	background-color: #9cdc81;
@@ -156,6 +158,7 @@
 .chatterbox-editactions {
 	display: flex;
 	justify-content: space-between;
+	
 	padding: 5px;
 }
 .chatterbox-write .chatter-btn {
@@ -199,6 +202,9 @@
 .attachfileonchat {
 	display: flex;
 	flex-direction: column;
+}
+.attachfileonchat .render-type-thumbnail {
+	margin-bottom: 0.75rem;
 }
 .attachfileonchat .render-type-thumbnail img {
 	width: 40px;

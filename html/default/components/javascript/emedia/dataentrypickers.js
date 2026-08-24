@@ -60,8 +60,7 @@ $(document).ready(function () {
 			}
 			const chatterboxMessages = input.closest(".chatterbox").find("#chatterboxmessages");
 			if (chatterboxMessages.length) {
-				const currentHeight = chatterboxMessages.height();
-				chatterboxMessages.height(currentHeight - 60);		
+				chatterboxMessages.addClass("attachment-preview");
 			}
 
 		};

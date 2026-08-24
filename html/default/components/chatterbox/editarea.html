@@ -23,7 +23,7 @@
 	<div class="position-relative w-100 chatterbox-editorarea">
 		<textarea class="chatterbox-text chatter-text flex-1 grabfocus" id="chatter-msg" data-replytoid="$!replytoid" placeholder="[[Message]]" autofocus></textarea>
 		
-		<div class="chatterbox-editactions">
+		<div class="chatterbox-editactions align-items-baseline">
 			<div class="d-flex align-items-center">
 				<div class="position-relative">
 					<div id="emojipicker"></div>
@@ -53,9 +53,11 @@
 					
 				#end
 			</div>
+			<div>
 			<button class="btn chatter-btn chatter-send" data-command="messagereceived" type="button">
 				[[Send]] <i class="fas fa-paper-plane"></i>
 			</button>
+			</div>
 		</div>
 	</div>
 </div>

@@ -133,6 +133,20 @@ jQuery(document).ready(function () {
 		});
 	});
 
+	lQuery(".dropdown-toggle-split").livequery("mouseenter", function () {
+			var dropdown = new bootstrap.Dropdown($(this), {
+				popperConfig: defaultPopperConfig,
+			});
+			dropdown.show();
+	});
+	lQuery(".dropdown-group").livequery("mouseleave", function () {
+			var dropdownToggleEl = $(this).find(
+				'[data-bs-toggle="dropdown"], .dropdown-toggle',
+			)[0];
+			var dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownToggleEl);
+			dropdown.hide();
+		});
+
 	lQuery("form.checkCloseDialog").livequery(function () {
 		trackKeydown = true;
 		var modal = $(this).closest(".modal");

@@ -560,15 +560,24 @@ jQuery(document).ready(function () {
 		//hideEmojiPicker();
 		$(this).hide();
 		$(".chatter-send").data("sendactions", "sendattachments");
+		const chatterboxMessages = $(this).closest(".chatterbox").find("#chatterboxmessages");
+			if (chatterboxMessages.length) {
+				chatterboxMessages.removeClass("attachment-preview");
+			}
+
 		$(this).runAjax();
 		
 	});
 	lQuery(".chatter-attachfile-cancel").livequery("click", function (e) {
 		e.preventDefault();
 		e.stopPropagation();
+		const chatterboxMessages = $(this).closest(".chatterbox").find("#chatterboxmessages");
 		$(".attachfileonchat").html("");
 		$(".chatter-attachfile").show();
 		$(".chatter-send").data("sendactions", "");
+		if (chatterboxMessages.length) {
+			chatterboxMessages.removeClass("attachment-preview");
+		}
 	});
 
 	lQuery("#emojinav a").livequery("click", function (e) {

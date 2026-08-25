@@ -30,7 +30,6 @@
 	<path-action name="AgentModule.loadAgentContext" />
 
 	<property name="defaultscenarioid">emeteamchat_responder</property>
-	<path-action name="AgentModule.sendWelcomeIfNeeded" />
 
 	<property name="chatterboxhome">/${applicationid}/project/chat/chatterbox</property>
 	<property name="chatterboxgoalsenabled">true</property>

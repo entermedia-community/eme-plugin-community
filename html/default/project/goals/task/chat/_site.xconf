@@ -1,10 +1,10 @@
 <page>
 
-  <path-action name="EntityModule.getEntity" />
-
   <property name="channeltype">agententitychat</property>
 
+  <path-action name="EntityModule.getEntity" />
   <path-action name="ChatModule.loadChatChannel" />
+	<path-action name="AgentModule.loadAgentContext" />
 
   <property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
 

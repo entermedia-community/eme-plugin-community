@@ -40,8 +40,8 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 
 	$pages.include("${chatterboxhome}/messages.html", $context)
 
-	##Not required for Project Chats
-	##$pages.include("${chatterboxhome}/scenariopicker.html", $context)
+	##Not required for Project Chats?
+	$pages.include("${chatterboxhome}/scenariopicker.html", $context)
 
 	#if($cansendchat)
 		$pages.include("${chatterboxhome}/editarea.html", $context)				

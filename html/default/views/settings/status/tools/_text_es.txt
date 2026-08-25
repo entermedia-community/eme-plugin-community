@@ -1,5 +1,5 @@
 #
-#Wed Jul 29 16:29:42 CST 2026
+#Wed Aug 26 00:30:44 BDT 2026
 Authentication=Autenticaci\u00F3n
 Catalog\ ID=ID del cat\u00E1logo
 Change\ Elastichsearch\ Database\ Master=Cambiar el maestro de la base de datos Elasticsearch
@@ -23,6 +23,7 @@ Reindexed\!=\u00A1Re\u00EDndice\!
 Reindexing...=Reindexando...
 Reload\ lists=Listas de recarga
 Reloading\ lists...=Recargando las listas...
+Reset\ lists\ to\ Defaults=Restablecer las listas a los valores predeterminados
 Save\ All\ Modules=Guardar todos los m\u00F3dulos
 Search\ Logs=Registros de b\u00FAsqueda
 Server\ Status=Estado del servidor

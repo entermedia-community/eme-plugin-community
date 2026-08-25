@@ -26,14 +26,14 @@ $pages.include("$apphome/views/modules/${module.id}/editors/entitysubmodules/add
 
 <div class="modal-body">
 	
-<div class="createnewtoggle">
+<div id="createnewentity" class="createnewtoggle">
 <form id="searchentitydataeditor"
 	name="searchentitydataeditor"
 	action="$action" 
 	class="modal-dialog-form ajaxform checkCloseDialog autocloseform" 
 	data-edithomeid="$!{edithomeid}"
 	data-closedialogid="entitysubmoduleaddexisting"
-	data-targetdiv="$!{edithomeid}"
+	data-targetdiv="createnewentity"
 	data-includeeditcontext="true"
 	data-ajaxreloadtargets="$!{ajaxreloadtargetsvalue}"
 	method="post"  

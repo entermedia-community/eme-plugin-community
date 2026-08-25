@@ -1,4 +1,5 @@
 #set($addednew = $context.getRequestParameter("addednew"))
+
 #if($addednew)
 	#set($edithome = "${apphome}/views/modules/${module.getId()}/editors/listentities")
 	$context.putPageValue("edithome", $edithome)

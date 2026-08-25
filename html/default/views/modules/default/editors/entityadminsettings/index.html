@@ -43,10 +43,10 @@
 #end
 
 #ifnotnull($entitymoduleviewid)
-	#set($entityviewdata = $mediaarchive.getCachedData("view", $entitymoduleviewid))
+	#set($entitymoduleviewdata = $mediaarchive.getCachedData("view", $entitymoduleviewid))
 #end
 $context.putPageValue("entitymoduleviewid", $entitymoduleviewid)
-$context.putPageValue("entityviewdata", $entityviewdata)
+$context.putPageValue("entitymoduleviewdata", $entitymoduleviewdata)
 $context.putPageValue("enttiyviews", $enttiyviews)
 
 #set($enablebackbutton = $context.getRequestParameter("enablebackbutton"))
@@ -82,7 +82,7 @@ $context.putPageValue("enttiyviews", $enttiyviews)
 		
 		$pages.include("${edithome}/tabs/dialogtabbuttons.html", $context)
 		
-		#set($rendertype = $entityviewdata.rendertype)
+		#set($rendertype = $entitymoduleviewdata.rendertype)
 		
 		#ifnull($rendertype)
 			#set($rendertype = "data")  
@@ -94,12 +94,12 @@ $context.putPageValue("enttiyviews", $enttiyviews)
 		
 		<div class="entity-content tabtype$!rendertype overflow-x">
 		
-			#ifnull($entityviewdata)
+			#ifnull($entitymoduleviewdata)
 				[[Please select a tab for]] $entitymoduleviewid		
 			#end
 			
-			#ifnotnull($entityviewdata)
-				$context.putPageValue("viewdata", $entityviewdata)
+			#ifnotnull($entitymoduleviewdata)
+				$context.putPageValue("viewdata", $entitymoduleviewdata)
 				$pages.include("${edithome}/tabs/rendertypes/${rendertype}.html", $context)
 			#end
 		</div>

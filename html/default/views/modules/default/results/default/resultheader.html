@@ -142,12 +142,13 @@ $context.putPageValue("enableactions", $enableactions)
 							data-hidefooter="true"
 							data-includeeditcontext="true"
 							data-autosetformtargetdiv="editdiv"
+							data-ajaxreloadtargetsvalue="dataeditedreload"
 							##data-parentmoduleid="$entitymodule.id"
 							##data-parententityid="$entity.id"
-							#ifnotnull( $entityviewdata )
-								data-entitymoduleviewid="$!{entityviewdata.getId()}"
+							#ifnotnull( $entitymoduleviewdata )
+								data-entitymoduleviewid="$!{entitymoduleviewdata.getId()}"
 							#end
-							#ifnull( $entityviewdata )
+							#ifnull( $entitymoduleviewdata )
 								data-entitymoduleviewid="${module.id}general"
 							#end	
 							title="[[Create New]] #text($module)">

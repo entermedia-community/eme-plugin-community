@@ -24,8 +24,8 @@
 
 		#ifnotnull($entitymoduleviewid)
 			#if($openotherview)
-				#set( $entityviewdata = $mediaarchive.getCachedData("view",$entitymoduleviewid))
-				$context.putPageValue("viewdata", $entityviewdata)
+				#set( $entitymoduleviewdata = $mediaarchive.getCachedData("view",$entitymoduleviewid))
+				$context.putPageValue("viewdata", $entitymoduleviewdata)
 				$pages.include("${edithome}/tabs/dialogbutton.html", $context)
 			#end
 		#end

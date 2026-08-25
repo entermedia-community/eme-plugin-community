@@ -1,0 +1,8 @@
+#
+#Tue Aug 25 22:50:08 BDT 2026
+Awaiting\ Download=Esperando descarga
+Awaiting\ Metadata=Esperando metadatos
+Converting=Conversi\u00F3n
+Created=Creado
+Import\ Error=Error de importaci\u00F3n
+Imported=Importado

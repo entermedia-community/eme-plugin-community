@@ -1,0 +1,10 @@
+#
+#Tue Aug 25 23:35:51 BDT 2026
+Adding=A\u00F1adir
+All\ Files=Todos los archivos
+Files=Archivos
+Select=Seleccionar
+Show=Mostrar
+Show\ All\ Files=Mostrar todos los archivos
+asset=activo
+items=art\u00EDculos

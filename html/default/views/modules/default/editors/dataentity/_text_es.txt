@@ -1,5 +1,5 @@
 #
-#Thu Aug 20 17:41:25 CST 2026
+#Tue Aug 25 22:51:19 BDT 2026
 Are\ you\ sure=\u00BFEst\u00E1 seguro?
 Assets\ Added=Activos a\u00F1adidos
 Cancel=Cancelar
@@ -10,4 +10,5 @@ Edit\ Fields=Editar campos
 Fields=Campos
 Save=Guardar
 Saved=Guardado
+The\ record\ has\ been\ deleted.=El registro ha sido eliminado.
 Upload\ Source\ Path\ needs\ to\ be\ set\ in\ the\ Entity\ or\ Module.=La ruta de origen debe configurarse en la entidad o el m\u00F3dulo.

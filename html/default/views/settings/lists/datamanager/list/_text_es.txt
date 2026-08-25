@@ -1,5 +1,5 @@
 #
-#Fri Jul 03 17:04:35 CST 2026
+#Tue Aug 25 23:16:28 BDT 2026
 Add\ New=A\u00F1adir nuevo
 Back=Atr\u00E1s
 Choose\ Table=Elige la tabla
@@ -22,6 +22,8 @@ Page=P\u00E1gina
 Please\ export\ data\ first=Por favor, exporte los datos primero.
 Records=Registros
 Reindex=Reindexar
+Reset\ Data=Restablecer datos
+Reset\ Fields=Restablecer campos
 Reset\ Settings=Reiniciar configuraciones
 Restore\ Table=Restaurar tabla
 Search=B\u00FAsqueda

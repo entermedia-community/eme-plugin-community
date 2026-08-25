@@ -126,13 +126,13 @@ $(document).ready(function () {
 		}
 		var valid = $("#uploaddata").validate().form();
 		if (!valid) {
-			startbutton.prop('disabled', false);
-			return; 
+			startbutton.prop("disabled", false);
+			return;
 		}
 
 		startbutton.text(startbutton.data("textuploading"));
 		//startbutton.attr("disabled", "disabled");
-		startbutton.prop('disabled', true);
+		startbutton.prop("disabled", true);
 		$(uploadformarea)
 			.find(".upload_field")
 			.triggerHandler("html5_upload.start");
@@ -169,7 +169,7 @@ $(document).ready(function () {
 					var uploadformarea = $(div).closest(".uploadformarea");
 					$(".upload_field", uploadformarea).triggerHandler(
 						"html5_upload.filesPicked",
-						[e.originalEvent.dataTransfer.files]
+						[e.originalEvent.dataTransfer.files],
 					);
 				}
 			}
@@ -184,7 +184,7 @@ $(document).ready(function () {
 		}
 		if (div.find(".drop-feedback").length == 0) {
 			div.append(
-				'<div class="drop-feedback"><div><i class="bi bi-upload"></i><p>Upload Files</p></div></div>'
+				'<div class="drop-feedback"><div><i class="bi bi-upload"></i><p>Upload Files</p></div></div>',
 			);
 		}
 		div.on("dragover", function (e) {
@@ -220,7 +220,7 @@ $(document).ready(function () {
 						var uploadformarea = $(dropDiv).closest(".uploadformarea");
 						$(".upload_field", uploadformarea).triggerHandler(
 							"html5_upload.filesPicked",
-							[files]
+							[files],
 						);
 					});
 				}
@@ -232,7 +232,7 @@ $(document).ready(function () {
 		var div = $(this);
 		if (div.find(".drop-feedback").length == 0) {
 			div.append(
-				'<div class="drop-feedback"><div><i class="bi bi-upload"></i><p>Create Asset Folders from Files</p></div></div>'
+				'<div class="drop-feedback"><div><i class="bi bi-upload"></i><p>Create Asset Folders from Files</p></div></div>',
 			);
 		}
 		div.on("dragover", function (e) {
@@ -275,8 +275,6 @@ $(document).ready(function () {
 				var files = e.originalEvent.dataTransfer.files;
 
 				if (files && files.length > 0) {
-					e.preventDefault();
-					e.stopPropagation();
 					var moduleid = $(this).data("moduleid");
 					if (!moduleid) {
 						return;
@@ -292,13 +290,15 @@ $(document).ready(function () {
 					}
 
 					var dialog = $(
-						`<a href="${uploader}" data-maxwidth="sm" title="Create Bulk Folders from Files"></a>`
+						`<a href="${uploader}" data-maxwidth="sm" title="Create Bulk Folders from Files"></a>`,
 					);
 					allfiles = new Array();
 					dialog.emDialog(function () {
-						$(".upload_field")
-							.last()
-							.triggerHandler("html5_upload.filesPicked", [files]);
+						setTimeout(() => {
+							$(".upload_field")
+								.last()
+								.triggerHandler("html5_upload.filesPicked", [files]);
+						});
 					});
 				} else {
 					customToast("No files were dropped.", {
@@ -462,7 +462,7 @@ $.fn.initUpload = function () {
 		onFinish: function (event, total) {
 			if (!haderror) {
 				customToast(
-					`Uploaded ${total} file${total > 1 ? "s" : ""} successfully!`
+					`Uploaded ${total} file${total > 1 ? "s" : ""} successfully!`,
 				);
 				//do a search
 				var startb = uploadformarea.find(".startbutton");
@@ -476,7 +476,7 @@ $.fn.initUpload = function () {
 					$(this).removeAttr("id");
 				});
 
-				//Find if needs to reload something	
+				//Find if needs to reload something
 
 				//Go to the editor and submit its ajax
 				var editdiv = startb.closest(".uploadshowuploads");

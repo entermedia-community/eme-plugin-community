@@ -176,7 +176,7 @@
 					var id = $("form", modaldialog).attr("id");
 					$("#submitbutton", modaldialog).attr("form", id);
 				}
-				
+
 				var hidetitle = initiatorData["hideheader"];
 				if (!hidetitle) {
 					var title = initiator.data("dialogtitle");
@@ -219,7 +219,7 @@
 
 					$(window).trigger("resize");
 				});
-				
+
 				//console.log('Saving the modal dialog');
 				// adjustZIndex(modaldialog);
 
@@ -256,7 +256,6 @@
 					}
 				}
 
-				
 				$(window).trigger("resize");
 			},
 			error: function () {
@@ -267,8 +266,6 @@
 					alwaysFunc();
 				}
 				$(document).trigger("domchanged", [modaldialog]);
-				
-				
 			},
 		});
 

@@ -1,10 +1,13 @@
 #
-#Fri Jul 03 17:19:56 CST 2026
+#Tue Aug 25 23:25:22 BDT 2026
 Add\ Label=A\u00F1adir etiqueta
 Add\ Labels=A\u00F1adir etiquetas
+Cancel=Cancelar
 Close\ Dialog=Cerrar el di\u00E1logo
 Create\ New\ Folder=Crear una nueva carpeta
 Delete=Eliminar
+Deploy=Implementaci\u00F3n
+Deploying\ this\ will\ overwrite\ your\ current\ folder\ structure.\ Would\ you\ like\ to\ proceed?=Implementar esto sobrescribir\u00E1 su estructura de carpetas actual. \u00BFDesea continuar?
 Editing\ Fields=Edici\u00F3n de campos
 Export=Exportar
 Folder\ description=Descripci\u00F3n de la carpeta
@@ -23,4 +26,5 @@ Smart\ Folder=Carpeta inteligente
 Smart\ Organizer=Organizador inteligente
 Template\ Name=Nombre de la plantilla
 Templates=Plantillas
+WARNING=ADVERTENCIA
 to\ delete\ the\ selected\ folder.=para eliminar la carpeta seleccionada.

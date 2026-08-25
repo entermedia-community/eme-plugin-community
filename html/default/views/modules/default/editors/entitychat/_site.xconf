@@ -4,9 +4,9 @@
 
 	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
 
-	<path-action name="EntityModule.getEntity"/>
-
-	<path-action name="ChatModule.loadChatChannel" />
+	<page-action name="EntityModule.getEntity"/>
+	<page-action name="ChatModule.loadChatChannel" />
+	<page-action name="AgentModule.loadAgentContext" />
 
 	<property name="chatterboxhomeX">${edithome}/chatterbox</property>
 

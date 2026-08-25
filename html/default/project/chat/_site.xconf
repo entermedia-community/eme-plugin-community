@@ -27,7 +27,9 @@
 	<path-action name="ProjectModule.loadChatTopic"/>
 
 	<path-action name="ChatModule.loadChatChannel" />
-	<path-action name="AgentModule.loadAgentContext" />
+	<path-action name="AgentModule.loadAgentContext" /> 
+
+	<path-action name="AgentModule.sendWelcomeIfNeeded" />
 
 	<property name="defaultscenarioid">emeteamchat_responder</property>
 

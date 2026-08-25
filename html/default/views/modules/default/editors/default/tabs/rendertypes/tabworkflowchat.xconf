@@ -1,5 +1,4 @@
 <page>
 	<property name="channeltype">agententitychat</property>
-	<path-action name="ChatModule.loadChatChannel" />
-	<path-action name="AgentModule.loadAgentContext" />
+	
 </page>

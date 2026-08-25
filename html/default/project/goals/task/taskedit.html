@@ -98,10 +98,10 @@
   					form="taskeditform" 
   					value="[[Save]]" 
   					name="submitbutton" 
-  					class="btn btn-xs btn-primary ml-1">
+  					class="btn btn-sm btn-primary ml-1">
 		
 				#if( $task.id && $caneditcollection )
-					<a class="btn btn-xs btn-danger ml-1 ajax" 
+					<a class="btn btn-sm btn-danger ml-1 ajax" 
 					 data-confirm="[[Are you sure?]]"
 					data-targetdiv="goalrow#eid($selectedgoal.id)" title="[[Remove task]]"
 					href="${apphome}/project/goals/taskdelete.html?collectionid=$!collectionid&goalid=$selectedgoal.id&taskid=$task.id">
@@ -113,7 +113,7 @@
 				<a href="$cancellink" 
 					data-focuson="$task.id" 
 					id="task$task.getId()" 
-					class="btn btn-xs btn-secondary taskedit-$!{task.taskstatus} ajax" 
+					class="btn btn-sm btn-secondary taskedit-$!{task.taskstatus} ajax" 
 					data-targetdiv="$target" 
 					data-oemaxlevel="1" 
 					title="[[Cancel]] $!tree.getCategoryPath()" >

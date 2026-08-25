@@ -1,8 +1,13 @@
 #set($collectionid = $context.getRequestParameter("collectionid"))
 #set($target = $context.getRequestParameter("targetdiv"))
 
-<div id="taskrownew" class="taskgoaledit m-1 rounded shadow-sm">
-	<form id="taskeditform" class="ajaxform" data-targetdiv="$target" data-oemaxlevel="1" action="${apphome}/project/goals/task/tasksave.html">
+<div id="taskrownew" class="taskgoaledit mx-3 mb-4 p-3 rounded shadow-sm">
+	<form id="taskeditform" 
+		class="ajaxform" 
+		data-targetdiv="$target" 
+		method="post"
+		action="${apphome}/project/goals/task/tasksave.html">
+		<input type="hidden" name="oemaxlevel" value="1" />
 		<input type="hidden" name="goalid" value="$selectedgoal.id" />
 		<input type="hidden" name="onlyopen" value="false" />
 		<input type="hidden" name="collectionid" value="$collectionid" />

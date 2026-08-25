@@ -169,7 +169,7 @@ jQuery(document).ready(function () {
 		lQuery("a.appendgoalbutton").livequery("click", function (e) {
 			const parent = $(this).closest(".goalstatusopen");
 			if (parent) {
-				parent[0].scrollIntoView();
+			//	parent[0].scrollIntoView();
 			}
 		});
 	}

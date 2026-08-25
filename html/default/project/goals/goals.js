@@ -250,11 +250,9 @@ jQuery(document).ready(function (url, params) {
 			success: function (data) {
 				$(targetdiv).append(data);
 				jQuery(".grabfocus").focus();
-
-				var parent = button.closest(".goalstatusopen");
-				if (parent.length > 0) {
-					parent[0].scrollIntoView();
-				}
+				$(document).trigger("domchanged", [$(targetdiv)]);
+				$(targetdiv).scrollIntoView();
+				
 			},
 			type: "POST",
 			dataType: "text",

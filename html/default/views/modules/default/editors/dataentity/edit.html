@@ -28,7 +28,6 @@ $context.putPageValue("data",$data)
 #set( $searcher = $mediaarchive.getSearcher($module.id) )
 $context.putPageValue("searcher",$searcher)
 
-
 #set($edit = $context.getRequestParameter("edit"))
 #if($edit!="true")
 	#set($edit="false")
@@ -81,15 +80,26 @@ $context.putPageValue("viewid", $viewid)
 
 	<form id="entitydataeditor" 
 		name="entitydataeditor" 
+		enctype="multipart/form-data"
 		class="ajaxform checkCloseDialog" 
-		data-targetdiv="editentitymetadata"
+		method="post"  
 		data-oemaxlevel="1"
+		#ifnull($id)
+			##Adding a new entity
+			data-targetdiv="addnewentitydialog"
+		#end
+		#ifnotnull($id)
+			##Editing an existing entity
+			data-targetdiv="editentitymetadata"
+		#end
 		data-ajaxreloadtargets="dataeditedreload"
 		data-viewid="$viewid"
-		method="post"  
 		action="${edithome}/save.html"
-		enctype="multipart/form-data">
-
+		>
+		#if($addnew)
+			##use new flag so addnew got reset
+			<input name="addednew" type="hidden" value="true" />
+		#end
 		<input name="save" type="hidden" value="true" />
 
 		##this is all no longer needed

@@ -87,6 +87,10 @@
 .chatterbox-messages.attachment-preview {
 	height: calc(100% - 210px) !important;
 }
+.chatterbox:has(.ai-functions) .chatterbox-messages.attachment-preview {
+	height: calc(100% - 245px) !important;
+}
+
 .chatterbox-write .chatterbox-media {
 	height: 24px;
 	background-color: #9cdc81;
@@ -203,12 +207,11 @@
 	display: flex;
 	flex-direction: column;
 }
-.attachfileonchat .render-type-thumbnail {
-	margin-bottom: 0.75rem;
-}
+
 .attachfileonchat .render-type-thumbnail img {
 	width: 40px;
 	max-height: 40px;
+	margin-bottom: 0.75rem;
 }
 .chatterbox-chat .goalstatus {
 	padding: 1px;
@@ -531,15 +534,16 @@
 }
 .chat-msg-attachments-asset .removefieldassetvalue,
 .chat-msg-attachments-asset .downloadfieldassetvalue {
-	width: 28px;
-	height: 28px;
+	width: 22px;
+	height: 22px;
 	border-radius: 4px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding-top: 4px;
+	
 	color: royalblue;
 	background: #fff;
+	opacity: 0.70;
 	z-index: 10;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
@@ -550,7 +554,8 @@
 	left: 8px;
 	bottom: 8px;
 }
-.chat-msg-attachments-asset:hover .removefieldassetvalue {
+.chat-msg-attachments-asset:hover .removefieldassetvalue,
+.chat-msg-attachments-asset:hover .downloadfieldassetvalue {
 	opacity: 1;
 }
 .chat-msg-attachments-asset img {

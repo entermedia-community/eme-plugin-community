@@ -144,7 +144,9 @@ jQuery(document).ready(function () {
 				'[data-bs-toggle="dropdown"], .dropdown-toggle',
 			)[0];
 			var dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownToggleEl);
-			dropdown.hide();
+			if (dropdown) {
+				dropdown.hide();
+			}
 		});
 
 	lQuery("form.checkCloseDialog").livequery(function () {

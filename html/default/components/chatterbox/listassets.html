@@ -53,9 +53,21 @@ $context.putPageValue("convertpreset", $convertpreset)
 			><i class="bi bi-x-lg ns"></i></a>
 		#end
 
-		<a href="#" class="downloadfieldassetvalue">
-			<i class="bi bi-arrow-down ns"></i>
-		</a> 
+		#if ($userX)
+
+			<a href="$mediaarchive.asLinkToShare($context.getSiteRoot(),$entry,$presetdata)?download=true&ondemand=true" class="downloadfieldassetvalue"
+			title="[[Download]] $entry.name"> 
+				<i class="bi bi-arrow-down ns"></i>
+			</a> 
+		#end
+
+		#if ($user && $candownload)
+			#set($presetdata = $mediaarchive.getCachedData("convertpreset", "0"))
+			<a href="$mediaarchive.asLinkToShare($context.getSiteRoot(),$entry,$presetdata)?download=true&ondemand=true" class="downloadfieldassetvalue"
+			title="[[Download]] $entry.name"> 
+				<i class="bi bi-arrow-down ns"></i>
+			</a> 
+		#end
 	</div>
 #end
 </div>

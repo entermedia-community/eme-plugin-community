@@ -112,13 +112,13 @@
 								title="[[Edit Task]]"
 								data-focuson="$task.id"
 								data-width="900"
-								class="taskedit-$!{task.taskstatus} ajax text-bg-light rounded small py-1 px-2" 
+								class="taskedit-$!{task.taskstatus} ajax px-2" 
 								data-targetdiv="taskrow#eid(${task.id})" 
 								data-oemaxlevel="1">
-								[[Added by]] <strong>$!mediaarchive.getUser($task.completedby).getAnonNickName()</strong> $task.getAge().replace(':', ' ') [[ago]]  (edit)
+								[[Added by]] <strong>$!mediaarchive.getUser($task.completedby).getAnonNickName()</strong> $task.getAge().replace(':', ' ') [[ago]]  ([[Edit]])
 							</a>
 						#else
-							[[Added by]] <strong>$!mediaarchive.getUser($task.completedby).getAnonNickName()</strong> $task.getAge().replace(':', ' ') [[ago]]  (edit)
+							[[Added by]] <strong>$!mediaarchive.getUser($task.completedby).getAnonNickName()</strong> $task.getAge().replace(':', ' ') [[ago]]  ([[Edit]])
 						#end
 					</div>
 					

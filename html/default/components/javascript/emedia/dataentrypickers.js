@@ -33,38 +33,43 @@ $(document).ready(function () {
 		};
 		fileReader.readAsDataURL(asset);
 	});
+
 	//Show Upload Preview on chatterbox
 	lQuery(".attachfileonchat .assetInput").livequery("change", function () {
 		var input = $(this);
 		var detailId = input.data("detailid");
-		var assetName = input.val();
 		var assets = input.prop("files");
 		if (assets.length == 0) return;
-		var asset = assets[0];
-		if (asset.name) assetName = asset.name;
-		var fileReader = new FileReader();
-		fileReader.onload = function (e) {
-			if (!assetName && e.target.fileName) {
-				assetName = e.target.fileName;
-			}
-			var preview = preview = input.closest(".attachfileonchat").find(".render-type-thumbnail");
-			preview.html("");
-			if (/\.(jpe?g|png|gif|webp)$/i.test(assetName)) {
-				var img = $("<img>");
-				img.attr("src", e.target.result);
-				preview.append(img);
-			} else if (/\.(mp4|mov|mpeg|avi)$/i.test(assetName)) {
-				var img = $("<i>");
-				img.attr("class", "bi bi-film");
-				preview.append(img);
-			}
-			const chatterboxMessages = input.closest(".chatterbox").find("#chatterboxmessages");
+
+		var preview = input.closest(".attachfileonchat").find(".render-type-thumbnail");
+		preview.html("");
+		Array.from(assets).forEach(function (asset) {
+			var assetName = asset.name || input.val();
+			var fileReader = new FileReader();
+			fileReader.onload = function (e) {
+				if (!assetName && e.target.fileName) {
+					assetName = e.target.fileName;
+				}
+				var assetPreview = $("<div class=\"d-inline-block p-1\"></div>");
+				if (/\.(jpe?g|png|gif|webp)$/i.test(assetName)) {
+					var img = $("<img>");
+					img.attr("src", e.target.result);
+					assetPreview.append(img);
+				} else if (/\.(mp4|mov|mpeg|avi)$/i.test(assetName)) {
+					var img = $("<i>");
+					img.attr("class", "bi bi-film");
+					assetPreview.append(img);
+				}
+				//assetPreview.append("<div>" + assetName + "</div>");
+				preview.append(assetPreview);
+			};
+			fileReader.readAsDataURL(asset);
+		});
+
+		const chatterboxMessages = input.closest(".chatterbox").find("#chatterboxmessages");
 			if (chatterboxMessages.length) {
 				chatterboxMessages.addClass("attachment-preview");
 			}
-
-		};
-		fileReader.readAsDataURL(asset);
 	});
 
 	lQuery(".assetpicker .removefieldassetvalue").livequery(

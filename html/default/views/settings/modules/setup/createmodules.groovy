@@ -13,7 +13,7 @@ public void init(){
 	
 	//group order librarycollections etc.
 	//role (settingsgroup), saved searches (savedquery), hot folders, conversion presets, users, orders, collections, libraries, divisions, permissionsapp, preset configuration
-	
+	log.info("Saving " + modules.size() + " for application: " + appid);
 	modules.each{
 		manager.saveModule(archive.getCatalogId(), appid, it);
 	}

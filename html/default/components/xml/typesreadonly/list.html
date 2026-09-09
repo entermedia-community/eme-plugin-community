@@ -14,13 +14,18 @@
 		#end	
 	#else
 		#set( $foundrow = $searcherManager.getCachedData($detail.getListCatalogId(),$detail.getListId(), $value) )
-		#set($label = $foundrow.getName($context.getLanguage()))
+		#ifnotnull($foundrow)
+			#set($label = $foundrow.getName($context.getLanguage()))
 		
-		#ifnotnull($label)
-			#esc($label)
+			#ifnotnull($label)
+				#esc($label)
+			#end
+			#ifnull($label)
+				#esc($value) [[No name label]]
+			#end
 		#end
-		#ifnull($label)
+		#ifnull($foundrow)
 			#esc($value) [[Not Found]]
-		#end
+		#end		
 	#end
 #end	

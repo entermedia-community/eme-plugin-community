@@ -1418,3 +1418,18 @@ body.hidden-scroll {
 	color: #333;
 	padding-right: 100px;
 }
+
+
+.msg-body-content .code-block {
+    padding: 10px;
+    margin: 10px 0;
+    
+    /* Typography */
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    
+    /* Managing overflow */
+    overflow-x: auto; /* Adds a horizontal scrollbar if code is too long */
+    white-space: pre-wrap; /* Prevents wrapping and keeps layout spacing */
+}

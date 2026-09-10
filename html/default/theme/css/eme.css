@@ -1,5 +1,5 @@
 :root {	
-	--themed-navbar-primary: #f9f9f9;
+	--themed-navbar-mediacenter: #f9f9f9;
 }
 
 
@@ -20,7 +20,7 @@
 		left 0.3s ease,
 		width 0.3s ease;
 	--themed-logo-height: 32px;
-	background-color: var(--themed-navbar-primary);
+	background-color: var(--themed-navbar-mediacenter);
 	border-bottom: 1px solid #f1f1f1;
 }
 .mediacenterheader .btn-topnav-profile {
@@ -65,7 +65,7 @@
 }
 .sidebar-header {
 	padding: 12px 14px;
-	background-color: var(--themed-navbar-primary);
+	background-color: var(--themed-navbar-mediacenter);
 	border-bottom: 1px solid #f1f1f1;
 	display: flex;
 	align-items: center;

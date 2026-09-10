@@ -221,8 +221,20 @@ jQuery(document).ready(function () {
 
 		chatConnection.addEventListener("message", function (event) {
 			$(window).trigger("ajaxsocketautoreload");
+
 			const message = JSON.parse(event.data);
 			if (!message) return;
+
+			if (message.messagetype == "status") return;
+
+			let messagebody = message.messageplain;
+			
+			if (messagebody == null || messagebody == undefined) {
+				messagebody = message.message;
+			}
+			if (messagebody == null || messagebody == undefined) {
+				messagebody = "New message...";
+			}
 
 			const channelId = message.channel;
 			const chatterbox = $(`div.chatterbox[data-channel="${channelId}"]`);
@@ -230,16 +242,17 @@ jQuery(document).ready(function () {
 			if (chatterbox.length === 1) {
 				// Channel on the screen, update the UI with the new message
 				channelUpdateMessage(chatterbox, message);
+				const isBrowserWindowFocused = window.top.document.hasFocus();
 
-				if (document.hasFocus()) {
+				if (isBrowserWindowFocused) {
 					// User in the same tab, no need to show notification
+					//console.log("Dropped message: " + messagebody);
 					return;
 				}
 			}
 
 			if (message.user !== userid) {
 				function showNotification() {
-					console.log("Showing notification...");
 					let header = "New Message";
 					if (message.name !== undefined) {
 						header = message.name;
@@ -247,23 +260,20 @@ jQuery(document).ready(function () {
 					if (message.topic !== undefined) {
 						header += ` in ${message.topic}`;
 					}
-					let messagebody = message.message;
-					if (messagebody !== null && messagebody !== undefined) {
-						messagebody = "New message...";
-					}
+					
+					
 					const notification = new Notification(header, {
 						//TODO: URL?
-						body: message.message,
+						body: messagebody,
 						renotify: false,
 						tag: messagebody,
 						icon: `${appHome}/theme/images/logo-square.png`,
 					});
-					var chatUrl = $("#project-chat-link").attr("href");
-					if (chatUrl !== undefined && chatUrl.startsWith("/")) {
-						chatUrl = `${location.origin}${chatUrl}`;
-					}
+					
 					notification.addEventListener("click", function (event) {
-						window.open(chatUrl, "_blank");
+						event.preventDefault(); 
+						window.focus();         
+						notification.close();  
 					});
 				}
 

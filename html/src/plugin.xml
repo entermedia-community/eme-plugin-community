@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans projectname="openinstitute" depends="entermedia-server">
+<beans projectname="community" depends="finder">
 	<bean id="OiModule" class="org.openinstitute.server.OpenInstituteModule">
 		<property name="searcherManager">
 			<ref bean="searcherManager" />

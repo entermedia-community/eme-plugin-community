@@ -788,7 +788,9 @@ function initializeUI() {
 						search["field"] = searchfield;
 						search["operation"] = "contains";
 						search["searchtype"] = searchtype;
-						search[searchfield + ".value"] = params.term || "";
+						let originalTerm = params.term || '';
+						let capitalizedTerm = originalTerm.charAt(0).toUpperCase() + originalTerm.slice(1); 
+						search[searchfield + ".value"] = capitalizedTerm;
 						search["sortby"] = sortby;
 						return search;
 					},

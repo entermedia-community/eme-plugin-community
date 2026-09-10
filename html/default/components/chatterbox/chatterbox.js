@@ -225,55 +225,60 @@ jQuery(document).ready(function () {
 			const message = JSON.parse(event.data);
 			if (!message) return;
 
-			if (message.messagetype == "status") return;
-
 			let messagebody = message.messageplain;
 			
 			if (messagebody == null || messagebody == undefined || messagebody === "" || messagebody == "null") {
 				messagebody = message.message;
 			}
+
 			if (messagebody == null || messagebody == undefined || messagebody === "" || messagebody == "null") {
-				messagebody = "New message...";
+				//messagebody = "New message...";
+				return;
 			}
 
 			const channelId = message.channel;
 			const chatterbox = $(`div.chatterbox[data-channel="${channelId}"]`);
 
-			if (chatterbox.length === 1) {
+			if (chatterbox.length > 0) 
+			{
 				// Channel on the screen, update the UI with the new message
 				channelUpdateMessage(chatterbox, message);
+			}
+			if (message.user == userid || message.user == "agent")  //Add messagetype checks
+			{
+				return;
+			}
+			if (message.messagetype == "status") return;
 
-				if (isTabActive()) {
-					//console.log("Dropped message: " + messagebody);
-					return;
-				}
+
+			if (isTabActive()) {
+				//console.log("Dropped message: " + messagebody);
+				return;
 			}
 
-			if (message.user !== userid) {
-				function showNotification() {
-					let header = "New Message";
-					if (message.name !== undefined) {
-						header = message.name;
-					}
-					if (message.topic !== undefined) {
-						header += ` in ${message.topic}`;
-					}
-					
-					
-					const notification = new Notification(header, {
-						//TODO: URL?
-						body: messagebody,
-						renotify: false,
-						tag: messagebody,
-						icon: `${appHome}/theme/images/logo-square.png`,
-					});
-					
-					notification.addEventListener("click", function (event) {
-						event.preventDefault(); 
-						window.focus();         
-						notification.close();  
-					});
+			function showNotification() {
+				let header = "New Message";
+				if (message.name !== undefined) {
+					header = message.name;
 				}
+				if (message.topic !== undefined) {
+					header += ` in ${message.topic}`;
+				}
+				
+				
+				const notification = new Notification(header, {
+					//TODO: URL?
+					body: messagebody,
+					renotify: false,
+					tag: messagebody,
+					icon: `${appHome}/theme/images/logo-square.png`,
+				});
+				
+				notification.addEventListener("click", function (event) {
+					event.preventDefault(); 
+					window.focus();         
+					notification.close();  
+				});
 
 				/*Check para permissions and ask.*/
 				if (Notification.permission === "granted") {
@@ -327,22 +332,27 @@ jQuery(document).ready(function () {
 
 	function isTabActive() {
 		// 1. Fallback check: If document is hidden, the window is definitely not focused
-		if (document.hidden) {
-			return false;
+		var isactive = true;
+		if (document.hidden) 
+		{
+			isactive = false;
 		}
 
 		// 2. Safely check the top window focus to bypass cross-origin security blocks
 		try {
-			if (window.top && window.top.document) {
-			return window.top.document.hasFocus();
+			if (isactive && window.top && window.top.document) 
+			{
+				isactive = window.top.document.hasFocus();
 			}
 		} catch (e) {
 			// If blocked by CORS, fall back to checking the current frame
-			return document.hasFocus();
+			if( isactive)
+			{
+				isactive = document.hasFocus();
+			}
 		}
-
-		return document.hasFocus();
-		}
+		return isactive;
+	}
 
 	const messages = {};
 

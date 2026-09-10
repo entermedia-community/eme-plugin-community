@@ -16,6 +16,28 @@ function parseBoolean(value) {
 	return value === "true" || value === true;
 }
 
+const htmlLang = document.documentElement.lang || "en";
+
+function readLangMap(langmap)
+{
+	if (langmap === undefined) 
+	{
+		return null;
+	}
+	var lang = $("#application").data("browserlanguage");
+	if (lang === undefined || lang == null || lang == "") 
+	{
+		lang = htmlLang;
+	}
+
+	let label = langmap;
+	if (typeof label === "object" && label[lang]) {
+		label = label[lang];
+	}
+	return label;
+}	
+
+
 function removeDuplicates(json) {
 	var checkedIds = {
 		Connection: {},
@@ -707,12 +729,7 @@ $(document).ready(function () {
 					return;
 				}
 
-				const htmlLang = document.documentElement.lang || "en";
-
-				let label = scenario.name;
-				if (typeof label === "object" && label[htmlLang]) {
-					label = label[htmlLang];
-				}
+				let label = readLangMap(scenario.name);
 				label = label.replace(/[^A-Za-z0-9 ]/g, " ");
 				label = label.replace(/\s+/g, " ");
 
@@ -1116,7 +1133,7 @@ $(document).ready(function () {
 						}
 					}
 
-					const label = node.name || node.aiskill.name;
+					const label = readLangMap( node.name ) || readLangMap( node.aiskill.name );
 					const icon = node.agenticon || null;
 					const bgColor = node.agentcolor || "#888888";
 

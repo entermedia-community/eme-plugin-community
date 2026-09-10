@@ -229,10 +229,10 @@ jQuery(document).ready(function () {
 
 			let messagebody = message.messageplain;
 			
-			if (messagebody == null || messagebody == undefined) {
+			if (messagebody == null || messagebody == undefined || messagebody === "" || messagebody == "null") {
 				messagebody = message.message;
 			}
-			if (messagebody == null || messagebody == undefined) {
+			if (messagebody == null || messagebody == undefined || messagebody === "" || messagebody == "null") {
 				messagebody = "New message...";
 			}
 
@@ -242,10 +242,8 @@ jQuery(document).ready(function () {
 			if (chatterbox.length === 1) {
 				// Channel on the screen, update the UI with the new message
 				channelUpdateMessage(chatterbox, message);
-				const isBrowserWindowFocused = window.top.document.hasFocus();
 
-				if (isBrowserWindowFocused) {
-					// User in the same tab, no need to show notification
+				if (isTabActive()) {
 					//console.log("Dropped message: " + messagebody);
 					return;
 				}
@@ -326,6 +324,25 @@ jQuery(document).ready(function () {
 			// console.error(new Date().toISOString(), "Chat Connection Error", event);
 		});
 	}
+
+	function isTabActive() {
+		// 1. Fallback check: If document is hidden, the window is definitely not focused
+		if (document.hidden) {
+			return false;
+		}
+
+		// 2. Safely check the top window focus to bypass cross-origin security blocks
+		try {
+			if (window.top && window.top.document) {
+			return window.top.document.hasFocus();
+			}
+		} catch (e) {
+			// If blocked by CORS, fall back to checking the current frame
+			return document.hasFocus();
+		}
+
+		return document.hasFocus();
+		}
 
 	const messages = {};
 

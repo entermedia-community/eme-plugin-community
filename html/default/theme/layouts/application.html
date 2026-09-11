@@ -34,7 +34,8 @@
 	$pages.includeContent()
 
 	<div id="footer" role="contentinfo" class="emfooter">
-		##$pages.include("${apphome}/components/autoopen/index.html", $context)
+		##Autoopen entities when refreshing the page
+		$pages.include("${apphome}/components/autoopen/index.html", $context)
 		$pages.include("/${applicationid}/theme/layouts/footer.html", $context)
 	</div>
 </div>

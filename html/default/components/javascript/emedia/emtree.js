@@ -186,14 +186,17 @@ $(function () {
 
 				var targetdiv = tree.data("targetdivinner");
 				var onpage;
+				var parent;
 				if (targetdiv) {
 					var cell = jQuery("#" + targetdiv);
 					onpage = cell;
+					parent = cell.parent();
 					cell.html(data);
 				} else {
 					targetdiv = tree.data("targetdiv");
 					if (targetdiv) {
 						var cell = jQuery("#" + targetdiv);
+						parent = cell.parent();
 						onpage = cell.parent();
 						cell.replaceWith(data);
 					}
@@ -202,6 +205,7 @@ $(function () {
 				cell = findClosest(onpage, "#" + targetdiv);
 
 				$(window).trigger("setPageTitle", [cell]);
+				$(document).trigger("domchanged", [$(parent)]);
 
 				if (
 					typeof global_updateurl !== "undefined" &&
@@ -215,7 +219,6 @@ $(function () {
 					}
 				}
 
-				$(window).trigger("resize");
 			},
 		);
 	};

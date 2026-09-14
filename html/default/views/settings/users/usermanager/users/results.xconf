@@ -4,7 +4,7 @@
 
 	<property name="searchtype">user</property>
 	<property name="hitsname">userhits</property>
-	<page-action name="User.loadPageOfResults" />
+	<path-action name="User.loadPageOfResults" />
 	<page-action name="ProfileModule.loadUserProfileManager"/>
 	
 	

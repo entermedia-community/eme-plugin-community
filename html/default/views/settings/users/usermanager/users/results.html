@@ -1,3 +1,4 @@
+#set($hits = $userhits)
 <div id="usermanager-workarea"
 	class="mb-3" 
 	data-edithome="$apphome/views/settings/users/usermanager/users">
@@ -20,7 +21,7 @@
 	No details for view: $viewid
 #end
 
-<table class="table table-striped table-hover emdata" id="main-results-table" data-hitssessionid="$hits.sessionId">
+<table class="table table-striped table-hover emdata" id="main-results-table" data-userhitssessionid="$hits.sessionId">
 	#set( $origURL = $context.getRequestParameter("origURL" ) )				
 	#set( $selecteduser = $context.getRequestParameter("username" ) )
 	<thead>
@@ -114,7 +115,7 @@ data-updateurl="true">
 			<a class=" changepage ajax px-2" href="$apphome/views/settings/users/usermanager/users/results.html"
 			style="display: inline-block" 
 				data-page="$hits.prevPage()" 
-				data-hitssessionid="$hits.sessionId"
+				data-userhitssessionid="$hits.sessionId"
 				data-targetdiv="usermanager-workarea"
 				title="[[Previous]]" accesskey="p" > < </a>
         #end
@@ -124,14 +125,14 @@ data-updateurl="true">
 			<a  class=" changepage ajax px-2" href="$apphome/views/settings/users/usermanager/users/results.html"
 			style="display: inline-block"
 			data-page="$hits.nextPage()"
-			data-hitssessionid="$hits.sessionId"
+			data-userhitssessionid="$hits.sessionId"
 			data-targetdiv="usermanager-workarea"
 			title="[[Next]]" accesskey="n">></a>
 		#end
 </div>
 
-#end
- 
 
- 
+
+#end
+
  </div>

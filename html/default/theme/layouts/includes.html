@@ -6,7 +6,7 @@
 #ifnull($themeid)
 	#set($themeid = $content.get("themeid") )
 #end	
-<link rel="stylesheet" type="text/css" href="/${applicationid}/$themeid/custom.css" />
+<link rel="stylesheet" type="text/css" href="/${applicationid}/theme/$themeid/custom.css" />
 
 $pages.include("/${applicationid}/components/captureclick/init.html")
 

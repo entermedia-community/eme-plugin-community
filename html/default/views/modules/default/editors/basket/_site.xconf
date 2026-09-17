@@ -1,0 +1,22 @@
+<page>
+
+	<property name="edithomename">basket</property>
+	<property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/default</property>
+	<property name="edithomeid">assetbasket</property>
+	<property name="edithome">/${applicationid}/views/modules/${module}/editors/${edithomename}</property>
+
+
+
+	<path-action name="OrderModule.loadOrderBasket" />
+	<path-action name="OrderModule.loadAssets" />
+	<property name="clearmissing">true</property>
+
+
+	<property name="showaddselections">false</property>
+  	<property name="showremoveselections">true</property>
+  	<property name="section">basket</property>
+  	<property name="sectiontab">basket</property>
+  	<property name="module">asset</property>
+  	
+	<inner-layout>/${applicationid}/theme/layouts/applicationcontent.html</inner-layout>
+</page>

@@ -43,6 +43,8 @@
 
 				#if( $type.id == "views" )
 					#set( $hits = $mediaarchive.query("view").exact("moduleid",$moduleid).exact("systemdefined", false).sort("ordering").search() )
+				#elseif( $type.id == "module" )
+					#set( $hits = $mediaarchive.query("permissionsentity").exact("permissionentitytype", $moduleid).sort("ordering").search() )
 				#else
 					#set( $hits = $mediaarchive.query("permissionsentity").exact("permissionentitytype", $type.id).sort("ordering").search() )
 				#end

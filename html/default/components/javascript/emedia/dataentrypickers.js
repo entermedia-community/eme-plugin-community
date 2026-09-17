@@ -1,4 +1,111 @@
 $(document).ready(function () {
+
+	toggleselection = function (item) {
+		var row = item.closest(".resultsdivdata");
+		var chkbox = row.find(".selectionbox");
+		
+		if (chkbox) {
+			var ischecked = $(chkbox).prop("checked");
+			if (!ischecked || ischecked == "true") {
+				$(chkbox).prop("checked", true);
+			} else {
+				$(chkbox).prop("checked", false);
+			}
+			$(chkbox).trigger("change");
+		}
+	}
+
+	// Prevent selection from starting if the Shift key is held down
+	$(window).on('selectstart', function(e) {
+		if (e.shiftKey) {
+			e.preventDefault();
+			return false;
+		}
+	});
+
+	// Clear any accidental selection that snuck through when Shift is released
+	$(window).on('keyup', function(e) {
+		if (e.which === 16) { // 16 is the Shift key
+			window.getSelection().removeAllRanges();
+		}
+	});
+
+	var selectStart = null;
+	handlemultselections = function (item, e){
+		if ($(e.target).is("input") || $(e.target).is("a")) {
+			return true;
+		}
+
+		if (e.ctrlKey) {
+			toggleselection(item);
+			return false;
+		}
+		// click+shift
+		if (e.shiftKey) {
+			if (selectStart == null) {
+				selectStart = item;
+				toggleselection(item);
+			} else {
+				var selectEnd = item;
+				if (selectStart) {
+					var isForward = $(selectStart).index() <= $(selectEnd).index();
+					var startNode = isForward ? selectStart : selectEnd;
+					var endNode = isForward ? selectEnd : selectStart;
+
+					$(startNode)
+						.nextUntil($(endNode)) 
+						.add($(endNode))       
+						.each(function () {
+							toggleselection($(this));
+						});
+
+					selectStart = null;
+					selectEnd = null;
+					window.getSelection().removeAllRanges();
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+
+	lQuery(".resultsdivdata").livequery(
+		"click",
+		function (e) {
+			var clicked = $(this);
+			
+			var pickerresults = clicked.closest(".clickableresultlist");
+			if (pickerresults.length > 0) {
+				return;
+			}
+
+			handlemultselections(clicked, e);	
+		},
+	);
+
+	lQuery(".stackedplayer, .resultsassetcontainer").livequery("click", function (e) {
+		var clicked = $(this);
+		var pickerresults = clicked.closest(
+			".clickableresultlist, .clickableresultlistinline, .pickerpickasset",
+		);
+
+		if (pickerresults.length > 0) {
+			return;
+		}
+
+		if (e.ctrlKey || e.shiftKey) {
+			return;
+		}
+
+		e.preventDefault();
+		e.stopPropagation();
+		
+		showAsset(clicked);
+
+		return false;
+	});
+
+	
 	//Show Upload Preview on assetpicker
 	lQuery(".assetpicker .assetInput").livequery("change", function () {
 		var input = $(this);
@@ -143,6 +250,12 @@ $(document).ready(function () {
 			return true;
 		}
 		var row = $(this);
+
+		//Return false if multiselection happening
+		if (!handlemultselections(row, e)) {
+			return false;
+		}
+
 		row.css("pointer-events", "none");
 
 		var clickableresultlist = row.closest(".clickableresultlist");
@@ -212,6 +325,7 @@ $(document).ready(function () {
 			clickableresultlist.runAjax();
 		},
 	);
+
 	//To open an entity in a submodule. CB Lose Back button
 	lQuery(".entitysubmodules .resultsdivdata").livequery("click", function (e) {
 		if (!isValidTarget(e)) {
@@ -219,6 +333,12 @@ $(document).ready(function () {
 		}
 
 		var row = $(this);
+
+		//Return false if multiselection happening
+		if (!handlemultselections(row, e)) {
+			return false;
+		}
+		
 		var rowid = row.data("dataid");
 		var submoduleOpener = row.closest(".clickableresultlist");
 		submoduleOpener.data("entityid", row.data("dataid"));

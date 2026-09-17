@@ -72,9 +72,9 @@
 		#set($userprofilehit = false)  
 		#set ($userprofilehit = $userProfileSearcher.searchById($hit.id))
 		#if ($userprofilehit)
-			#set( $newval = $userprofilehit.get('settingsgroup') )
+			#set( $newval = $userprofilehit.get('settingsrole') )
 			#if( $newval )
-				#set( $sgroup = $searcherManager.getData($catalogid,'settingsgroup',$newval) )
+				#set( $sgroup = $searcherManager.getData($catalogid,'settingsrole',$newval) )
 				$sgroup
 			#end	
 		#end

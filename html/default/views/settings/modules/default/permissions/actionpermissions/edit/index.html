@@ -1,4 +1,4 @@
-#set($groupSearcher = $searcherManager.getSearcher($catalogid, "settingsgroup"))
+#set($groupSearcher = $searcherManager.getSearcher($catalogid, "settingsrole"))
 #set($permissionassignedSearcher = $searcherManager.getSearcher($catalogid, "permissionentityassigned"))
 #set($groupid = $context.getRequestParameter("settingsgroupid"))
 
@@ -23,11 +23,8 @@
 	<input type="hidden" name="settingsgroupid" value="$groupid" />
 	<input type="hidden" name="moduleid" value="$moduleid" />
 
-	#set($permissionsearcher = $searcherManager.getSearcher($catalogid, "permissionsentity"))
-	
 	<div>
 		
-	    #set( $hits = $permissionsearcher.query().all().sort("permissionentitytype").sort("ordering").search() )
     	<table class="table table-striped emdata settings-table">	
 			<thead>
 			<tr class="">
@@ -35,34 +32,41 @@
     		<input id="checkbox-enableall" class="permission-radio" type="checkbox" name="noname" value="" disabled="disabled"
     			#if( $permissionassigned.isEmpty() )
     		  		 checked      		  		#end />
-    		
     		</td>
     		<td valign="middle"><label for="checkbox-enableall" style="padding:5px 0 1px 0;">[[Allow All Permissions]]</label></td>
     		<td class="caption">[[If no permissions are checked then all enabled]]</td>		        			
     		</tr>		
     		</thead>
-		    #set( $section = "none")
-	    	#foreach($item in $hits )
-	        		
-	        		#if( $section != $item.permissionentitytype )
+			#set( $section = "none")
+
+	    	#foreach($type in $mediaarchive.getList("permissionentitytype") )
+
+				#if( $type.id == "views" )
+					#set( $hits = $mediaarchive.query("view").exact("moduleid",$moduleid).exact("systemdefined", false).sort("ordering").search() )
+				#else
+					#set( $hits = $mediaarchive.query("permissionsentity").exact("permissionentitytype", $type.id).sort("ordering").search() )
+				#end
+
+	        	#if( !$hits.isEmpty() && $section != $type.id )
 	        		<thead>
-	        			<tr class="sectionlevel section${item.permissiontype} togglesection">
+	        			<tr class="sectionlevel section${type.id} togglesection">
 	        			<td colspan="3" style="height: 35px; line-height: 35px;">
-	        				#set($permissiontype = $mediaarchive.getCachedData("permissionentitytype", $!item.permissionentitytype))
+							#if( $type.id == "module" )
+								#text($module) [[Permissions]]
+							#else
+	        				#set($permissiontype = $mediaarchive.getCachedData("permissionentitytype", $type.id))
 	        				#text($permissiontype)
-	        				
+							#end
+
+							##TODO add a check all button for this section
 	        			</td>
 	        			</tr>
 	        		</thead>
-	        		#set( $section = $item.permissionentitytype)
-
-		        					
-	        		
-	        			
-	        		#end
-
-	        		#set($val = $permissionassigned.get($item.id))
-	        		<tr class="$item.permissionentitytype">
+	        		#set( $section = $type.id)
+	        	#end
+				#set($val = $permissionassigned.get($item.id))
+				#foreach( $item in $hits )
+	        		<tr class="$type.id">
 	        		<td valign="middle" style="text-align: center; width: 35px;">
 					<input type="hidden" name="field" value="$item.id" />
 	        		<input class="permission-radio" type="checkbox" name="${item.id}.value" value="true" data-permissionsentity="$item.id" id="checkbox-$item.id"
@@ -73,39 +77,8 @@
 	        		<td class="caption">$!item.caption</td>
 	        			
 	        		</tr>
-	    	#end
-	    	
-	    	#set( $viewsearcher = $searcherManager.getSearcher($catalogid, "view"))
-	    	#set( $query = $viewsearcher.createSearchQuery().append("moduleid",$moduleid).append("systemdefined", false) )
-			$!query.addSortBy("ordering")
-			#set( $views = $viewsearcher.search($query))
-			
-			#if($views)
-				    <thead>
-	        			<tr class="sectionlevel section${item.permissiontype} togglesection">
-	        			<td colspan="3" style="height: 35px; line-height: 35px;">
-							[[Views]]
-	        			</td>
-	        			</tr>
-	        		</thead>
-	        		
-					
-					#foreach( $target in $views)
-						#set($val = $permissionassigned.get($target.id))
-						<tr class="viewpermission">
-			        		<td valign="middle" style="text-align: center; width: 35px;">
-							<input type="hidden" name="field" value="${target.id}" />
-			        		<input class="permission-radio" type="checkbox" name="${target.id}.value" value="true" data-permissionsentity="$target.id" id="checkbox-$target.id"
-			        		 #if($val) checked #end/>
-			        		
-			        		</td>
-			        		<td valign="middle"><label for="checkbox-$!target.id" style="padding:5px 0 1px 0;">#text($target) [[View]]</label></td>
-			        		<td class="caption">#text($target) [[View]]</td>
-			        			
-			        	</tr>
-			    	#end
-	    	#end
-	    	
+				#end
+	       	#end
     	</table>
     </div>
 	

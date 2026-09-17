@@ -1,20 +1,18 @@
 <div id="workarea" class="tab-actions">
 
-	#set($currentrole = $context.getRequestParameter("settingsgroupid")) 
 	#set($permissiontype = $context.getRequestParameter("permissiontype")) 
-	#set ($roleSearcher = $searcherManager.getSearcher($catalogid, "settingsgroup"))
 
 	#set( $moduleid = $module.getId() )
 
-
+	#set($currentgroup = $context.getRequestParameter("settingsgroupid")) 
 	<div class="mt-4">
 		<h3>[[Permissions]]</h3>
     
-        <strong> [[By Role]]:</strong> 
+        <strong> [[Groups]]:</strong>  ##TODO add a add new link
         <select id="roles" class="form-control-sm" style="position: relative; top: 2px; margin-left: 5px;">
             <option value=""></option>
-           #foreach($settingsgroup in $roleSearcher.fieldSearch("id", "*", "textUp"))
-               <option #if($currentrole == $settingsgroup.id) selected #end value="$settingsgroup.id">$settingsgroup</option>
+           #foreach($agroup in $mediaarchive.getList("group"))
+               <option #if($currentgroup == $agroup.id) selected #end value="$agroup.id">$agroup</option>
            #end
         </select>
         
@@ -53,8 +51,7 @@
     #if( $currentgroup)
         #set($currentgroup = $context.getRequestParameter("settingsgroupid"))
         
-        #set ($profilesearcher = $searcherManager.getSearcher($catalogid, "userprofile"))
-        #set($users = $profilesearcher.fieldSearch("settingsgroup", $currentgroup))
+        #set($users = $mediaarchive.query("user").exact("group", $currentgroup).search() )
         
         #if($users.size() > 0)
         <br>

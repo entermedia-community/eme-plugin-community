@@ -19,8 +19,8 @@
 			 [[Permission]] = <input name="condition.${traverse}.value" value="$!filter.permission" />
 		#elseif($filter.type == "PageProperty"  || $filter.type == "PageValue" )
 			[[Page Value]]  <input name="condition.${traverse}.property" value="$!filter.property" />=<input name="condition.${traverse}.value" value="$!filter.getEquals()" />
-		#elseif($filter.type == "SettingsGroup"  )
-			#set( $roles = $searcherManager.getList($catalogid,"settingsgroup") ) 
+		#elseif($filter.type == "SettingsRole"  )
+			#set( $roles = $searcherManager.getList($catalogid,"settingsrole") ) 
 			[[Role]] <select name="condition.${traverse}.value">
 				<option value="">[[select a role]]</option>
 				#foreach( $type in $roles )

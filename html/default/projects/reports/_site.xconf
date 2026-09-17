@@ -3,7 +3,7 @@
  <permission name="view">
     <or>
       <group id="administrators"/>
-      <settingsgroup id="administrator"/>
+      <settingsrole id="administrator"/>
     </or>
   </permission>
   

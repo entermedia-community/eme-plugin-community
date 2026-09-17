@@ -1,7 +1,7 @@
 #*
-#set($currentrole = $context.getRequestParameter("settingsgroupid")) 
+#set($currentrole = $context.getRequestParameter("settingsroleid")) 
 #set($permissiontype = $context.getRequestParameter("permissiontype")) 
-#set ($roleSearcher = $searcherManager.getSearcher($catalogid, "settingsgroup"))
+#set ($roleSearcher = $searcherManager.getSearcher($catalogid, "settingsrole"))
 
 #set( $moduleid = $module.getId() )
 <h3 class="mt-0">#text($module) [[Actions]]</h3>
@@ -16,7 +16,7 @@
 						$('#module-picker').hide();
 					}
 					else {
-						$("#permissions-div").load("$siteroot$apphome/views/settings/modules/$moduleid/permissions/views/index.html?oemaxlevel=1&permissiontype=$!permissiontype&settingsgroupid=" + val, function(){
+						$("#permissions-div").load("$siteroot$apphome/views/settings/modules/$moduleid/permissions/views/index.html?oemaxlevel=1&permissiontype=$!permissiontype&settingsroleid=" + val, function(){
 							$(window).trigger( "resize" );
 						});
 						$('#module-picker').show();
@@ -27,10 +27,10 @@
 
 
 #if( $currentgroup)
-	#set($currentgroup = $context.getRequestParameter("settingsgroupid"))
+	#set($currentgroup = $context.getRequestParameter("settingsroleid"))
 	
 	#set ($profilesearcher = $searcherManager.getSearcher($catalogid, "userprofile"))
-	#set($users = $profilesearcher.fieldSearch("settingsgroup", $currentgroup))
+	#set($users = $profilesearcher.fieldSearch("settingsrole", $currentgroup))
 	
 	#if($users.size() > 0)
 	<br>

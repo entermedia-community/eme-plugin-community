@@ -17,11 +17,11 @@
 #foreach( $group in $allgroups )
 		<option value="group.$group.id">&nbsp;&nbsp;&nbsp;&nbsp;$group.name</options>
 #end
-#set( $settingsgroups = $searcherManager.getList($catalogid,"settingsgroup"))	
-#if( $settingsgroups.size() > 0)
+#set( $settingsroles = $searcherManager.getList($catalogid,"settingsrole"))	
+#if( $settingsroles.size() > 0)
 		<option value="">User Profile</option>
-#foreach( $settings in $settingsgroups )
-		<option value="settingsgroup.$settings.id">&nbsp;&nbsp;&nbsp;&nbsp;$settings.name</options>
+#foreach( $settings in $settingsroles )
+		<option value="settingsrole.$settings.id">&nbsp;&nbsp;&nbsp;&nbsp;$settings.name</options>
 #end
 #end	
 <!-- 		<option value="">Security Group Property</option>  -->

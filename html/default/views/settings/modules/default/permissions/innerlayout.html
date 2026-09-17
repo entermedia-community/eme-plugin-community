@@ -1,6 +1,6 @@
-#set($currentrole = $context.getRequestParameter("settingsgroupid")) 
+#set($currentrole = $context.getRequestParameter("settingsroleid")) 
 #set($permissiontype = $context.getRequestParameter("permissiontype")) 
-#set ($roleSearcher = $searcherManager.getSearcher($catalogid, "settingsgroup"))
+#set ($roleSearcher = $searcherManager.getSearcher($catalogid, "settingsrole"))
 
 #set( $moduleid = $module.getId() )
 

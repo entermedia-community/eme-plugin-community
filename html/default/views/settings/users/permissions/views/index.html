@@ -1,7 +1,7 @@
-#set ($groupSearcher = $searcherManager.getSearcher($catalogid, "settingsgroup"))
+#set ($groupSearcher = $searcherManager.getSearcher($catalogid, "settingsrole"))
 #set ($permissiontype = $context.findValue("permissiontype"))
 #if (!$data)
-	#set($groupid = $context.getRequestParameter("settingsgroupid"))
+	#set($groupid = $context.getRequestParameter("settingsroleid"))
 	#if($groupid)
 		#set ($data = $groupSearcher.searchById($groupid))
 	#end
@@ -15,7 +15,7 @@
 	<input type="hidden" name="save" value="true"/>
 	<input type="hidden" name="view" value="settings/settinggroupedit" />
 	<input type="hidden" name="searchtype" value="$groupSearcher.getSearchType()"/>
-	<input type="hidden" name="settingsgroupid" value="$data.id" />
+	<input type="hidden" name="settingsroleid" value="$data.id" />
 	<input type="hidden" name="field" value="permissions"/>
 	
 	$context.putPageValue("searcher", $groupSearcher)	 

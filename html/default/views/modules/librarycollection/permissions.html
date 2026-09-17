@@ -50,8 +50,7 @@ $context.putPageValue("data", $data )
 	#set( $parent = $category.getParentCategory() )
 	#set( $users = $parent.findValue("viewusers") )
 	#set( $groups = $parent.findValue("viewgroups"))
-	#set( $roles = $parent.findValue("viewroles"))
-#if( $users || $groups || $roles )
+#if( $users || $groups )
 <h4>[[Parent Users]]</h4>
 
 
@@ -72,13 +71,6 @@ $context.putPageValue("data", $data )
 	#end
 	
 	
-	#if( $roles ) [[Roles]]: <br>
-		<div style="padding:20px;background:#EEE;font-weight:bold;">
-		#foreach( $role in $roles)
-		$!mediaarchive.getData("settingsgroup",$role) <br>
-		#end
-		</div>
-	#end
 	<br><br>
 #end
 

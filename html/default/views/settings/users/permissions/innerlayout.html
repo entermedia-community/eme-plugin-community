@@ -1,6 +1,6 @@
-#set($currentrole = $context.getRequestParameter("settingsgroupid")) 
+#set($currentrole = $context.getRequestParameter("settingsroleid")) 
 #set($permissiontype = $context.getRequestParameter("permissiontype")) 
-#set ($groupSearcher = $searcherManager.getSearcher($catalogid, "settingsgroup"))
+#set ($groupSearcher = $searcherManager.getSearcher($catalogid, "settingsrole"))
 <h3 class="settings-title">[[Permissions]]</h3>
 <div class="clearfix"></div>
 <div style="padding:20px; background-color: #f5f5f5;" >
@@ -14,8 +14,8 @@
         		data-urlprefix="$siteroot$apphome/views/settings/users/permissions/views/"
         		data-permissiontype="$!permissiontype">
             <option value=""></option>
-       #foreach($settingsgroup in $groupSearcher.fieldSearch("id", "*", "textUp"))
-           <option #if($currentrole == $settingsgroup.id) selected #end value="$settingsgroup.id">$settingsgroup</option>
+       #foreach($settingsrole in $groupSearcher.fieldSearch("id", "*", "textUp"))
+           <option #if($currentrole == $settingsrole.id) selected #end value="$settingsrole.id">$settingsrole</option>
        #end
            <option value="new">[[Add New Role]]</option>
     </select>
@@ -44,10 +44,10 @@
 
 
 #if( $currentgroup)
-	#set($currentgroup = $context.getRequestParameter("settingsgroupid"))
+	#set($currentgroup = $context.getRequestParameter("settingsroleid"))
 	
 	#set ($profilesearcher = $searcherManager.getSearcher($catalogid, "userprofile"))
-	#set($users = $profilesearcher.fieldSearch("settingsgroup", $currentgroup))
+	#set($users = $profilesearcher.fieldSearch("settingsrole", $currentgroup))
 	
 	#if($users.size() > 0)
 	<br>

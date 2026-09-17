@@ -1971,7 +1971,7 @@ function initializeUI() {
 				url +
 					"index.html?oemaxlevel=1&permissiontype=" +
 					permissiontype +
-					"&settingsgroupid=" +
+					"&settingsroleid=" +
 					val,
 				function () {
 					$(window).trigger("resize");

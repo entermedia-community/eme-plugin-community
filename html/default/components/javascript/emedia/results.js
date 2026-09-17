@@ -355,7 +355,10 @@ jQuery(document).ready(function (url, params) {
 					"/views/modules/asset/mediaviewer/fullscreen/currentasset.html",
 			);
 			if (assetid === undefined) {
-				assetid = link.data("assetid");
+				assetid = link.data("assetid"); // legacy support for assetid data attribute
+			}
+			if (assetid === undefined) {
+				assetid = link.data("dataid");
 			}
 
 			var editdiv = link.closest(".editdiv");
@@ -480,11 +483,14 @@ jQuery(document).ready(function (url, params) {
 		}
 	});
 
-	// Select multiple assets with Shift+Mouse
+
+	/*
+	// Select multiple assets with Shift+Mouse uses now click function on resultsdivdata
 	var isMouseDown = false;
 	var currentCol;
-	lQuery(".stackedplayertable td").livequery("mousedown", function (e) {
+	lQuery(".emresultscontainer .resultsdivdata").livequery("mousedown", function (e) {
 		isMouseDown = true;
+		console.log("Mouse down on table cell");
 		if (e.shiftKey) {
 			var row = $(this).closest("tr");
 			currentCol = row.data("rowid");
@@ -499,7 +505,7 @@ jQuery(document).ready(function (url, params) {
 		return false; // Prevent text selection
 	});
 
-	lQuery(".stackedplayertable td").livequery("mouseover", function (e) {
+	lQuery(".emresultscontainer .resultsdivdata").livequery("mouseover", function (e) {
 		if (isMouseDown && e.shiftKey) {
 			// Mouse + Shift Key
 			var row = $(this).closest("tr");
@@ -517,8 +523,105 @@ jQuery(document).ready(function (url, params) {
 	$(window).on("mouseup", function () {
 		isMouseDown = false;
 	});
+*/
 
-	lQuery(".stackedplayer").livequery("click", function (e) {
+	
+
+	// Click on asset
+	var selectStart = null;
+
+	toggleselection = function (item) {
+		var row = item.closest(".resultsdivdata");
+		var chkbox = row.find(".selectionbox");
+		
+		if (chkbox) {
+			var ischecked = $(chkbox).prop("checked");
+			if (!ischecked || ischecked == "true") {
+				$(chkbox).prop("checked", true);
+			} else {
+				$(chkbox).prop("checked", false);
+			}
+			$(chkbox).trigger("change");
+		}
+	}
+
+	// Prevent selection from starting if the Shift key is held down
+	$(window).on('selectstart', function(e) {
+		if (e.shiftKey) {
+			e.preventDefault();
+			return false;
+		}
+	});
+
+	// Clear any accidental selection that snuck through when Shift is released
+	$(window).on('keyup', function(e) {
+		if (e.which === 16) { // 16 is the Shift key
+			window.getSelection().removeAllRanges();
+		}
+	});
+
+	
+
+
+	lQuery(".resultsdivdata").livequery(
+		"click",
+		function (e) {
+			var clicked = $(this);
+			
+			var pickerresults = clicked.closest(".clickableresultlist");
+			if (pickerresults.length > 0) {
+				return;
+			}
+
+			clicked = $(this);
+			if ($(e.target).is("input") || $(e.target).is("a")) {
+				return true;
+			}
+
+			if (e.ctrlKey) {
+				toggleselection($(this));
+				return false;
+			}
+			// click+shift
+			if (e.shiftKey) {
+				if (selectStart == null) {
+					selectStart = $(this);
+					toggleselection($(this));
+				} else {
+					var selectEnd = $(this);
+					if (selectStart) {
+						var isForward = $(selectStart).index() <= $(selectEnd).index();
+						var startNode = isForward ? selectStart : selectEnd;
+						var endNode = isForward ? selectEnd : selectStart;
+
+						$(startNode)
+							.nextUntil($(endNode)) 
+							.add($(endNode))       
+							.each(function () {
+								toggleselection($(this));
+							});
+
+						selectStart = null;
+						selectEnd = null;
+						window.getSelection().removeAllRanges();
+					}
+				}
+				return false;
+			}
+
+			//if ($(this).closest(".stackedplayer").length > 0) {
+			//	return;
+			//}
+			
+			//e.preventDefault();
+			//e.stopPropagation();
+			//var assetid = clicked.data("dataid");
+			//showAsset($(this), assetid);
+		},
+	);
+
+	//Using .resultsdivdata trigger
+	lQuery(".stackedplayer, .resultsassetcontainer").livequery("click", function (e) {
 		var clicked = $(this);
 		var pickerresults = clicked.closest(
 			".clickableresultlist, .clickableresultlistinline, .pickerpickasset",
@@ -528,127 +631,20 @@ jQuery(document).ready(function (url, params) {
 			return;
 		}
 
+		if (e.ctrlKey || e.shiftKey) {
+			return;
+		}
+
 		e.preventDefault();
 		e.stopPropagation();
-		var link = $(this);
-		showAsset(link);
+		
+		showAsset(clicked);
 
 		return false;
 	});
+	
 
-	// Click on asset
-	var selectStart = null;
-
-	lQuery(".mediavieweropener table.emresultstable tr td").livequery(
-		"click",
-		function (e) {
-			var clicked = $(this);
-			var pickerresults = clicked.closest(".clickableresultlist");
-			if (pickerresults.length > 0) {
-				return;
-			}
-
-			clicked = clicked.closest("tr");
-			if ($(e.target).is("input") || $(e.target).is("a")) {
-				return true;
-			}
-			// click+ctrl
-			if (e.ctrlKey) {
-				var chkbox = clicked.find(".selectionbox");
-				if (chkbox) {
-					var ischecked = $(chkbox).prop("checked");
-					if (!ischecked || ischecked == "true") {
-						$(chkbox).prop("checked", true);
-					} else {
-						$(chkbox).prop("checked", false);
-					}
-					$(chkbox).trigger("change");
-				}
-				return false;
-			}
-			// click+shift
-			if (e.shiftKey) {
-				if (selectStart == null) {
-					selectStart = clicked;
-				} else {
-					var selectEnd = clicked;
-					if (selectStart) {
-						$(selectStart)
-							.nextUntil($(selectEnd))
-							.each(function () {
-								var chkbox = $(this).find(".selectionbox");
-								if (chkbox) {
-									var ischecked = $(chkbox).prop("checked");
-									if (!ischecked || ischecked == "true") {
-										$(chkbox).prop("checked", true);
-									} else {
-										$(chkbox).prop("checked", false);
-									}
-									$(chkbox).trigger("change");
-								}
-							});
-						selectStart = null;
-						selectEnd = null;
-					}
-				}
-				return false;
-			}
-
-			e.preventDefault();
-			e.stopPropagation();
-			var assetid = clicked.data("dataid");
-			showAsset(clicked, assetid);
-		},
-	);
-	// Gallery clicking
-	lQuery(".emgallery .emthumbimage").livequery("click", function (e) {
-		var clicked = $(this);
-		var ctrlPressed = e.ctrlKey || e.metaKey;
-		if (ctrlPressed) {
-			var chkbox = clicked.closest(".emboxthumb").find(".selectionbox");
-			if (chkbox) {
-				var ischecked = $(chkbox).prop("checked");
-				if (!ischecked || ischecked == "true") {
-					$(chkbox).prop("checked", true);
-				} else {
-					$(chkbox).prop("checked", false);
-				}
-				$(chkbox).trigger("change");
-			}
-			e.preventDefault();
-			e.stopPropagation();
-			return false;
-		}
-		// click+shift
-		if (e.shiftKey) {
-			if (selectStart == null) {
-				selectStart = $(clicked).closest(".emboxthumb");
-			} else {
-				var selectEnd = $(clicked).closest(".emboxthumb");
-				if (selectStart) {
-					$(selectStart)
-						.nextUntil($(selectEnd))
-						.each(function () {
-							var chkbox = $(this).find(".selectionbox");
-							if (chkbox) {
-								var ischecked = $(chkbox).prop("checked");
-								if (!ischecked || ischecked == "true") {
-									$(chkbox).prop("checked", true);
-								} else {
-									$(chkbox).prop("checked", false);
-								}
-								$(chkbox).trigger("change");
-							}
-						});
-					selectStart = null;
-					selectEnd = null;
-				}
-			}
-			e.preventDefault();
-			e.stopPropagation();
-			return false;
-		}
-	});
+	
 
 	//Launch the Dialog? Use a parmeter check instead
 	openEntity = function () {

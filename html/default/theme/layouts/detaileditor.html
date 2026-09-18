@@ -66,6 +66,7 @@
                   #end
               </div>
               
+              #set($canviewassets = $permissions.canModule("asset", "viewassets"))
               #if( $canviewassets || $order )                
 		  #if( $hits && $hits.hasMultipleSelections() )
 		  	<div id="selected-media">

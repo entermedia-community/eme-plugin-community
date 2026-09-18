@@ -26,6 +26,10 @@
 		  #else
 			  #set ($downloadlink = "/${mediaarchive.getMediaDbId()}/services/module/asset/downloads/originals/${originalpath}")
 		  #end
+		  #set($canconvert = $permissions.canModule("asset", "convert"))
+		  #set($candownload = $permissions.canModule("asset", "download"))
+		  #set($canquickdownload = $permissions.canModule("asset", "quickdownload"))
+		  #set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 		  #if(($candownload || $canconvert || $candownloadfpo) && $canquickdownload)
 			#set($dlink =  "$applink/views/modules/asset/activity/downloadassets.html")
 			  <a href="${dlink}" 

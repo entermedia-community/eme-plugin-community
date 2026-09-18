@@ -50,6 +50,7 @@ $context.putPageValue("view", "order/emailform")
 
 #set($customformats= $context.getRequestParameter("changepreview"))
 
+#set($candownload = $permissions.canModule("asset", "download"))
 #if( $candownload)
 <div class="float-right">
 	<select class="form-control form-control-sm" name="changepreview" id="sharemediatype">

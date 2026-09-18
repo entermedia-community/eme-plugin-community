@@ -59,6 +59,7 @@ $context.putPageValue("targetdiv",$targetdiv)
 
 #set( $assetid = $context.getRequestParameter("assetid") )
 
+#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 #if($canviewupload || $canviewcategoryupload)
 	#set($canupload = true)
 #end

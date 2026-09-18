@@ -35,6 +35,7 @@ $context.putPageValue("title",$title)
 		
 		<div class="actionicons">
 		$context.putPageValue("assetid", $hit.id) 
+		#set($canviewvoting = $permissions.canModule("asset", "viewvoting"))
 		#if( $canviewvoting )
 		<div class="gallerycell-favorite">
 			<div id="galleryassetfavorite-${hit.id}" class="mx-2">
@@ -42,6 +43,10 @@ $context.putPageValue("title",$title)
 	   		</div>
 		</div>
 		#end
+			#set($canconvert = $permissions.canModule("asset", "convert"))
+			#set($candownload = $permissions.canModule("asset", "download"))
+			#set($canquickdownload = $permissions.canModule("asset", "quickdownload"))
+			#set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 			#if(($candownload || $canconvert || $candownloadfpo) && $canquickdownload)
 				#set($dlink =  "$applink/views/modules/asset/activity/downloadassets.html")
 			   	<a href="$dlink" class="emdialog mx-2" data-assetid="$hit.id" data-hidefooter="true" title="[[Download]] $!title">

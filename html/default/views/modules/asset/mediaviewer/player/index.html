@@ -30,6 +30,7 @@
     	<div class="media-info">
     
     	
+	    	#set($canviewvoting = $permissions.canModule("asset", "viewvoting"))
 	    	#if ( $canviewvoting )
 			    
 			      <span class="media-likes">$pages.include("$apphome/views/modules/asset/editor/voting/index.html", $context)</span>
@@ -41,9 +42,11 @@
     	    #if ($attachmentcount && $attachmentcount.size() > 1)
     	   <a href="$home$apphome/views/modules/asset/editor/attachments/index.html?assetid=$asset.id&hitssessionid=#esc($hitssessionid)" class="attachments">$attachmentcount.size()<span>&nbsp;</span></a>
     	   #end
+           #set($canviewassetpreviewhistory = $permissions.canModule("asset", "viewassetpreviewhistory"))
            #if($canviewassetpreviewhistory)
 	   			<a href="$home$apphome/views/modules/asset/editor/historypreviews/index.html?assetid=$asset.id&hitssessionid=#esc($hitssessionid)" class="views"><i class="fas fa-eye"></i> $views</a>
 			#end
+            #set($canviewcomments = $permissions.canModule("asset", "viewcomments"))
             #if($canviewcomments)
             	<a style="margin-left:10px;" href="$home$apphome/views/modules/asset/editor/comment/index.html?assetid=$asset.id&sourcepath=$asset.sourcepath&hitssessionid=#esc($hitssessionid)" class="comments"><i class="fas fa-comments"></i> $comments.size()</a>
             #end

@@ -35,6 +35,7 @@ $context.putPageValue("existingcategories", $existingcategories)
 				
 		#end
 		</div>
+		#set($caneditassetcategories = $permissions.canModule("asset", "editassetcategories"))
 		#if( $caneditassetcategories )
 		 	<a class="ajax list-delete"  
 		 		data-targetdiv="assetcategoryresultsmediaviewer" 

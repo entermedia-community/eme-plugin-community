@@ -24,6 +24,7 @@
 			</li>
 		#end
 
+		#set($canviewmetadatageneral = $permissions.canModule("asset", "viewmetadatageneral"))
 		#if( !$previewonly && $canviewmetadatageneral )
 			<li class="assettabnav #if($opentab == "viewproperties")tabselected#end">
 				<a class="expandmenu ajax " 
@@ -42,6 +43,7 @@
 		#if( !$browser.isNarrow() )
 
 			#if (!$ismulti && $canviewmetadatageneral)
+				#set($candownload = $permissions.canModule("asset", "download"))
 				#if(!$candownload && $asset.getFileFormat() == "pdf")
 				#else
 				<li class="assettabnav #if($opentab == "viewpreview")tabselected#end">	
@@ -68,6 +70,11 @@
 		#end
 
 		#if( !$ismulti)
+			#set($canshareasset = $permissions.canModule("asset", "shareasset"))
+			#set($canviewmediaedit = $permissions.canModule("asset", "viewmediaedit"))
+			#set($canviewcroppingtool = $permissions.canModule("asset", "viewcroppingtool"))
+			#set($canviewtimeline = $permissions.canModule("asset", "viewtimeline"))
+			#set($canviewclosedcaptions = $permissions.canModule("asset", "viewclosedcaptions"))
 			#if ($canshareasset || $canviewcroppingtool || $canviewmediaedit || (($rendertype =="video" || $rendertype  == "audio") && ($canviewclosedcaptions || $canviewtimeline)))
 				#if ($rendertype =="video" || $rendertype  == "image" || $rendertype  == "audio" ) 
 				<li class="assettabnav #if($opentab == 'assetedit')tabselected #end">
@@ -88,6 +95,8 @@
 		#end
 
 		#if( !$ismulti)
+			#set($canviewconversions = $permissions.canModule("asset", "viewconversions"))
+			#set($canconverthistory = $permissions.canModule("asset", "converthistory"))
 			#if ($canviewconversions || $canconverthistory || $canconverthistory )
 				<li class="assettabnav #if($opentab == 'assethistory')tabselected #end">
 					<a class="expandmenu assettab ajax rememberassettab" 
@@ -104,6 +113,8 @@
 			#end
 		#end
 
+		#set($canconvert = $permissions.canModule("asset", "convert"))
+		#set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 		#if(!$ismulti && ($candownload || $canconvert || $candownloadfpo))
 		<li class="assettabnav">
 			#set($dlink = "$applink/views/modules/asset/activity/downloadassets.html") 

@@ -4,6 +4,7 @@
 
 <div class="row" style="max-width: 850px;margin: auto;">
 
+#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 #if( $canviewupload)
      <div class="col-3">
   		<a class="ajax btnthumbnail"  targetdivinner="createmediapanel" href="$home$apphome/components/createmedia/upload/index.html?collectionid=$!collectionid&nodeID=$!nodeID">

@@ -6,6 +6,7 @@
 #set($moduleid = $module.id)
 
 #if( $moduleid == "asset" && $content.section != "uploadmedia" )
+	#set($canviewbreadcrumb = $permissions.canModule("asset", "viewbreadcrumb"))
 	#if($canviewbreadcrumb)
 		#set($topentityid = $context.getRequestParameter("topentityid"))
 		#set($entityid = $context.getRequestParameter("entityid"))

@@ -5,6 +5,7 @@
 	#set( $permissionname = "caneditasset")
 	#set( $viewid = "conversionsresultstable")
 
+	#set($canviewconversions = $permissions.canModule("asset", "viewconversions"))
 	#if($canviewconversions)
 	<div class="assetpanel-editorinner">
 		#set( $args = "parentid=$!asset.id&assetid=$asset.id&catalogid=$mediaarchive.getCatalogId()&searchtype=$searchtype&fieldexternalid=$fieldexternalid&fieldexternalvalue=$fieldexternalvalue&listid=$!listid&listexternalid=$!listexternalid&permissionname=$permissionname&viewid=$viewid&edit=false&${searchtype}sortby=orderingUp")
@@ -14,6 +15,7 @@
 		$pages.include("$apphome/views/modules/asset/editors/dataasset/generictable.html?$args", $context)
 
 		<div class="d-flex px-2">
+			#set($canconvert = $permissions.canModule("asset", "convert"))
 			#if($canshowadmintoolbar && $canconvert)
 			<a class="btn btn-primary previewcrop-btn mt-2 me-2"
 				data-oemaxlevel="1"  

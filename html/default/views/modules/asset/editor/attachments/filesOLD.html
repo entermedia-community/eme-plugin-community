@@ -1,5 +1,6 @@
 	#set( $path = "/WEB-INF/data/$catalogid/originals/$asset.sourcepath/" )
 	
+	#set($canchangeattachment = $permissions.canModule("asset", "changeattachment"))
 	#if( $canchangeattachment && $attachments && $attachments.size() > 0)
 	<form name="attachmentform" id="attachmentform" action="$home$apphome/views/modules/asset/editor/attachments/changeattachment.html">
 	<input type="hidden" name="path" value="$path"/>

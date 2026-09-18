@@ -56,12 +56,14 @@ $context.putPageValue("targetdiv",$targetdiv)
 
 #set( $assetid = $context.getRequestParameter("assetid") )
 
+#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 #if($canviewupload || $canviewcategoryupload)
 	#set($canupload = true)
 #end
 $context.putPageValue("canupload", $!canupload)
 		
 		
+#set($canviewcategorysearch = $permissions.canModule("asset", "viewcategorysearch"))
 <div class="searchcategories-tree #if(!$canviewcategorysearch) h-100 #end">
     <div class="assetdropcategory assetdropcategorymove searchcategories-treecontainer h-100" >
 

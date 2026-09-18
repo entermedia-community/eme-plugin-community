@@ -36,6 +36,9 @@
     #end
 
     #if($user.getId())
+      #set($canconvert = $permissions.canModule("asset", "convert"))
+      #set($candownload = $permissions.canModule("asset", "download"))
+      #set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
       #if($candownload || $canconvert || $candownloadfpo)
         <div class="sidebar-togglers #if($sidebarcomponent == "userdownloads") sidebar-selected #end">
           <a href="#" class="sidebar-toggler sidebar-toggler-show" data-action="show"

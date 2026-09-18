@@ -51,6 +51,8 @@ $context.putPageValue("urlbarprefix", $urlbarprefix)
 		$userprofile.setValue($treename, $treestatus)
 	#end
 	$context.putPageValue("dialogtreestatus",$treestatus)
+
+	#set($canviewcategorytree = $permissions.canModule("asset", "viewcategorytree"))
 	<div class="embedmediacontainer">
 		#if($canviewcategorytree && $treestatus=="open")
 			<div class="embedmediacol embedmediacol-tree embedtreestatus$treestatus">
@@ -67,7 +69,7 @@ $context.putPageValue("urlbarprefix", $urlbarprefix)
 						<h3 class="embedmediacolheader">[[Folders]]</h3>
 						<i class="bi bi-chevron-left"></i>
 					</a>
-					
+					#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 					#if($canviewupload && $entitymodule.getBoolean("enableuploading") && $permissions.canModule($entitymodule, "upload_files"))
 						<a href="" 
 							class="createfoldertree"
@@ -85,6 +87,7 @@ $context.putPageValue("urlbarprefix", $urlbarprefix)
 		$context.putPageValue("searchhome", $searchhome)
 		
 		#if($canviewcategorytree && $treestatus=="open")	
+				#set($canviewcategorysearch = $permissions.canModule("asset", "viewcategorysearch"))
 				<div class="searchcategories-tree #if(!$canviewcategorysearch) h-100 #end overflow-y">
 					<div class="assetdropcategory searchcategories-treecontainer #if(!$canviewcategorysearch) h-100 #else searchcategories-treecontainer-max #end categorytreescrolllable" >
 						#set($emtreehome = "$apphome/views/modules/asset/components/emtree")

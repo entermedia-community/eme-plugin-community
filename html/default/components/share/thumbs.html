@@ -6,6 +6,8 @@
 
 	#foreach ($preset in $thumpresets)
 		#set($ok = false)
+		#set($canconvert = $permissions.canModule("asset", "convert"))
+		#set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 		#if($canconvert && $candownloadfpo)
 			#set($ok = true) 
 		#elseif ($canconvert && $preset.watermark != "true")
@@ -13,6 +15,7 @@
 		#elseif($candownloadfpo && $preset.watermark == "true")
 			#set($ok = true) 
 		#end
+		#set($candownload = $permissions.canModule("asset", "download"))
 		#if($preset.id == "0" && $candownload)
 			#set($ok = true) 
 		#end

@@ -21,6 +21,7 @@
 		<a href="#esc($userlink)" title="$chatuser.getAnonNickName()"><img
 			src="${userimageurl}" class="img-fluid usericon"></a>
 	</div>
+	#set($candeletecomments = $permissions.canModule("asset", "deletecomments"))
 	#if($candeletecomments)
 	##	<div class="float-right" >
 	## 	 <a class="confirm" data-confirm="Are you sure?" title="Delete message"

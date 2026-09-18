@@ -6,6 +6,7 @@
 <div id="asset-editor-container" class="h-100">
 <h2>[[Media Files]]</h2>
 	#set($title = $asset.name)
+	#set($candownload = $permissions.canModule("asset", "download"))
 	#if($candownload)	
 	<div style="padding:10px 0">
 		#if( $desktop )
@@ -122,6 +123,7 @@ $context.putPageValue("results", $results)
 							title="[[Crop]] $!presetdata.name"><i class="fas fa-crop"></i></a> 
 					 #end
 					 ##Share
+					 #set($canembedasset = $permissions.canModule("asset", "embedasset"))
 					 #if($canembedasset)
 						<a class="btn btn-xs btn-dark emdialog" 
 					    	href="$siteroot$apphome/views/modules/asset/editor/media/share.html?assetid=${asset.id}&presetid=${presetdata.id}"

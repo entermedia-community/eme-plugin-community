@@ -19,11 +19,13 @@ $context.putPageValue("asset", $asset)
       <div class="d-flex flex-column  flex-grow-1">
         <div class="d-flex align-items-center border-bottom-subtle w-100 px-3 pb-2 mb-4">
           <h4 class="m-0 p-0" >[[Presets]]</h4> 
+		  #set($canviewcroppingtool = $permissions.canModule("asset", "viewcroppingtool"))
 		  #if($canviewcroppingtool)
 		  <span class="btn btn-sm mx-1">&middot;</span><span class="text-muted">[[Click one to edit]]</span>
 		  #end
         </div>
         <div class="crop-presets overflow-y px-4 pt-1 pe-3 py-4">
+			#set($candownload = $permissions.canModule("asset", "download"))
 			#if ($candownload)
 			<div class="crop-preview">
                 <span>[[Original]]</span> 
@@ -176,6 +178,7 @@ $context.putPageValue("asset", $asset)
 					title="[[Download]] #text($presetdata)">
                     <i class="bi bi-download"></i>
                   </a>
+				  #set($canshareasset = $permissions.canModule("asset", "shareasset"))
 				  #if($canshareasset)
                   <a class="btn btn-sm icon-btn-sm btn-accent emdialog"
                     data-hidefooter="true"

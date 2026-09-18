@@ -2,6 +2,7 @@
 	[[This share has expired]]. 
 #end
 
+#set($canviewassets = $permissions.canModule("asset", "viewassets"))
 #if( $canviewassets || !$expired )
 	$pages.include("$apphome/views/modules/asset/activity/checkout/listitems.html")
 #end

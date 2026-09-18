@@ -21,6 +21,9 @@
 #end
 <div  class="asset-menu">
 <ul id="assetmenu">
+	#set($candownload = $permissions.canModule("asset", "download"))
+	#set($candeleteasset = $permissions.canModule("asset", "deleteasset"))
+	#set($canprintpreview = $permissions.canModule("asset", "printpreview"))
 	#if($canprintpreview || $candownload || $candeleteasset)
 	<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" title="[[File Menu]]">[[File]]</a>
     	<ul class="dropdown-menu">
@@ -28,6 +31,8 @@
 	 			#set($printurl = "$home$apphome/views/modules/asset/editor/printpreview/index.html?sourcepath=$asset.sourcepath&hitssessionid=$!{hitssessionid}")
 				<li><a class="print " target="_blank" data-hidefooter="true"  href="#urlescape($printurl)" title="[[Print Preview]]">[[Print]]</a></li>
 			#end
+			#set($canconvert = $permissions.canModule("asset", "convert"))
+			#set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 			#if($candownload || $canconvert || $candownloadfpo)
 				#if( $asset.getId().startsWith("multiedit:") )
 					<li><a href="$home$apphome/views/modules/asset/activity/downloadassets.html?hitssessionid=$!hits.getSessionId()" >[[Download]]</a></li>
@@ -52,15 +57,19 @@
     	</ul>
     </li>
     #end
+    #set($canshareasset = $permissions.canModule("asset", "shareasset"))
     #if ( $canshareasset )
     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" title="[[Share Menu]]">[[Share]]</a>
     	<ul class="dropdown-menu">
+			#set($canpublish = $permissions.canModule("asset", "publish"))
 			#if ($canpublish)
                	<li><a class="emdialog"  data-hidefooter="true"   href="$home$apphome/views/modules/asset/activity/publishassets.html?assetid=$asset.id" >[[Publish]]</a></li>
                #end
+               #set($canemaillink = $permissions.canModule("asset", "emaillink"))
                #if( $canemaillink )
                	<li><a class="emdialog"  data-hidefooter="true"   href="$home$apphome/views/modules/asset/activity/emailassets.html?assetid=$asset.id" >[[Email]]</a></li>
                #end
+               #set($canembedasset = $permissions.canModule("asset", "embedasset"))
                #if( $canembedasset && !$multi)
                	<li><a class="emdialog"  data-hidefooter="true"   href="$home$componenthome/share/embed.html?assetid=$asset.id" >[[Embed]]</a></li>
                #end
@@ -89,6 +98,7 @@
 		#set( $inmultiok = ($link.multiedit && $link.multiedit == "true") )
 		#set( $text = $link.name)
 		
+		#set($canviewmetadatageneral = $permissions.canModule("asset", "viewmetadatageneral"))
 		#if($link.id == "metadatageneral"  &&  $canviewmetadatageneral=="true")
 			#set( $text = "View Metadata") ##change label
             #set( $permission = true)

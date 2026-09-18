@@ -1,4 +1,5 @@
 #set( $badges = $mediaarchive.getBadges($hit) )
+#set($canshowbadge = $permissions.canModule("asset", "showbadge"))
 #if($canshowbadge && $badges)
 	<div class="badgecontainer">
 	#foreach($badge in $badges)

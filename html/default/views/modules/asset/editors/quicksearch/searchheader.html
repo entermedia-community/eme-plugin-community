@@ -3,6 +3,7 @@
 #end
 #set($hitssessionid = $hits.getSessionId())
 #set($moduleid = $module.id)
+#set($canviewbreadcrumb = $permissions.canModule("asset", "viewbreadcrumb"))
 #if($canviewbreadcrumb)
 	#ifnull($category)
 		#set($categoryid = $context.getRequestParameter("categoryid"))

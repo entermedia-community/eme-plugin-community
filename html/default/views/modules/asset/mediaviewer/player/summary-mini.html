@@ -46,6 +46,7 @@
 		    #if ($attachmentcount > 0)
 		       	<a href="$home$apphome/views/modules/asset/editor/attachments/index.html?assetid=$asset.id&hitssessionid=$!{hitssessionid}" class="attachments">$attachmentcount<span>&nbsp;</span></a>
 		    #end
+		    #set($canviewvoting = $permissions.canModule("asset", "viewvoting"))
 		    #if ( $canviewvoting )
 			    <div id="assetVoteCount" class="media-info-icons">
 		        	$pages.include("$apphome/views/modules/asset/editor/voting/index.html", $context)

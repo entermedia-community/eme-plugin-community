@@ -1,3 +1,4 @@
+#set($canviewcategorysearch = $permissions.canModule("asset", "viewcategorysearch"))
 <div class="searchcategories-tree #if(!$canviewcategorysearch) h-100 #end">
     <div class="assetdropcategory assetdropcategorymove searchcategories-treecontainer h-100" >
 

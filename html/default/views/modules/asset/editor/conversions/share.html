@@ -1,4 +1,5 @@
 #set($mediadbappid=$mediaarchive.getMediaDbId())
+#set($canembedasset = $permissions.canModule("asset", "embedasset"))
 #if($canembedasset)
 
 #end

@@ -4,6 +4,7 @@
 #set($item = $pages.getPage($originalpath))
 <tr #if($even) style="background-color:#EEEEEE;" #end>
 
+#set($canchangeattachment = $permissions.canModule("asset", "changeattachment"))
 #if( $canchangeattachment )
 	<td nowrap="true" style="text-align: center;">
 		

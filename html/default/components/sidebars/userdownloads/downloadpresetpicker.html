@@ -38,6 +38,7 @@
 	<input type="hidden" name="ordertype.value" value="desktopdownload" />
 	
 		<h4>$orderitems.size() [[Items]]</h4>
+		#set($canconvert = $permissions.canModule("asset", "convert"))
 		#if($canconvert)
 		<div>[[Choose a download format for each type of asset]].</div>
 		#end
@@ -64,6 +65,7 @@
 					#foreach ($presetoption in $renderoption.getPresetOptions())
 						#set($preset = $presetoption.getPreset())
 						#set($ok = false)
+						#set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 						#if($canconvert && $candownloadfpo)
 							#set($ok = true) 
 						#elseif ($canconvert && $preset.watermark != "true")
@@ -71,6 +73,7 @@
 						#elseif($candownloadfpo && $preset.watermark == "true")
 							#set($ok = true) 
 						#end
+						#set($candownload = $permissions.canModule("asset", "download"))
 						#if($preset.id == "0" && $candownload)
 							#set($ok = true) 
 						#end

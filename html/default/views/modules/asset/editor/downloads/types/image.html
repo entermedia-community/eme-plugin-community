@@ -48,6 +48,7 @@
 		 </span>
 	</div>
 	
+#set($candownload = $permissions.canModule("asset", "download"))
 #if( $candownload)
 	<div class="row">
 		<span>[[Original Download]]: </span>

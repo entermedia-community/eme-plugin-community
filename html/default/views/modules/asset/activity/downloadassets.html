@@ -40,6 +40,7 @@
 		<input type="hidden" name="ordertype.value" value="download" />
 		
 		<h4>$orderitems.size() [[Items]]</h4>
+		#set($canconvert = $permissions.canModule("asset", "convert"))
 		#if($canconvert)
 		<div>[[Choose a download format for each type of asset]].</div>
 		#end
@@ -92,6 +93,7 @@
 				#set($null = $presetquery.addExact("inputtype","all"))
 				#set($null = $presetquery.addSortBy("ordering"))
 				#set( $results = $presetsearcher.search($presetquery) )
+				#set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 				#if($canconvert || $candownloadfpo) 
 			  		<select name="${rendertypeid}.presetid.value" class="form-control form-control-sm">
 					#foreach ($preset in $results)
@@ -103,6 +105,7 @@
 						#elseif($candownloadfpo && $preset.watermark == "true")
 							#set($ok = true) 
 						#end
+						#set($candownload = $permissions.canModule("asset", "download"))
 						#if($preset.id == "0" && $candownload)
 							#set($ok = true) 
 						#end

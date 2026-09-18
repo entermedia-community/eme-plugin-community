@@ -49,6 +49,7 @@ $context.putPageValue("searcher",$mediaarchive.getSearcher($searchtype))
 
 $pages.include("/$applicationid/components/xml/detaileditor.html", $context)
 
+#set($caneditmetadatasetup = $permissions.canModule("asset", "editmetadatasetup"))
 #if( $caneditmetadatasetup )
 	
 	 <a class=" float-right btn btn-light" href="$siteroot$apphome/views/settings/modules/${searcher.searchType}/metadata/views/index.html?viewid=$viewid&viewpath=$viewpath">

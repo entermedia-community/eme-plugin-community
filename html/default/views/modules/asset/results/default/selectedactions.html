@@ -13,6 +13,8 @@
 				title="[[Edit selected assets]]">$text</a></li>
 					
 					
+		#set($caneditallassets = $permissions.canModule("asset", "editallassets"))
+		#set($canviewapprovereject = $permissions.canModule("asset", "viewapprovereject"))
 		#if( $canviewapprovereject && ($caneditcollection || $caneditallassets ))
 			<li class="dropend">
 				<a class="dropdown-item  dropdown-toggle" href="#" data-bs-toggle="dropdown">[[Approve or Reject]]</a>
@@ -58,6 +60,7 @@
 			</li>
 		#end
 		
+		#set($canmultidelete = $permissions.canModule("asset", "multidelete"))
 		#if($canmultidelete)
 			#set($deleteurl = "$siteroot${apphome}/views/modules/asset/mediaviewer/fullscreen/delete/index.html?${hits.getSearchType()}hitssessionid=$hits.getSessionId()&nodeID=$!catid")
 			#if($module=="librarycollection")
@@ -69,6 +72,7 @@
 	 			href="$deleteurl">[[Delete]] $hits.getSelectionSize() [[selected assets]]</a></li>
 	   	#end 
 	   	
+	   	#set($canprintpreview = $permissions.canModule("asset", "printpreview"))
 	   	#if($canprintpreview)
 	    	 <li><a class="dropdown-item" href="$siteroot$apphome/views/modules/asset/editor/printpreview/printselections.html?${hits.getSearchType()}hitssessionid=$hits.getSessionId()">[[Print Assets]]</a></li>
 		#end
@@ -165,6 +169,8 @@
 	
 
 	
+	#set($canemaillink = $permissions.canModule("asset", "emaillink"))
+	#set($canpublish = $permissions.canModule("asset", "publish"))
 	#if($canpublish || $canemaillink || $canquickgallery)
 	<li class=" dropend">
 	<a class="resultsnavlink dropdown-toggle" href="#" id="navbarShare$!{moduleid}" role="button" data-toggle="dropdown"  data-bs-toggle="dropdown"
@@ -190,6 +196,7 @@
 
 	
 		
+	#set($canquickpublish = $permissions.canModule("asset", "quickpublish"))
 	#if($canquickpublish )
 		#set($quickpublishlist = $mediaarchive.getList("quickpublish"))
 		<li>

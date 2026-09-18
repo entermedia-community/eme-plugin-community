@@ -23,6 +23,7 @@
 			</form>
 
     <h3>[[Checkout Items]]</h3>
+    #set($canviewassets = $permissions.canModule("asset", "viewassets"))
     ##if( $canviewassets || !$expired )
         $pages.include("$apphome/views/modules/asset/activity/checkout/listitems.html")
     ##end

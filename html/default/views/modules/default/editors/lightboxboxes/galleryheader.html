@@ -136,6 +136,7 @@ $context.putPageValue("entityid", $entityid)
 			#if ($resultview != "map")
 				
 				#if($parentmoduleid)
+					#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 					#if(!$hideupload && $canviewupload && $parentmoduleid != "favorites" && $permissions.can($parentmoduleid, "upload_files"))
 					<li>
 						<a href="#"
@@ -151,6 +152,7 @@ $context.putPageValue("entityid", $entityid)
 							title="[[Upload]]"><i class="bi bi-upload"></i></a>
 					</li>
 					#end
+					#set($candownload = $permissions.canModule("asset", "download"))
 					#if ($candownload && $hits && $hits.getSelectionSize() > 0)
 					<li>
 						<a  class='resultsnavlink emdialog px-3'
@@ -190,6 +192,8 @@ $context.putPageValue("entityid", $entityid)
 						<li><a class="dropdown-item selectpage" data-action="page">[[Select This Page]]</a></li>
 
 						
+						#set($canconvert = $permissions.canModule("asset", "convert"))
+						#set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 						#if( $user && ($candownload || $canconvert || $candownloadfpo ) )
 							#if($hits && $hits.getSelectionSize() > 0)
 							<li><a class="dropdown-item emdialog"  

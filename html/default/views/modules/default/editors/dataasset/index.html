@@ -140,6 +140,7 @@ $context.putPageValue("searchtype", $searchtype)
 								href="${edithome}/generalinformation/metadatapanel.html?save=false&${args}">[[Cancel]]</a>
 						</div>
 					
+						#set($caneditmetadatasetup = $permissions.canModule("asset", "editmetadatasetup"))
 						#if($caneditmetadatasetup)
 						<a class="emdialog float-right btn btn-secondary"
 							 href="$siteroot$apphome/views/settings/modules/$!{moduleid}/metadata/views/dialog/index.html?viewid=${viewid}" 

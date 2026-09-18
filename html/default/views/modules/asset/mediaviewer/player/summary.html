@@ -125,6 +125,7 @@ $context.putPageValue("assetheight",$assetheight)
 				</div>
 			#end
   
+			#set($canviewapprovereject = $permissions.canModule("asset", "viewapprovereject"))
 			#if($canviewapprovereject && ($caneditasset || $canviewsettings) )
 			<div class="btn-group dropup">
 				<a href="#" 
@@ -177,8 +178,10 @@ $context.putPageValue("assetheight",$assetheight)
 				[[Replace Original File]]
 			</a>
 			#end
+			#set($candeleteasset = $permissions.canModule("asset", "deleteasset"))
 			#if($canviewsettings || ($caneditasset && $candeleteasset ))
 				#if ( $ismulti )
+					#set($canmultidelete = $permissions.canModule("asset", "multidelete"))
 					#if($canmultidelete)  
 					<a class="btn btn-danger  emdialog" href="$siteroot${apphome}/views/modules/asset/mediaviewer/fullscreen/delete/index.html?collectionid=$!collectionid&hitssessionid=$!hitssessionid"
 					title="[[Delete assets]]">
@@ -219,6 +222,7 @@ $context.putPageValue("assetheight",$assetheight)
 		     #end
 			
 			## Download Button 
+			#set($candownload = $permissions.canModule("asset", "download"))
 			#if($candownload)
 				#if( $desktop )
 		        	<a href="#" class="emdesktopdownload grid-gallery-download" data-assetid="$asset.id" title="[[Download]]  #esc($!title)">

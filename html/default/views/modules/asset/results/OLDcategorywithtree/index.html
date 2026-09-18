@@ -35,6 +35,7 @@ $context.putPageValue("dialogresults", true)
 		$context.putPageValue("selectednodes", $categoryid)
 		
 		#set($canupload = false)
+		#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 		#if($canviewupload)
 			#if($parentmodule.getBoolean("enableuploading") && $permissions.can($parentmoduleid, "upload_files"))
 				#set($canupload = true)

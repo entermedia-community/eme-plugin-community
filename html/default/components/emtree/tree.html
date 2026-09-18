@@ -25,6 +25,7 @@
 	#set( $canupload = $context.getRequestParameter("canupload" ) )
 #end
 #ifnull($canupload)
+	#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 	#if($canviewupload || $canviewcategoryupload)
 			#set($canupload = true)
 	#end
@@ -106,6 +107,8 @@
 				#if( $canupload == "true")
 					<a href="#" class="cat-uploadfromtree" data-oemaxlevel="$!uploadmaxlevel" title="[[Upload]]"><i class="fas fa-upload"></i></a>
 				#end
+				#set($caneditcategorytree = $permissions.canModule("asset", "editcategorytree"))
+				#set($caneditcategories = $permissions.canModule("asset", "editcategories"))
 				#if(!$hidecontextmenu && ($caneditcategorytree || $caneditcategories))
 					<a href="#" class="cat-menu" title="$cat.name"><i class="fas fa-ellipsis-v"></i></a>
 				#end
@@ -269,6 +272,7 @@
 		#if( $canupload )
 				<li><a id="addmedia" tabindex="-1" href="#" data-cancelsubmit="false" data-oemaxlevel="$!{uploadmaxlevel}">[[Upload]]</a></li>	
 	    #end
+	    #set($candownload = $permissions.canModule("asset", "download"))
 	    #if( $candownload  )
 	    	<li><a id="downloadnode" tabindex="-1" href="#">[[Download]]</a></li>
 	    #end

@@ -5,6 +5,7 @@
   #elseif($sidebarcomponent == "settings" )
     #set($sidebarurl = "$apphome/components/sidebars/settings/index.html")
   #elseif($sidebarcomponent == "localdrives" )
+    #set($canviewcategorynav = $permissions.canModule("asset", "viewcategorynav"))
     #if($canviewcategorynav && $desktop)
       #set( $selectedModuleId = $userprofile.get("desktop_lastselected_module") )
       #ifnull($selectedModuleId )
@@ -17,6 +18,9 @@
       #set($sidebarurl = "$apphome/components/sidebars/categories/index.html")
     #end
   #elseif($sidebarcomponent == "userdownloads" )
+    #set($canconvert = $permissions.canModule("asset", "convert"))
+    #set($candownload = $permissions.canModule("asset", "download"))
+    #set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
     #if($candownload || $canconvert || $candownloadfpo)
       #set($sidebarurl = "$apphome/components/sidebars/userdownloads/index.html")
     #end

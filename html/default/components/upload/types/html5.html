@@ -155,6 +155,7 @@
 			<div class="upload-detail-box">
 		    <div class="ui-widget-header toggle-upload-details" data-status="closed">
 		    <i class="bi bi-caret-right-fill"></i> [[Add More Details]]
+		    	#set($caneditmetadatasetup = $permissions.canModule("asset", "editmetadatasetup"))
 		    	#if( $caneditmetadatasetup )
 		    	<span class="widget-header-edit">
 				 <a class="ajax" 

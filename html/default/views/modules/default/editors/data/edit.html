@@ -64,6 +64,7 @@ $context.putPageValue("viewid", $viewid)
 						#end
 					</div>
 		
+					#set($caneditmetadatasetup = $permissions.canModule("asset", "editmetadatasetup"))
 					#if( $caneditmetadatasetup )
 						<a class="btn btn-light emdialog" 
 							href="$siteroot$apphome/views/settings/modules/${searcher.searchType}/metadata/views/dialog/index.html?viewid=$viewid"

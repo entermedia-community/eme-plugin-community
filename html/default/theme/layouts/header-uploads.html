@@ -17,6 +17,7 @@
 </li> 
 #end
 #ifnull($uploadtomoduleid)
+	#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 	#if( $uploadmodules > 0 && $canviewupload )
 		<li class="dropdown">
 			<a class="btn-topnav dropdown-toggle" href="#" role="button" id="dropdownMenuUploadTo" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

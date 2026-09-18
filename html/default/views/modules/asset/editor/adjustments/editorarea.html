@@ -15,6 +15,7 @@
           <a href="#" id="exportAs" title="[[Download to your device]]">
             <i class="bi bi-download"></i>
           </a>
+          #set($canmediaeditsave = $permissions.canModule("asset", "mediaeditsave"))
           #if($canmediaeditsave)
           
           #if( $asset.fileformat == "jpeg" || $asset.fileformat == "jpg" || $asset.fileformat == "png" ) 
@@ -28,6 +29,7 @@
           #end
           
           #end
+          #set($canmediaeditsaveas = $permissions.canModule("asset", "mediaeditsaveas"))
           #if($canmediaeditsaveas)
           <a href="#" id="saveAs" title="[[Save as preset file]]">
             <i class="bi bi-copy"></i>

@@ -6,22 +6,27 @@
 <div id="asset-editor-container" class="h=100 d-flex flex-column">
   <div class="d-flex align-items-center share-tabs auto-active-container">
 
+		#set($canshareasset = $permissions.canModule("asset", "shareasset"))
+		#set($canviewcroppingtool = $permissions.canModule("asset", "viewcroppingtool"))
 		#if( $canshareasset || $canviewcroppingtool)
 			<a class='ajax auto-active-link #if($activetab == "share")current #end' data-activetab="share" data-oemaxlevel="1" data-targetdivinner="shareContainer" href="$siteroot$apphome/views/modules/asset/editor/share/share.html?assetid=$asset.id&collectionid=$!collectionid">[[Share]]</a>
 		#else
 			#set( $activetab = "emblinks" )
 		#end
 
+    #set($canembedasset = $permissions.canModule("asset", "embedasset"))
     #if( $canembedasset)
       <a class='ajax auto-active-link #if($activetab == "emblinks")current #end' data-activetab="emblinks" data-oemaxlevel="1" data-targetdivinner="shareContainer" href="$siteroot$componenthome/share/embed-links.html?assetid=$asset.id&collectionid=$!collectionid">[[Embeds]]</a>
     #else
       #set( $activetab = "email" )
     #end
+    #set($canemaillink = $permissions.canModule("asset", "emaillink"))
     #if( $canemaillink )
       <a class='ajax auto-active-link #if($activetab == "email")current #end' data-activetab="email" data-oemaxlevel="1" data-targetdivinner="shareContainer" href="$siteroot$apphome/views/modules/asset/activity/emailassets.html?assetid=$asset.id">[[Email]]</a>
     #else
       #set( $activetab = "export" )
     #end
+    #set($canpublish = $permissions.canModule("asset", "publish"))
     #if ($canpublish)
       <a class='ajax auto-active-link #if($activetab == "export")current #end' data-activetab="export" data-oemaxlevel="1" data-targetdivinner="shareContainer" href="$siteroot$apphome/views/modules/asset/activity/publishassets.html?assetid=$asset.id">[[Export]]</a>
     #else 

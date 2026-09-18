@@ -169,6 +169,7 @@ $context.putPageValue("resultview", $resultview)
 			
 				#ifnotnull($entitymodule)
 				
+					#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 					#if(!$hideupload && $entitymodule.getBoolean("enableuploading") && $canviewupload && $entitymodule.id != "searchcategory" && $entitymodule.id != "favorites" && $permissions.canModule($entitymodule, "upload_files"))			
 
 						#set($uploadeditor = "${edithome}/upload/uploadtoentity.html")
@@ -187,6 +188,7 @@ $context.putPageValue("resultview", $resultview)
 							title="[[Upload]]"><i class="bi bi-upload"></i></a>
 						</li>
 					#end
+					#set($candownload = $permissions.canModule("asset", "download"))
 					#if ($candownload)
 						#if($desktop)
 							<li class="position-relative desktopSyncPreview">
@@ -285,6 +287,8 @@ $context.putPageValue("resultview", $resultview)
 						#end
 
 						
+						#set($canconvert = $permissions.canModule("asset", "convert"))
+						#set($candownloadfpo = $permissions.canModule("asset", "downloadfpo"))
 						#if( $user && ($candownload || $canconvert || $candownloadfpo ) )
 							<li><a class="dropdown-item"  
 								href="$siteroot$apphome/views/modules/asset/editors/viewfilescategory/index.html?assetshowonlyselections=true&hitssessionid=$!hits.getSessionId()"   

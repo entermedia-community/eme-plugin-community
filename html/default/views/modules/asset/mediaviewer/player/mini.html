@@ -28,6 +28,7 @@
                     $pages.include("$apphome/components/results/thumbnails/${type}.html", $context) 
                 #end 
             </div>
+             #set($canviewvoting = $permissions.canModule("asset", "viewvoting"))
              #if ( $canviewvoting )
 					    <div id="assetVoteCount">
 					        $pages.include("$apphome/views/modules/asset/editor/voting/index.html", $context)

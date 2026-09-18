@@ -28,6 +28,7 @@
 	#end
 	#set( $rendertype = $mediaarchive.getMediaRenderType($asset.fileformat))
 	
+	#set($canviewfaceprofile = $permissions.canModule("asset", "viewfaceprofile"))
 	#if($canviewfaceprofile && ($rendertype == "image" || $rendertype == "video"))
 		$pages.include("${edithome}/generalinformation/faceprofiles.html", $context)
 	#end

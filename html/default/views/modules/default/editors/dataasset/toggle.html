@@ -25,6 +25,7 @@
         <button class="btn btn-link" data-toggle="collapse" data-target="#collapse$!viewid" aria-expanded="true" aria-controls="collapse$!viewid">
           $context.getText($label.toString())
         </button>
+        #set($caneditmetadatasetup = $permissions.canModule("asset", "editmetadatasetup"))
         #if( $caneditmetadatasetup )
 			#if ( $viewpath.contains("$asset.assettype") )
 				#set ( $type = $asset.assettype )

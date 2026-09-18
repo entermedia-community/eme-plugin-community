@@ -16,6 +16,7 @@
 				#set($ok = false)
 
 				#if($screen.id == "timeline")
+					#set($canviewtimeline = $permissions.canModule("asset", "viewtimeline"))
 					#if($rendertype == "video" && $canviewtimeline)
 						#set($ok = true)
 						#if (!$currentab)
@@ -26,6 +27,7 @@
 
 				#if($screen.id == "closedcaptions")
 					#if($rendertype == "video" || $rendertype == "audio")
+						#set($canviewclosedcaptions = $permissions.canModule("asset", "viewclosedcaptions"))
 						#if($canviewclosedcaptions)
 							#set($ok = true)
 							#if (!$currentab)
@@ -37,6 +39,7 @@
 				
 				#if ( $screen.id == "adjustments")
 					#if ($rendertype == "image")
+						#set($canviewmediaedit = $permissions.canModule("asset", "viewmediaedit"))
 						#if($canviewmediaedit)
 							#set($ok = true)
 							#if (!$currentab)
@@ -48,7 +51,12 @@
 
 				#if ( $screen.id == "share")
 				
+					#set($canshareasset = $permissions.canModule("asset", "shareasset"))
+					#set($canviewcroppingtool = $permissions.canModule("asset", "viewcroppingtool"))
 					#if ( ($canshareasset || $canviewcroppingtool) && !$ismulti )
+  					#set($canemaillink = $permissions.canModule("asset", "emaillink"))
+  					#set($canpublish = $permissions.canModule("asset", "publish"))
+  					#set($canembedasset = $permissions.canModule("asset", "embedasset"))
   					#if ($canshareasset || $canpublish || $canemaillink || $canembedasset || $canaddtoproject || $canviewcroppingtool)
 							#set($ok = true)
 						#end

@@ -12,6 +12,7 @@
 			#foreach($screen in $screens)
 				#set($ok = true)
 				#if($screen.id == "converthistory")
+					#set($canviewconversions = $permissions.canModule("asset", "viewconversions"))
 					#if(!$canviewconversions)
 						#set($ok = false)
 					#end

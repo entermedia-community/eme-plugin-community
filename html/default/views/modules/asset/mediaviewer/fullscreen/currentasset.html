@@ -40,6 +40,7 @@ $context.putPageValue("previewonly", $previewonly)
 	#set( $opentab = "viewpreview")
 #end
 
+#set($canviewmetadatageneral = $permissions.canModule("asset", "viewmetadatageneral"))
 #if( !$canviewmetadatageneral )
 	#set( $opentab = "viewpreview")
 #end
@@ -54,6 +55,7 @@ $context.putPageValue("previewonly", $previewonly)
 	#set( $opentab = "viewpreview")
 #end
 
+#set($canviewmediaedit = $permissions.canModule("asset", "viewmediaedit"))
 #if($opentab == "viewdownloads" && !$canviewmediaedit)
 	#set( $opentab = "viewpreview")
 #end

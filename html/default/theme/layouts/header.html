@@ -16,7 +16,7 @@
 			#end
 
 			#ifnull($logourl)
-				#set($logourl = "$!{apphome}/${currenttheme.id}/logo.png")
+				#set($logourl = "$!{apphome}/theme/${currenttheme.id}/logo.png")
 				#set($logowidth = $currenttheme.logowidth)
 				#set($logoheight = $currenttheme.logoheight)
 			#end

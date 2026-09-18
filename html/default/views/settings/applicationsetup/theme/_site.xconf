@@ -2,4 +2,6 @@
 
 <page>
 	<property name="subtab">theme</property>
+	<path-action name="ThemeModule.loadDefaultTheme"/>
+	
 </page>

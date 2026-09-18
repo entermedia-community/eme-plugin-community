@@ -1,0 +1,5 @@
+
+#set($currentthemeid = $context.getRequestParameter("themeid"))
+<div class="themereload" data-redirectok="./index.html"></div>
+$context.putPageValue("viewthemeid", $defaulttheme.id)
+$pages.include("./index.html", $context)

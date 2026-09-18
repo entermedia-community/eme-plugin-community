@@ -1,32 +1,35 @@
-<div id="editlayout">
-  #set($searcher = $mediaarchive.getSearcher("theme"))
-  
-  #set( $themeid = $context.getRequestParameter("themeid"))
-  
-  #ifnull($themeid)
-    #set( $themeid = $content.get("themeid") )
+  #set( $viewthemeid = $context.getRequestParameter("viewthemeid"))
+  #ifnull($viewthemeid)
+    #set( $viewthemeid = $defaulttheme.id )
   #end
-  <div class="d-flex align-items-center justify-content-between mb-2">
-    <h2>[[Theme Editor]]</h2>
-    <div class="d-flex align-items-center">
-      <a class="btn btn-secondary d-none ms-1" href="$home$apphome/views/settings/applicationsetup/theme/copy.html?themeid=$!themeid">[[Copy]]</a>
-      <a class="btn btn-cta ms-1" href="$home$apphome/views/settings/lists/datamanager/list/index.html?searchtype=theme">[[Export]]</a>
-      <a class="btn btn-danger ms-1" href="$home$apphome/views/settings/applicationsetup/theme/reset.html?themeid=$!themeid">[[Reset All]]</a>
-      <a class="btn btn-danger d-none ms-1" href="./remove.html?themeid=$!themeid">[[Remove]]</a>
-    </div>
+<div id="editlayout" class="d-flex"> 
+
+  <div class="theme-sidebar">
+		#set($themes = $mediaarchive.getList("theme"))
+		#foreach($theme in $themes)
+			<a href="$apphome/views/settings/applicationsetup/theme/theme.html?viewthemeid=$theme.id" data-targetdiv="editlayout" 
+			data-updateurl="false" 
+			data-oemaxlevel="1" 
+			class="ajax btn btn-wide #if($viewthemeid==$theme.id) btn-cta #end mb-2">
+      #if($theme.themeicon)
+				<i class="bi bi-${theme.themeicon} ns me-1 mb-2"></i>
+      #else
+        <i class="bi bi-sun ns me-1 mb-2"></i>
+      #end
+				#text($theme)
+        #if ($theme.id==$defaulttheme.id)
+          <span class="small"><i class="bi bi-check-circle me-1"></i> [[Default]]</span>
+        #end
+			</a>
+	  #end
   </div>
-  
-  <div class="d-flex">
-    
-    $pages.include("$apphome/views/settings/applicationsetup/theme/theme-list.html", $context)
-    
-    <div style="flex: 1;">
-      #set($data = $mediaarchive.getData("theme", $themeid))
+   
+
+  <div style="flex: 1;">
+      #set($data = $mediaarchive.getData("theme", $viewthemeid))
       $context.putPageValue("searcher", $searcher)
       $context.putPageValue("data", $data)
-      
-      <!-- <link rel="stylesheet" type="text/css" href="$home$apphome/${themeid}/custom.css?cache=false" /> -->
-      
+     
       #if( $data )
         #if ($message) 
         <div class="alert alert-save fader" role="alert">$message</div>
@@ -60,9 +63,13 @@
               <i class="bi bi-floppy-fill ns me-1"></i>
               [[Save]]
             </button>
+            #if($themeid != $data.id)
+            <a href="$home$apphome/views/settings/applicationsetup/theme/setdefault.html?themeid=$data.id"
+            class="btn btn-secondary ms-2">[[Set as Default]]</a>
+            #else
+              <span class="ps-2"><i class="fas fa-check-circle"></i> [[Current Default Theme]]</span>
+            #end
           </div>
         </form>
       #end
     </div>
-  </div>
-</div>

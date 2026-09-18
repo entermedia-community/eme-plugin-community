@@ -2272,6 +2272,17 @@ function initializeUI() {
 	lQuery(".form-submit-btns").livequery(function () {
 		posiitionSubmitButtons();
 	});
+
+	lQuery(".themereload").livequery(function () {
+		var url = $(this).data("redirectok");
+		customToast("Theme saved, reloading...", {
+			positive: !debugMode,
+			icon: debugMode ? "bug-fill" : "eye-fill",
+		});
+		
+		window.location.href = url;
+		
+	});
 }
 
 jQuery(document).ready(function () {

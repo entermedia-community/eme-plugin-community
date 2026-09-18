@@ -12,6 +12,20 @@
 
 	#if( $viewpermission )
 		#set( $fieldname = $detail.getId() )
+		#if ($values.size() > 4)
+		<div class="mb-2">
+			<select id="${fieldname}select2" 
+					name="${fieldname}.value" 
+					class="listautocomplete choose-select detail-select form-control" 
+					listid="${fieldname}filter" 
+					data-listid="${fieldname}filter" 
+					data-searchtype= '$detail.getListId()'
+					data-searchfield="name"
+					data-allowclear="false">
+				<option value=""></option>
+			</select>
+		</div>
+		#end
 		#foreach($entry in $values)
 			#if($foreach.count<=4)
 				<div class="d-flex align-items-start mb-1">
@@ -28,17 +42,6 @@
 				</div>
 			#end
 		#end
-		#if ($values.size() > 4)
-		<select id="${fieldname}select2" 
-				name="${fieldname}.value" 
-				class="listautocomplete choose-select detail-select form-control" 
-				listid="${fieldname}filter" 
-				data-listid="${fieldname}filter" 
-				data-searchtype= '$detail.getListId()'
-				data-searchfield="name"
-				data-allowclear="false">
-			<option value=""></option>
-		</select>
-		#end
+		
 	#end  ##permission
 #end

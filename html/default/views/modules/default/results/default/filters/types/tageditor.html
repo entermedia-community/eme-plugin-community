@@ -12,7 +12,17 @@
 		<div class="filteroptions">
 		
 		##TODO Show selected first
-		
+		<div class="mb-2">
+			<select id="${searchfield}select2" 
+						name="${searchfield}.values"
+						class="listtags choose-select detail-select form-control" 
+						data-listid="${searchfield}filter" 
+						data-searchtype= '$hits.getSearchType()'
+						data-searchfield="${searchfield}"
+					>
+					<option value=""></option>
+			</select>
+		</div>
 		#foreach($entry in $values)
 			#if($foreach.count < 4)
 				<div class="d-flex align-items-start">
@@ -20,24 +30,8 @@
 					<label for="$entry.getId()${fieldname}_val" class="ms-1">$entry.getText($context) #if( $entry.count > 0)($entry.count)#end</label>
 				</div>	
 			#end	
-				#if ($foreach.count == 4)
-				<select id="${searchfield}select2" 
-					name="${searchfield}.values"
-					class="listtags choose-select detail-select form-control mb-4" 
-					data-listid="${searchfield}filter" 
-					data-searchtype= '$hits.getSearchType()'
-					data-searchfield="${searchfield}"
-				>
-					<option value=""></option>
-				#end	
-				#if ($foreach.count >= 11)	
-					<option value="$entry.getId()">$entry.getText($context) #if( $entry.count > 0)($entry.count)#end</option>
-				#end
-		#end
-		#if ($values.size() >= 11)
-			</select>
-		#end
-		
+				
+		#end	
 		</div>
 
 	#end

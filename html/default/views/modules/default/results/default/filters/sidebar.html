@@ -15,6 +15,7 @@ $context.putPageValue("viewid",$viewid)
 			<button class="btn"><i class="bi bi-chevron-right"></i></button>
 			<h3>[[Summary]]</h3>
 		</div>
+		#set($caneditmetadatasetup = $permissions.canModule("asset", "editmetadatasetup"))
 		#if($caneditmetadatasetup)
 			<a href="$applink/views/settings/modules/${moduleid}/metadata/viewssystem/dialog/index.html?viewid=$viewid"
 				class="emdialog summary-edit-fields summary-gear text-center"
@@ -34,8 +35,9 @@ $context.putPageValue("viewid",$viewid)
 					<span class="d-inline-block text-brand pe-1 w-100 showing">
 						#set($categorybradcrumb = $categorypath.replace("/", " &rsaquo; "))
 						<strong>[[Category Path]]</strong>
-						<br>
+						<div class="ps-2">
 						<span>#elidemiddle($categorybradcrumb, 100)</span>
+						</div>
 					</span> 
 				</div>
 			#end
@@ -68,6 +70,7 @@ $context.putPageValue("viewid",$viewid)
 					<strong>#text($module)</strong> <span>($totalResults)</span>
 				</span>
 				#if($totalResults> 0 )
+				<div class="ps-2">
 					#if($resultview != "stackedgallery" && $resultview != "brickvertical")
 						<span   class="d-inline-block text-brand pe-1 w-100 showing">
 							[[Showing]] <strong>$showingFrom</strong> &mdash; <strong>$showingTo</strong>
@@ -77,6 +80,7 @@ $context.putPageValue("viewid",$viewid)
 							[[Showing]] <strong>$totalResults</strong>
 						</span> 
 					#end
+				</div>
 				#end
 
 				#set ($currentSort = $hits.searchQuery.getSortByDetail() )
@@ -86,7 +90,7 @@ $context.putPageValue("viewid",$viewid)
 					#set($sortOrder = "desc")
 				#end
 				
-				<span class="d-inline-block text-brand pe-1 w-100 showing">
+				<span class="d-inline-block text-brand ps-2 pe-1 w-100 showing">
 					[[Sorted by]] <a href="$searchhome/filters/dialogsort.html" 
 					class="emdialog emsort #if($selectedpreference) closed #end text-success"
 					data-oemaxlevel=""
@@ -130,7 +134,7 @@ $context.putPageValue("viewid",$viewid)
 		#if($canviewentitiesbreadcrumb && $moduleid == "asset")
 			#set( $entities = $userprofile.getEntitiesInParent($category) )
 			#if($entities && $entities.size() > 0)
-				<div class="filter-box">
+				<div class="filter-box ps-2">
 					<div class="filter-box-header">
 						<div class="d-flex align-items-center toggle-filter sidetoggle flex-grow-1" data-target="searchfilterboxrelatedentity">
 							<span class="me-2">
@@ -185,7 +189,5 @@ $context.putPageValue("viewid",$viewid)
 			#end
 		#end
 		</div>
-		
-		
 	</div>
 </div>

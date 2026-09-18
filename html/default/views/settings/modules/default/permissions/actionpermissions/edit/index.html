@@ -10,12 +10,16 @@
 		#set($permissionassigned = $permissionManager.loadEntitySettingsGroupPermissions($moduleid, $groupid))
 	#end
 #end
+
+
 <div id="savepermissions">
 <form method="post" 
 	action="$siteroot$apphome/views/settings/modules/$moduleid/permissions/actionpermissions/edit/save.html"
-	class="autosubmit ajaxform"
+	class="ajaxform"
 	data-oemaxlevel="1"
 	data-targetdiv="savepermissions"
+	data-toastmessage="[[Saving Permissions]]"
+	data-toastsuccess="[[Permissions saved successfully]]"
 	>
 
 	
@@ -26,17 +30,7 @@
 	<div>
 		
     	<table class="table table-striped emdata settings-table">	
-			<thead>
-			<tr class="">
-		    <td valign="middle" style="text-align: center; width: 35px;">
-    		<input id="checkbox-enableall" class="permission-radio" type="checkbox" name="noname" value="" disabled="disabled"
-    			#if( $permissionassigned.isEmpty() )
-    		  		 checked      		  		#end />
-    		</td>
-    		<td valign="middle"><label for="checkbox-enableall" style="padding:5px 0 1px 0;">[[Allow All Permissions]]</label></td>
-    		<td class="caption">[[If no permissions are checked then all enabled]]</td>		        			
-    		</tr>		
-    		</thead>
+
 			#set( $section = "none")
 
 	    	#foreach($type in $mediaarchive.getList("permissionentitytype") )
@@ -51,33 +45,34 @@
 
 	        	#if( !$hits.isEmpty() && $section != $type.id )
 	        		<thead>
-	        			<tr class="sectionlevel section${type.id} togglesection">
-	        			<td colspan="3" style="height: 35px; line-height: 35px;">
+	        			<tr class="sectionlevel sectionheader section${type.id} togglesection">
+						<td colspan="3">
+							#set($val = $permissionassigned.contains($type.id))
+							<input type="checkbox" class="section-checkall me-3" data-section="${type.id}" id="checkall-${type.id}" #if($val) checked #end  />
 							#if( $type.id == "module" )
 								#text($module) [[Permissions]]
 							#else
-	        				#set($permissiontype = $mediaarchive.getCachedData("permissionentitytype", $type.id))
-	        				#text($permissiontype)
+							#set($permissiontype = $mediaarchive.getCachedData("permissionentitytype", $type.id))
+							#text($permissiontype)
 							#end
-
-							##TODO add a check all button for this section
-	        			</td>
+						</td>
 	        			</tr>
 	        		</thead>
 	        		#set( $section = $type.id)
 	        	#end
-				#set($val = $permissionassigned.get($item.id))
+				
+				
 				#foreach( $item in $hits )
+					#set($val = $permissionassigned.contains($item.id))
 	        		<tr class="$type.id">
-	        		<td valign="middle" style="text-align: center; width: 35px;">
-					<input type="hidden" name="field" value="$item.id" />
-	        		<input class="permission-radio" type="checkbox" name="${item.id}.value" value="true" data-permissionsentity="$item.id" id="checkbox-$item.id"
-	        		 #if($val) checked #end/>
-	        		
-	        		</td>
-	        		<td valign="middle"><label for="checkbox-$!item.id" style="padding:5px 0 1px 0;">#text($item.getName())</label></td>
-	        		<td class="caption">$!item.caption</td>
-	        			
+						<td valign="middle" style="text-align: center; width: 35px;">
+						<input type="hidden" name="field" value="$item.id" />
+						<input class="permission-radio" type="checkbox" name="${item.id}.value" value="true" data-permissionsentity="$item.id" id="checkbox-$item.id"
+						#if($val) checked #end />
+						
+						</td>
+						<td valign="middle"><label for="checkbox-$!item.id" style="padding:5px 0 1px 0;">#text($item.getName())</label></td>
+						<td class="caption">$!item.caption</td>
 	        		</tr>
 				#end
 	       	#end

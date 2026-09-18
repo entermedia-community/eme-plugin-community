@@ -2283,6 +2283,27 @@ function initializeUI() {
 		window.location.href = url;
 		
 	});
+
+	lQuery(".section-checkall").livequery("click", function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		var section = $(this).data("section");
+		var checkbox = $("tr." + section + " input.permission-radio");
+		//toggle the checked state of all checkboxes in the section
+		checkbox.prop("checked", !checkbox.prop("checked"));
+		checkbox.css({ 'pointer-events': 'none', 'opacity': '0.5' })
+    			.attr('tabindex', '-1');
+		var form = $(this).closest("form");
+		$(form).trigger("submit");
+	});
+
+
+
+	lQuery(".permission-radio").livequery("click", function (e) {
+			e.stopPropagation();
+			var form = $(this).closest("form");
+			$(form).trigger("submit");
+		});
 }
 
 jQuery(document).ready(function () {

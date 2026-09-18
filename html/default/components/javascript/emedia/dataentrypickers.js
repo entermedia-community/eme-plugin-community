@@ -32,9 +32,6 @@ $(document).ready(function () {
 
 	var selectStart = null;
 	handlemultselections = function (item, e){
-		if ($(e.target).is("input") || $(e.target).is("a")) {
-			return true;
-		}
 
 		if (e.ctrlKey) {
 			toggleselection(item);
@@ -95,6 +92,10 @@ $(document).ready(function () {
 
 		if (e.ctrlKey || e.shiftKey) {
 			return;
+		}
+
+		if ($(e.target).is("input") || $(e.target).is("a")) {
+			return true;
 		}
 
 		e.preventDefault();

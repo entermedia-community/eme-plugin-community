@@ -286,6 +286,11 @@ $context.putPageValue("resultview", $resultview)
 
 						
 						#if( $user && ($candownload || $canconvert || $candownloadfpo ) )
+							<li><a class="dropdown-item"  
+								href="$siteroot$apphome/views/modules/asset/editors/viewfilescategory/index.html?assetshowonlyselections=true&hitssessionid=$!hits.getSessionId()"   
+								 >[[Show Only Selected]] ($!hits.getSelectionSize())</a></li>
+							<li>
+
 							#if($hits && $hits.getSelectionSize() > 0)
 							<li><a class="dropdown-item emdialog"  
 								data-dialogid="downloadeasset" 

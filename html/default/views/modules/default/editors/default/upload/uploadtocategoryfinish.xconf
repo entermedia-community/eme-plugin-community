@@ -13,12 +13,12 @@
 
 	<path-action name="Admin.allowViewing" />
 	
-	<permission name="view">
+	<!-- permission name="view">
 		<or>
 			<pagevalue name="canviewupload" equals="true"/>
 			<pagevalue name="canviewcategoryupload" equals="true"/>			
 		</or>
-	</permission>
+	</permission --> 
 	
 	<property name="threadedupload">true</property>
 	<property name="hitsname">hits</property>

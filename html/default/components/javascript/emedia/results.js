@@ -451,22 +451,7 @@ jQuery(document).ready(function (url, params) {
 		}
 	});
 
-	lQuery(".carousel-indicators li#leftpage").livequery("click", function (e) {
-		e.preventDefault();
-		var div = $("#main-media-viewer");
-		var id = div.data("previouspage");
-		if (id) {
-			showAsset($(this), id);
-		}
-	});
-	lQuery(".carousel-indicators li#rightpage").livequery("click", function (e) {
-		e.preventDefault();
-		var div = $("#main-media-viewer");
-		var id = div.data("nextpage");
-		if (id) {
-			showAsset($(this), id);
-		}
-	});
+	
 
 	lQuery("#main-media").livequery("swipeleft", function () {
 		var div = $("#main-media-viewer");

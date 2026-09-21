@@ -24,10 +24,11 @@
 #ifnull($canupload)
 	#set( $canupload = $context.getRequestParameter("canupload" ) )
 #end
+
 #ifnull($canupload)
 	#set($canviewupload = $permissions.canModule("asset", "viewupload"))
 	#if($canviewupload || $canviewcategoryupload)
-			#set($canupload = true)
+		#set($canupload = true)
 	#end
 #end
 
@@ -45,7 +46,7 @@
 	#set( $collectionid = $categoryCollectionCache.getCollectionId($cat))
 	
 	<li id="${cat.id}_row" 
-		class="noderow categorydraggable #if(${cat.id}==${rootcategory.getId()}) rootnoderow #end" 
+		class="noderow #if($caneditcategorytree )categorydraggable#end #if(${cat.id}==${rootcategory.getId()}) rootnoderow #end" 
 		data-nodeid="$cat.id" 
 		data-depth="$depth" 
 		data-categorynameesc="#dash($cat.name)"
@@ -108,8 +109,8 @@
 					<a href="#" class="cat-uploadfromtree" data-oemaxlevel="$!uploadmaxlevel" title="[[Upload]]"><i class="fas fa-upload"></i></a>
 				#end
 				#set($caneditcategorytree = $permissions.canModule("asset", "editcategorytree"))
-				#set($caneditcategories = $permissions.canModule("asset", "editcategories"))
-				#if(!$hidecontextmenu && ($caneditcategorytree || $caneditcategories))
+				##set($caneditcategories = $permissions.canModule("asset", "editcategories"))
+				#if(!$hidecontextmenu && $caneditcategorytree)
 					<a href="#" class="cat-menu" title="$cat.name"><i class="fas fa-ellipsis-v"></i></a>
 				#end
 			</div>
@@ -281,14 +282,6 @@
 				<li><a id="createnode" tabindex="-1" href="#">[[Add Sub-Folder]]</a></li>
 				<li><a id="renamenode" tabindex="-1" href="#">[[Rename]]</a></li>
 				<li><a id="deletenode" tabindex="-1" href="#">[[Remove]]</a></li>
-				#if($canaddnewcollection)
-					<li><a id="createcollection" tabindex="-1" href="#"> [[Create Collection]]</a></li>      		 
-				#end 
-				#if($canviewfeaturedcollections)
-				<li><a id="togglefeatured" tabindex="-1" href="#" 
-						data-removefeatured="[[Remove From Featured]]"
-						data-addfeatured="[[Make it Featured]]"></a></li>
-				#end
 		#end
 
 	    <li class="dropdown dropend">

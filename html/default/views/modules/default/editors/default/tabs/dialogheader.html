@@ -286,6 +286,8 @@
  										<i class="bi bi-lock me-2"></i> [[Security]]</a>
  								#end
 
+								YY $permissions.canModule($module, "viewerpermissions")
+
  								#if($canviewsettings)
  									<a class="dropdown-item ajax"
  										data-closealldialogs="true"
@@ -293,7 +295,7 @@
  										data-updateurl="true"
  										data-targetdiv="applicationcontent"
  										href="$apphome/views/settings/modules/${module.id}/info/module-setup.html">
- 										<i class="bi bi-sliders me-2"></i> #text($module) [[Settings]]
+ 										<i class="bi bi-sliders me-2"></i> #text($module) [[Settings]] 
  									</a>
  								#end
 

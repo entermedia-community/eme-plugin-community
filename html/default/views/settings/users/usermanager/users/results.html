@@ -4,8 +4,6 @@
 	data-edithome="$apphome/views/settings/users/usermanager/users">
            
 <div id="" class="emselectable commentbox"  >
-
-
 #set ($userSearcher = $searcherManager.getSearcher($catalogid, "user"))
 #set($viewid = "userresultstable")
 #ifnull($details)
@@ -52,8 +50,6 @@
 #set ($userProfileSearcher = $searcherManager.getSearcher($catalogid, "userprofile"))
 <tbody>
 
-	$hits.setHitsPerPage(15)
-	
 #foreach ( $hit in $hits.getPageOfHits() )
 	<tr rowid="${hit.id}" #if ($hit.enabled != true) class="trdisabled" #end >
 
@@ -107,8 +103,9 @@ data-updateurl="true">
 ##$pages.include("$searchhome/pages.html",$context)
 
 #if ($hits && $hits.totalPages > 0 )
-
-<div style="text-align: right; padding:10px 20px;">
+<div class="d-flex">
+	<div style="text-align: left; padding:10px 0px;">[[Users found:]] $hits.size()</div>
+<div class="flex-grow-1" style="text-align: right; padding:10px 20px;">
 		#set($thispage = $hits.getPage())
 		
 		#if( $hits.prevPage() )
@@ -130,7 +127,7 @@ data-updateurl="true">
 			title="[[Next]]" accesskey="n">></a>
 		#end
 </div>
-
+</div>
 
 
 #end

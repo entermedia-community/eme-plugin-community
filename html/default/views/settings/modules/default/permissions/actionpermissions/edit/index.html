@@ -71,7 +71,8 @@
 						#if($val) checked #end />
 						
 						</td>
-						<td valign="middle"><label for="checkbox-$!item.id" style="padding:5px 0 1px 0;">#text($item.getName())</label></td>
+						<td class="col-3" valign="middle">
+							<label for="checkbox-$!item.id" style="padding:5px 0 1px 0;">#text($item.getName())</label></td>
 						<td class="caption">$!item.caption</td>
 	        		</tr>
 				#end

@@ -35,12 +35,16 @@ $(document).ready(function () {
 	function checkOtpFilled() {
 		const $inputs = otpInputs();
 		const filled = $inputs.toArray().every((i) => $(i).val().length === 1);
-		$("#loginBtn").prop("disabled", !filled);
+		
 
 		var codes = "";
 		$(".otp").each(function () {
 			codes += $(this).val();
 		});
 		$("#loginCode").val(codes);
+		if (filled) {
+			$("#loginBtn").prop("disabled", !filled);
+			$("#loginCode").closest("form").submit();
+		}
 	}
 });

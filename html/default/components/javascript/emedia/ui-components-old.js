@@ -23,6 +23,8 @@ function initializeUI() {
 		});
 	}
 
+	jQuery(".grabfocus").focus();
+
 	lQuery("#module-dropdown").livequery("click", function (e) {
 		e.stopPropagation();
 		if ($(this).hasClass("active")) {

@@ -252,7 +252,9 @@ findClosest = function (link, inid) {
 					}
 					if (newcell.length > 0) {
 						$(window).trigger("setPageTitle", [newcell]);
+						newcell.find(".grabfocus").focus();
 					}
+
 					$(document).trigger("domchanged", [$(parent)]);
 
 					//on success execute extra JS
@@ -284,6 +286,8 @@ findClosest = function (link, inid) {
 							anchor.remove();
 						}
 					}
+					
+					
 				},
 				error: function () {
 					$(window).trigger("errorToast", [toastUid]);

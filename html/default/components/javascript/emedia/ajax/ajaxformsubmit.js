@@ -241,6 +241,7 @@
 				$(window).trigger("resize");
 				
 				$(document).trigger("domchanged", [$(parentcontainer)]);
+				parentcontainer.find(".grabfocus").focus();
 
 				//on success execute extra JS
 				if (form.data("onsuccess")) {

@@ -4,13 +4,7 @@
 
 #set($moduleid = $module.getId())
 
-#if (!$data)
-	#if($groupid)
-		#set($permissionManager = $mediaarchive.getBean("permissionManager") )
-		#set($permissionassigned = $permissionManager.loadEntitySettingsGroupPermissions($moduleid, $groupid))
-	#end
-#end
-
+#set($entityid = $context.getRequestParameter("entityid"))
 
 <div id="savepermissions">
 <form method="post" 
@@ -26,6 +20,7 @@
 	<input type="hidden" name="oemaxlevel" value="1" />
 	<input type="hidden" name="settingsgroupid" value="$groupid" />
 	<input type="hidden" name="moduleid" value="$moduleid" />
+	<input type="hidden" name="entityid" value="$!entityid" />
 
 	<div>
 		

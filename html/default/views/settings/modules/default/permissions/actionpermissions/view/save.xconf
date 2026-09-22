@@ -4,6 +4,8 @@
 		<script>/${catalogid}/events/scripts/entities/savepermissions.groovy</script>
 	</path-action>
 
-	<path-action name="PermissionModule.reLoadUserProfile" />
+	<path-action name="ProfileModule.reLoadUserProfile" />
+
+	<path-action name="UserProfileModule.loadActionPermissionsToEdit" />
 
 </page>

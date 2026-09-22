@@ -220,43 +220,59 @@
  							data-oemaxlevel="1"
  							title="[[Share]]"><i class="bi bi-share"></i></a>
  						#end
+
+
  						
- 						#if($canviewsettings)
+ 						#if($entity)
+
+							##Menu Import
+							#if(!$ismulti && $module.getBoolean("enableuploading"))
+								#if($permissions.canModule($module, "upload_files") ||
+									$permissions.canModule($module, "upload_folders") ||
+									$permissions.canModule($module, "importurl") ||
+									$permissions.canModule($module, "importassets") ||
+									$permissions.canModule($module, "importfolders") ||
+									($desktop && $permissions.canModule($module, "importpushtoserver")))
+									#set($canimport = true)
+								#end
+							#end
+							#if(!$ismulti)
+								#if($permissions.canModule($module, "copyentity") ||
+										$permissions.canModule($module, "moveentity") ||
+										$permissions.canModule($module, "downloadall") ||
+										$permissions.canModule($module, "shareentity") ||
+										($desktop && $permissions.canModule($module, "exportpulltoserver")))
+										#set($canexport = true)
+								#end
+							#end
+
+
+							#if($canimport || 
+								$canexport || 
+								$permissions.canModule($module, "viewerpermissions") ||
+								$canviewsettings)
  							<div class="dropdown">
  								<a class="dropdown-toggle btn-accent" href="#" data-toggle="dropdown">
  									<i class="bi bi-gear"></i>
  								</a>
  								<div class="dropdown-menu">
 
- 							#if(!$ismulti && $entity)
-
- 								#if($module.getBoolean("enableuploading"))
- 								#if($permissions.canModule($module, "upload_files") ||
- 									$permissions.canModule($module, "upload_folders") ||
- 									$permissions.canModule($module, "importurl") ||
- 									$permissions.canModule($module, "importassets") ||
- 									$permissions.canModule($module, "importfolders") ||
- 									($desktop && $permissions.canModule($module, "importpushtoserver")))
- 									<a
- 										class='dropdown-item ajax tabactionimport #if($entitymoduleviewid=="${module.id}entityimports") active #end '
- 										href="$apphome/views/modules/$module.id/editors/entityimports/tabs/index.html" 
- 										data-entitymoduleviewid="${module.id}entityimports"
- 										data-entityid="$!entity.getId()" 
- 										data-entitymoduleid="$!module.id"
- 										data-targetdiv="entitydialog"
- 										data-oemaxlevel="1"
- 										data-tabsection="upload"
- 										data-$!{module.id}hitssessionid="$!entityhits.getSessionId()"
- 										>
- 										<i class="bi bi-box-arrow-in-right me-2"></i> [[Import]]</a>
- 								#end	
+ 							
+ 								#if($canimport)
+									<a
+										class='dropdown-item ajax tabactionimport #if($entitymoduleviewid=="${module.id}entityimports") active #end '
+										href="$apphome/views/modules/$module.id/editors/entityimports/tabs/index.html" 
+										data-entitymoduleviewid="${module.id}entityimports"
+										data-entityid="$!entity.getId()" 
+										data-entitymoduleid="$!module.id"
+										data-targetdiv="entitydialog"
+										data-oemaxlevel="1"
+										data-tabsection="upload"
+										data-$!{module.id}hitssessionid="$!entityhits.getSessionId()"
+										>
+										<i class="bi bi-box-arrow-in-right me-2"></i> [[Import]]</a>
  								#end
- 								#if($permissions.canModule($module, "copyentity") ||
- 									$permissions.canModule($module, "moveentity") ||
- 									$permissions.canModule($module, "downloadall") ||
- 									$permissions.canModule($module, "shareentity") ||
- 									($desktop && $permissions.canModule($module, "exportpulltoserver")))	
- 									
+								#if($canexport)
  									<a 
  										class='dropdown-item ajax tabactionexport #if($entitymoduleviewid=="${module.id}entityexports")active #end '
  										href="${edithome}/tabs/index.html" 
@@ -269,36 +285,36 @@
  										>
  										<i class="bi bi-box-arrow-right me-2"></i> [[Export]]</a>
  								#end
- 								
- 							#end
  							
- 								#if( $permissions.canModule($module, "viewerpermissions") )
- 									<a 
- 										class='dropdown-item ajax #if($entitymoduleviewid=="${module.id}entityadminsettings")active #end '
- 										href="${edithome}/tabs/index.html" 
- 										data-entitymoduleviewid="${module.id}entityadminsettings"
- 										data-entityid="$!entity.getId()" 
- 										data-entitymoduleid="$!module.id"
- 										data-targetdiv="entitydialog"
- 										data-oemaxlevel="1"
- 										data-$!{module.id}hitssessionid="$!entityhits.getSessionId()"
- 										>
- 										<i class="bi bi-lock me-2"></i> [[Security]]</a>
- 								#end
+ 							
+								#if( $permissions.canModule($module, "viewerpermissions") )
+									<a 
+										class='dropdown-item ajax #if($entitymoduleviewid=="${module.id}entityadminsettings")active #end '
+										href="${edithome}/tabs/index.html" 
+										data-entitymoduleviewid="${module.id}entityadminsettings"
+										data-entityid="$!entity.getId()" 
+										data-entitymoduleid="$!module.id"
+										data-targetdiv="entitydialog"
+										data-oemaxlevel="1"
+										data-$!{module.id}hitssessionid="$!entityhits.getSessionId()"
+										>
+										<i class="bi bi-lock me-2"></i> [[Security]]</a>
+								#end
 
- 								#if($canviewsettings)
- 									<a class="dropdown-item ajax"
- 										data-closealldialogs="true"
- 										data-oemaxlayout="3"
- 										data-updateurl="true"
- 										data-targetdiv="applicationcontent"
- 										href="$apphome/views/settings/modules/${module.id}/info/module-setup.html">
- 										<i class="bi bi-sliders me-2"></i> #text($module) [[Settings]] 
- 									</a>
- 								#end
+								#if($canviewsettings)
+									<a class="dropdown-item ajax"
+										data-closealldialogs="true"
+										data-oemaxlayout="3"
+										data-updateurl="true"
+										data-targetdiv="applicationcontent"
+										href="$apphome/views/settings/modules/${module.id}/info/module-setup.html">
+										<i class="bi bi-sliders me-2"></i> #text($module) [[Settings]] 
+									</a>
+								#end
 
- 								</div>
- 							</div>
+							</div>
+							#end
+						</div>
  							
  						#end
  					</div>

@@ -7,31 +7,28 @@
 	#set($currentgroup = $context.getRequestParameter("settingsgroupid")) 
 	<div class="mt-4">
 		<h3>[[Permissions]]</h3>
-    
-        <strong> [[Groups]]:</strong>  ##TODO add a add new link
-        <select id="roles" class="form-control-sm" style="position: relative; top: 2px; margin-left: 5px;">
-            <option value=""></option>
-           #foreach($agroup in $mediaarchive.getList("group"))
-               <option #if($currentgroup == $agroup.id) selected #end value="$agroup.id">$agroup</option>
-           #end
-        </select>
-        
+        #ifnotnull($entity)
+            #set($action = "$siteroot$apphome/views/settings/modules/$moduleid/permissions/actionpermissions/view/index.html")
+        #end
+        #ifnull($entity)
+            #set($action = "$siteroot$apphome/views/modules/$moduleid/editors/entityadminsettings/actions/view/index.html")
+        #end
+        <form action="$action"
+            class="ajaxform autosubmit"
+            data-targetdivinner="permissions-div">
+            <input type="hidden" name="oemaxlevel" value="1" /> 
+            <input type="hidden" name="permissiontype" value="$!permissiontype" />
+            <input type="hidden" name="entityid" value="$!entity.getId()" />
+            <strong> [[Groups]]:</strong>  ##TODO add a add new link
+            <select id="roles" class="form-control-sm" name="settingsgroupid" style="position: relative; top: 2px; margin-left: 5px;">
+                <option value=""></option>
+                    #foreach($agroup in $mediaarchive.getList("group"))
+                        <option #if($currentgroup == $agroup.id) selected #end value="$agroup.id">$agroup</option>
+                    #end
+            </select>
+        </form>
         <script>
-            $("select#roles").change(function () {
-               var val = $(this).val();
-               if ( val == "new" ) {
-                  $("#permissions-div").load("$siteroot$apphome/views/settings/modules/$moduleid/permissions/actionpermissions/view/addnew.html?oemaxlevel=1&groupname=New", function(){
-                      $(window).trigger( "resize" );
-                  });
-                  $('#module-picker').hide();
-               }
-               else {
-                  $("#permissions-div").load("$siteroot$apphome/views/settings/modules/$moduleid/permissions/actionpermissions/view/index.html?oemaxlevel=1&permissiontype=$!permissiontype&settingsgroupid=" + val, function(){
-                      $(window).trigger( "resize" );
-                  });
-                  $('#module-picker').show();
-               }
-            });
+            
     
             $("#module-picker select").change(function () {
                 var rolesval = $('select#roles').val();

@@ -165,14 +165,10 @@
 		</ul>
 	</li>
 	
-	
-	
-
-	
 	#set($canemaillink = $permissions.canModule("asset", "emaillink"))
 	#set($canpublish = $permissions.canModule("asset", "publish"))
 	#if($canpublish || $canemaillink || $canquickgallery)
-	<li class=" dropend">
+	<li class=" dropdown">
 	<a class="resultsnavlink dropdown-toggle" href="#" id="navbarShare$!{moduleid}" role="button" data-toggle="dropdown"  data-bs-toggle="dropdown"
 		aria-haspopup="true" aria-expanded="false">[[Share]]</a>
 		<ul class="dropdown-menu" aria-labelledby="navbarShare$!{moduleid}">
@@ -198,17 +194,10 @@
 		
 	#set($canquickpublish = $permissions.canModule("asset", "quickpublish"))
 	#if($canquickpublish )
-		#set($quickpublishlist = $mediaarchive.getList("quickpublish"))
 		<li>
-			<a class="resultsnavlink" href="#" id="navbarPublishDropdown" role="button" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[[Publish]]</a>
-				<ul class="dropdown-menu" aria-labelledby="navbarPublishDropdown">
-					#foreach($item in $quickpublishlist)
-						<li><a class="dropdown-item emadialog"  
-							href="$siteroot$apphome/views/modules/asset/activity/publish/quickpublish.html?hitssessionid=$!hits.getSessionId()&quickid=$item.id"   
-							dialogid="quickpublishing">$item.name</a></li>
-					#end
-				</ul>
-			</li>
+			<a class="resultsnavlink emdialog" href="$siteroot$apphome/views/modules/asset/activity/publishassets.html?hitssessionid=$!hits.getSessionId()" role="button" data-dialogid="publishdialog" data-hidefooter="true">[[Publish]]</a>
+				
+		</li>
 	#end
 
 	#set($lightboxid = $context.getRequestParameter("lightboxid"))

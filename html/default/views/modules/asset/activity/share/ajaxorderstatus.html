@@ -1,6 +1,6 @@
-<div class="p-3">
-#if( $order.orderstatus == "complete" )
 
+#if( $order.orderstatus == "complete" )
+	<div class="p-3">
 	#if( $order.ordertype == "email")
 	
 		[[Order Complete]] $!order.orderstatusdetails
@@ -38,20 +38,21 @@
 	#end
 	
 	#end
+	</div>
 #elseif( $order.orderstatus == "error" )
-
-	[[Error]]
-	
-	<pre>
-	$!order.orderstatusdetails
-	</pre>
-
+	<div class="p-5">
+		[[Error]]
+		
+		<pre>
+		$!order.orderstatusdetails
+		</pre>
+</div>
 #else
 	<div id="status$order.id" class="ajaxstatus" data-oemaxlevel="1" ajaxpath="$home$apphome/views/modules/asset/activity/share/ajaxorderstatus.html?orderid=$order.id" period="1500">
-	[[Your order is processing]]
 	
-	<img src="$home$themeprefix/images/ajax-loader.gif" class="ms-2" alt="[[Loading]]" />
+	<div class="p-5">
+		[[Your order is processing]]
+		<img src="$home$themeprefix/images/ajax-loader.gif" class="ms-2" alt="[[Loading]]" />
+	</div>
 	</div>
 #end
-
-</div>

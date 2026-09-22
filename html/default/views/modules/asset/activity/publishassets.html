@@ -4,7 +4,7 @@
 	
 	
 <form class="validate ajaxform" 
-		data-targetdivinner="orderdialog" 
+		data-targetdiv="orderdialog" 
 		id="usereditform" 
 		method="post" 
 		action="$siteroot$apphome/views/modules/asset/activity/publish/step2.html">
@@ -24,7 +24,9 @@
 	<input type="hidden" name="ordertype.value" value="export" />
 	$pages.include("/${applicationid}/components/xml/detaileditor.html", $context)
 	 
-	<input class="btn btn-primary" style="float: right;" type="submit" name="submit" value="[[Next]]"/> 
+	<div class="d-flex justify-content-end">
+	<input class="btn btn-primary" type="submit" name="submit" value="[[Next]]"/> 
+	</div>
 
 </form>
 </div>

@@ -28,7 +28,7 @@
     #end
     #set($canpublish = $permissions.canModule("asset", "publish"))
     #if ($canpublish)
-      <a class='ajax auto-active-link #if($activetab == "export")current #end' data-activetab="export" data-oemaxlevel="1" data-targetdivinner="shareContainer" href="$siteroot$apphome/views/modules/asset/activity/publishassets.html?assetid=$asset.id">[[Export]]</a>
+      <a class='ajax auto-active-link #if($activetab == "export")current #end' data-activetab="export" data-oemaxlevel="1" data-targetdivinner="shareContainer" href="$siteroot$apphome/views/modules/asset/activity/publishassets.html?assetid=$asset.id">[[Publish]]</a>
     #else 
       #set( $activetab = "addtoproject" )
     #end

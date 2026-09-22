@@ -1,5 +1,5 @@
 #set( $type = $mediaarchive.getMediaRenderType($asset.fileFormat))
-<div id="embed-wrapper" class="d-flex flex-column overflow-y">
+<div id="embed-wrapper" class="mb-3">
   
   #set( $mediadbappid = $mediaarchive.getMediaDbId() )
 
@@ -9,48 +9,7 @@
     #set( $sharelink = "$siteroot$apphome/views/modules/asset/embed/index.html?type=$type&sourcepath=$asset.sourcepath&embed=true")
   #end
 
-  #if (false && $cansharetosocialmedia  && !$multi)
-    <h5>[[Social Networks]]</h5>
-    <div id="share">
-      <!-- AddThis Button BEGIN -->
-      <div class="addthis_toolbox addthis_default_style"
-        addthis:url="$sharelink"
-        addthis:title="$asset"
-        addthis:description="#if ( $asset.longcaption ) $asset.longcaption #else Check this out! #end">
-        <a class="addthis_button_facebook"></a>
-        <a class="addthis_button_twitter"></a>
-        <a class="addthis_button_google"></a>
-        <a class="addthis_button_evernote"></a>
-        <a class="addthis_button_reddit"></a>
-        <a class="addthis_button_pinterest_share"></a>
-        <a class="addthis_button_skype"></a>
-        <a class="addthis_button_tumblr"></a>
-        <a class="addthis_button_whatsapp"></a>
-        <a class="addthis_button_hootsuite"></a>
-        <a class="addthis_button_delicious"></a>
-        <a class="addthis_button_flipboard"></a>
-        <a class="addthis_button_gmail"></a>
-      </div>
-
-      <script type="text/javascript">
-        var addthis_config = {
-          ui_click: true
-        };
-        
-        jQuery(document).ready(function() {
-          var script = document.createElement('script');
-          script.src = "https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5b06fc4d3e3ca9e8";
-          script.onload = function () {
-              //do stuff with the script
-            addthis.toolbox('.addthis_toolbox');    
-          };
-          document.head.appendChild(script); 
-        });
-      </script>
-
-    </div>
-    <hr>
-  #end
+  
 
 
   <div class="m-3">

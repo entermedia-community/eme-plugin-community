@@ -27,12 +27,18 @@
 								data-scrolltocat="true"
 								data-updateurl="true"
 								data-includeeditcontext="false"
-								data-includesearchcontext="false">#text($parent)</a>
+								data-includesearchcontext="false">#text($parent) </a> <span>($count)</span>
 						#else
-							<span class="currentcategory">#text($parent)</span>
+							#if($hits.isShowOnlySelected())
+								<span class="currentcategory">[[Showing Selected]]</span> <span>($count)</span>
+								<a href="$siteroot$apphome/views/modules/asset/editors/viewfilescategory/$!{parent.id}/#dash($parent).html?assethitssessionid=$!hits.getSessionId()&assetshowonlyselections=false"
+								class="btn btn-sm btn-primary ms-2">[[Show All]]</a>
+							#else
+							<span class="currentcategory">#text($parent) </span> <span>($count)</span>
+							#end
 						#end		
 					#end
-					<span>($count)</span>
+					
 				</div>
 			</div>
 		#end

@@ -149,12 +149,13 @@
 				#end
 				</table>
 
-		
+	<div class="d-flex justify-content-end">
 	#if($invaliditems.size() == $orderitems.size())
 		<input class="btn btn-primary" style="float: right" type="button" value="[[Cancel]]" onclick="window.history.back()"/>
 	#else
-		<input class="btn btn-primary" style="float: right" type="submit" value="[[Next]]" />
+		<input class="btn btn-primary" type="submit" value="[[Next]]" />
 	#end
+	</div>
 	</form>     
 #end
 </div>

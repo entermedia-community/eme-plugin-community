@@ -19,9 +19,11 @@
 	No details for view: $viewid
 #end
 
-<table class="table table-striped table-hover emdata" id="main-results-table" data-userhitssessionid="$hits.sessionId">
-	#set( $origURL = $context.getRequestParameter("origURL" ) )				
-	#set( $selecteduser = $context.getRequestParameter("username" ) )
+#set( $origURL = $context.getRequestParameter("origURL" ) )
+#set( $selecteduser = $context.getRequestParameter("username" ) )
+<table class="table table-striped table-hover emdata" id="main-results-table" data-userhitssessionid="$hits.sessionId" data-hitssessionid="$hits.sessionId" data-origURL="$!origURL" data-catalogid="$catalogid" data-searchtype="user">
+				
+
 	<thead>
 		<tr id="tableheader">
 			#set( $sortby = $hits.getSearchQuery().getSortBy() )

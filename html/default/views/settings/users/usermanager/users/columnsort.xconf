@@ -1,4 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <page>
 <property name="searchtype">user</property>
- <path-action name="DataEditModule.changeSort"/> 
+    <path-action name="DataEditModule.changeSort"/> 
+    <property name="hitsname">userhits</property>
+    <property name="hitsperpage">15</property>
+	<path-action name="User.findAllUsers" />
 </page>

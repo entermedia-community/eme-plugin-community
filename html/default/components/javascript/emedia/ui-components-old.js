@@ -1884,6 +1884,10 @@ function initializeUI() {
 		$("#sidebar-list-upload").addClass("current");
 	});
 
+	lQuery(".sidebar-entities-submenu-toggler").livequery("click", function () {
+		$(this).siblings(".sidebar-entities-submenu").toggleClass("d-none");
+	});
+
 	//Moved From settings.js
 	lQuery("#datamanager-workarea th.sortable").livequery("click", function (e) {
 		var table = $("#main-results-table");

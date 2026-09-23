@@ -12,14 +12,7 @@
 	<path-action name="Page.uploadFile"/>
 
 	<path-action name="Admin.allowViewing" />
-	
-	<permission name="view">
-		<or>
-			<pagevalue name="canviewupload" equals="true"/>
-			<pagevalue name="canviewcategoryupload" equals="true"/>			
-		</or>
-	</permission>
-	
+		
 	<property name="threadedupload">true</property>
 	<property name="hitsname">hits</property>
  	<property name="assetshowonly"></property>

@@ -6,32 +6,41 @@
 	#end
 
 	#set($values = $filternode.children)
+
 	
 	#if( $viewpermission )
 		#set( $fieldname = $detail.getId() )
 		<div class="filteroptions">
 		
-		##TODO Show selected first
-		<div class="mb-2">
-			<select id="${searchfield}select2" 
-						name="${searchfield}.values"
-						class="listtags choose-select detail-select form-control" 
-						data-listid="${searchfield}filter" 
-						data-searchtype= '$hits.getSearchType()'
-						data-searchfield="${searchfield}"
-					>
-					<option value=""></option>
-			</select>
-		</div>
-		#foreach($entry in $values)
-			#if($foreach.count < 4)
-				<div class="d-flex align-items-start">
-					<input style="margin-top:4px" class="filtercheck filtercheck${fieldname}" data-fieldname="${fieldname}" type="checkbox" name="${fieldname}.value" id="$entry.getId()${fieldname}_val" value="$entry.getId()" #if( $hits.getSearchQuery().hasTermValue($filternode.id,$entry.getId()) ) checked #end />
-					<label for="$entry.getId()${fieldname}_val" class="ms-1">$entry.getText($context) #if( $entry.count > 0)($entry.count)#end</label>
-				</div>	
-			#end	
-				
-		#end	
+			##TODO Show selected first
+			<div class="mb-2">
+				<select id="${searchfield}select2" 
+							name="${searchfield}.values"
+							class="listtags choose-select detail-select form-control" 
+							data-listid="${searchfield}filter" 
+							data-searchtype= '$hits.getSearchType()'
+							data-searchfield="${searchfield}"
+						>
+						<option value=""></option>
+						#foreach($entry in $values)
+						<option value="$entry.getId()">$entry.getText($context) #if( $entry.count > 0)($entry.count)#end</option>
+						#end
+				</select>
+			</div>
+			<div class="see-all-container">
+				#foreach($entry in $values)
+					<div class="tagitem #if($foreach.count > 4) tagitem-more d-none #end">
+						<div class="d-flex align-items-start">
+							<input style="margin-top:4px" class="filtercheck filtercheck${fieldname}" data-fieldname="${fieldname}" type="checkbox" name="${fieldname}.value" id="$entry.getId()${fieldname}_val" value="$entry.getId()" #if( $hits.getSearchQuery().hasTermValue($filternode.id,$entry.getId()) ) checked #end />
+							<label for="$entry.getId()${fieldname}_val" class="ms-1">$entry.getText($context) #if( $entry.count > 0)($entry.count)#end</label>
+						</div>	
+					</div>
+				#end	
+				#if($values.size() > 4)
+				<a href="#" class="see-all-tags text-success py-1 mt-1">[[See All]]</a>
+				<a href="#" class="see-less-tags text-success py-1 mt-1 d-none">[[See Less]]</a>
+				#end
+			</div>
 		</div>
 
 	#end

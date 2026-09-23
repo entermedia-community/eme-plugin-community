@@ -493,6 +493,19 @@ function initializeUI() {
 	lQuery(".clearallfilters").livequery("click", function () {
 		closetypeaheadmodal();
 	});
+	lQuery(".see-all-tags").livequery("click", function (e) {
+		e.preventDefault();
+		$(this).closest(".see-all-container").find("div.tagitem-more").removeClass("d-none");
+		$(this).addClass("d-none");
+		$(this).closest(".see-all-container").find(".see-less-tags").removeClass("d-none");
+	});
+
+	lQuery(".see-less-tags").livequery("click", function (e) {
+		e.preventDefault();
+		$(this).closest(".see-all-container").find("div.tagitem-more").addClass("d-none");
+		$(this).addClass("d-none");
+		$(this).closest(".see-all-container").find(".see-all-tags").removeClass("d-none");
+	});
 
 	function closetypeaheadmodal() {
 		var modal = $(".typeaheadmodal");

@@ -1,0 +1,16 @@
+#
+#Thu Sep 24 15:16:29 CST 2026
+Attachment\ Filter=Filtre de fixation
+Exclude\ Filter=Exclure le filtre
+External\ Import\ Path=Route d'importation externe
+Files\ in\ attachment\ folder\ that\ will\ trigger\ auto\ creation\ of\ attachments.\ Comma\ or\ New\ line\ delimited=Fichiers dans le dossier des pi\u00E8ces jointes qui d\u00E9clenchera la cr\u00E9ation automatique des pi\u00E8ces jointes.
+For\ less\ than\ 100,000\ files=Pour moins de 100 000 dossiers
+How\ Often\ To\ Scan=\u00C0 quelle fr\u00E9quence
+How\ often\ to\ run\:=Combien de fois courir\:
+Include\ Filters=Inclure des filtres
+Internal\ Category\ Path=Parcours de cat\u00E9gorie interne
+Live\ Monitor\ the\ file\ system\ for\ changes\ in\ real\ time.=Surveiller en direct le syst\u00E8me de fichiers pour les changements en temps r\u00E9el.
+Optional\:\ Local\ disk\ drive,\ path,\ url,\ or\ Windows\ Share\ that\ will\ be\ mounted.=Optionnel\: le lecteur de disque local, le chemin, l'URL ou Windows Share qui sera mont\u00E9.
+Required\:\ The\ path\ to\ the\ category\ location\ such\ as\:\ =Obligatoire\: Le chemin vers l'emplacement de la cat\u00E9gorie tel que\:
+comma\ delimited=virgule d\u00E9limit\u00E9e
+comma\ or\ new\ line\ delimited=virgule ou nouvelle ligne d\u00E9limit\u00E9e

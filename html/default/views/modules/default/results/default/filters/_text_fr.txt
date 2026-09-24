@@ -1,0 +1,33 @@
+#
+#Thu Sep 24 15:12:18 CST 2026
+After=Apr\u00E8s
+Ascending=En ascension
+Before=Avant
+Between=Parmi les
+Category\ Path=Parcours de cat\u00E9gorie
+Change\ sort\ by=Modifier le tri par
+Clear=D\u00E9gag\u00E9 .
+Clear\ All=Tout d\u00E9gag\u00E9 .
+Clear\ All\ Filters=Nettoyer tous les filtres
+Clear\ Search=Recherche claire
+Current\ sort\ by=Ordre actuel par
+Customize\ Summary\ Contents=Personnaliser le contenu du r\u00E9sum\u00E9
+Default=Par d\u00E9faut
+Descending=En descente
+Description=D\u00E9finition
+False=Faux
+Filter\ not\ applicable=Filtre non applicable
+Related\ Entity=Entit\u00E9 li\u00E9e
+Reloaded\ Results=R\u00E9sultats recharg\u00E9s
+Searching\ for=\u00C0 la recherche de
+Show\ Active\ Filters=Afficher les filtres actifs
+Show\ All=Montrer tout
+Showing=Affichage
+Sort\ Results=R\u00E9sultats de tri
+Sort\ by=Trier par
+Sorted\ by=Classement par
+Summary=R\u00E9sum\u00E9
+True=C' est vrai.
+View\ Files=Afficher les fichiers
+and=et \u00E0
+or=ou \u00E0

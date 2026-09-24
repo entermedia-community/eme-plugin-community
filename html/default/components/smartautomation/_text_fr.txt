@@ -1,0 +1,27 @@
+#
+#Thu Sep 24 15:13:01 CST 2026
+Add\ Label=Ajouter une \u00E9tiquette
+Add\ Labels=Ajouter des \u00E9tiquettes
+Add\ Scenario=Ajouter un sc\u00E9nario
+Are\ you\ sure\ you\ want\ to\ delete\ this\ scenario?=Vous \u00EAtes s\u00FBr de vouloir supprimer ce sc\u00E9nario ?
+Back=Retour \!
+Close\ Dialog=Dialogues \u00E9troits
+Create=Cr\u00E9er
+Create\ New=Cr\u00E9er une nouvelle
+Delete\ Scenario=Supprimer le sc\u00E9nario
+Edit=Modifier
+Edit\ Scenario=Modifier le sc\u00E9nario
+Export=Les exportations
+Import=Les importations
+Move\ Down\ (Ctrl\ +\ Scroll\ Down)=D\u00E9placer vers le bas (Ctrl + d\u00E9filez vers le bas)
+Move\ Left\ (Ctrl\ +\ Shift\ +\ Scroll\ Up)=D\u00E9placer vers la gauche (Ctrl + Shift + Scroll Up)
+Move\ Right\ (Ctrl\ +\ Shift\ +\ Scroll\ Down)=D\u00E9placer vers la droite (Ctrl + Shift + Scroll Down)
+Move\ Up\ (Ctrl\ +\ Scroll\ Up)=D\u00E9placer vers le haut (Ctrl + d\u00E9rouler vers le haut)
+Reset\ Zoom=R\u00E9initialiser le zoom
+Save=Sauvegarder
+Save\ Changes=Enregistrer les modifications
+Save\ Layout=Sauvegarder la mise en page
+Save\ Preview\ Layout=Enregistrer la mise en page de l'aper\u00E7u
+Workflow\ Automation=Automatisation du flux de travail
+Zoom\ In=Zoom vers le haut
+Zoom\ Out=Zoom vers le bas

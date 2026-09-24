@@ -1,0 +1,9 @@
+#
+#Thu Sep 24 15:19:38 CST 2026
+Fundraising=La collecte de fonds
+General=G\u00E9n\u00E9rale
+Invoice\ Template=Mod\u00E8le de facture
+Payment\ Methods=M\u00E9thodes de paiement
+Settings=Les param\u00E8tres
+Testimonials=Des t\u00E9moignages
+Vision=La vision

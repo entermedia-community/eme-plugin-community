@@ -1,0 +1,7 @@
+#
+#Thu Sep 24 15:19:45 CST 2026
+Are\ you\ sure=Tu es s\u00FBre ?
+Delete=\u00C0 supprimer
+General\ Settings=R\u00E9glages g\u00E9n\u00E9raux
+Project\ Saved=Le projet sauv\u00E9
+Save=Sauvegarder

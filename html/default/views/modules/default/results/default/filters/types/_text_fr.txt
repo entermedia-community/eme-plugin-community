@@ -1,0 +1,6 @@
+#
+#Thu Sep 24 15:17:03 CST 2026
+Add\ Language=Ajouter une langue
+See\ All=Voir tout
+See\ Less=Voir moins
+Type\ to\ search\ and\ press\ the\ enter\ key=Tapez pour rechercher et appuyez sur la touche enter

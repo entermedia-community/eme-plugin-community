@@ -1,0 +1,25 @@
+#
+#Thu Sep 24 15:27:31 CST 2026
+Accounts=Les comptes
+Cancel=Annuler
+Currency=Taux de change
+Description=D\u00E9finition
+Due\ Date=Date d'\u00E9ch\u00E9ance
+Expenses=Les d\u00E9penses
+Finances=Finances
+Income=R\u00E9sultats
+Investments=Les investissements
+Invoice=La facture
+Invoices=Les factures
+Name=Nom
+Paid=Payeur
+Paid\ On=Payeur
+Pay\ Now=Payez maintenant
+Payment\ Error=Erreur de paiement
+Profit\ and\ Loss=Profits et pertes
+Reimbursements=Remboursements
+Status=Statut officiel
+Total\ Price=Prix total
+Transfers=Les transferts
+View=Vue
+Work\ Points=Points de travail

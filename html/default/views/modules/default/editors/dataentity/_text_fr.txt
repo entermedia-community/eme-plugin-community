@@ -1,0 +1,11 @@
+#
+#Thu Sep 24 15:17:37 CST 2026
+Are\ you\ sure=Tu es s\u00FBre ?
+Cancel=Annuler
+Delete=\u00C0 supprimer
+Deleted\ Successfully=Supprim\u00E9 avec succ\u00E8s
+Edit=Modifier
+Edit\ Fields=Modifier les champs
+Fields=Les champs
+Save=Sauvegarder
+Upload\ Source\ Path\ needs\ to\ be\ set\ in\ the\ Entity\ or\ Module.=Le chemin source de t\u00E9l\u00E9chargement doit \u00EAtre d\u00E9fini dans l'entit\u00E9 ou le module.

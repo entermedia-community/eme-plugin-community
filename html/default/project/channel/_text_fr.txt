@@ -1,0 +1,11 @@
+#
+#Thu Sep 24 15:15:08 CST 2026
+Follow=Suivez-moi .
+Follow\ this\ Project=Suivez ce projet
+Follower=Suivant
+Followers=Les adeptes
+Following=Suivant
+Login\ to\ Follow=Connectez-vous pour suivre
+Request\ Join\ Team=Demande de rejoindre l'\u00E9quipe
+Unfollow\ this\ Project=Arr\u00EAtez de suivre ce projet
+View\ Followers=Voir les abonn\u00E9s

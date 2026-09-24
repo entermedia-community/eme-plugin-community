@@ -1,0 +1,13 @@
+#
+#Thu Sep 24 15:23:44 CST 2026
+Add\ File\ Details=Ajouter des d\u00E9tails de fichier
+Choose\ Files=S\u00E9lectionnez les fichiers
+Choose\ Folder=S\u00E9lectionner le dossier
+Clear\ All=Tout d\u00E9gag\u00E9 .
+Complete=Compl\u00E8te
+Drop\ files\ here=Laissez les fichiers ici .
+Edit\ Fields=Modifier les champs
+Files\ Complete.\ Choose\ More\ Files.=Les fichiers sont complets.
+Remove\ from\ Queue=Retirer de la file d'attente
+Start\ Uploading=Commencez le t\u00E9l\u00E9chargement
+Uploading...=Je t\u00E9l\u00E9charge...

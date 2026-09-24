@@ -1,0 +1,13 @@
+#
+#Thu Sep 24 15:13:46 CST 2026
+Add\ New=Ajout de nouveau
+Add\ New\ View\ to=Ajouter une nouvelle vue \u00E0
+Application\ Area=Domaine d'application
+Choose\ Table=Choisissez une table
+Edit\ Fields=Modifier les champs
+Editing\ Views=Vue d'\u00E9dition
+External\ Table=Tableau ext\u00E9rieur
+Save=Sauvegarder
+Settings=Les param\u00E8tres
+Table=Tableau d\u00E9taill\u00E9
+selected=s\u00E9lectionn\u00E9

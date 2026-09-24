@@ -1,0 +1,18 @@
+#
+#Thu Sep 24 15:25:44 CST 2026
+AI\ Prompt=\u00C0 l'instant
+Add\ Existing=Ajouter existant
+Bulk\ Import\ YouTube\ Video\ or\ Playlist=Importer en vrac une vid\u00E9o ou une liste de lecture YouTube
+Bulk\ Upload\ from\ Files=T\u00E9l\u00E9chargement en vrac \u00E0 partir de fichiers
+Cancel=Annuler
+Create\ or\ Choose\ Existing=Cr\u00E9er ou s\u00E9lectionner existant
+Create\ with\ AI=Cr\u00E9er avec l'IA
+Created=Cr\u00E9\u00E9
+Creating=Cr\u00E9ation
+Failed\ to\ create=\u00C9chec \u00E0 cr\u00E9er
+Import\ from\ YouTube=Importer depuis YouTube
+No\ Records\ Found=Aucun enregistrement trouv\u00E9
+Save=Sauvegarder
+Upload\ Spreadsheet=T\u00E9l\u00E9charger la feuille de calcul
+successfully=avec succ\u00E8s
+with\ AI=avec AI

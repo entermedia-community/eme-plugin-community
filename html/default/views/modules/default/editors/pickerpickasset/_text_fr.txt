@@ -1,0 +1,10 @@
+#
+#Thu Sep 24 15:17:00 CST 2026
+Adding=Ajout
+All\ Files=Tous les fichiers
+Files=Les fichiers
+Select=S\u00E9lectionner
+Show=Montrer
+Show\ All\ Files=Afficher tous les fichiers
+asset=actif
+items=articles

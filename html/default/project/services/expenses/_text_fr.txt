@@ -1,0 +1,23 @@
+#
+#Thu Sep 24 15:28:20 CST 2026
+Account=Compte
+Add\ Expense=Ajouter une d\u00E9pense
+Collection=Rassemblement
+Date=Date \u00E0 laquelle
+Delete=\u00C0 supprimer
+Description=D\u00E9finition
+Download\ CSV=T\u00E9l\u00E9charger le CSV
+Edit\ Expense=Modifier la d\u00E9pense
+Expenses=Les d\u00E9penses
+Import\ CSV=Importer le CSV
+Import\ Expenes=Frais d'importation
+Move\ Expense=Frais de d\u00E9m\u00E9nagement
+Paid=Payeur
+Reverse=\u00C0 l'envers
+Search=Recherche
+Sort\ by=Trier par
+Sub\ Total=Sous-total
+Sure\ you\ want\ to\ delete\ all]\ $expenses.size()\ [[records?=Vous voulez effacer les enregistrements ?
+Total=Nombre total
+Type=Le type
+paid\ on\ =pay\u00E9 \u00E0

@@ -1,0 +1,4 @@
+#
+#Thu Sep 24 15:09:56 CST 2026
+Add\ New\ Conversion=Ajouter une nouvelle conversion
+Edit\ Conversion\ Preset=Modifier le pr\u00E9r\u00E9glage de conversion

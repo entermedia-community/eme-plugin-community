@@ -1,0 +1,9 @@
+#
+#Thu Sep 24 15:07:18 CST 2026
+Are\ you\ sure=Tu es s\u00FBre ?
+Change\ Icon=Modifier l' ic\u00F4ne
+Delete=\u00C0 supprimer
+Open\ Database\ Table=Table de base de donn\u00E9es ouverte
+Properties=Propri\u00E9t\u00E9s
+Save=Sauvegarder
+table=le tableau

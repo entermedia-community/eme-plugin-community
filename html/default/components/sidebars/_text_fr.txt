@@ -1,0 +1,11 @@
+#
+#Thu Sep 24 13:36:14 CST 2026
+Cloud\ Sync=Synchronisation dans le nuage
+Database=Base de donn\u00E9es
+Download\ Orders=T\u00E9l\u00E9charger les commandes
+Home=\u00C0 la maison
+Resize\ Sidebar=Redimensionner la barre lat\u00E9rale
+Settings=Les param\u00E8tres
+Smart\ Organizer=Un organisateur intelligent
+User\ Guide=Guide de l'utilisateur
+Workflow\ Automation=Automatisation du flux de travail

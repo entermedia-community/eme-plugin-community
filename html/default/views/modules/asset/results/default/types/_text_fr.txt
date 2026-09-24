@@ -1,0 +1,7 @@
+#
+#Thu Sep 24 15:05:49 CST 2026
+Download=T\u00E9l\u00E9charger
+Edit\ Table\ Header=Modifier l' en-t\u00EAte de table
+Select\ All\ on\ This\ Page=S\u00E9lectionnez tout sur cette page
+Sort\ by=Trier par
+Thumbnail=Thumbnail

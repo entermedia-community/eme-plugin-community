@@ -1,0 +1,4 @@
+#
+#Thu Sep 24 14:51:01 CST 2026
+Preferences=Pr\u00E9f\u00E9rences
+Save\ Preferences=Enregistrer les pr\u00E9f\u00E9rences

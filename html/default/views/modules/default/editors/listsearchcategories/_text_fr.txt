@@ -1,0 +1,6 @@
+#
+#Thu Sep 24 15:08:21 CST 2026
+Add\ New\ Record=Ajouter un nouvel enregistrement
+All\ Categories=Toutes les cat\u00E9gories
+Create\ New=Cr\u00E9er une nouvelle
+Search\ by\ Category=Recherche par cat\u00E9gorie

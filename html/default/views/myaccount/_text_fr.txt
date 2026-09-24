@@ -1,0 +1,10 @@
+#
+#Thu Sep 24 15:10:40 CST 2026
+CANCEL=\u00C0 l'arr\u00EAt
+Cancel=Annuler
+Change\ Password=Modifier le mot de passe
+Groups=Groupe
+Password=Le mot de passe
+Retype\ Password=Modifier le mot de passe
+Save=Sauvegarder
+User\ Profile=Profil de l'utilisateur

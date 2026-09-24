@@ -1,0 +1,13 @@
+#
+#Thu Sep 24 15:21:36 CST 2026
+Add\ Agent=Ajouter un agent
+Add\ New\ User\ to\ Team=Ajouter un nouvel utilisateur \u00E0 l'\u00E9quipe
+Agents=Agents
+Edit\ Entry=Modifier l'entr\u00E9e
+Edit\ Search\ Form\ Fields=Modifier les champs du formulaire de recherche
+New\ User=Nouveau utilisateur
+No\ results\ found=Aucun r\u00E9sultat trouv\u00E9
+No\ team\ yet=Pas encore d' \u00E9quipe .
+Remove\ Follower=Supprimer le suiveur
+Search\ by\ name\ or\ Email\ Address=Recherche par nom ou adresse e-mail
+View\ Members=Voir les membres

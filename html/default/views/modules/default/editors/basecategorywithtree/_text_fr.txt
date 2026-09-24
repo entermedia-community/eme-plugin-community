@@ -1,0 +1,5 @@
+#
+#Thu Sep 24 15:18:03 CST 2026
+Add\ Sub-Folder=Ajout de sous-dossier
+Collapse\ Tree=L'arbre qui s'effondre
+Folders=Les dossiers

@@ -1,0 +1,5 @@
+#
+#Thu Sep 24 15:25:29 CST 2026
+Record\ Saved=Enregistrement enregistr\u00E9
+Saving=\u00C9pargne
+Select=S\u00E9lectionner

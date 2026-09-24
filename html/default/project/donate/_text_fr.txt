@@ -1,0 +1,22 @@
+#
+#Thu Sep 24 15:21:26 CST 2026
+All\ major\ credit\ cards\ accepted=Toutes les principales cartes de cr\u00E9dit accept\u00E9es
+Amount=Nom de l'entreprise
+Be\ a\ Part\ of\ This\ Project=Participez \u00E0 ce projet
+Card\ Info=Informations sur la carte
+Card\ Options=Options de carte
+Donate=Faites un don
+Donate\ Now=Faites un don maintenant
+Donation\ Frequency=Fr\u00E9quence des dons
+Donations=Les dons
+Edit\ Donation\ Description=Modifier la description du don
+Login\ to\ Donate\ With\ Credit\ Card=Connectez- vous pour faire un don par carte de cr\u00E9dit
+Monthly=Moyenne
+Once=Une fois .
+Or\ Use=Ou utilisez
+Please\ Login\ to\ Donate\ with\ Credit\ Card=Veuillez vous connecter pour faire un don par carte de cr\u00E9dit
+Please\ use\ another\ card=Utilisez une autre carte .
+Project\ Donation\ Method\ is\ in\ test\ mode.\ For\ assistance,\ please\ reach\ out\ to\ a\ Project\ Team\ Member\ or\ OI\ Administrator.=Pour obtenir de l'aide, veuillez contacter un membre de l'\u00E9quipe du projet ou l'administrateur de l'OI.
+Save\ this\ Credit\ Card\ for\ future\ payments=Gardez cette carte de cr\u00E9dit pour les paiements futurs
+Secure\ payment=Paiement s\u00E9curis\u00E9
+Site\ is\ in\ test\ mode.\ Credit\ card\ is\ 4242\ 4242\ 4242\ 4242\ any\ expiration\ date.\ Add\ your\ keys\ to\ catalog\ settings\ and\ switch\ to\ production\ mode\ to\ take\ credit\ cards=Le site est en mode test. carte de cr\u00E9dit est 4242 4242 4242 4242 n'importe quelle date d'expiration. Ajoutez vos cl\u00E9s aux param\u00E8tres de catalogue et passez au mode de production pour prendre les cartes de cr\u00E9dit

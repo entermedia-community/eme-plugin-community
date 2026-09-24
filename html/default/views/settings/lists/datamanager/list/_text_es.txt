@@ -1,5 +1,6 @@
 #
-#Wed Aug 26 03:22:36 BDT 2026
+#Thu Sep 24 12:03:16 CST 2026
+Add\n\t\tNew=A\u00F1adir nuevo
 Add\ New=A\u00F1adir nuevo
 Back=Atr\u00E1s
 Choose\ Table=Elige la tabla
@@ -11,8 +12,10 @@ Database=Base de datos
 Delete=Eliminar
 Delete\ Records=Eliminar registros
 Delete\ Table=Eliminar la tabla
+Delete\ table=Eliminar el cuadro
 Elastic\ System\ Info=Elastic Search
 Export=Exportar
+Export\n\t\tText=Texto de exportaci\u00F3n
 Export\ Text=Exportar Texto
 Forward=Siguiente
 Found=Encontrado
@@ -30,6 +33,7 @@ Restore\ Table=Restaurar tabla
 Search=B\u00FAsqueda
 Select\ a\ Table=Seleccione una tabla
 Table=Tabla
+Table\ Deleted=Cuadro eliminado
 View\ Mapping=Mapeo
 of=de
 selected=Seleccionado

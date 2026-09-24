@@ -1,0 +1,7 @@
+#
+#Thu Sep 24 15:08:41 CST 2026
+Click\ to\ open=Cliquez pour ouvrir
+Description=D\u00E9finition
+Edit\ Table\ Header=Modifier l' en-t\u00EAte de table
+Pick=Choisissez
+Select\ All\ on\ This\ Page=S\u00E9lectionnez tout sur cette page

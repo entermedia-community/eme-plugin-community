@@ -1,0 +1,9 @@
+#
+#Thu Sep 24 14:49:20 CST 2026
+Choose\ Files=S\u00E9lectionnez les fichiers
+Create\ Folders\ From\ Files=Cr\u00E9er des dossiers \u00E0 partir de fichiers
+Drop\ files\ here=Laissez les fichiers ici .
+Folders\ Created=Les dossiers cr\u00E9\u00E9s
+Folders\ Details=D\u00E9tails des dossiers
+Remove\ from\ Queue=Retirer de la file d'attente
+Uploading...=Je t\u00E9l\u00E9charge...

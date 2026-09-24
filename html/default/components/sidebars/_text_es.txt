@@ -1,5 +1,5 @@
 #
-#Fri Jul 03 16:15:41 CST 2026
+#Thu Sep 24 12:02:54 CST 2026
 Cloud\ Sync=Sincronizaci\u00F3n en la nube
 Database=Base de datos
 Download\ Orders=Descargar pedidos
@@ -9,3 +9,4 @@ Settings=Configuraci\u00F3n
 Smart\ Automation=Automatizaci\u00F3n inteligente
 Smart\ Organizer=Organizador inteligente
 User\ Guide=Gu\u00EDa del usuario
+Workflow\ Automation=Automatizaci\u00F3n del flujo de trabajo

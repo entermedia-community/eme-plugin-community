@@ -1,0 +1,8 @@
+#
+#Thu Sep 24 15:16:41 CST 2026
+Cancel=Annuler
+Cannot\ change\ system\ defined\ presets=Impossible de modifier les pr\u00E9r\u00E9glages d\u00E9finis par le syst\u00E8me
+Delete=\u00C0 supprimer
+Go\ Back=Retournez
+Save=Sauvegarder
+View\ Parameters=Param\u00E8tres de visualisation

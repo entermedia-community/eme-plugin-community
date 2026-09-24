@@ -1,0 +1,5 @@
+#
+#Thu Sep 24 15:14:11 CST 2026
+Groups=Groupe
+Permissions=Autorisations
+Users\ in\ the\ group=Utilisateurs du groupe

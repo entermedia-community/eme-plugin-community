@@ -1,0 +1,4 @@
+#
+#Thu Sep 24 15:17:15 CST 2026
+Checkout\ Orders=Ordres de paiement
+Order\ Approval=Approbation de la commande

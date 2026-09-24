@@ -1,0 +1,12 @@
+#
+#Thu Sep 24 15:14:05 CST 2026
+Action\ Permissions=Autorisations d'action
+Are\ you\ sure=Tu es s\u00FBre ?
+Delete=\u00C0 supprimer
+Editor\ Users,\ Roles\ and\ Groups\ will\ have\ view\ &\ edit\ access\ to\ existing\ and\ new\ records.=Les utilisateurs, les r\u00F4les et les groupes d'\u00E9diteur auront acc\u00E8s \u00E0 des enregistrements existants et nouveaux.
+Editors=\u00C9diteurs
+Enabled\ For=Activer pour
+Save=Sauvegarder
+Viewer\ Users,\ Roles\ and\ Groups\ will\ have\ view\ access\ to\ existing\ and\ new\ records.=Voir Les utilisateurs, les r\u00F4les et les groupes auront acc\u00E8s aux enregistrements existants et aux nouveaux enregistrements.
+Viewers=Les spectateurs
+enabled\ for\ everyone\ or\ limited\ to\ the\ following=activ\u00E9 pour tous ou limit\u00E9 aux \u00E9l\u00E9ments suivants\:

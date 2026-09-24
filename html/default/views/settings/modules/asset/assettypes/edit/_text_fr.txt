@@ -1,0 +1,6 @@
+#
+#Thu Sep 24 15:16:33 CST 2026
+Delete=\u00C0 supprimer
+Go\ Back=Retournez
+New\ Asset\ Type=Nouveau type d'actif
+Save=Sauvegarder

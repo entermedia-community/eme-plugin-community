@@ -1,13 +1,37 @@
 #
-#Thu Apr 27 13:21:22 CDT 2017
-Past\ year=Ann\u00E9e derni\u00E8re
-Before\ Date=Avant le
-Equals=\u00C9gal
-Past\ month=Dernier mois
-Past\ 24\ hours=Derni\u00E8res 24 heures
-Past\ week=Semaine derni\u00E8re
+#Thu Sep 24 15:19:53 CST 2026
+Add=Ajouter
+Add\ New=Ajout de nouveau
+Add\ a\ Language=Ajouter une langue
 After\ Date=Apr\u00E8s le
-Enter\ a\ Custom\ Range=Entrez une plage personnalis\u00E9e
+Before\ Date=Avant le
 Between=Entre
-to=\u00E0
+Browse=D\u00E9couvrez
+Choose=Choisissez
+Creates\ Translations\ for\ Missing\ Languages=Cr\u00E9ation de traductions pour les langues manquantes
+Enter\ a\ Custom\ Range=Entrez une plage personnalis\u00E9e
+Equals=\u00C9gal
+Missing\ Languages=Des langues manquantes
+New=Nouveau
+No\ asset\ selected=Aucun actif s\u00E9lectionn\u00E9
+No\ values\ found=Aucune valeur trouv\u00E9e
 Over=Plus de
+Overwrite\ All=R\u00E9cup\u00E9rer tout
+Past\ 24\ hours=Derni\u00E8res 24 heures
+Past\ month=Dernier mois
+Past\ week=Semaine derni\u00E8re
+Past\ year=Ann\u00E9e derni\u00E8re
+Remove=Retirer
+Search\ =\u00C0 la recherche \!
+Select=S\u00E9lectionner
+Translate=Pour traduire
+Translating...=Je traduis...
+Unassign\ this\ asset=D\u00E9signer cet actif
+Upload=T\u00E9l\u00E9charger
+Use\ AI=Utilisez l'IA
+Use\ AI\ to\ generate\ image=Utiliser l'IA pour g\u00E9n\u00E9rer une image
+View=Vue
+Wrong\ format=Format incorrect
+from=\u00E0 partir de
+limit\ reached=limite atteinte
+to=\u00E0

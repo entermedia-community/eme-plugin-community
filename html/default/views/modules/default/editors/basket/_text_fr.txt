@@ -1,0 +1,6 @@
+#
+#Thu Sep 24 15:12:00 CST 2026
+Cart=Chariot
+Checkout\ Orders=Ordres de paiement
+No\ Items\ in\ Cart=Aucun article dans le panier
+Pending\ Orders=Ordres en attente

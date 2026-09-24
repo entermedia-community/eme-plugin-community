@@ -1,0 +1,20 @@
+#
+#Thu Sep 24 15:27:00 CST 2026
+Account=Compte
+Add\ Income=Ajouter des revenus
+Date=Date \u00E0 laquelle
+Description=D\u00E9finition
+Download=T\u00E9l\u00E9charger
+Edit=Modifier
+Import\ CSV=Importer le CSV
+Import\ Income=Revenus des importations
+Invoices=Les factures
+Payments=Les paiements
+Reverse=\u00C0 l'envers
+Search=Recherche
+Sort\ by=Trier par
+Sub\ Total=Sous-total
+Topic=Le th\u00E8me
+Total=Nombre total
+Type=Le type
+hits=R\u00E9sultats

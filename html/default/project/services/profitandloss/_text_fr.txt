@@ -1,0 +1,37 @@
+#
+#Thu Sep 24 15:19:26 CST 2026
+Add\ New\ Expense=Ajouter une nouvelle d\u00E9pense
+All=Tout le monde
+April=En avril
+Aug=Au mois d'ao\u00FBt
+By\ Topic=Par th\u00E8me
+Capital\ Expenses=D\u00E9penses en capital
+Capital\ Income=Retour sur investissement
+Clear\ Filters=Filtres \u00E9clair\u00E9s
+Currency=Taux de change
+Dec=D\u00E9cembre
+Expenses=Les d\u00E9penses
+Feb=F\u00E9vrier
+Filter\ by=Filtrer par
+Incomes=Les revenus
+Jan=Nom de famille\:
+July=Juillet
+June=Juin
+Last\ Year=L'ann\u00E9e derni\u00E8re
+March=En mars
+May=Le mois de mai
+Month=Le mois
+No\ entries=Aucune entr\u00E9e
+Nov=Novembre
+Oct=Octobre
+Profit=R\u00E9sultat
+Profit\ and\ Loss=Profits et pertes
+Receive\ Money=Recevoir de l'argent
+Request\ Money=Demandez de l'argent
+Send\ Money=Envoyer de l'argent
+Sep=Septembre
+Sub\ Total=Sous-total
+Total=Nombre total
+Two\ Years\ Ago=Il y a deux ans
+USD=\u00C9tats-Unis
+YTD=R\u00E9sultats

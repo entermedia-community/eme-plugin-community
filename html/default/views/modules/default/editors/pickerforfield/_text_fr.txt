@@ -1,0 +1,6 @@
+#
+#Thu Sep 24 15:28:31 CST 2026
+Adding=Ajout
+Create\ New=Cr\u00E9er une nouvelle
+asset=actif
+items=articles

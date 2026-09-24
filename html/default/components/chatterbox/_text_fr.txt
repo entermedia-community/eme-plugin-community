@@ -1,0 +1,11 @@
+#
+#Thu Sep 24 15:17:05 CST 2026
+Cancel=Annuler
+Edit\ Message=Modifier le message
+Flag\ as\ Goal=Le drapeau comme objectif
+Make\ Priority\ Actions=Donnez la priorit\u00E9 aux activit\u00E9s
+Next=\u00C0 la suite .
+Page=La page
+Previous=Pr\u00E9c\u00E9dent
+Reply=R\u00E9pondre
+of=du

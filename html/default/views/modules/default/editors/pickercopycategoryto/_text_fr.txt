@@ -1,0 +1,9 @@
+#
+#Thu Sep 24 15:25:20 CST 2026
+Adding=Ajout
+Create\ New=Cr\u00E9er une nouvelle
+Saved=Il est sauv\u00E9.
+Saving=\u00C9pargne
+Select=S\u00E9lectionner
+asset=actif
+items=articles

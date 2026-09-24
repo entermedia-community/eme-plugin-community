@@ -1,0 +1,15 @@
+#
+#Thu Sep 24 15:27:15 CST 2026
+Date=Date \u00E0 laquelle
+Donation\ Details=Les d\u00E9tails des dons
+Download=T\u00E9l\u00E9charger
+Edit\ Data=Modifier les donn\u00E9es
+Email=Le courriel
+Online\ Donation=Des dons en ligne
+Platform=La plateforme
+Reverse=\u00C0 l'envers
+Search\ Donations=Rechercher les dons
+Sort\ by=Trier par
+Total=Nombre total
+User=Nom de l'utilisateur
+hits=R\u00E9sultats

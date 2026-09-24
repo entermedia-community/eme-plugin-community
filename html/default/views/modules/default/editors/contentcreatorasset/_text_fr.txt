@@ -1,0 +1,11 @@
+#
+#Thu Sep 24 15:24:58 CST 2026
+AI\ Image\ Creation\ Error=Erreur de cr\u00E9ation d'image par IA
+AI\ Prompt=\u00C0 l'instant
+Create\ with\ AI=Cr\u00E9er avec l'IA
+Created=Cr\u00E9\u00E9
+Creating=Cr\u00E9ation
+Failed\ to\ create=\u00C9chec \u00E0 cr\u00E9er
+Missing\ Key=Cl\u00E9 manquante
+successfully=avec succ\u00E8s
+with\ AI=avec AI

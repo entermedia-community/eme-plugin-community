@@ -1,0 +1,37 @@
+#
+#Thu Sep 24 15:13:25 CST 2026
+Add\ Label=Ajouter une \u00E9tiquette
+Add\ Labels=Ajouter des \u00E9tiquettes
+Are\ you\ sure\ you\ want\ to\ delete\ this\ version?=Vous \u00EAtes s\u00FBr de vouloir supprimer cette version ?
+Cancel=Annuler
+Choose\ an\ Icon=Choisissez une ic\u00F4ne
+Close\ Dialog=Dialogues \u00E9troits
+Copy=Commentaire
+Create\ New\ Folder=Cr\u00E9er un nouveau dossier
+Delete=\u00C0 supprimer
+Deploy=D\u00E9ploiement
+Deploying\ this\ will\ overwrite\ your\ current\ folder\ structure.\ Would\ you\ like\ to\ proceed?=Si vous d\u00E9ployez ceci, votre structure de dossier actuelle sera \u00E9cras\u00E9e.
+Editing\ Fields=\u00C9dition des champs
+Export=Les exportations
+Folder\ description=Description du dossier
+Import=Les importations
+Import\ Existing\ Templates=Importer des mod\u00E8les existants
+Move\ Down\ (Ctrl\ +\ Scroll\ Down)=D\u00E9placer vers le bas (Ctrl + d\u00E9filez vers le bas)
+Move\ Left\ (Ctrl\ +\ Shift\ +\ Scroll\ Up)=D\u00E9placer vers la gauche (Ctrl + Shift + Scroll Up)
+Move\ Right\ (Ctrl\ +\ Shift\ +\ Scroll\ Down)=D\u00E9placer vers la droite (Ctrl + Shift + Scroll Down)
+Move\ Up\ (Ctrl\ +\ Scroll\ Up)=D\u00E9placer vers le haut (Ctrl + d\u00E9rouler vers le haut)
+New\ Folder=Nouveau dossier
+Press=Appuyez sur
+Rename\ Version=R\u00E9nomm\u00E9
+Restore=Restaurer
+Saved\ Versions=Les versions enregistr\u00E9es
+Search\ Fields=Champs de recherche
+Search\ icon=Ic\u00F4ne de recherche
+Settings=Les param\u00E8tres
+Smart\ Folder=Dossier intelligent
+Smart\ Organizer=Un organisateur intelligent
+Template\ Name=Nom du mod\u00E8le
+Templates=Les mod\u00E8les
+Version\ Manager=Gestionnaire de versions
+WARNING=Avertissement
+to\ delete\ the\ selected\ folder.=pour supprimer le dossier s\u00E9lectionn\u00E9.

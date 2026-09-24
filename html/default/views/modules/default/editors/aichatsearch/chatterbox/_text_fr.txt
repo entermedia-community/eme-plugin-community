@@ -1,0 +1,9 @@
+#
+#Thu Sep 24 15:11:49 CST 2026
+Attachments=Les pi\u00E8ces jointes
+Cancel\ Reply=Annuler la r\u00E9ponse
+Emoji=Les \u00E9motic\u00F4nes
+Message=Le message
+Processing=Traitement
+Replying\ to=R\u00E9pondre \u00E0
+Send=Envoyer

@@ -1,0 +1,4 @@
+#
+#Thu Sep 24 15:25:38 CST 2026
+Choose\ CSV\ Input\ File=Choisir le fichier d'entr\u00E9e CSV
+Import=Les importations

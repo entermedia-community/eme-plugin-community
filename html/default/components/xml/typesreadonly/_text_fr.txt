@@ -1,4 +1,10 @@
-#Thu Apr 27 09:03:42 CDT 2017
+#
+#Thu Sep 24 15:08:57 CST 2026
+Deleted\ Asset=Actifs supprim\u00E9s
 No=Non
+No\ name\ label=Aucune \u00E9tiquette de nom
+Not\ Found=Pas trouv\u00E9
 Yes=Oui
-
+more=de plus
+see\ less=voir moins
+see\ more=voir plus

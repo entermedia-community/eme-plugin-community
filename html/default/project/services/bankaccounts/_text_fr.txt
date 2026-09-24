@@ -1,0 +1,17 @@
+#
+#Thu Sep 24 15:26:19 CST 2026
+Accounts=Les comptes
+Add\ An\ Account=Ajouter un compte
+Currency=Taux de change
+Delete\ All=Supprimer tout
+Edit=Modifier
+Name=Nom
+Owner=Propri\u00E9taire
+Reconcile=R\u00E9concilier
+Reverse=\u00C0 l'envers
+Search=Recherche
+Sort\ by=Trier par
+Sure\ you\ want\ to\ delete\ all]\ $hits.size()\ [[records?=Tu veux vraiment supprimer tous les enregistrements ?
+View\ All\ Trasactions=Voir toutes les transactions
+View\ Investments=Voir les investissements
+hits=R\u00E9sultats

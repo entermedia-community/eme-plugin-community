@@ -1,0 +1,4 @@
+#
+#Thu Sep 24 13:36:17 CST 2026
+Hide\ Settings\ Sidebar=Cacher les param\u00E8tres dans la barre lat\u00E9rale
+Settings=Les param\u00E8tres

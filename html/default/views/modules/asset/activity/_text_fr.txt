@@ -1,0 +1,10 @@
+#
+#Thu Sep 24 15:24:12 CST 2026
+Choose\ a\ download\ format\ for\ each\ type\ of\ asset=Choisir un format de t\u00E9l\u00E9chargement pour chaque type d'actif
+Downloading=T\u00E9l\u00E9chargement
+Invalid\ order,\ username\ does\ not\ match=Commande invalide, le nom d'utilisateur ne correspond pas
+Items=\u00C9l\u00E9ments
+Next=\u00C0 la suite .
+No\ Activity\ Found=Aucune activit\u00E9 trouv\u00E9e
+Processing=Traitement
+Session\ expired,\ Reload\ browser=La session est termin\u00E9e, recharger le navigateur

@@ -1,10 +1,17 @@
 #
-#Thu Apr 27 13:15:16 CDT 2017
-New=Nouveau
+#Thu Sep 24 15:19:52 CST 2026
 404\ on\ view=404 en vue
-Edit=modifier
-No\ details\ available\ for\ this\ view.\ \ Please\ configure\ your\ view\ settings.=Pas de d\u00E9tails disponibles pour cette vue. Veuillez configurer les r\u00E9glages de la vue.
-add\ new=Ajouter nouveau
 Add\ New=Ajouter nouveau
-required=requis
 Add\ New\ $detail=Ajouter un nouveau d\u00E9tail $
+Edit=modifier
+Hit=C' est le coup.
+New=Nouveau
+No\ details\ available\ for\ this\ view.\ \ Please\ configure\ your\ view\ settings.=Pas de d\u00E9tails disponibles pour cette vue. Veuillez configurer les r\u00E9glages de la vue.
+No\ details\ available\ for\ this\ view\:=Aucun d\u00E9tail n'est disponible pour cette vue\:
+Please\ configure\ your\ view\ settings.=Configurez vos param\u00E8tres de vue.
+add\ new=Ajouter nouveau
+enter=saisir
+key\ after\ typing\ each\ tag=cl\u00E9 apr\u00E8s avoir tap\u00E9 chaque balise
+or=ou \u00E0
+required=requis
+return=retour

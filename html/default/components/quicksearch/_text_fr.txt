@@ -1,0 +1,5 @@
+#
+#Thu Sep 24 15:12:55 CST 2026
+Featured\ Folders=Dossiers sp\u00E9ciaux
+Search=Recherche
+View=Vue

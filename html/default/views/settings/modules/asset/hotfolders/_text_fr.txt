@@ -1,0 +1,21 @@
+#
+#Thu Sep 24 15:15:44 CST 2026
+Add\ Hot\ Folder=Ajout de dossier \u00E0 jour
+Asset\ Folder=Dossier des actifs
+Cancel=Annuler
+Enable\ hot\ folder\ scanning=Activer la num\u00E9risation des dossiers
+Enabled=Activ\u00E9
+Fill\ out\ the\ form\ below\ to\ setup\ your\ new\ folder=Remplissez le formulaire ci-dessous pour configurer votre nouveau dossier
+Fully\ Scanned=Completement num\u00E9ris\u00E9
+Hot\ Folder=Compte-rendu \u00E0 jour
+Hot\ Folder\ Type=Type de dossier \u00E0 jour
+Hot\ Folders=Liste des fichiers
+New\ Folder=Nouveau dossier
+Nickname=Nom de famille
+Path=Route suivie
+Priority=La priorit\u00E9
+Required\:\ Nickname\ of\ this\ hot\ folder=Obligatoire\: surnom de ce dossier
+Save=Sauvegarder
+Scan\ in\ Progress=Scanner en cours
+Schedule\ Importing=Importer le calendrier
+The\ order\ of\ this\ hot\ folder.\ 0-100\ Higher\ comes\ first=L'ordre de ce dossier chaud. 0-100 Plus haut vient en premier

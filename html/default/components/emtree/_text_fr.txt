@@ -1,0 +1,15 @@
+#
+#Thu Sep 24 15:02:23 CST 2026
+Add\ Sub-Folder=Ajout de sous-dossier
+Category\ id=Nom de la cat\u00E9gorie
+Copy=Commentaire
+Copy\ to=Copi\u00E9 \u00E0
+Cut=Coupe
+Download=T\u00E9l\u00E9charger
+Expand\ =\u00C9largir .
+No\ folder\ set=Aucun ensemble de dossiers
+Paste=Coller
+Properties=Propri\u00E9t\u00E9s
+Remove=Retirer
+Rename=R\u00E9nomm\u00E9
+Upload=T\u00E9l\u00E9charger

@@ -1,0 +1,8 @@
+#
+#Thu Sep 24 15:02:29 CST 2026
+Add\ Sub-Folder=Ajout de sous-dossier
+Collapse\ Tree=L'arbre qui s'effondre
+Folders=Les dossiers
+Show\ All=Montrer tout
+Showing\ Selected=Afficher s\u00E9lectionn\u00E9
+View\ Files=Afficher les fichiers

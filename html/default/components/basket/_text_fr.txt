@@ -1,0 +1,7 @@
+#
+#Thu Sep 24 13:37:00 CST 2026
+Cart\ is\ Empty=Le panier est vide
+Pending\ Orders=Ordres en attente
+asset=actif
+assets=les actifs
+in\ Cart=dans le panier

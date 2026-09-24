@@ -1,0 +1,9 @@
+#
+#Thu Sep 24 15:07:40 CST 2026
+Add\ New\ Field=Ajouter un nouveau champ
+Copy\ to\ catalog\ defaults=Copie dans le catalogue par d\u00E9faut
+Delete=\u00C0 supprimer
+Field\ Name=Nom du champ
+Field\ Type=Type de champ
+ID=Num\u00E9ro d'identification
+Save=Sauvegarder

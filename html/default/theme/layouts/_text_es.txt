@@ -1,5 +1,5 @@
 #
-#Thu Aug 13 10:38:44 CST 2026
+#Thu Sep 24 12:02:57 CST 2026
 AI\ Chat\ Search=B\u00FAsqueda de chat de IA
 Account\ Settings=Configuraci\u00F3n de cuenta
 Bookmarks=Marcadores
@@ -22,6 +22,7 @@ My\ Account=Mi cuenta
 My\ Orders=Mis \u00D3rdenes.
 Ok=De acuerdo.
 Pending\ Orders=\u00D3rdenes pendientes
+Powered\ by\ EME=Impulsado por EME
 Settings=Configuraci\u00F3n
 Theme=Tema
 Upload=Subir

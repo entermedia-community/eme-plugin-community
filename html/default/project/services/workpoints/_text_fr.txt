@@ -1,0 +1,13 @@
+#
+#Thu Sep 24 15:26:40 CST 2026
+Closed\ On=Ferm\u00E9
+Paid\ Work\ Points=Points de travail r\u00E9mun\u00E9r\u00E9s
+Pay\ For\ Points=Payez pour les points
+Pending\ Work\ Points=Points de travail en attente
+Points=Points de vue
+Search=Recherche
+Ticket=Le billet
+Ticket\ Details=D\u00E9tails du billet
+Tickets\ and\ Tasks=Billets et t\u00E2ches
+Total=Nombre total
+[Urgent=Il est urgent.

@@ -1,0 +1,4 @@
+#
+#Thu Sep 24 12:10:24 CST 2026
+Catalog\ Settings=Configuraci\u00F3n del cat\u00E1logo
+Edit\ Setting=Editar la configuraci\u00F3n

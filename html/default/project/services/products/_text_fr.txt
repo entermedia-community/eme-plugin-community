@@ -1,0 +1,17 @@
+#
+#Thu Sep 24 15:27:57 CST 2026
+Add\ Product\ or\ Service=Ajouter un produit ou un service
+AutoPay\ Enabled=Paiement automatique activ\u00E9
+AutoPay\ Paused=Le paiement automatique est suspendu
+Cancel=Annuler
+Canceled=Annul\u00E9
+Copy\ Product\ or\ Service=Produit ou service de copie
+Create\ Invoice=Cr\u00E9er une facture
+Created\ On=Cr\u00E9\u00E9 en
+Cur=Le cou
+Edit\ Product\ or\ Service=Modifier produit ou service
+Invoice\ Product\ or\ Service=Produit ou service de facture
+Next\ Bill\ Date=Date de la prochaine facture
+Price=Le prix
+Product=Produit
+Products=Produits

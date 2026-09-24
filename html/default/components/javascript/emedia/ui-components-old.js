@@ -383,7 +383,15 @@ function initializeUI() {
 
 	lQuery(".redirecttopage").livequery(function () {
 		var url = $(this).data("redirectok");
+		if (customToast) {
+			customToast("Reloading...", {
+				positive: !debugMode,
+				icon: debugMode ? "bug-fill" : "eye-fill",
+			});
+		}
+		
 		window.location.href = url;
+		
 	});
 
 	lQuery("form.autosubmit").livequery(function () {
@@ -1889,7 +1897,7 @@ function initializeUI() {
 	});
 
 	//Moved From settings.js
-	lQuery("#datamanager-workarea th.sortable").livequery("click", function (e) {
+	lQuery("#datamanagercontent th.sortable").livequery("click", function (e) {
 		var table = $("#main-results-table");
 		var args = {
 			oemaxlevel: 1,
@@ -1908,12 +1916,12 @@ function initializeUI() {
 				args.sortby = fieldid + "Up";
 			}
 		} else {
-			$("#datamanager-workarea th.sortable").removeClass("currentsort");
+			$("#datamanagercontent th.sortable").removeClass("currentsort");
 			column.addClass("currentsort");
 			column.addClass("up");
 			args.sortby = fieldid + "Up";
 		}
-		$("#datamanager-workarea").load(
+		$("#datamanagercontent").load(
 			apphome + "/views/settings/lists/datamanager/list/columnsort.html",
 			args,
 			function (response, status, xhr) {
@@ -2292,16 +2300,7 @@ function initializeUI() {
 		posiitionSubmitButtons();
 	});
 
-	lQuery(".themereload").livequery(function () {
-		var url = $(this).data("redirectok");
-		customToast("Theme saved, reloading...", {
-			positive: !debugMode,
-			icon: debugMode ? "bug-fill" : "eye-fill",
-		});
-		
-		window.location.href = url;
-		
-	});
+	
 
 	lQuery(".section-checkall").livequery("click", function (e) {
 		e.stopPropagation();

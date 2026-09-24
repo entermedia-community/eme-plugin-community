@@ -100,14 +100,14 @@ $context.putPageValue("details",$details)
 			#if( $datalist.prevPage() )
 			<a href="$siteroot$content.dataroot/list/results.html?page=$datalist.prevPage()&hitssessionid=$datalist.sessionId&origURL=$!origURL&searchtype=$searcher.searchType&oemaxlevel=1"
 				class="ajax"
-				data-targetdivinner="datamanager-workarea" ><b>&lt;&lt;  [[Back]]</b></a>
+				data-targetdivinner="datamanagercontent" ><b>&lt;&lt;  [[Back]]</b></a>
 			#end
 			
 			#if ( $datalist.nextPage() )
 			<a style="margin-left: 10px;" 
 				href="$siteroot$content.dataroot/list/results.html?page=$datalist.nextPage()&hitssessionid=$datalist.sessionId&origURL=$!origURL&searchtype=$searcher.searchType&oemaxlevel=1"
 				 class="ajax"
-				data-targetdivinner="datamanager-workarea"><b> [[Forward]] &gt;&gt;</b></a>
+				data-targetdivinner="datamanagercontent"><b> [[Forward]] &gt;&gt;</b></a>
 			#end
 		#end
 	</div>

@@ -7,7 +7,7 @@
 			<form action="$siteroot$dataroot/properties/addnew.html?oemaxlevel=1" 
 				  name="addnewprop" 
 				  class="inlineform ajaxform"
-				  data-targetdivinner="datamanager-workarea">
+				  data-targetdivinner="datamanagercontent">
 				<input type="hidden" name="catalogid" value="$!catalogid" />
 				<input type="hidden" name="searchtype" value="$searchtype" />
                 <strong>[[Add New Field]]: </strong>
@@ -43,7 +43,7 @@
 	#end
 	</table>
 	##this will auto submit when they click
-	<form name="editlink" action="$siteroot$dataroot/properties/edit.html?oemaxlevel=1" class="ajaxform" data-targetdivinner="datamanager-workarea">
+	<form name="editlink" action="$siteroot$dataroot/properties/edit.html?oemaxlevel=1" class="ajaxform" data-targetdivinner="datamanagercontent">
 		<input type="hidden" name="id" id="emselectedrow" value="" />
 		<input type="hidden" name="catalogid" value="$catalogid" />
 		<input type="hidden" name="searchtype" value="$searcher.getSearchType()" />

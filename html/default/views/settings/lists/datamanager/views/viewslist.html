@@ -27,7 +27,7 @@ $context.putPageValue("views", $views)
 					#else
 						#set( $viewpath = "${moduleid}/$target")
 					#end
-					<a class="sortableitem ajax" targetdivinner="datamanager-workarea" href="$siteroot$viewsroot/index.html?viewid=$target&viewpath=$viewpath&searchtype=${moduleid}&oemaxlevel=2">
+					<a class="sortableitem ajax" targetdivinner="datamanagercontent" href="$siteroot$viewsroot/index.html?viewid=$target&viewpath=$viewpath&searchtype=${moduleid}&oemaxlevel=2">
 					$context.getText($target.toString())</a>
 					<a class="ajax delete-row" data-targetdiv="" href="./deleteview.html?searchtype=${moduleid}&id=${target.id}&viewpath=$viewpath&searchtype=${moduleid}">
 					<i class="fas fa-times"></i></a>

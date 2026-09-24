@@ -29,6 +29,10 @@
 		</form>
 	</div>
 
+	#if($deletedtable)
+		<p class="alert alert-info fader">[[Table Deleted]]</p>
+	#end
+
 	#if($currentsearch)
 		<h4 class=" m-0">
 			[[Table]]: <strong style="font-family: 'Courier New', Courier, monospace;">$!currentsearch</strong>
@@ -44,7 +48,8 @@
 
 		## <a class="btn" href="$siteroot$apphome/views/settings/lists/datamanager/properties/index.html?catalogid=$catalogid&searchtype=$currentsearch">[[Customize Fields]]</a>
 
-		<div id="datamanager-workarea" >
+		<div id="datamanagercontent" >
+			
 			$pages.streamContent()
 		</div>
 

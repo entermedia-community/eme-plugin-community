@@ -1,4 +1,4 @@
-
+<div id="listselector" class="datamanagerworkarea">
 	<h3 class="settings-title">[[Create New Table]]</h3>
 	<div class="clearfix"></div>
 	
@@ -6,8 +6,9 @@
 	        
 	    <form class="ajaxform validateinputs" 
 	    	name="Add" 
-	    	action="$siteroot$apphome/views/settings/lists/datamanager/addtable/addfinish.html?oemaxlevel=2"
+	    	action="$siteroot$apphome/views/settings/lists/datamanager/addtable/addfinish.html"
 	    	data-targetdiv="datamanagerworkarea">
+			<input type="hidden" name="oemaxlevel" value="2" />
 		    <div style="width:400px">
 			    <div>
 			    <label>[[Table Name]]</label>
@@ -30,3 +31,4 @@
 	    </form>
 	
 	</div>
+</div>

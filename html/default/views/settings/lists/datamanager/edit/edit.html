@@ -18,7 +18,7 @@ $context.putPageValue("details",$details)
 				action="$content.dataroot/edit/save.html?oemaxlevel=1" 
 				enctype="multipart/form-data"
 				class="ajaxform"
-				data-targetdivinner="datamanager-workarea">
+				data-targetdivinner="datamanagercontent">
 			<input name="save" type="hidden" value="true" />
 			<input name="id" type="hidden" value="$!data.id" />
 			<input name="catalogid" type="hidden" value="$searcher.catalogId" />
@@ -32,11 +32,11 @@ $context.putPageValue("details",$details)
 		<div style="padding:10px">
 		<input class="btn btn-sm btn-primary" type="submit" value="[[Save]]" />
 		<a class="btn btn-sm btn-secondary ajax"
-			data-targetdivinner="datamanager-workarea" 
+			data-targetdivinner="datamanagercontent" 
 			style="margin-left: 10px;" 
 			href="$siteroot$content.dataroot/list/index.html?searchtype=$searcher.searchType&catalogid=$searcher.catalogId&oemaxlevel=1">[[Cancel]]</a>
 		<a class="btn btn-sm btn-danger ajax"
-			data-targetdivinner="datamanager-workarea"
+			data-targetdivinner="datamanagercontent"
 			data-confirm="[[Delete Database Record?]]" 
 			data-oemaxlevel="1"
 			style="margin-left: 10px;" 

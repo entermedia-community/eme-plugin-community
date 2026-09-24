@@ -12,13 +12,14 @@
 	<th id="th-thumbnail"> [[Thumbnail]]  </th>
 	#set( $sortby = $hits.getSearchQuery().getSortBy() )
 	#foreach( $detail in $details)
-	
+		#set( $colsize = $userprofile.get("columnsize_${module.id}_${detail.getId()}") )
+
 		<th  class="sortable resizable-col-header #if( $sortby.startsWith($detail.getId() ) ) currentsort #if($sortby.endsWith("Up"))up #else down#end #end"
 			id="th-$detail.id" 
 			sortby="$detail.id" 
 			data-sortby="$detail.id"
 			title="[[Sort by]] #text( $detail.name )"
-			style="position: relative; min-width: 80px;">
+			style="position: relative; min-width: 80px;#if($colsize) width: $!{colsize}px;#end">
 					
 			<div id="$detail.id" assethitssessionid="$hits.getSessionId()"  
 			class="col-resizer-cell" > 

@@ -13,7 +13,8 @@
 	#set( $sortby = $hits.getSearchQuery().getSortBy() )
 	
 	#foreach( $detail in $details)
-		<th  class="sortable resizable-col-header #if($edit)editcolumnheader #end #if( $sortby.startsWith($detail.getId() ) ) currentsort #if($sortby.endsWith("Up"))up #else down#end #end" id="th-$detail.id" sortby="$detail.id" data-sortby="$detail.id" > 
+		#set( $colsize = $userprofile.get("columnsize_${module.id}_${detail.getId()}") )
+		<th  class="sortable resizable-col-header #if($edit)editcolumnheader #end #if( $sortby.startsWith($detail.getId() ) ) currentsort #if($sortby.endsWith("Up"))up #else down#end #end" id="th-$detail.id" data-detailid="$detail.id" sortby="$detail.id" data-sortby="$detail.id" #if($colsize) style="width: $!{colsize}px;" #end> 
 			<div id="$detail.id" hitssessionid="$hits.getSessionId()"  
 			editing="$edit" class="col-resizer-cell" > 
 				<span class="col-resizer-handle" aria-hidden="true" ></span>

@@ -17,6 +17,8 @@ jQuery(document).ready(function (url, params) {
 			return;
 		}
 
+		var moduleId = table.getAttribute("data-moduleid") || "";
+
 		var headers = table.querySelectorAll("thead th.sortable");
 		headers.forEach(function (header) {
 			var handle = header.querySelector(".col-resizer-handle");
@@ -31,13 +33,16 @@ jQuery(document).ready(function (url, params) {
 			}
 			handle.dataset.resizerBound = "true";
 
+			var detailId =
+				header.getAttribute("data-detailid") ||
+				(header.id ? header.id.replace(/^th-/, "") : "");
+
 			handle.addEventListener("mousedown", function (event) {
 				event.preventDefault();
 				event.stopPropagation();
 
 				var startX = event.clientX;
 				var startWidth = header.offsetWidth;
-				var colIndex = header.cellIndex;
 				var newwidth = startWidth;
 				var active = true;
 
@@ -65,6 +70,14 @@ jQuery(document).ready(function (url, params) {
 					document.removeEventListener("mouseup", onUp);
 					document.body.style.cursor = "";
 					document.body.style.userSelect = "";
+
+					if (newwidth !== startWidth && moduleId && detailId) {
+						saveProfileProperty(
+							"columnsize_" + moduleId + "_" + detailId,
+							newwidth,
+							function () {}
+						);
+					}
 				}
 
 				document.addEventListener("mousemove", onMove);

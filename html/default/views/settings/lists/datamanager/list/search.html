@@ -2,33 +2,39 @@
 #set($searcher = $mediaarchive.getSearcherManager().getSearcher($catalogid,$searchtype))
 #set( $view = $context.getRequestParameter("view") )
 #if( !$view )
-    #set( $view = "${searcher.searchType}/${searcher.searchType}search.xml")
+#set( $view = "${searcher.searchType}/${searcher.searchType}search.xml")
 #end
-$context.putPageValue("hits",$datalist) 
+$context.putPageValue("hits",$datalist)
 
 #set( $details = $searcher.getStoredProperties() )
 
-$context.putPageValue("details",$details) 
+$context.putPageValue("details",$details)
 
-<div id="advanced-dm-search" class="p-3">
-            <form id="simple-dm-search-h" class="novalidate" style="width: 100%" name="search" method="post" 
-            	action="$home$content.dataroot/list/index.html"
-            	class="inlineform ajaxform"
-        		data-targetdivinner="datamanagercontent"
-        		data-colsedialog="true">
-        			#if( $hits.getInput("id") == "*")
-        				[[All]]
-        				$context.putPageValue("hits",false)
-        			#end
-        			
-        			
-        			$context.putPageValue("caneditlists",false) 
-        			
-                    $pages.include("/${applicationid}/components/xml/searchfields.html",$context)
-                    
-                    <input type="hidden" name="catalogid" value="$!searcher.catalogId" />
-                    <input type="hidden" name="searchtype" value="$!searcher.searchType" />
-                    <input type="hidden" name="view" value="$!view" />
-                    <input class="btn btn-sm btn-primary" type="submit" value="[[Search]]" />
+<div id="advanced-dm-search">
+    <div class="overflow-y" style="max-height: 500px; overflow-x: hidden;">
+        <div class="p-2" style="width: 100%;">
+            <form id="simple-dm-search-h" class="novalidate" name="search" method="post"
+                action="$home$content.dataroot/list/index.html" class="inlineform ajaxform"
+                data-targetdivinner="datamanagercontent" data-colsedialog="true">
+                #if( $hits.getInput("id") == "*")
+                [[All]]
+                $context.putPageValue("hits",false)
+                #end
+
+
+                $context.putPageValue("caneditlists",false)
+
+                $pages.include("/${applicationid}/components/xml/searchfields.html",$context)
+
+
+                <input type="hidden" name="catalogid" value="$!searcher.catalogId" />
+                <input type="hidden" name="searchtype" value="$!searcher.searchType" />
+                <input type="hidden" name="view" value="$!view" />
+                <div class="form-submit-btns sticky">
+                <input class="btn btn-sm btn-primary" type="submit" value="[[Search]]" />
+                </div>
+
             </form>
         </div>
+    </div>
+</div>

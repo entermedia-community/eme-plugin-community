@@ -1,11 +1,10 @@
 <div id="listselector" class="datamanagerworkarea">
 	<h3 class="settings-title">[[Create New Table]]</h3>
-	<div class="clearfix"></div>
 	
 	<div class="fields" style="padding:20px;">
 	        
 	    <form class="ajaxform validateinputs" 
-	    	name="Add" 
+	    	name="addtable" 
 	    	action="$siteroot$apphome/views/settings/lists/datamanager/addtable/addfinish.html"
 	    	data-targetdiv="datamanagerworkarea">
 			<input type="hidden" name="oemaxlevel" value="2" />
@@ -22,8 +21,8 @@
 			    <div class="note">[[Plural table name: contacts]]</div>
 			    
 			    <div style="padding:20px 0">  
-			    <input class="btn btn-sm btn-primary" type="submit" value="[[Create Table]]" />
-			    <a class="btn btn-sm btn-secondary " 
+			    <input class="btn btn-primary" type="submit" value="[[Create Table]]" />
+			    <a class="btn btn-secondary " 
 			    	style="margin-left: 10px;" href="$siteroot$apphome/views/settings/lists/datamanager/list/index.html">[[Cancel]]</a>
 			    </div>
 			    </div>

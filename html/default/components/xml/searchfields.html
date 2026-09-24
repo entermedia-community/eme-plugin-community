@@ -3,9 +3,30 @@
 ##requires $searcher //used to get the catalogid and searcherManager
 
 $context.putPageValue("insearch",true)
-<div class="" style="width:25%"> 
+
 #foreach( $detail in $details)
-<div class="me-1 mb-4">
+#if($detail.getId() == "id")
+
+<div class="row g-0"> 
+	<div class="col-md-12 mb-4">
+		<div class="p-2 mb-2 bg-light">
+		<div class="emsearchfield mr-2"> 
+		$!detail.getText($context) 
+		</div> 
+		<div id="detail_${detail.id}" class="emsearchfieldvalue">
+			<input name="field" value="$searcher.getCatalogId():$view:${detail.getId()}" type="hidden">
+			$pages.include("/${applicationid}/components/xml/types/default.html", $context)
+		</div>
+	</div>
+</div>
+</div>
+#end
+#end
+<div class="d-flex flex-wrap">
+#foreach( $detail in $details)
+#if($detail.getId() != "id")
+<div class="col-md-6">
+	<div class="px-3 mb-4">
 	<div class="emsearchfield mr-2"> 
 	$!detail.getText($context) 
 	</div> 
@@ -49,7 +70,9 @@ $context.putPageValue("insearch",true)
 			$pages.include("/${applicationid}/components/xml/types/${viewtype}.html", $context)
 		#end
 	</div>
-	</div>
+	</div>	
+</div>
+#end
 #end
 </div>
 #if( $details.size() == 0)

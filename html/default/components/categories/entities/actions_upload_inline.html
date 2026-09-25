@@ -52,7 +52,7 @@
 	
 
 	   	
-		#if($permissions.canModule($module, "edit"))
+		#if($permissions.isEditorFor($module, $module))
 		 	<a class="ajax list-delete"  
 		 		data-targetdiv="entitycategoryresults" 
 		 		href="" >

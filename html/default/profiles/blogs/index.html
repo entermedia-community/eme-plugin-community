@@ -1,7 +1,7 @@
  
 $context.putPageValue("showchannel",false)
 
-#if($permissions.canEntity($module,$emeprofile,"edit"))
+#if($permissions.isEditorFor($module,$emeprofile))
 	#set( $query = $mediaarchive.query("userpost").exact("emeprofile", $emeprofile.getId()).sort("entity_dateDown") )
 #else
 	#set( $query = $mediaarchive.query("userpost").exact("emeprofile", $emeprofile.getId()).exact("poststatus", "published").sort("entity_dateDown") )
@@ -25,7 +25,7 @@ $context.putPageValue("showchannel",false)
 				<h1 class="h3 mb-2">[[Recent Blogs]]</h1>
 			#end
 		#end
-		#if($permissions.canEntity($module,$emeprofile,"edit"))
+		#if($permissions.isEditorFor($module,$emeprofile))
 			<div>
 			#set( $drafts = $mediaarchive.query("userpost").exact("emeprofile", $emeprofile.getId()).exact("poststatus", "draft").search() )
 					

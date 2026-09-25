@@ -6,7 +6,7 @@
 	#set($enableactions = $content.isPropertyTrue("enableactions",true))
 #end
 #if($enableactions)
-	#set($enableactions = $permissions.canModule($module, "edit"))
+	##set($enableactions = $permissions.canModule($module, "edit"))
 #end
 $context.putPageValue("enableactions", $enableactions)
 

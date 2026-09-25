@@ -159,7 +159,7 @@ $context.putPageValue("viewid", $viewid)
 					#end
 				#else
 					#if($id) 
-						#if($ismultisaved || $permissions.canEntity($module,$entity,"edit"))
+						#if($ismultisaved || $permissions.isEditorFor($module,$entity))
 							 
 								<a href="${edithome}/index.html?edit=true&showmedia=$!showmedia&viewid=$!viewid&hitssessionid=$!hitssessionid" 
 									data-targetdiv="editentitymetadata"

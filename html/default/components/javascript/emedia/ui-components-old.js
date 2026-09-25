@@ -1892,6 +1892,12 @@ function initializeUI() {
 		$("#sidebar-list-upload").addClass("current");
 	});
 
+	lQuery(".sidebar-entities-menu").livequery("click", function () {
+		//loop all $(".sidebar-entities-submenu") without d-none class except my sibling
+		$(".sidebar-entities-submenu").not(".d-none").not($(this).siblings(".sidebar-entities-submenu")).addClass("d-none");
+		
+	});
+
 	lQuery(".sidebar-entities-submenu-toggler").livequery("click", function () {
 		$(this).siblings(".sidebar-entities-submenu").toggleClass("d-none");
 	});

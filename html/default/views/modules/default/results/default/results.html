@@ -54,7 +54,7 @@ $context.putPageValue("viewid", $viewid)
 	#set($enableactions = $content.isPropertyTrue("enableactions",true))
 #end
 #if($enableactions == "true")
-	#set($enableactions = $permissions.canModule($module, "edit"))
+	#set($enableactions = $permissions.isEditorFor($module))
 #end
 
 $context.putPageValue("enableactions", $enableactions)

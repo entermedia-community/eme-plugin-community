@@ -11,7 +11,7 @@
 	<a class="btn btn-secondary" data-targetdivinner="datamanagercontent"
 		href="$home$content.dataroot/export/${searcher.searchType}.csv?catalogid=$searcher.catalogId&searchtype=$searcher.searchType&origURL=$!origURL&hitssessionid=${datalist.getSessionId()}&oemaxlevel=1&friendly=true">[[Export
 		Text]]</a>
-	<a class="btn btn-secondary ajax" data-targetdiv="datamanagercontent" data-oemaxlevel="1"
+	<a class="btn btn-secondary ajax" data-targetdivinner="datamanagercontent" data-oemaxlevel="1"
 		href="$home$content.dataroot/list/deleteall.html?&searchtype=$searcher.searchType&origURL=$!origURL"
 		data-hitssessionid="${datalist.getSessionId()}" data-confirm="[[Delete Records]] $hits.size()?">[[Delete]]
 		$hits.size()</a>

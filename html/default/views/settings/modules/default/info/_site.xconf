@@ -2,6 +2,7 @@
 	<property name="searchtype">module</property>
 	<property name="tab">setup</property>
 	<property name="subtab">properties</property>
+	<property name="subtabmenu">properties</property>
 	<inner-layout>/${applicationid}/views/settings/modules/default/info/innerlayout.html</inner-layout>
 	
 </page>

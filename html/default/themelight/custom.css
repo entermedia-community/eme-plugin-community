@@ -11,7 +11,7 @@
 	--themed-navbar-primary-text:#666666;
 	--themed-navbar-primary-text-hover:#000000;
 
-	--themed-navbar-secondary:#888888;
+	--themed-navbar-secondary:#CCCCCC;
 	--themed-navbar-secondary-text:#FFFFFF;
 
 	--themed-nav-btn:linear-gradient(45deg, #AAAAAA 40%, #D0D0D0 100%);
@@ -30,9 +30,9 @@
 	--themed-tab-btn-hover:#e6e6e6;
 	--themed-tab-btn-hover-text:#444444;
 
-	--themed-tab-btn-active:#77DD77;
-	--themed-tab-btn-active-text:#165816;
-	--themed-tab-btn-active-hover:#a1e8a1;
+	--themed-tab-btn-active:#cecece;
+	--themed-tab-btn-active-text:#222;
+	--themed-tab-btn-active-hover:#cecece;
 
 	--themed-btn-cta-plain:#77DD77;
 	--themed-btn-cta:linear-gradient(45deg, #77DD77 40%, #B4ECB4 100%);

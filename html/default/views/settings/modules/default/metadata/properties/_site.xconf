@@ -2,6 +2,7 @@
 
 <page>
    <property name="subtab">${module}fields</property>
+   <property name="subtabmenu">${module}fields</property>
    
    <property name="tab">${module}fields</property>
    

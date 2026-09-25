@@ -23,7 +23,7 @@
 				#set($tab = $amodule.id)
 				
 				<li class="#if($moduleid==$amodule.id) current #end">
-					<a class=" ajax auto-active-link " data-targetdiv="applicationcontent" data-updateurl="true"
+					<a class=" ajax auto-active-link sidebar-entities-menu" data-targetdiv="applicationcontent" data-updateurl="true"
 						data-hidefooter="true" data-oemaxlayout="3" data-profilepreference="defaultmodule"
 						data-profilepreference.value="${amodule.getId()}" data-scrolltotop="true"
 						href="$urlbase/${amodule.id}/index.html">
@@ -31,13 +31,13 @@
 						#if ($amodule.moduleicon)
 							#set($moduleicon = $amodule.moduleicon)
 						#end
-						<i class="bi bi-$moduleicon ns me-2"></i>#text($amodule)</a>
+					<i class="bi bi-$moduleicon ns me-2"></i>#text($amodule)</a>
 					#if($canviewsettings)
 						<a class="action sidebar-entities-submenu-toggler" style="position:absolute; right: 0; top:0;"
 							href="#"
 							title="#text($amodule) [[Properties]]"><i class="bi bi-gear-fill"></i></a>
 						<ul class='sidebar-sublist sidebar-entities-submenu auto-active-container 
-						#if( $tab != $moduleid ) d-none #end '>
+						#if( $tab == $moduleid && $content.subtabmenu ) #else d-none #end '>
 							
 							#set( $query = $searcher.createSearchQuery() )
 							#set( $null = $query.addExact("menulevel","toplevel") )
@@ -60,6 +60,7 @@
 									data-targetdiv="applicationcontent" 
 									data-updateurl="true" 
 									data-oemaxlayout="3"
+									data-screenid="$screen.id"
 									title="#text($amodule) $context.getText($screen.toString())"><span>#text($screen)</span></a>
 								</li>
 							#end

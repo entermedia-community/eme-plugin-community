@@ -15,21 +15,6 @@ $(document).ready(function () {
 		}
 	}
 
-	// Prevent selection from starting if the Shift key is held down
-	$(window).on('selectstart', function(e) {
-		if (e.shiftKey) {
-			e.preventDefault();
-			return false;
-		}
-	});
-
-	// Clear any accidental selection that snuck through when Shift is released
-	$(window).on('keyup', function(e) {
-		if (e.which === 16) { // 16 is the Shift key
-			window.getSelection().removeAllRanges();
-		}
-	});
-
 	var selectStart = null;
 	handlemultselections = function (item, e){
 

@@ -33,15 +33,7 @@
 			
 			$pages.include("$apphome/components/topmenu/topmenu.html", $context)
 
-			#if($canviewsettings)
-				$pages.includeContent()
-			#else
-				#if($user && $topmenu.isEmpty())
-					$pages.include("$apphome/welcome.html")
-				#else
-					$pages.includeContent()
-				#end	
-			#end	
+			$pages.includeContent()	
 	</div>
 </div>
 

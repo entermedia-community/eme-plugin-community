@@ -1,0 +1,6 @@
+<page>
+    <inner-layout />
+	<path-action name="ChatModule.loadChatChannel" cancel="true" />
+	<path-action name="AgentModule.loadAgentContext" cancel="true" />
+    <path-action name="ChatModule.loadPushPublicKey"/>
+</page>

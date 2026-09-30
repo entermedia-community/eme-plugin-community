@@ -6,5 +6,6 @@ $context.putPageValue("searchhome", $searchhome)
 	data-url="${edithome}/resultarea.html" 
 	data-categoryid="${category.id}"
 	>
-$pages.include("${searchhome}/search.html?categoryid=${category.id}&exactsearch=false", $context)
+#set($exactsearch = $context.getRequestParameter("exactsearch"))
+$pages.include("${searchhome}/search.html?categoryid=${category.id}&exactsearch=$!exactsearch", $context)
 </div>

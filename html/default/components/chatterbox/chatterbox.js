@@ -502,7 +502,6 @@ jQuery(document).ready(function () {
 
 	
 	lQuery(".allowchatnotifications").livequery("click", async  function (e) {
-		console.log("Allow chat notifications button clicked.");
 		try {
 			await createNotificationSubscription();
 		} catch (err) {
@@ -545,7 +544,7 @@ jQuery(document).ready(function () {
 			// a copy hardcoded here) avoids a mismatch if the server key was ever regenerated.
 			const pushServerPublicKey = await jQuery.ajax({
 				type: 'GET',
-				url: appHome + '/components/chatterbox/getpushpublickey.html',
+				url: appHome + '/components/chatterbox/pushnotificationpublickey.html',
 				dataType: 'text',
 				xhrFields: { withCredentials: true },
 				crossDomain: true,
@@ -576,7 +575,7 @@ jQuery(document).ready(function () {
 			// 8. Save payload to backend
 			await jQuery.ajax({
 				type: 'POST',
-				url: appHome + '/components/chatterbox/savepushsubscription.html',
+				url: appHome + '/components/chatterbox/pushsubscriptionsave.html',
 				data: {
 					endpoint: subscription.endpoint,
 					p256dh: p256dh,

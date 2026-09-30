@@ -55,6 +55,7 @@ jQuery(document).ready(function () {
 			data = $.extend({}, data); //So we can edit it
 			data.command = button.data("command");
 			data.functionname = lookupFunctionName(chatter);
+			data.apphome = appHome;
 			
 			const replytoid = chattermsg.data("replytoid");
 			if (replytoid) {
@@ -279,31 +280,32 @@ jQuery(document).ready(function () {
 					window.focus();         
 					notification.close();  
 				});
-
-				/*Check para permissions and ask.*/
-				if (Notification.permission === "granted") {
-					showNotification();
-				} else if (Notification.permission !== "denied") {
-					console.log("Requesting notification permission...");
-					createNotificationSubscription();
-
-					Notification.requestPermission().then((permission) => {
-						if (permission === "granted") {
-							showNotification();
-						} else {
-							console.log("Notification permission denied.");
-						}
-					});
-				} else {
-					console.log(
-						`Notification Browser permission: ${Notification.permission}`,
-					);
-					// customToast(message.message, {
-					// 	positive: true,
-					// 	autohide: false,
-					// });
-				}
 			}
+
+			/*Check para permissions and ask.*/
+			if (Notification.permission === "granted") {
+				//showNotification();
+			} else if (Notification.permission !== "denied") {
+				console.log("Requesting notification permission...");
+				//createNotificationSubscription();
+
+				Notification.requestPermission().then((permission) => {
+					if (permission === "granted") {
+						//showNotification();
+					} else {
+						console.log("Notification permission denied.");
+					}
+				});
+			} else {
+				console.log(
+					`Notification Browser permission: ${Notification.permission}`,
+				);
+				// customToast(message.message, {
+				// 	positive: true,
+				// 	autohide: false,
+				// });
+			}
+			
 		});
 
 		chatConnection.addEventListener("open", function () {
@@ -486,27 +488,163 @@ jQuery(document).ready(function () {
 	}
 
 	/*-------Start Push and Notification --------*/
-	const pushServerPublicKey =
-		"BIN2Jc5Vmkmy-S3AUrcMlpKxJpLeVRAfu9WBqUbJ70SJOCWGCGXKY-Xzyh7HDr6KbRDGYHjqZ06OcS3BjD7uAm8";
 
-	function createNotificationSubscription() {
-		//wait for service worker installation to be ready, and then
-		return navigator.serviceWorker.ready.then(function (serviceWorker) {
-			// subscribe and return the subscription
-			return serviceWorker.pushManager
-				.subscribe({
-					userVisibleOnly: true,
-					applicationServerKey: pushServerPublicKey,
-				})
-				.then(function (subscription) {
-					// send this to Entermedia backend with a user id
-					// 'subscription' == PushSubscription (object)
-					console.log("User is subscribed.", subscription);
-					console.log(subscription.endpoint);
-					return subscription;
-				});
-		});
+	function urlBase64ToUint8Array(base64String) {
+		const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+		const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+		const rawData = window.atob(base64);
+		const outputArray = new Uint8Array(rawData.length);
+		for (let i = 0; i < rawData.length; ++i) {
+			outputArray[i] = rawData.charCodeAt(i);
+		}
+		return outputArray;
 	}
+
+	
+	lQuery(".allowchatnotifications").livequery("click", async  function (e) {
+		console.log("Allow chat notifications button clicked.");
+		try {
+			await createNotificationSubscription();
+		} catch (err) {
+			console.error("Subscription failed:", err);
+		}
+	});
+
+	async function createNotificationSubscription() {
+		try {
+			// 1. Verify browser feature support
+			if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+				throw new Error('Push messaging is not supported in this browser.');
+			}
+
+			// 2. Request Permission (Must be inside user-click context)
+			console.log('1. Requesting notification permission...');
+			const permission = await Notification.requestPermission();
+			
+			if (permission !== 'granted') {
+				throw new Error('Notification permission was denied by the user.');
+			}
+
+			// 3. Register or locate Service Worker
+			console.log('2. Accessing Service Worker...');
+			let registration = await navigator.serviceWorker.getRegistration();
+			if (!registration) {
+				registration = await navigator.serviceWorker.register(apphome + '/sw.js', { scope: apphome + '/' });
+			}
+
+			const serviceWorker = await navigator.serviceWorker.ready;
+
+			// 4. Chrome Fix: Always unsubscribe stale/existing push subscriptions first
+			const existingSub = await serviceWorker.pushManager.getSubscription();
+			if (existingSub) {
+				console.log('Clearing existing push subscription...');
+				await existingSub.unsubscribe();
+			}
+
+			// 5. Fetch the current VAPID public key from the server. Reading it fresh (instead of
+			// a copy hardcoded here) avoids a mismatch if the server key was ever regenerated.
+			const pushServerPublicKey = await jQuery.ajax({
+				type: 'GET',
+				url: appHome + '/components/chatterbox/getpushpublickey.html',
+				dataType: 'text',
+				xhrFields: { withCredentials: true },
+				crossDomain: true,
+			}).then((text) => text.trim());
+
+			const key = urlBase64ToUint8Array(pushServerPublicKey);
+			console.log('3. Subscribing via pushManager: ' + pushServerPublicKey);
+
+			// 6. Create Fresh Push Subscription
+			const subscription = await serviceWorker.pushManager.subscribe({
+				userVisibleOnly: true,
+				applicationServerKey: key,
+			});
+
+			console.log('Successfully subscribed in Chrome/Firefox!', subscription);
+
+			// 7. Extract raw binary keys correctly for Chrome & Firefox
+			const rawKey = subscription.getKey ? subscription.getKey('p256dh') : null;
+			const rawAuth = subscription.getKey ? subscription.getKey('auth') : null;
+
+			// Convert ArrayBuffer to URL-Safe Base64 String
+			const p256dh = btoa(String.fromCharCode.apply(null, new Uint8Array(rawKey)))
+				.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+			const auth = btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuth)))
+				.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+			// 8. Save payload to backend
+			await jQuery.ajax({
+				type: 'POST',
+				url: appHome + '/components/chatterbox/savepushsubscription.html',
+				data: {
+					endpoint: subscription.endpoint,
+					p256dh: p256dh,
+					auth: auth,
+				},
+				xhrFields: { withCredentials: true },
+				crossDomain: true,
+			});
+
+			console.log('Subscription saved to server.');
+			return subscription;
+
+		} catch (error) {
+			console.error('Subscription process failed:', error);
+			throw error;
+		}
+	}
+	
+
+
+	function validateVapidPublicKey(key) {
+    if (typeof key !== 'string' || !key.trim()) {
+        return { valid: false, reason: "Key is missing or not a string." };
+    }
+
+    // Check for PEM wrapper headers
+    if (key.includes("BEGIN") || key.includes("PUBLIC KEY")) {
+        return { 
+            valid: false, 
+            reason: "Key is in PEM format. VAPID public keys must be raw Base64URL strings, not PEM blocks." 
+        };
+    }
+
+    // Convert Base64URL to standard Base64 for validation
+    let base64 = key.trim().replace(/-/g, '+').replace(/_/g, '/');
+    while (base64.length % 4 !== 0) {
+        base64 += '=';
+    }
+
+    try {
+        const rawData = window.atob(base64);
+        const bytes = new Uint8Array(rawData.length);
+        for (let i = 0; i < rawData.length; i++) {
+            bytes[i] = rawData.charCodeAt(i);
+        }
+
+        // Must be exactly 65 bytes for a P-256 uncompressed public key
+        if (bytes.length !== 65) {
+            return { 
+                valid: false, 
+                reason: `Invalid key length (${bytes.length} bytes). Expected exactly 65 bytes.` 
+            };
+        }
+
+        // The first byte must be 0x04 (uncompressed point format marker)
+        if (bytes[0] !== 0x04) {
+            return { 
+                valid: false, 
+                reason: `Invalid public key prefix byte (0x${bytes[0].toString(16)}). First byte must be 0x04.` 
+            };
+        }
+
+        return { valid: true, reason: "Valid VAPID Public Key." };
+
+    } catch (e) {
+        return { valid: false, reason: "Failed to decode Base64 string: " + e.message };
+    }
+}
 
 	function hideAttachFile() {
 		if ($(".message-attach-box").is(":visible")) {

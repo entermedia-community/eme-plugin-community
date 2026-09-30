@@ -1,0 +1,5 @@
+<page>
+<path-action name="ChatModule.loadChatChannel" cancel="true" />
+<path-action name="AgentModule.loadAgentContext" cancel="true" />
+	<path-action name="ChatModule.savePushSubscription"/>
+</page>

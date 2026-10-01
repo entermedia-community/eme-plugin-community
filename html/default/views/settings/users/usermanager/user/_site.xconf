@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <page>
-  	<path-action name="User.getUserManager"/>
-  	 <property name="subtab">users</property>
+  <path-action name="User.getUserManager"/>
+  <property name="menumodule">system</property>
+  <property name="tab">users</property>
+  <property name="subtab">users</property>
   <property name="oeuseradmintabid">userstab</property>
 </page>

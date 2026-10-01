@@ -5,6 +5,7 @@
     	<value>User Manager</value>
   	</property>
   <inner-layout>/${applicationid}/theme/layouts/settingssubtablayout.html</inner-layout>
+  <property name="menumodule">system</property>
   <property name="tab">users</property>
   <property name="subtab">users</property>
   <property name="oeuseradmintabid">userstab</property>

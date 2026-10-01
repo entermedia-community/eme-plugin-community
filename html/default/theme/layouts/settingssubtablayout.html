@@ -1,13 +1,19 @@
 #set( $subtab = $context.findValue("subtab") )
 
 #if( $subtab )
-	#set ( $module = $context.findValue("module") )
+	#set ( $module = $context.findValue("menumodule") )
+	#ifnull($module)
+		#set ( $module = $context.findValue("module") )
+	#end
 	#set ( $parentid = $context.findValue("tab") )
 	<div id="eml-tab-subnav" class="emsubnav">
 			#set( $searcher = $searcherManager.getSearcher($catalogid,"settingsmenu") )
+			
 			#set( $query = $searcher.query().exact("parentid", $parentid ).exact("moduleid", $module) )
 			$!query.sortBy("ordering")
 			#set($tabs = $query.search())	
+
+			
 		<ul>
 		
 			#if($tabs)
@@ -30,7 +36,7 @@
 				#end
 			#else
 				#set($screen = $mediaarchive.getCachedData("settingsmenu", $subtab))
-			<li class="current"><a href="">#text($screen)</a></li>
+			<li class="current"><a href="#">#text($screen)</a></li>
 			#end
 		</ul>
 	</div>

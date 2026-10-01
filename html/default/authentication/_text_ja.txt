@@ -1,0 +1,19 @@
+#
+#Sat Sep 26 10:44:53 EDT 2026
+Are\ you\ having\ trouble\ logging\ in\ or\ have\ a\ question?=Are you having trouble logging in or have a question?
+Email=Email
+Enter\ your\ email\ address=Enter your email address
+Enter\ your\ email\ and\ we'll\ send\ a\ one-time\ code.=Enter your email and we'll send a one-time code.
+Legacy\ Login=Legacy Login
+Legacy\ login\ with\ username\ &\ password=Legacy login with username & password
+Next=Next
+No\ Permissions=No Permissions
+Or\ continue\ with=Or continue with
+Please=Please
+Sign\ in=Sign in
+Sign\ in\ /\ Sign\ up=Sign in / Sign up
+To\ create\ a\ new\ account,\ please\ contact=To create a new account, please contact
+You\ do\ not\ have\ permissions\ to\ perform\ the\ previous\ action.=You do not have permissions to perform the previous action.
+Your\ Login\ Info=Your Login Info
+contact\ us=contact us
+the\ administrator=the administrator

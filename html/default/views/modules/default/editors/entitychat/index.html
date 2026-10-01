@@ -15,4 +15,8 @@ $context.putPageValue("edithome", $edithome)
 $pages.include("${edithome}/sessionhistory.html", $context)
 
 $pages.include("${edithome}/chatterbox/index.html", $context)
+#if($module.id == "librarycollection")
+$context.putPageValue("collectionid", $entity.getId())
+$pages.include("$apphome/project/channel/subscribers/index.html", $context)
+#end
 </div>

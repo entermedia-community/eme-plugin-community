@@ -19,7 +19,7 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 		#set($cansendchat = true)
 	#end
 #else
-	#if($page.openchat || ($user && $permissions && $permissions.canModule($module, "chat_send_messages")))
+	#if($page.openchat || ($user && $permissions && $permissions.canEntity($module, $entity, "chat_send_messages")))
 		#set($cansendchat = true)
 	#end
 #end
@@ -41,7 +41,7 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 	$pages.include("${chatterboxhome}/messages.html", $context)
 
 	##Not required for Project Chats?
-	$pages.include("${chatterboxhome}/scenariopicker.html", $context)
+	##$pages.include("${chatterboxhome}/scenariopicker.html", $context)
 
 	#if($cansendchat)
 		$pages.include("${chatterboxhome}/editarea.html", $context)				

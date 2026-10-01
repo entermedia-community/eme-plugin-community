@@ -7,16 +7,14 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 	#set($moduleid = $page.module) 
 #end
 
-#ifnull($cansendchat)
-	#set($cansendchat = false)
+
+
+#if($page.openchat || ($user && $permissions && $permissions.canEntity($module, $entity, "chat_send_messages")))
+		#set($cansendchat = true)
 #end
 
 #if ($currentchannel.teamproject == "true")
 	#if($caneditcollection)
-		#set($cansendchat = true)
-	#end
-#else
-	#if($page.openchat || ($user && $permissions && $permissions.canModule($module, "chat_send_messages")))
 		#set($cansendchat = true)
 	#end
 #end
@@ -37,7 +35,7 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 
 	$pages.include("${chatterboxhome}/messages.html", $context)
 
-	$pages.include("${chatterboxhome}/scenariopicker.html", $context)
+	##$pages.include("${chatterboxhome}/scenariopicker.html", $context)
 
 	#if($cansendchat)
 		$pages.include("${chatterboxhome}/editarea.html", $context)				

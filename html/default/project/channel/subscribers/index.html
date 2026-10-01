@@ -1,4 +1,6 @@
+#ifnull($collectionid)
 #set($collectionid = $librarycol.getId())
+#end
 #ifnotnull($collectionid)
 <div class="emwidget team-list subscriberssidebar"  id="subscriberssidebar" data-url="$apphome/project/channel/subscribers/index.html" data-collectionid="$!{collectionid}" >
 	<div class="d-flex align-items-center justify-content-between sidebar-list-header">

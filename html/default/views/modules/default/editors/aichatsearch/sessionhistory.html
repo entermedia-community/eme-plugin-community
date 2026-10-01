@@ -1,6 +1,11 @@
 <div class="sessionhistory overflow-y">
-  <div class="d-flex justify-content-center mt-3 mb-2">
-    <a class="btn btn-accent ajax" 
+  <div class="mt-3 mb-2">
+
+  <div class="text-center small my-2">
+    <strong>[[Sessions]]</strong>
+  </div>
+
+  <a class="btn btn-accent ajax" 
         data-targetdiv="aichatsearch" 
         data-oemaxlevel="1" 
         data-createnew="true" 
@@ -11,13 +16,6 @@
       <i class="bi bi-plus-lg me-1"></i> [[New Session]]
     </a>
   </div>
-  
-  <hr>
-
-  <p class="text-center small my-2">
-    <strong>[[Session History]]</strong>
-  </p>
-
   
   #if ($page.channeltype == "agententitychat")
   	#if($entity.owner == $user.id)
@@ -45,6 +43,9 @@
             #set($toplevelfunction = $mediaarchive.query("aifunction").id($toplevelfunctionid).searchOne())
             <i class="bi ns bi-${toplevelfunction.icon} me-1"></i> 
           #end
+          #set($ownerid = $hit.user)
+          #set($owner = $mediaarchive.getUser($ownerid))
+          #text($owner): 
           #ifnotnull($hit.name)
             #esc($!hit.name)
           #end

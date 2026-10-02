@@ -6,7 +6,6 @@
 	<property name="prefwidth">1920</property>
 	<property name="prefheight">1080</property>
 	<property name="virtual">true</property>
-	<path-action name="AssetControlModule.loadAssetPermissions" alltypes="true" />
 	<property name="uselegacythumbimages">false</property>
 	<property name="sourcefile">image</property>
 

@@ -16,39 +16,17 @@
 	
 	<inner-layout>/${applicationid}/theme/layouts/mediaviewer.html</inner-layout>
     
-	<!-- If a user knows the URL they can view a preview to speed up thumbnail loading-->
-	<permission name="viewasset">
-		<or>
-			<userprofile property="editallassets" equals="true" />
-			<action name="AssetControlModule.canViewAsset" />
-			<action name="OrderModule.canViewAsset"/>
-		</or>
-	</permission>	
-
 	<permission name="view">
 		<and>
-		<userprofile property="view" equals="true" />
-	
-			<pagevalue name="canviewasset" equals="true"/>
-		
+			<userprofile property="view" equals="true" />
+			<or>
+				<action name="AssetControlModule.canViewAsset" />
+				<action name="OrderModule.canViewAsset"/>
+			</or>
 		</and>
 	</permission>		
 
-	<permission name="download">
-		<and>
-			<userprofile property="download" equals="true" />
-			<pagevalue name="canviewasset" equals="true"/>
-		</and>
-	</permission>	
-
 	<property name="section">details</property>
-	
-	<permission name="editasset">
-		<or>
-			<userprofile property="editallassets" equals="true" />
-			<action name="AssetControlModule.canEditAsset" />
-		</or>
-	</permission>
 	
 	
 </page>

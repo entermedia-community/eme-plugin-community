@@ -23,7 +23,7 @@ function initializeUI() {
 		});
 	}
 
-	jQuery(".grabfocus").focus();
+	jQuery(".grabfocus").trigger("focus");
 
 	lQuery("#module-dropdown").livequery("click", function (e) {
 		e.stopPropagation();

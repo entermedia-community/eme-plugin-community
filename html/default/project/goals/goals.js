@@ -249,7 +249,7 @@ jQuery(document).ready(function (url, params) {
 			},
 			success: function (data) {
 				$(targetdiv).append(data);
-				jQuery(".grabfocus").focus();
+				jQuery(".grabfocus").trigger("focus");
 				$(document).trigger("domchanged", [$(targetdiv)]);
 				$(targetdiv).scrollIntoView();
 				

@@ -200,7 +200,7 @@ jQuery(document).ready(function () {
 				? sessionStorage.tabID
 				: (sessionStorage.tabID = Math.random());
 		sessionStorage.closedLastTab = "2";
-		$(window).on("unload beforeunload", function () {
+		$(window).on("pagehide", function () {
 			sessionStorage.closedLastTab = "1";
 		});
 

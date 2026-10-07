@@ -105,10 +105,6 @@
 					targetdiv.html(data);
 				}
 
-				if (onsuccessFunc) {
-					onsuccessFunc();
-				}
-
 				var width = initiator.data("dialogwidth");
 				if (!width) {
 					width = initiator.data("width");
@@ -195,6 +191,10 @@
 				if (hidefooter) {
 					$(".modal-footer", modaldialog).remove();
 					$(".modal-body").css("padding-bottom", "6px");
+				}
+
+				if (onsuccessFunc) {
+					onsuccessFunc();
 				}
 
 				//backup url

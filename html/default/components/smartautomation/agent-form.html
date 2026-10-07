@@ -1,21 +1,22 @@
 #set($offsetx = $context.getRequestParameter("offsetx"))
 #set($offsety = $context.getRequestParameter("offsety"))
-#set($scenarioid = $context.getRequestParameter("scenarioid"))
+#set($stepid = $context.getRequestParameter("scenarioid"))
 
 #set( $agentid = $context.getRequestParameter("agentid"))
 
 #set($searchtype = "automationstep")
 
-#ifnotnull($agentid)
   #set( $agenttype = $context.getRequestParameter("agenttype"))
   $context.putPageValue("agentid", $agentid)
   $context.putPageValue("searcher", $mediaarchive.getSearcher($searchtype))
-  #set( $scenario = $mediaarchive.getData($searchtype, $agentid) )
-  $context.putPageValue("data", $scenario)
-#end
+  #set( $step = $mediaarchive.getData($searchtype, $agentid) )
+  $context.putPageValue("data", $step)
 
 
-<div class="p-3">
+##split into left and right sections
+<div class="d-flex">
+<div class="p-3 w-50">
+
 <form class="pb-2 ajaxform autocloseform" data-targetdivinner="smartautomation" data-oemaxlevel="1" action="$applink/components/smartautomation/agent-edit.html">
   <input name="save" type="hidden" value="true" />
   <input name="searchtype" type="hidden" value="$searchtype" />
@@ -24,9 +25,9 @@
     <input type="hidden" name="id" value="$agentid"/>
   #end
 
-  #ifnotnull($scenarioid)
+  #ifnotnull($stepid)
     <input type="hidden" name="field" value="automationscenario"/>
-    <input type="hidden" name="automationscenario.value" value="$scenarioid"/>
+    <input type="hidden" name="automationscenario.value" value="$stepid"/>
   #end
 
   #ifnotnull($offsetx)
@@ -44,7 +45,6 @@
     #set($viewid = $agenttype + "edit")
   #end
 
-  
   $context.putPageValue("viewid", $viewid) 
   $pages.include("/${applicationid}/components/xml/detaileditor.html", $context)
 <div class="text-end">
@@ -58,4 +58,23 @@
   </button>
   </div>
 </form>
+
+</div> <!-- end of left section -->
+<div class="p-3 w-50"> <!-- start of right section -->
+##Show the markdown and parameters from contextvalues from agentskill
+#set( $aiskill = $mediaarchive.getCachedData("aiskill",$step.aiskill))
+
+
+#set( $markdown = $aiskill.markdowncontent )
+
+$markdownUtil.render($markdown)
+
+
+#set( $contextvalues = $aiskill.contextvalues )
+<pre>
+$!contextvalues
+</pre>
+
 </div>
+
+</div> <!-- end of row -->

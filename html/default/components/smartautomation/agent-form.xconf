@@ -2,4 +2,7 @@
 
 <page>
   <inner-layout>/${applicationid}/theme/layouts/dialoglayout.html</inner-layout>
+	<path-action bean="markdownUtil" name="PageValue.loadPageVariable" allowduplicates="true"/>
+
+
 </page>

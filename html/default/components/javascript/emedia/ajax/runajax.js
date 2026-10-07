@@ -252,7 +252,7 @@ findClosest = function (link, inid) {
 					}
 					if (newcell.length > 0) {
 						$(window).trigger("setPageTitle", [newcell]);
-						newcell.find(".grabfocus").focus();
+						newcell.find(".grabfocus").trigger("focus");
 					}
 
 					$(document).trigger("domchanged", [$(parent)]);

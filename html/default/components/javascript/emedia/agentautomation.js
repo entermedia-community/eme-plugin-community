@@ -575,22 +575,25 @@ $(document).ready(function () {
 					figure = figure.composite;
 				}
 				if (figure.cssClass === "preview") {
+					/*
 					const shape = figure.shape[0].getBoundingClientRect();
 					const bb = {
 						x: shape.x + shape.width,
 						y: shape.y - 20,
 					};
+					*/
 					const data = figure.getUserData();
 					const anchor = $("<a>")
-						.attr("href", `${applink}/components/smartautomation/view.html`)
+						.attr("href", `${applink}/components/smartautomation/editor.html`)
 						.appendTo("body");
 					anchor.data("scenarioid", data.id);
-					anchor.data("targetdivinner", "previewpan");
+					anchor.data("targetdivinner", "smartautomation");
 					anchor.data("oemaxlevel", 1);
 					anchor.runAjax(function () {
 						$("#previewpan").attr("data-figure", figure.getId());
 						$("#previewpan").fadeIn();
 					});
+
 				} else if (figure.cssClass === "prevLabel") {
 					const anchor = $("<a>")
 						.attr("href", `${applink}/components/smartautomation/label.html`)
@@ -1276,8 +1279,11 @@ $(document).ready(function () {
 			const anchor = $("<a>").attr("href", formPath).appendTo("body");
 			anchor.data("agentid", nodeId);
 			anchor.data("hidefooter", true);
-			anchor.emDialog();
-			anchor.remove();
+			anchor.data("dialogwidth", "80%");
+			anchor.emDialog(function(){
+				anchor.remove();
+
+			});
 		});
 
 		canvas.on("dblclick", function (_, node) {

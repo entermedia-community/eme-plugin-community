@@ -63,7 +63,10 @@ $context.putPageValue("assetheight",$assetheight)
 			</div>
 			
 		    <div class="media-player-mini-links d-flex flex-wrap justify-content-center" >
-				
+			
+			#ifnull($caneditasset)
+				#set($caneditasset = $permissions.canModule("asset", "editallassets"))
+			#end
 				
 			#if( !$ismulti )
 				<div class="assetlock #if($asset.isLocked()) assetlocked #end me-2">
@@ -178,7 +181,7 @@ $context.putPageValue("assetheight",$assetheight)
 				[[Replace Original File]]
 			</a>
 			#end
-			#set($candeleteasset = $permissions.canModule("asset", "deleteasset"))
+			#set($candeleteasset = $permissions.canEntity("asset", $asset.id, "delete"))
 			#if($canviewsettings || ($caneditasset && $candeleteasset ))
 				#if ( $ismulti )
 					#set($canmultidelete = $permissions.canModule("asset", "multidelete"))

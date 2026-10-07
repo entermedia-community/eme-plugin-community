@@ -39,7 +39,7 @@
 #end	
 
 #ifnull($details)
-	Error: No details for $viewid, $context.getUserProfile()
+	<div class="m-2">[[Error: No details for view]]: $viewid, $context.getUserProfile()</div>
 #end
 #set( $passalong = $context.getRequestParameter("passalong"))
 #set( $passalongdec = $url_util.decode($passalong) )

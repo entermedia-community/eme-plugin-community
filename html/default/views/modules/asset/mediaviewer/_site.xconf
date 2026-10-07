@@ -2,4 +2,8 @@
 
 <page>
 	<property name="module">asset</property>
+
+	<permission name="view">
+		<action name="AssetControlModule.canViewAsset" />
+	</permission>
 </page>

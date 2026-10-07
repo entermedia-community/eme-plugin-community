@@ -1,6 +1,8 @@
 #if( $user && $hits.size() > 0 && $hits.hasSelections() )
-
-	#if ($canmultiedit)
+	#set($caneditallassets = $permissions.canModule("asset", "editallassets"))
+	#set($canmultiedit = $permissions.canModule("asset", "multiedit"))
+	#set($canmultidelete = $permissions.canModule("asset", "multidelete"))
+	#if ($canmultiedit || $canmultidelete)
 	<li class=" dropdown">
 		<a class="resultsnavlink dropdown-toggle" href="#" id="navbarEdit$!{moduleid}" role="button" data-toggle="dropdown"  data-bs-toggle="dropdown">[[Edit]]</a>
 		<ul class="dropdown-menu" aria-labelledby="navbarEdit$!{moduleid}">
@@ -13,9 +15,9 @@
 				title="[[Edit selected assets]]">$text</a></li>
 					
 					
-		#set($caneditallassets = $permissions.canModule("asset", "editallassets"))
+		
 		#set($canviewapprovereject = $permissions.canModule("asset", "viewapprovereject"))
-		#if( $canviewapprovereject && ($caneditcollection || $caneditallassets ))
+		#if( $canmultiedit && $canviewapprovereject && ($caneditcollection || $caneditallassets ))
 			<li class="dropend">
 				<a class="dropdown-item  dropdown-toggle" href="#" data-bs-toggle="dropdown">[[Approve or Reject]]</a>
 			      <ul class="submenu dropdown-menu">
@@ -60,23 +62,15 @@
 			</li>
 		#end
 		
-		#set($canmultidelete = $permissions.canModule("asset", "multidelete"))
+		
 		#if($canmultidelete)
-			#set($deleteurl = "$siteroot${apphome}/views/modules/asset/mediaviewer/fullscreen/delete/index.html?${hits.getSearchType()}hitssessionid=$hits.getSessionId()&nodeID=$!catid")
-			#if($module=="librarycollection")
-				#set($deleteurl = "${deleteurl}&collectionid=$!librarycol.getId()")
-			#end	    
+			#set($deleteurl = "$siteroot${apphome}/views/modules/asset/mediaviewer/fullscreen/delete/index.html?${hits.getSearchType()}hitssessionid=$hits.getSessionId()&nodeID=$!catid")   
 	 		<li><a class="dropdown-item emdialog"
 	 			data-dialogid="deleteasset"
 	 			data-maxwidth="600" 
 	 			href="$deleteurl">[[Delete]] $hits.getSelectionSize() [[selected assets]]</a></li>
 	   	#end 
 	   	
-	   	#set($canprintpreview = $permissions.canModule("asset", "printpreview"))
-	   	#if($canprintpreview)
-	    	 <li><a class="dropdown-item" href="$siteroot$apphome/views/modules/asset/editor/printpreview/printselections.html?${hits.getSearchType()}hitssessionid=$hits.getSessionId()">[[Print Assets]]</a></li>
-		#end
-
 		</ul>
 	</li>
 	#end	

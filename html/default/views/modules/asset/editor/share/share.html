@@ -4,7 +4,7 @@
   $context.putPageValue("asset", $asset)
 #end
 
-
+#set($canshare = $permissions.canEntity("asset", $asset.id , "share"))
 
 $context.putPageValue("asset", $asset)
 <div id="asset-editor-container" 
@@ -28,7 +28,7 @@ $context.putPageValue("asset", $asset)
 			#set($candownload = $permissions.canModule("asset", "download"))
 			#if ($candownload)
 			<div class="crop-preview">
-                <span>[[Original]]</span> 
+        <span>[[Original]]</span> 
 				#set($presetdata = $mediaarchive.getCachedData("convertpreset", "0"))
 				
 				#set($width = $mediaarchive.getRealImageWidth($asset)) 
@@ -36,6 +36,7 @@ $context.putPageValue("asset", $asset)
 				
 				#set($assetrendertype = $mediaarchive.getMediaRenderType($asset))
 				##if($assetrendertype =="audio")
+
 				#if($assetrendertype == "image" || $assetrendertype == "document" || $assetrendertype == "video")
 					#if( ($asset.previewstatus != "2" && $asset.previewstatus != "exif" && $asset.previewstatus != "mime" && $asset.previewstatus != "1" && $asset.previewstatus != "generated") && !$mediaarchive.isCatalogSettingTrue("realtimethumbs"))
 						#set ($previewlink = "") 
@@ -49,7 +50,7 @@ $context.putPageValue("asset", $asset)
 							#set ($previewlink = "${previewlink}?_=$mathutil.getRandomValue(9999)" )
 						#end
 					#end
-					#if($previewlink)
+					#if( $previewlink)
 						<div class="d-flex align-items-center justify-content-center flex-column flex-grow-1 py-1 my-auto">
 							<img src="$previewlink" 
 							#if($width && $height)
@@ -87,7 +88,7 @@ $context.putPageValue("asset", $asset)
 					title="[[Download Original]]">
                     <i class="bi bi-download"></i>
                   </a>
-
+                  #if($canshare)
                   <a class="btn btn-sm icon-btn-sm btn-accent emdialog"
                     data-hidefooter="true"
                     data-dialogwidth="1000"
@@ -98,6 +99,7 @@ $context.putPageValue("asset", $asset)
                     title="[[Share Original]]">
                     <i class="bi bi-share ns"></i>
                   </a>
+                  #end
                 </div>
               
 			</div>

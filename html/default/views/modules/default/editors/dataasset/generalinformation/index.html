@@ -1,11 +1,11 @@
+#set($caneditasset = $permissions.canModule("asset", "editallassets"))
 #if($asset.isLocked())
 	#set($userlock = $asset.getLockOwner())
 	#if($userlock.id != $user.id)
 		#set($caneditasset = false)
-		
-		$context.putPageValue("caneditasset", $caneditasset)
 	#end
 #end
+$context.putPageValue("caneditasset", $caneditasset)
 <div id="tabsummarypanel" #if(!$ismulti && $asset.isLocked() && $userlock.id !=$user.id)  
 	class="tab-pane ajaxstatus" 
 	data-ajaxrunning="true" data-interval="5000"

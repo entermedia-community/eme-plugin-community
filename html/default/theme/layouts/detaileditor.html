@@ -31,7 +31,7 @@
 	    #set( $assettab = $context.findValue("assettab") )   
               <div id="resultslist">
               	 
-              	 $pages.include("$apphome/components/detaileditor/assetmenuul.html?moduleid=$moduleid",$context)
+              	 ##$pages.include("$apphome/components/detaileditor/assetmenuul.html?moduleid=$moduleid",$context)
               	 
                   #set( $inpreviewpage = $content.isPropertyTrue("showpreviewpage") )
                   #if( $content.assetrootfolder && $content.path.startsWith($content.assetrootfolder) )

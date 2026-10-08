@@ -4,7 +4,7 @@
 
   <path-action name="EntityModule.getEntity" />
 
-  <property name="channeltype">agententitychat</property>
+  <property name="channeltype">agentserverchat</property>
 
   <path-action name="ChatModule.loadChatChannel" />
 	<path-action name="AgentModule.loadAgentContext" />

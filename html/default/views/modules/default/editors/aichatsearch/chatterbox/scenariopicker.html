@@ -1,11 +1,11 @@
-#set($currentscenario = $agentcontext.getCurrentScenario())
+#set($currentagentjob = $agentcontext.getCurrentAgentJob())
 
 <div class="ai-functions">
   <div class="d-flex align-items-center">
 		<div class="dropup">
 			<a class="btn btn-cta dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
 				<span class="pe-1">
-					#text($currentscenario.getScenarioData())
+					#text($currentagentjob.getScenarioData())
 				</span> 
 			</a>
 			<div class="dropdown-menu dropdown-menu-end">
@@ -13,7 +13,7 @@
 				#set($scenarios = $mediaarchive.query("automationscenario").exact("enabled","true").exact("chatenabled","true").sort("ordering").cachedSearch())
 
 				#foreach( $scenario in $scenarios )
-						<a class="dropdown-item  ajax ai-func #if($currentscenario.getId() == $scenario.getId())active#end me-2"
+						<a class="dropdown-item  ajax ai-func #if($currentagentjob.getScenarioId() == $scenario.getId())active#end me-2"
 							href="${chatterboxhome}/changescenario.html"
 							data-targetdiv="chatterbox"
 							data-channel="$!{currentchannel.getId()}"

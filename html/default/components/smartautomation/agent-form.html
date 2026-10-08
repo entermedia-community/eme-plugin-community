@@ -15,7 +15,27 @@
 
 ##split into left and right sections
 <div class="d-flex">
-<div class="p-3 w-50">
+
+
+<div class="p-3 w-50 overflow-auto" style="max-height: 75vh;"> <!-- start of left section -->
+##Show the markdown and parameters from contextvalues from agentskill
+#set( $aiskill = $mediaarchive.getCachedData("aiskill",$step.aiskill))
+
+
+#set( $markdown = $aiskill.markdowncontent )
+
+$markdownUtil.render($markdown)
+
+
+#set( $contextvalues = $aiskill.contextvalues )
+<pre>
+$!contextvalues
+</pre>
+
+</div>
+
+
+  <div class="p-3 w-50">
 
 <form class="pb-2 ajaxform autocloseform" data-targetdivinner="smartautomation" data-oemaxlevel="1" action="$applink/components/smartautomation/agent-edit.html">
   <input name="save" type="hidden" value="true" />
@@ -60,21 +80,5 @@
 </form>
 
 </div> <!-- end of left section -->
-<div class="p-3 w-50"> <!-- start of right section -->
-##Show the markdown and parameters from contextvalues from agentskill
-#set( $aiskill = $mediaarchive.getCachedData("aiskill",$step.aiskill))
-
-
-#set( $markdown = $aiskill.markdowncontent )
-
-$markdownUtil.render($markdown)
-
-
-#set( $contextvalues = $aiskill.contextvalues )
-<pre>
-$!contextvalues
-</pre>
-
-</div>
 
 </div> <!-- end of row -->

@@ -21,6 +21,11 @@ jQuery(document).ready(function () {
 				return fn;
 			}
 		}
+		const startup_scenario = chatter.data("startup_scenario");
+
+		if (startup_scenario) {
+			return startup_scenario;
+		}
 		return null;
 	}
 

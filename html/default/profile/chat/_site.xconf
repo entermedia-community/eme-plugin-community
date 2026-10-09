@@ -1,16 +1,22 @@
 <page>
 
-  <property name="edithomename">fullscreenchat</property>
+  <property name="edithomename">emechat</property>
+	<property name="edithomeid">${module}${edithomename}</property>
+	<property name="edithome">/${applicationid}/profile/chat</property>
 
   <path-action name="EntityModule.getEntity" />
 
+  <property name="module">emeprofile</property>
+
   <property name="channeltype">agentserverchat</property>
+	<property name="defaultscenarioid">emeteamchat_responder</property>
 
   <path-action name="ChatModule.loadChatChannel" />
 	<path-action name="AgentModule.loadAgentContext" />
 
-	<property name="defaultscenarioid">emeteamchat_responder</property>
-	
+
+
+
   <property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
 
   </page>

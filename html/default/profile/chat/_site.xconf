@@ -9,7 +9,7 @@
   <property name="module">emeprofile</property>
 
   <property name="channeltype">agentserverchat</property>
-	<property name="defaultscenarioid">emeteamchat_responder</property>
+	<property name="defaultscenarioid">eme_chat_welcome_menu</property>
 
   <path-action name="ChatModule.loadChatChannel" />
 	<path-action name="AgentModule.loadAgentContext" />

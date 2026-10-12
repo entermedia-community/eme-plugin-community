@@ -11,5 +11,6 @@
 	<property name="chatterboxhomeX">${edithome}/chatterbox</property>
 
 	<property name="channeltype">agententitychat</property>
+	<property name="defaultscenarioid">entity_chat_welcome_menu</property>
 
 </page>

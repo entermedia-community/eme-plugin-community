@@ -10,7 +10,9 @@
 			</a>
 			<div class="dropdown-menu dropdown-menu-end">
 
-				#set($scenarios = $mediaarchive.query("automationscenario").exact("enabled","true").exact("chatenabled","true").sort("ordering").cachedSearch())
+				## Only the scenarios under the same label (eme_chat, entity_chat or team_chat) as the current one
+				#set($currentlabel = $currentagentjob.getScenarioData().get("connectedtop"))
+				#set($scenarios = $mediaarchive.query("automationscenario").exact("enabled","true").exact("chatenabled","true").exact("connectedtop",$currentlabel).sort("ordering").cachedSearch())
 
 				#foreach( $scenario in $scenarios )
 						<a class="dropdown-item  ajax ai-func #if($currentagentjob.getScenarioId() == $scenario.getId())active#end me-2"
@@ -18,7 +20,7 @@
 							data-targetdiv="chatterbox"
 							data-channel="$!{currentchannel.getId()}"
 							data-currentscenario="$scenario.id"
-							data-functionname="${scenario.id}_welcome"
+							data-functionname="${scenario.id}#if($scenario.id.endsWith("_welcome_menu") || $scenario.id == "team_chat_monitor")_welcome#{else}_confirm#{end}"
 							data-context_showsuggestions="true"
 							data-oemaxlevel="1">
 							<span>#text( $scenario )</span>

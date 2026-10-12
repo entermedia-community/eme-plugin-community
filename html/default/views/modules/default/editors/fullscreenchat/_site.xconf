@@ -9,7 +9,7 @@
   <path-action name="ChatModule.loadChatChannel" />
 	<path-action name="AgentModule.loadAgentContext" />
 
-	<property name="defaultscenarioid">emeteamchat_responder</property>
+	<property name="defaultscenarioid">eme_chat_welcome_menu</property>
 	
   <property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
 

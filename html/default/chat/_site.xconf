@@ -1,0 +1,20 @@
+<page>
+
+  <property name="edithomename">emechat</property>
+  <property name="edithomeid">${module}${edithomename}</property>
+  <property name="edithome">/${applicationid}/chat</property>
+
+  <path-action name="EntityModule.getEntity" />
+
+  <property name="module">emeserver</property>
+
+  <property name="channeltype">agentserverchat</property>
+  <property name="defaultscenarioid">eme_chat_welcome_menu</property>
+
+  <path-action name="ChatModule.loadChatChannel" />
+  <path-action name="AgentModule.loadAgentContext" />
+
+
+  <property name="fallbackdirectory">/${applicationid}/views/modules/default/editors/aichatsearch</property>
+
+</page>

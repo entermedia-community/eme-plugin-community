@@ -68,8 +68,14 @@
 					#end
 					#if($canviewaiagent)
 					<li>
+						#set($entityid = "AaEeH3NgRnUnrX6wjAEn")
+						$context.putPageValue("entityid", $entityid)
+
+						#set($moduleid = "emeserver")
+						$context.putPageValue("moduleid", $moduleid)
 						<a href="$applink/views/modules/emeprofile/editors/fullscreenchat/index.html" 
-							class='btn-topnav chatEmDialog' 
+							class='btn-topnav chatEmDialog'
+							data-entityid="$entityid"
 							data-dialogid="aichatsearch"
 							data-hidefooter="true" 
 							data-dialogwidth="1200"

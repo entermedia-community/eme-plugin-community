@@ -1,12 +1,12 @@
 
-#set($channeltype = "agententitychat")
+#set($channeltype = "agentserverchat")
 $context.putPageValue("channeltype", $channeltype)
 
 <div id="${edithomeid}" 
 	class="editdiv entity-tab-content entity-tab-chatterbox aichatsearch"
 	data-edithome="${edithome}"
-	data-entityid="$!entity.id"
-	data-moduleid="$!module.getId()"
+	data-entityid="${entityid}"
+	data-moduleid="${moduleid}"
 	data-currenttab="$!viewid"
 	data-channel="$!{currentchannel.id}"
 	data-channeltype="$!{channeltype}"

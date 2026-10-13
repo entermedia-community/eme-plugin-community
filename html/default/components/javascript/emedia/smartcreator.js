@@ -12,7 +12,7 @@ $(document).ready(function () {
 	});
 
 	lQuery("#closecreator").livequery("click", function () {
-		var activeEditor = $(".editable-content.ck");
+		var activeEditor = $(".editable-content.ql-container");
 		if (activeEditor.length > 0) {
 			if (
 				!confirm("You have unsaved changes. Are you sure you want to close?")
@@ -213,18 +213,12 @@ $(document).ready(function () {
 	function makeContentEditable(component) {
 		var editorEl = component.find(".editable-content");
 		if (component.hasClass("paragraph")) {
-			if (!editorEl.hasClass("ck")) {
+			if (!editorEl.hasClass("ql-container")) {
 				var collapse = bootstrap.Collapse.getOrCreateInstance(
 					$("#collapseSmartCreator").get(0),
 				);
 				collapse.hide();
-				editorEl.data("imagepickerhidden", true);
-				$(window).trigger("inlinehtmlstart", [editorEl]);
-				editorEl.one("ckeditordestroyed", function () {
-					setTimeout(function () {
-						component.removeClass("edit-mode");
-					}, 10);
-				});
+				$(window).trigger("quillstart", [editorEl]);
 			}
 			return;
 		}

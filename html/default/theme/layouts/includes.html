@@ -48,6 +48,9 @@ $pages.include("/${applicationid}/components/captureclick/end.html")
 	}
 </script>
 <script type="module" src="/${applicationid}/components/javascript/htmleditor/htmleditor.js" defer></script>
+<link rel="stylesheet" type="text/css" href="/${applicationid}/components/javascript/quill/dist/quill.snow.css" />
+<link rel="stylesheet" type="text/css" href="/${applicationid}/components/javascript/quill/dist/quill.bubble.css" />
+<script type="text/javascript" src="/${applicationid}/components/javascript/quill/dist/quill.js" defer></script>
 
 #set( $mapskey = $mediaarchive.getCatalogSettingValue("google-maps-key"))
 #ifnotnull( $mapskey )

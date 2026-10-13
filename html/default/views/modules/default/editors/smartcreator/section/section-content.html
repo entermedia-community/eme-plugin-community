@@ -55,7 +55,7 @@
       
     </div>
   #end
-  <div class="editable-content"
+  <div class="editable-content #if($type == 'paragraph')quill-delta d-none#end"
     data-sectionid="${section.id}"
     #ifnotnull($componentcontent)
       id="editable-$componentcontent.id"

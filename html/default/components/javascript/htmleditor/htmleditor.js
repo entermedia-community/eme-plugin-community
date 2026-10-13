@@ -61,7 +61,8 @@ function disposeCKEditor(editor, callback = null) {
 		if (callback) callback();
 	});
 }
-
+const saveSVG =
+	'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="#0d6efd"><path d="M433.9 129.9l-83.9-83.9A48 48 0 0 0 316.1 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V163.9a48 48 0 0 0 -14.1-33.9zM224 416c-35.3 0-64-28.7-64-64 0-35.3 28.7-64 64-64s64 28.7 64 64c0 35.3-28.7 64-64 64zm96-304.5V212c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12V108c0-6.6 5.4-12 12-12h228.5c3.2 0 6.2 1.3 8.5 3.5l3.5 3.5A12 12 0 0 1 320 111.5z"/></svg>';
 class SaveButtonPlugin extends Plugin {
 	init() {
 		const editor = this.editor;
@@ -70,7 +71,7 @@ class SaveButtonPlugin extends Plugin {
 
 			button.set({
 				label: "Save",
-				icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="red"><path d="M433.9 129.9l-83.9-83.9A48 48 0 0 0 316.1 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V163.9a48 48 0 0 0 -14.1-33.9zM224 416c-35.3 0-64-28.7-64-64 0-35.3 28.7-64 64-64s64 28.7 64 64c0 35.3-28.7 64-64 64zm96-304.5V212c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12V108c0-6.6 5.4-12 12-12h228.5c3.2 0 6.2 1.3 8.5 3.5l3.5 3.5A12 12 0 0 1 320 111.5z"/></svg>',
+				icon: saveSVG,
 				keystroke: "Ctrl+S",
 				class: "text-primary",
 			});
@@ -113,7 +114,8 @@ class SaveButtonPlugin extends Plugin {
 		});
 	}
 }
-
+const cancelSVG =
+	'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/></svg>';
 class CloseButtonPlugin extends Plugin {
 	init() {
 		const editor = this.editor;
@@ -122,7 +124,7 @@ class CloseButtonPlugin extends Plugin {
 
 			button.set({
 				label: "Close",
-				icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"/></svg>',
+				icon: cancelSVG,
 				class: "ck-close-button",
 				keystroke: "ctrl+esc",
 			});
@@ -738,6 +740,96 @@ $(window).on("inlinehtmlstart", function (_, targetDiv) {
 	}
 });
 
+const quillToolbarOptions = [
+	["cancel", "save"],
+	[{ header: [1, 2, 3, 4, 5, 6, false] }],
+	["bold", "italic", "underline", "strike", "link", "clean"], // toggled buttons
+	[{ list: "ordered" }, { list: "bullet" }],
+	[{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+];
+
+$(window).on("quillstart", function (_, targetDiv) {
+	if (targetDiv.length === 0) return;
+
+	if (targetDiv.data("quillInitialized")) {
+		console.log("Already initialized quill, skipping setup.");
+		return;
+	}
+
+	const quill = new Quill(targetDiv[0], {
+		modules: {
+			toolbar: {
+				container: quillToolbarOptions,
+				handlers: {
+					save: function () {
+						const data = $(quill.container).data();
+						const savePath = $(quill.container).data("savepath");
+						const editPath = $(quill.container).data("editpath");
+
+						const content = quill.getContents();
+
+						console.log(content);
+						$(quill.container).val(quill.getSemanticHTML());
+						$.ajax({
+							url: savePath,
+							type: "POST",
+							data: {
+								content: JSON.stringify(content),
+								editPath,
+								...data,
+							},
+							success: function () {
+								destroyQuillEditor(quill);
+							},
+							error: function () {
+								alert("Error");
+							},
+						});
+					},
+					cancel: function () {
+						destroyQuillEditor(quill);
+					},
+				},
+			},
+		},
+		theme: "snow",
+	});
+	$(".ql-save").html(saveSVG);
+	$(".ql-cancel").html(cancelSVG);
+});
+function convertDeltaToHtml(deltaOps) {
+	const tempDiv = document.createElement("div");
+	tempDiv.style.display = "none";
+	document.body.appendChild(tempDiv);
+	const tempQuill = new Quill(tempDiv);
+	tempQuill.setContents(deltaOps);
+	const htmlOutput = tempQuill.getSemanticHTML();
+	tempDiv.remove();
+	return htmlOutput;
+}
+function destroyQuillEditor(quillInstance) {
+	if (!quillInstance) return;
+
+	quillInstance.off("text-change");
+	quillInstance.off("selection-change");
+	quillInstance.off("editor-change");
+
+	const toolbar =
+		quillInstance.container.parentNode.querySelector(".ql-toolbar");
+	if (toolbar) {
+		toolbar.remove();
+	}
+
+	const container = quillInstance.container;
+
+	container.className = "";
+	container.removeAttribute("data-mode");
+
+	container.innerHTML = "";
+
+	quillInstance = null;
+}
+
 $(document).ready(function () {
 	lQuery("textarea.htmleditor-advanced").livequery(function () {
 		$(window).trigger("edithtmlstart", [$(this)]);
@@ -756,6 +848,18 @@ $(document).ready(function () {
 			});
 		} else {
 			createCK5($this, options);
+		}
+	});
+	lQuery(".quill-delta").livequery(function () {
+		const $this = $(this);
+		try {
+			const delta = $this.text();
+			const html = convertDeltaToHtml(JSON.parse(delta));
+			$this.html(html);
+		} catch {
+		} finally {
+			$this.removeClass("quill-delta");
+			$this.removeClass("d-none");
 		}
 	});
 });

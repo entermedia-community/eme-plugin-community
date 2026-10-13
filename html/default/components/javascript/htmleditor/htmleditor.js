@@ -829,6 +829,21 @@ function destroyQuillEditor(quillInstance) {
 }
 
 $(document).ready(function () {
+	const Parchment = Quill.import("parchment");
+	const Delta = Quill.import("delta");
+
+	const dataNames = ["channel", "functionname", "currentscenario"];
+	const formats = {};
+
+	dataNames.forEach((name) => {
+		formats[`formats/data-${name}`] = new Parchment.Attributor(
+			`data-${name}`,
+			`data-${name}`,
+			{ scope: Parchment.Scope.BLOCK },
+		);
+	});
+	Quill.register(formats, true);
+
 	lQuery("textarea.htmleditor-advanced").livequery(function () {
 		$(window).trigger("edithtmlstart", [$(this)]);
 	});

@@ -1,5 +1,6 @@
 #
-#Thu Sep 24 15:10:40 CST 2026
+#Fri Oct 09 16:37:11 CST 2026
+Allow\ Chat\ Notifications=Permettre les notifications de chat
 CANCEL=\u00C0 l'arr\u00EAt
 Cancel=Annuler
 Change\ Password=Modifier le mot de passe

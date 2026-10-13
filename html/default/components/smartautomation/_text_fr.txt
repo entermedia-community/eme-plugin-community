@@ -1,5 +1,5 @@
 #
-#Thu Sep 24 15:13:01 CST 2026
+#Fri Oct 09 16:36:35 CST 2026
 Add\ Label=Ajouter une \u00E9tiquette
 Add\ Labels=Ajouter des \u00E9tiquettes
 Add\ Scenario=Ajouter un sc\u00E9nario
@@ -22,6 +22,7 @@ Save=Sauvegarder
 Save\ Changes=Enregistrer les modifications
 Save\ Layout=Sauvegarder la mise en page
 Save\ Preview\ Layout=Enregistrer la mise en page de l'aper\u00E7u
+Skills\ Editor=\u00C9diteur de comp\u00E9tences
 Workflow\ Automation=Automatisation du flux de travail
 Zoom\ In=Zoom vers le haut
 Zoom\ Out=Zoom vers le bas

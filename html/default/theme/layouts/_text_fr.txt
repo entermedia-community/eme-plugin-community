@@ -1,5 +1,5 @@
 #
-#Thu Sep 24 14:49:04 CST 2026
+#Fri Oct 09 16:36:15 CST 2026
 AI\ Chat\ Search=Recherche par chat
 Account\ Settings=Param\u00E8tres du compte
 Bookmarks=Les signets
@@ -11,6 +11,7 @@ Dashboard\ Reports=Rapports du tableau de bord
 Desktop\ Settings=Param\u00E8tres de bureau
 Discard=D\u00E9barrasser
 Download\ Desktop\ App=T\u00E9l\u00E9charger une application de bureau
+EME\ Chat=Chat \u00E9lectronique
 Esc\ to\ Close=Esc \u00E0 cl\u00F4turer
 Go\ to=Va voir .
 Guides=Des guides

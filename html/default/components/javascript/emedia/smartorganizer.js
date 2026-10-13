@@ -727,11 +727,14 @@ $(document).ready(function () {
 						} else if (typeof value === "string") {
 							if (key !== "path" && key !== "moduleicon") return;
 							try {
-								if (!value.startsWith("${apphome}")) {
-									value = baseIconPath + value;
+								if (value.startsWith(baseIconPath)) {
+									obj[key] = value.substring(baseIconPath.length);
 								}
-								var url = new URL(value);
-								obj[key] = getDynamicPath(url.pathname);
+								else 
+								{
+									var url = new URL(value);
+									obj[key] = getDynamicPath(url.pathname);
+								}
 							} catch {
 								obj[key] = getDynamicPath(value);
 							}

@@ -3,4 +3,6 @@
 		<property name="searchtype">channel</property>
 	</path-action>
 
+	<path-action name="EntityModule.getEntity" />
+
 </page>

@@ -765,11 +765,8 @@ $(window).on("quillstart", function (_, targetDiv) {
 						const data = $(quill.container).data();
 						const savePath = $(quill.container).data("savepath");
 						const editPath = $(quill.container).data("editpath");
-
 						const content = quill.getContents();
-
-						console.log(content);
-						$(quill.container).val(quill.getSemanticHTML());
+						const html = quill.getSemanticHTML();
 						$.ajax({
 							url: savePath,
 							type: "POST",
@@ -780,6 +777,7 @@ $(window).on("quillstart", function (_, targetDiv) {
 							},
 							success: function () {
 								destroyQuillEditor(quill);
+								$(quill.container).html(html);
 							},
 							error: function () {
 								alert("Error");

@@ -797,13 +797,28 @@ $(window).on("quillstart", function (_, targetDiv) {
 });
 function convertDeltaToHtml(deltaOps) {
 	const tempDiv = document.createElement("div");
-	tempDiv.style.display = "none";
-	document.body.appendChild(tempDiv);
 	const tempQuill = new Quill(tempDiv);
 	tempQuill.setContents(deltaOps);
-	const htmlOutput = tempQuill.getSemanticHTML();
-	tempDiv.remove();
-	return htmlOutput;
+
+	const doc = new DOMParser().parseFromString(
+		tempQuill.root.innerHTML,
+		"text/html",
+	);
+
+	// remove editor-only UI nodes
+	doc.querySelectorAll(".ql-ui, .ql-cursor").forEach((el) => el.remove());
+
+	// strip ql-* classes, leave other classes alone
+	doc.querySelectorAll("[class]").forEach((el) => {
+		const kept = [...el.classList].filter((c) => !c.startsWith("ql-"));
+		kept.length ? (el.className = kept.join(" ")) : el.removeAttribute("class");
+	});
+
+	doc
+		.querySelectorAll("[contenteditable]")
+		.forEach((el) => el.removeAttribute("contenteditable"));
+
+	return doc.body.innerHTML;
 }
 function destroyQuillEditor(quillInstance) {
 	if (!quillInstance) return;
@@ -830,7 +845,6 @@ function destroyQuillEditor(quillInstance) {
 
 $(document).ready(function () {
 	const Parchment = Quill.import("parchment");
-	const Delta = Quill.import("delta");
 
 	const dataNames = ["channel", "functionname", "currentscenario"];
 	const formats = {};
@@ -839,7 +853,7 @@ $(document).ready(function () {
 		formats[`formats/data-${name}`] = new Parchment.Attributor(
 			`data-${name}`,
 			`data-${name}`,
-			{ scope: Parchment.Scope.BLOCK },
+			{ scope: Parchment.Scope.ANY },
 		);
 	});
 	Quill.register(formats, true);
@@ -868,7 +882,9 @@ $(document).ready(function () {
 		try {
 			const delta = $this.text();
 			const html = convertDeltaToHtml(JSON.parse(delta));
+			console.log(html);
 			$this.html(html);
+			console.log($this.html());
 		} catch {
 		} finally {
 			$this.removeClass("quill-delta");

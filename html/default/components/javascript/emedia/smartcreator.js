@@ -217,8 +217,8 @@ $(document).ready(function () {
 				var collapse = bootstrap.Collapse.getOrCreateInstance(
 					$("#collapseSmartCreator").get(0),
 				);
-				collapse.hide();
 				$(window).trigger("quillstart", [editorEl]);
+				collapse.hide();
 			}
 			return;
 		}

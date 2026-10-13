@@ -4,8 +4,8 @@
   <div class="text-center small my-2">
     <strong>[[Sessions]]</strong>
   </div>
-
-  <a class="btn btn-accent ajax" 
+  <div class="sessionhistory-item session-new">
+    <a class="ajax" 
         data-targetdiv="aichatsearch" 
         data-oemaxlevel="1" 
         data-createnew="true" 
@@ -15,8 +15,8 @@
         href="$edithome/sessionadd.html">
       <i class="bi bi-plus-lg me-1"></i> [[New Session]]
     </a>
+    </div>
   </div>
-  
   #if($entity.owner == $user.id)
     #set( $hits = $mediaarchive.query("channel").exact("dataid",$entity.id).exact("searchtype", $module.id).sort("refreshdateDown").search($context))
   #else
@@ -55,7 +55,16 @@
         </small>
       </a>
 
-      <a class="ajax del" data-targetdiv="aichatsearch" data-oemaxlevel="1" data-id="$hit.id" data-confirm="[[Sure you want to delete session?]]" href="$edithome/sessiondelete.html" title="[[Delete this session]]"> 
+      <a class="ajax del" 
+        data-targetdiv="aichatsearch" 
+        data-oemaxlevel="1" 
+        data-id="$hit.id" 
+        data-entityid="$!entity.id"
+        data-entitymoduleid="$!module.getId()"
+        data-confirm="[[Sure you want to delete session?]]" 
+        data-toastsuccess="[[Session deleted successfully]]"
+        href="$edithome/sessiondelete.html"
+         title="[[Delete this session]]"> 
         <i class="far fa-trash-alt"></i>
       </a>
 

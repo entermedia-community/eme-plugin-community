@@ -681,6 +681,9 @@
 	border-radius: 8px;
 	cursor: pointer;
 }
+.sessionhistory-item.session-new {
+	background-color: rgba(164, 165, 164, 0.1);
+}
 .sessionhistory-item:hover {
 	background-color: rgba(148, 229, 148, 0.1);
 }

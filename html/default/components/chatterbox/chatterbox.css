@@ -663,7 +663,8 @@
 	width: 240px;
 	padding: 0 0.5rem 5px;
 	border-right: 1px solid #e5e5e5;
-	background-color: #fafafa;
+	background-color: var(--themed-tab-bar);
+	color: var(--themed-tab-btn-text);
 }
 .aichatsearch .team-list {
 	width: 240px;
@@ -680,28 +681,34 @@
 	margin-bottom: 5px;
 	border-radius: 8px;
 	cursor: pointer;
+	background-color: var(--themed-tab-btn);
+	color: var(--themed-tab-btn-text);
+}
+.sessionhistory-item a {
+	color: var(--themed-tab-btn-text);
 }
 .sessionhistory-item.session-new {
-	background-color: rgba(164, 165, 164, 0.1);
+	background-color: rgba(164, 165, 164, 0.2);
 }
 .sessionhistory-item:hover {
-	background-color: rgba(148, 229, 148, 0.1);
+	background-color: var(--themed-tab-btn-hover);
+	/*background-color: rgba(148, 229, 148, 0.2);*/
 }
 .sessionhistory-item.active {
-	background-color: rgba(148, 229, 148, 0.25);
+	background-color: var(--themed-tab-btn-active);
+	/*background-color: rgba(148, 229, 148, 0.5);*/
 }
 .sessionhistory-item .session-name {
-	color: #666666;
+	
 }
 .sessionhistory-item.active .session-name {
-	color: var(--themed-btn-cta-text);
+	
 }
 .sessionhistory-item a.item {
 	flex: 1;
 }
 .sessionhistory-item a.del {
-	color: #888888;
-	opacity: 0;
+	opacity: 0.8;
 	pointer-events: none;
 }
 .sessionhistory-item a.del:hover {

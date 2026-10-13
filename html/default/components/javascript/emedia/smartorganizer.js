@@ -85,6 +85,7 @@ $(document).ready(function () {
 	var fullCanvasHeight = canvasHeight + 1000;
 	var midX = fullCanvasWidth / 2;
 	var midY = fullCanvasHeight / 2;
+	var baseIconPath = applink + "/components/javascript/bootstrap/5.3.8/icons/bootstrap/";
 	var folderPort = {
 		type: "draw2d.HybridPort",
 		width: 16,
@@ -675,7 +676,11 @@ $(document).ready(function () {
 						} else if (typeof value === "string") {
 							if (key !== "path" && key !== "moduleicon") return;
 							var apphomeIdx = value.indexOf("${apphome}");
-							if (apphomeIdx === -1) return;
+							if (apphomeIdx === -1) 
+								{
+								obj[key] =  baseIconPath + value;
+								return;
+								}
 							obj[key] = apphome + value.substring(apphomeIdx + 10);
 						}
 					});
@@ -722,6 +727,9 @@ $(document).ready(function () {
 						} else if (typeof value === "string") {
 							if (key !== "path" && key !== "moduleicon") return;
 							try {
+								if (!value.startsWith("${apphome}")) {
+									value = baseIconPath + value;
+								}
 								var url = new URL(value);
 								obj[key] = getDynamicPath(url.pathname);
 							} catch {

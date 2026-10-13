@@ -50,7 +50,7 @@
 			data-timecodestart="$clip.getStart()"
 			data-timecodelength="$clip.getLength()">
 			<div class="ruler">
-				<div class="timecellcaption" 
+				<div class="timecellcaption #ifnotnull($clip.getSpeaker())#esc($clip.getSpeaker())#end" 
 					style="width: ${timeline.getPxLength($clip)}px;
 					max-width: 300px; 
 					cursor: move;position:relative">
@@ -58,7 +58,7 @@
 						<i class="far fa-clock"></i> $clip.getStartSecondsAndHours()
 					</div>
 					#ifnotnull($clip.getSpeaker())
-					<div class="clipspeaker">#esc($clip.getSpeaker())</div>
+					<div class="clipspeaker"><i class="bi bi-person"></i> #esc($clip.getSpeaker())</div>
 					#end
 					<div class="cliptext">#esc($!clip.getLabel())</div>
 				</div>

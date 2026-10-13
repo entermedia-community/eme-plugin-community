@@ -6,10 +6,7 @@
 	</path-action>
 
 	<permission name="view">
-		<or>
-			<pagevalue name="canviewupload" equals="true"/>
-			<pagevalue name="canviewcategoryupload" equals="true"/>
-		</or>
+		<action name="Admin.canModule" permission="upload_files" />
 	</permission>
 
 	<!-- <path-action name="DataEditModule.parseMultPart" /> -->

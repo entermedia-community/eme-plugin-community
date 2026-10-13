@@ -687,9 +687,7 @@
 .sessionhistory-item a {
 	color: var(--themed-tab-btn-text);
 }
-.sessionhistory-item.session-new {
-	background-color: rgba(164, 165, 164, 0.2);
-}
+
 .sessionhistory-item:hover {
 	background-color: var(--themed-tab-btn-hover);
 	/*background-color: rgba(148, 229, 148, 0.2);*/

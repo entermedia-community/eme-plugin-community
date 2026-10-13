@@ -1,22 +1,22 @@
 <div class="sessionhistory overflow-y">
-  <div class="mt-3 mb-2">
 
-  <div class="text-center small my-2">
+  <div class="mt-3 mb-2 text-center small my-2">
     <strong>[[Sessions]]</strong>
   </div>
-  <div class="sessionhistory-item session-new">
-    <a class="ajax" 
+
+    <div class="sessionhistory-item session-new">
+    <a class="ajax flex-grow-1" 
         data-targetdiv="aichatsearch" 
         data-oemaxlevel="1" 
         data-createnew="true" 
         data-entityid="$!entity.id"
         data-entitymoduleid="$!module.getId()"
         data-includeeditcontext="false"
-        href="$edithome/sessionadd.html">
+        href="$edithome/sessionadd.html"
+        title="[[Start New Session]]">
       <i class="bi bi-plus-lg me-1"></i> [[New Session]]
     </a>
     </div>
-  </div>
   #if($entity.owner == $user.id)
     #set( $hits = $mediaarchive.query("channel").exact("dataid",$entity.id).exact("searchtype", $module.id).sort("refreshdateDown").search($context))
   #else

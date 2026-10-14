@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <page>
 	<property name="searchtype">publishdestination</property>
 	<property name="searchhome">/${applicationid}/views/settings/modules/asset/publishing</property>
@@ -21,6 +22,8 @@
  
  	<property name="subtab">publishing</property>
  	<property name="tab">preferences</property>
- 	<inner-layout>/${applicationid}/theme/layouts/settingssubtablayout.html</inner-layout>
+ 	
+	
+	<inner-layout>/${applicationid}/theme/layouts/settingssubtablayout.html</inner-layout>
 	
 </page>

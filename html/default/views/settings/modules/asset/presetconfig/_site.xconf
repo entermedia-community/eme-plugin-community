@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <page>
 	<property name="searchtype">presetdata</property>
 	<property name="searchhome">/${applicationid}/views/settings/modules/asset/presetconfig</property>
@@ -23,5 +25,6 @@
  	<property name="tab">preferences</property>
 	<property name="subtab">presets</property>
 	
+	<inner-layout>/${applicationid}/theme/layouts/settingssubtablayout.html</inner-layout>
 	
 </page>

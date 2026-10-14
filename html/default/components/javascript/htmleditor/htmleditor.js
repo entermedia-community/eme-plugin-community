@@ -757,6 +757,7 @@ $(window).on("quillstart", function (_, targetDiv) {
 	}
 
 	const quill = new Quill(targetDiv[0], {
+		theme: "snow",
 		modules: {
 			toolbar: {
 				container: quillToolbarOptions,
@@ -790,7 +791,6 @@ $(window).on("quillstart", function (_, targetDiv) {
 				},
 			},
 		},
-		theme: "snow",
 	});
 	$(".ql-save").html(saveSVG);
 	$(".ql-cancel").html(cancelSVG);
@@ -804,7 +804,14 @@ function convertDeltaToHtml(deltaOps) {
 		tempQuill.root.innerHTML,
 		"text/html",
 	);
-
+	doc.querySelectorAll("ol").forEach((ol) => {
+		const items = [...ol.children];
+		if (items.length && items.every((li) => li.dataset.list === "bullet")) {
+			const ul = doc.createElement("ul");
+			ul.innerHTML = ol.innerHTML; // keeps data-list on the <li>s
+			ol.replaceWith(ul);
+		}
+	});
 	// remove editor-only UI nodes
 	doc.querySelectorAll(".ql-ui, .ql-cursor").forEach((el) => el.remove());
 
@@ -853,7 +860,7 @@ $(document).ready(function () {
 		formats[`formats/data-${name}`] = new Parchment.Attributor(
 			`data-${name}`,
 			`data-${name}`,
-			{ scope: Parchment.Scope.ANY },
+			{ scope: Parchment.Scope.INLINE },
 		);
 	});
 	Quill.register(formats, true);
@@ -882,10 +889,9 @@ $(document).ready(function () {
 		try {
 			const delta = $this.text();
 			const html = convertDeltaToHtml(JSON.parse(delta));
-			console.log(html);
 			$this.html(html);
-			console.log($this.html());
-		} catch {
+		} catch (error) {
+			console.log(error);
 		} finally {
 			$this.removeClass("quill-delta");
 			$this.removeClass("d-none");

@@ -853,7 +853,13 @@ function destroyQuillEditor(quillInstance) {
 $(document).ready(function () {
 	const Parchment = Quill.import("parchment");
 
-	const dataNames = ["channel", "functionname", "currentscenario"];
+	const dataNames = [
+		"channel",
+		"functionname",
+		"currentscenario",
+		"targetdiv",
+		"oemaxlevel",
+	];
 	const formats = {};
 
 	dataNames.forEach((name) => {
@@ -884,12 +890,124 @@ $(document).ready(function () {
 			createCK5($this, options);
 		}
 	});
+	function parseForm(json) {
+		const { formAttr = {}, form = [] } = json;
+
+		if (!form || form.length === 0) return null;
+
+		const formEl = document.createElement("form");
+		for (const [name, value] of Object.entries(formAttr)) {
+			formEl.setAttribute(name, value);
+		}
+
+		for (const field of form) {
+			const { type = "text", label, ...attrs } = field;
+
+			// hidden fields: just the input, no wrapper or label
+			if (type === "hidden") {
+				const input = document.createElement("input");
+				input.type = "hidden";
+				for (const [k, v] of Object.entries(attrs)) input.setAttribute(k, v);
+				formEl.appendChild(input);
+				continue;
+			}
+
+			const wrapper = document.createElement("div");
+			wrapper.className = "form-group";
+
+			let input;
+			if (type === "textarea") {
+				input = document.createElement("textarea");
+				if (attrs.value != null) input.textContent = attrs.value;
+			} else if (type === "select") {
+				input = document.createElement("select");
+				for (const opt of attrs.options ?? []) {
+					const o = document.createElement("option");
+					const isObj = typeof opt === "object";
+					o.value = isObj ? opt.value : opt;
+					o.textContent = isObj ? (opt.label ?? opt.value) : opt;
+					if (attrs.value != null && String(attrs.value) === String(o.value))
+						o.selected = true;
+					input.appendChild(o);
+				}
+			} else {
+				input = document.createElement("input");
+				input.type = type;
+			}
+
+			// copy remaining attributes (name, value, class, id, required, ...)
+			for (const [k, v] of Object.entries(attrs)) {
+				if (k === "options") continue;
+				if (type === "textarea" && k === "value") continue;
+				if (type === "select" && k === "value") continue;
+				input.setAttribute(k, v);
+			}
+
+			// give the input an id so the label can point at it
+			if (!input.id && attrs.name) input.id = attrs.name;
+
+			if (label) {
+				// text-like inputs: the label doubles as a placeholder
+				if (
+					[
+						"text",
+						"search",
+						"email",
+						"url",
+						"tel",
+						"password",
+						"number",
+						"textarea",
+					].includes(type)
+				) {
+					input.setAttribute("placeholder", label);
+					input.className = "form-control my-1";
+				} else {
+					const labelEl = document.createElement("label");
+					if (input.id) labelEl.htmlFor = input.id;
+					labelEl.textContent = label;
+					wrapper.appendChild(labelEl);
+				}
+			}
+
+			wrapper.appendChild(input);
+			formEl.appendChild(wrapper);
+		}
+
+		//add submit button
+		const submit = document.createElement("button");
+		submit.className = "btn btn-primary";
+		submit.type = "submit";
+		submit.textContent = "Submit";
+		formEl.appendChild(submit);
+
+		return formEl;
+	}
 	lQuery(".quill-delta").livequery(function () {
 		const $this = $(this);
 		try {
 			const delta = $this.text();
-			const html = convertDeltaToHtml(JSON.parse(delta));
+			const json = JSON.parse(delta);
+			const converter = new QuillDeltaToHtmlConverter(json["ops"], {
+				customTagAttributes: (op) => {
+					const attrs = op.attributes || {};
+					const filtered = {};
+					for (const [key, value] of Object.entries(attrs)) {
+						if (key === "class" || key === "id" || key.startsWith("data-")) {
+							filtered[key] = value;
+						}
+					}
+					return Object.keys(filtered).length ? filtered : undefined;
+				},
+			});
+			const html = converter.convert();
 			$this.html(html);
+
+			const formEl = parseForm(json);
+			if (formEl) $this.after(formEl);
+
+			const append = json["append"];
+			if (append) $this.after(append);
 		} catch (error) {
 			console.log(error);
 		} finally {

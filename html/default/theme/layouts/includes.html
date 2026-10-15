@@ -51,6 +51,7 @@ $pages.include("/${applicationid}/components/captureclick/end.html")
 <link rel="stylesheet" type="text/css" href="/${applicationid}/components/javascript/quill/dist/quill.snow.css" />
 <link rel="stylesheet" type="text/css" href="/${applicationid}/components/javascript/quill/dist/quill.bubble.css" />
 <script type="text/javascript" src="/${applicationid}/components/javascript/quill/dist/quill.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/quill-delta-to-html/dist/browser/QuillDeltaToHtmlConverter.bundle.js"></script>
 
 #set( $mapskey = $mediaarchive.getCatalogSettingValue("google-maps-key"))
 #ifnotnull( $mapskey )

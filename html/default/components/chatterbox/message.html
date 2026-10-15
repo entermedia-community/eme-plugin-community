@@ -100,7 +100,7 @@ $context.putPageValue("goalsenabled", $goalsenabled)
 				
 					#ifnotnull($chat.message)
 						#if($chat.user == "agent")
-							<div class="msg-body-content">$!{chat.message}</div>
+							<div class="msg-body-content quill-delta">$url_util.escapeMessage($!{chat.message})</div>
 						#else
 							<div class="msg-body-content">$url_util.escapeMessage($chat.message)</div>
 						#end

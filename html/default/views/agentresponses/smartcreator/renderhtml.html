@@ -1,5 +1,5 @@
 
-#set($edithome = "$apphome/views/agentresponses/smartcreator")
+#set($edithome = "/$mediaarchive.getMediaDbId()/views/agentresponses/smartcreator")
 $context.putPageValue("edithome", $edithome)
 <div class="creator-preview"
   #ifnotnull($playbacksection)

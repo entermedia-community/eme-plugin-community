@@ -7,8 +7,6 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 	#set($moduleid = $page.module) 
 #end
 
-
-
 #if($page.openchat || ($user && $permissions && $permissions.canEntity($module, $entity, "chat_send_messages")))
 		#set($cansendchat = true)
 #end

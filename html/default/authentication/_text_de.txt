@@ -1,13 +1,29 @@
 #
-#Thu Feb 21 10:59:30 EST 2019
-Please\ enter\ your\ password=Bitte geben Sie Ihr Passwort ein
-or\ Create\ a\ New\ Account=oder erstellen Sie ein neues Konto
+#Sun Oct 04 05:54:36 EDT 2026
+Are\ you\ having\ trouble\ logging\ in\ or\ have\ a\ question?=Haben Sie Probleme, sich anzumelden, oder haben Sie eine Frage?
+Email=E-Mail-Adresse
 Email\ or\ Username=E-Mail oder Benutzername
+Enter\ your\ email\ address=Geben Sie Ihre E-Mail Adresse ein
+Enter\ your\ email\ and\ we'll\ send\ a\ one-time\ code.=Geben Sie Ihre E-Mail ein und wir senden Ihnen einen einmaligen Code.
 Forgotten\ your\ password?=Passwort vergessen?
-Welcome\!\ Please\ enter\ your\ email\ and\ password\:=Herzlich willkommen\! Geben Sie bitte E-Mail Adresse und Passwort ein\:
-You\ do\ not\ have\ permissions\ to\ perform\ the\ previous\ action.=Sie haben keine Berechtigung zum Ausf\u00FChren der vorherigen Aktion.
-Login=Einloggen
-Permission\ Error=Berechtigungsfehler
+Legacy\ Login=Legacy-Anmeldung
+Legacy\ login\ with\ username\ &\ password=Legacy-Login mit Benutzernamen und Passwort
 Log\ in=Anmelden
-You\ are\ logged\ in\ as=Sie sind angemeldet als
+Login=Einloggen
+Next=N\u00E4chster
+No\ Permissions=Keine Genehmigung
+Or\ continue\ with=Oder weiter mit
 Password=Passwort
+Permission\ Error=Berechtigungsfehler
+Please=Ich bitte dich.
+Please\ enter\ your\ password=Bitte geben Sie Ihr Passwort ein
+Sign\ in=Melden Sie sich an .
+Sign\ in\ /\ Sign\ up=Melden Sie sich an / Melden Sie sich an
+To\ create\ a\ new\ account,\ please\ contact=Um ein neues Konto zu erstellen, wenden Sie sich bitte
+Welcome\!\ Please\ enter\ your\ email\ and\ password\:=Herzlich willkommen\! Geben Sie bitte E-Mail Adresse und Passwort ein\:
+You\ are\ logged\ in\ as=Sie sind angemeldet als
+You\ do\ not\ have\ permissions\ to\ perform\ the\ previous\ action.=Sie haben keine Berechtigung zum Ausf\u00FChren der vorherigen Aktion.
+Your\ Login\ Info=Ihre Anmeldeinformationen
+contact\ us=Kontakt aufnehmen
+or\ Create\ a\ New\ Account=oder erstellen Sie ein neues Konto
+the\ administrator=der Verwalter

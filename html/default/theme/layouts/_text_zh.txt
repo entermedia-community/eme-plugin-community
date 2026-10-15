@@ -1,0 +1,21 @@
+#
+#Thu Oct 01 02:26:04 EDT 2026
+AI\ Chat\ Search=\u4EBA\u5DE5\u667A\u80FD\u804A\u5929\u641C\u7D22
+Account\ Settings=\u5E10\u6237\u8BBE\u7F6E
+Dashboard=\u4EEA\u8868\u677F
+Dashboard\ Reports=\u4EEA\u8868\u677F\u62A5\u544A
+Desktop\ Settings=\u684C\u9762\u8BBE\u7F6E
+Download\ Desktop\ App=\u4E0B\u8F7D\u684C\u9762\u5E94\u7528\u7A0B\u5E8F
+Go\ to=\u8D70\u5230
+Guides=\u5BFC\u6E38
+Language=\u8BED\u8A00
+Login=\u767B\u5F55
+Logout=\u9000\u51FA
+My\ Account=\u6211\u7684\u8D26\u6237
+My\ Orders=\u6211\u7684\u547D\u4EE4
+Pending\ Orders=\u5F85\u8BA2\u5355
+Powered\ by\ EME=\u7531EME\u63D0\u4F9B
+Theme=\u4E3B\u9898
+View\ Bookmarks=\u67E5\u770B\u4E66\u7B7E
+account=\u8D26\u6237
+eMedia\ Library=\u7535\u5B50\u5A92\u4F53\u5E93

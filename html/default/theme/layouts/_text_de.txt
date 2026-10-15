@@ -1,0 +1,21 @@
+#
+#Sun Oct 04 05:54:38 EDT 2026
+AI\ Chat\ Search=AI-Chat-Suche
+Account\ Settings=Kontoeinstellungen
+Dashboard=Das Dashboard
+Dashboard\ Reports=Dashboard-Berichte
+Desktop\ Settings=Desktop-Einstellungen
+Download\ Desktop\ App=Desktop-App herunterladen
+Go\ to=Gehen Sie zu
+Guides=Leitf\u00E4den
+Language=Sprache
+Login=Anmeldung
+Logout=Ausstieg
+My\ Account=Mein Konto
+My\ Orders=Meine Befehle .
+Pending\ Orders=Ausstehende Anordnungen
+Powered\ by\ EME=Powered by EME
+Theme=Thema
+View\ Bookmarks=Lesezeichen anzeigen
+account=Konto
+eMedia\ Library=eMedia-Bibliothek

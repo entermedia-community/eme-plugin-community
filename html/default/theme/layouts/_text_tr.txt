@@ -1,0 +1,21 @@
+#
+#Tue Sep 29 19:09:21 EDT 2026
+AI\ Chat\ Search=AI Chat Search
+Account\ Settings=Account Settings
+Dashboard=Dashboard
+Dashboard\ Reports=Dashboard Reports
+Desktop\ Settings=Desktop Settings
+Download\ Desktop\ App=Download Desktop App
+Go\ to=Go to
+Guides=Guides
+Language=Language
+Login=Login
+Logout=Logout
+My\ Account=My Account
+My\ Orders=My Orders
+Pending\ Orders=Pending Orders
+Powered\ by\ EME=Powered by EME
+Theme=Theme
+View\ Bookmarks=View Bookmarks
+account=account
+eMedia\ Library=eMedia Library

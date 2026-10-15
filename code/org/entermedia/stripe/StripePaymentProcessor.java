@@ -211,7 +211,7 @@ public class StripePaymentProcessor
 		return (String) map.get("id");
 	}
 
-	protected boolean createCharge(Data payment, String customer, String source, Data invoice, String email) throws IOException, InterruptedException, URISyntaxException
+	public boolean createCharge(Data payment, String customer, String source, Data invoice, String email) throws IOException, InterruptedException, URISyntaxException
 	{
 		String stripeChargeUrl = "https://api.stripe.com/v1/charges";
 
@@ -307,7 +307,7 @@ public class StripePaymentProcessor
 		return false;
 	}
 
-	protected Map<String, Object> getCustomer(String email) throws URISyntaxException, IOException, InterruptedException
+	public Map<String, Object> getCustomer(String email) throws URISyntaxException, IOException, InterruptedException
 	{
 		ArrayList<Map<String, Object>> customers = getCustomers(email);
 		if (customers.size() > 0)

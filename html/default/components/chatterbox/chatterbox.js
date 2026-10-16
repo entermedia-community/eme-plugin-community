@@ -47,9 +47,7 @@ jQuery(document).ready(function () {
 			if (sendactions === "sendattachments") {
 				const attachform = chatter.find(".chatattachasset");
 				if (attachform.length > 0) {
-					attachform.find('input[name="chatmessage"]').val(
-						chattermsg.val(),
-					);
+					attachform.find('input[name="chatmessage"]').val(chattermsg.val());
 					attachform.trigger("submit");
 					chattermsg.val("");
 					$(".chatter-attachfile-cancel").trigger("click");
@@ -61,7 +59,7 @@ jQuery(document).ready(function () {
 			data.command = button.data("command");
 			data.functionname = lookupFunctionName(chatter);
 			data.apphome = appHome;
-			
+
 			const replytoid = chattermsg.data("replytoid");
 			if (replytoid) {
 				data.replytoid = replytoid;
@@ -122,7 +120,9 @@ jQuery(document).ready(function () {
 			if (e.keyCode === 13 && !e.shiftKey) {
 				//$("#chatter-msg").val("");
 				e.preventDefault();
-				const button = $(this).closest(".chatterbox").find('button[data-command="messagereceived"]');
+				const button = $(this)
+					.closest(".chatterbox")
+					.find('button[data-command="messagereceived"]');
 				button.trigger("click");
 				return false;
 			} else {
@@ -175,7 +175,7 @@ jQuery(document).ready(function () {
 		lQuery("a.appendgoalbutton").livequery("click", function (e) {
 			const parent = $(this).closest(".goalstatusopen");
 			if (parent) {
-			//	parent[0].scrollIntoView();
+				//	parent[0].scrollIntoView();
 			}
 		});
 	}
@@ -232,12 +232,22 @@ jQuery(document).ready(function () {
 			if (!message) return;
 
 			let messagebody = message.messageplain;
-			
-			if (messagebody == null || messagebody == undefined || messagebody === "" || messagebody == "null") {
+
+			if (
+				messagebody == null ||
+				messagebody == undefined ||
+				messagebody === "" ||
+				messagebody == "null"
+			) {
 				messagebody = message.message;
 			}
 
-			if (messagebody == null || messagebody == undefined || messagebody === "" || messagebody == "null") {
+			if (
+				messagebody == null ||
+				messagebody == undefined ||
+				messagebody === "" ||
+				messagebody == "null"
+			) {
 				//messagebody = "New message...";
 				return;
 			}
@@ -245,17 +255,18 @@ jQuery(document).ready(function () {
 			const channelId = message.channel;
 			const chatterbox = $(`div.chatterbox[data-channel="${channelId}"]`);
 
-			if (chatterbox.length > 0) 
-			{
+			if (chatterbox.length > 0) {
 				// Channel on the screen, update the UI with the new message
 				channelUpdateMessage(chatterbox, message);
 			}
-			if (message.user == userid || message.user == "agent")  //Add messagetype checks
+			if (
+				message.user == userid ||
+				message.user == "agent"
+			) //Add messagetype checks
 			{
 				return;
 			}
 			if (message.messagetype == "status") return;
-
 
 			if (isTabActive()) {
 				//console.log("Dropped message: " + messagebody);
@@ -270,8 +281,7 @@ jQuery(document).ready(function () {
 				if (message.topic !== undefined) {
 					header += ` in ${message.topic}`;
 				}
-				
-				
+
 				const notification = new Notification(header, {
 					//TODO: URL?
 					body: messagebody,
@@ -279,11 +289,11 @@ jQuery(document).ready(function () {
 					tag: messagebody,
 					icon: `${appHome}/theme/images/logo-square.png`,
 				});
-				
+
 				notification.addEventListener("click", function (event) {
-					event.preventDefault(); 
-					window.focus();         
-					notification.close();  
+					event.preventDefault();
+					window.focus();
+					notification.close();
 				});
 			}
 
@@ -310,7 +320,6 @@ jQuery(document).ready(function () {
 				// 	autohide: false,
 				// });
 			}
-			
 		});
 
 		chatConnection.addEventListener("open", function () {
@@ -340,21 +349,18 @@ jQuery(document).ready(function () {
 	function isTabActive() {
 		// 1. Fallback check: If document is hidden, the window is definitely not focused
 		var isactive = true;
-		if (document.hidden) 
-		{
+		if (document.hidden) {
 			isactive = false;
 		}
 
 		// 2. Safely check the top window focus to bypass cross-origin security blocks
 		try {
-			if (isactive && window.top && window.top.document) 
-			{
+			if (isactive && window.top && window.top.document) {
 				isactive = window.top.document.hasFocus();
 			}
 		} catch (e) {
 			// If blocked by CORS, fall back to checking the current frame
-			if( isactive)
-			{
+			if (isactive) {
 				isactive = document.hasFocus();
 			}
 		}
@@ -413,6 +419,8 @@ jQuery(document).ready(function () {
 				options.chatid = message.messageid;
 				$.get(renderMessageUrl, options, function (data) {
 					existing.replaceWith(data);
+					const msgBody = $(existing).find(".msg-body-content");
+					msgBody.addClass("quill-delta");
 					$(document).trigger("domchanged", [listArea]);
 					scrollToChat();
 				});
@@ -420,6 +428,7 @@ jQuery(document).ready(function () {
 				const msgBody = $(existing).find(".msg-body-content");
 				if (msgBody.length) {
 					msgBody.html(message.message);
+					msgBody.addClass("quill-delta");
 					$(document).trigger("domchanged", [msgBody]);
 				} else {
 					const chatMsg = $(existing).find(".chat-msg");
@@ -496,7 +505,9 @@ jQuery(document).ready(function () {
 
 	function urlBase64ToUint8Array(base64String) {
 		const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-		const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+		const base64 = (base64String + padding)
+			.replace(/-/g, "+")
+			.replace(/_/g, "/");
 		const rawData = window.atob(base64);
 		const outputArray = new Uint8Array(rawData.length);
 		for (let i = 0; i < rawData.length; ++i) {
@@ -505,8 +516,7 @@ jQuery(document).ready(function () {
 		return outputArray;
 	}
 
-	
-	lQuery(".allowchatnotifications").livequery("click", async  function (e) {
+	lQuery(".allowchatnotifications").livequery("click", async function (e) {
 		try {
 			await createNotificationSubscription();
 		} catch (err) {
@@ -517,23 +527,26 @@ jQuery(document).ready(function () {
 	async function createNotificationSubscription() {
 		try {
 			// 1. Verify browser feature support
-			if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-				throw new Error('Push messaging is not supported in this browser.');
+			if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+				throw new Error("Push messaging is not supported in this browser.");
 			}
 
 			// 2. Request Permission (Must be inside user-click context)
-			console.log('1. Requesting notification permission...');
+			console.log("1. Requesting notification permission...");
 			const permission = await Notification.requestPermission();
-			
-			if (permission !== 'granted') {
-				throw new Error('Notification permission was denied by the user.');
+
+			if (permission !== "granted") {
+				throw new Error("Notification permission was denied by the user.");
 			}
 
 			// 3. Register or locate Service Worker
-			console.log('2. Accessing Service Worker...');
+			console.log("2. Accessing Service Worker...");
 			let registration = await navigator.serviceWorker.getRegistration();
 			if (!registration) {
-				registration = await navigator.serviceWorker.register(apphome + '/sw.js', { scope: apphome + '/' });
+				registration = await navigator.serviceWorker.register(
+					apphome + "/sw.js",
+					{ scope: apphome + "/" },
+				);
 			}
 
 			const serviceWorker = await navigator.serviceWorker.ready;
@@ -541,22 +554,25 @@ jQuery(document).ready(function () {
 			// 4. Chrome Fix: Always unsubscribe stale/existing push subscriptions first
 			const existingSub = await serviceWorker.pushManager.getSubscription();
 			if (existingSub) {
-				console.log('Clearing existing push subscription...');
+				console.log("Clearing existing push subscription...");
 				await existingSub.unsubscribe();
 			}
 
 			// 5. Fetch the current VAPID public key from the server. Reading it fresh (instead of
 			// a copy hardcoded here) avoids a mismatch if the server key was ever regenerated.
-			const pushServerPublicKey = await jQuery.ajax({
-				type: 'GET',
-				url: appHome + '/components/chatterbox/pushnotificationpublickey.html',
-				dataType: 'text',
-				xhrFields: { withCredentials: true },
-				crossDomain: true,
-			}).then((text) => text.trim());
+			const pushServerPublicKey = await jQuery
+				.ajax({
+					type: "GET",
+					url:
+						appHome + "/components/chatterbox/pushnotificationpublickey.html",
+					dataType: "text",
+					xhrFields: { withCredentials: true },
+					crossDomain: true,
+				})
+				.then((text) => text.trim());
 
 			const key = urlBase64ToUint8Array(pushServerPublicKey);
-			console.log('3. Subscribing via pushManager: ' + pushServerPublicKey);
+			console.log("3. Subscribing via pushManager: " + pushServerPublicKey);
 
 			// 6. Create Fresh Push Subscription
 			const subscription = await serviceWorker.pushManager.subscribe({
@@ -564,23 +580,31 @@ jQuery(document).ready(function () {
 				applicationServerKey: key,
 			});
 
-			console.log('Successfully subscribed in Chrome/Firefox!', subscription);
+			console.log("Successfully subscribed in Chrome/Firefox!", subscription);
 
 			// 7. Extract raw binary keys correctly for Chrome & Firefox
-			const rawKey = subscription.getKey ? subscription.getKey('p256dh') : null;
-			const rawAuth = subscription.getKey ? subscription.getKey('auth') : null;
+			const rawKey = subscription.getKey ? subscription.getKey("p256dh") : null;
+			const rawAuth = subscription.getKey ? subscription.getKey("auth") : null;
 
 			// Convert ArrayBuffer to URL-Safe Base64 String
-			const p256dh = btoa(String.fromCharCode.apply(null, new Uint8Array(rawKey)))
-				.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+			const p256dh = btoa(
+				String.fromCharCode.apply(null, new Uint8Array(rawKey)),
+			)
+				.replace(/\+/g, "-")
+				.replace(/\//g, "_")
+				.replace(/=+$/, "");
 
-			const auth = btoa(String.fromCharCode.apply(null, new Uint8Array(rawAuth)))
-				.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+			const auth = btoa(
+				String.fromCharCode.apply(null, new Uint8Array(rawAuth)),
+			)
+				.replace(/\+/g, "-")
+				.replace(/\//g, "_")
+				.replace(/=+$/, "");
 
 			// 8. Save payload to backend
 			await jQuery.ajax({
-				type: 'POST',
-				url: appHome + '/components/chatterbox/pushsubscriptionsave.html',
+				type: "POST",
+				url: appHome + "/components/chatterbox/pushsubscriptionsave.html",
 				data: {
 					endpoint: subscription.endpoint,
 					p256dh: p256dh,
@@ -590,65 +614,65 @@ jQuery(document).ready(function () {
 				crossDomain: true,
 			});
 
-			console.log('Subscription saved to server.');
+			console.log("Subscription saved to server.");
 			return subscription;
-
 		} catch (error) {
-			console.error('Subscription process failed:', error);
+			console.error("Subscription process failed:", error);
 			throw error;
 		}
 	}
-	
-
 
 	function validateVapidPublicKey(key) {
-    if (typeof key !== 'string' || !key.trim()) {
-        return { valid: false, reason: "Key is missing or not a string." };
-    }
+		if (typeof key !== "string" || !key.trim()) {
+			return { valid: false, reason: "Key is missing or not a string." };
+		}
 
-    // Check for PEM wrapper headers
-    if (key.includes("BEGIN") || key.includes("PUBLIC KEY")) {
-        return { 
-            valid: false, 
-            reason: "Key is in PEM format. VAPID public keys must be raw Base64URL strings, not PEM blocks." 
-        };
-    }
+		// Check for PEM wrapper headers
+		if (key.includes("BEGIN") || key.includes("PUBLIC KEY")) {
+			return {
+				valid: false,
+				reason:
+					"Key is in PEM format. VAPID public keys must be raw Base64URL strings, not PEM blocks.",
+			};
+		}
 
-    // Convert Base64URL to standard Base64 for validation
-    let base64 = key.trim().replace(/-/g, '+').replace(/_/g, '/');
-    while (base64.length % 4 !== 0) {
-        base64 += '=';
-    }
+		// Convert Base64URL to standard Base64 for validation
+		let base64 = key.trim().replace(/-/g, "+").replace(/_/g, "/");
+		while (base64.length % 4 !== 0) {
+			base64 += "=";
+		}
 
-    try {
-        const rawData = window.atob(base64);
-        const bytes = new Uint8Array(rawData.length);
-        for (let i = 0; i < rawData.length; i++) {
-            bytes[i] = rawData.charCodeAt(i);
-        }
+		try {
+			const rawData = window.atob(base64);
+			const bytes = new Uint8Array(rawData.length);
+			for (let i = 0; i < rawData.length; i++) {
+				bytes[i] = rawData.charCodeAt(i);
+			}
 
-        // Must be exactly 65 bytes for a P-256 uncompressed public key
-        if (bytes.length !== 65) {
-            return { 
-                valid: false, 
-                reason: `Invalid key length (${bytes.length} bytes). Expected exactly 65 bytes.` 
-            };
-        }
+			// Must be exactly 65 bytes for a P-256 uncompressed public key
+			if (bytes.length !== 65) {
+				return {
+					valid: false,
+					reason: `Invalid key length (${bytes.length} bytes). Expected exactly 65 bytes.`,
+				};
+			}
 
-        // The first byte must be 0x04 (uncompressed point format marker)
-        if (bytes[0] !== 0x04) {
-            return { 
-                valid: false, 
-                reason: `Invalid public key prefix byte (0x${bytes[0].toString(16)}). First byte must be 0x04.` 
-            };
-        }
+			// The first byte must be 0x04 (uncompressed point format marker)
+			if (bytes[0] !== 0x04) {
+				return {
+					valid: false,
+					reason: `Invalid public key prefix byte (0x${bytes[0].toString(16)}). First byte must be 0x04.`,
+				};
+			}
 
-        return { valid: true, reason: "Valid VAPID Public Key." };
-
-    } catch (e) {
-        return { valid: false, reason: "Failed to decode Base64 string: " + e.message };
-    }
-}
+			return { valid: true, reason: "Valid VAPID Public Key." };
+		} catch (e) {
+			return {
+				valid: false,
+				reason: "Failed to decode Base64 string: " + e.message,
+			};
+		}
+	}
 
 	function hideAttachFile() {
 		if ($(".message-attach-box").is(":visible")) {
@@ -741,18 +765,21 @@ jQuery(document).ready(function () {
 		//hideEmojiPicker();
 		$(this).hide();
 		$(".chatter-send").data("sendactions", "sendattachments");
-		const chatterboxMessages = $(this).closest(".chatterbox").find("#chatterboxmessages");
-			if (chatterboxMessages.length) {
-				chatterboxMessages.removeClass("attachment-preview");
-			}
+		const chatterboxMessages = $(this)
+			.closest(".chatterbox")
+			.find("#chatterboxmessages");
+		if (chatterboxMessages.length) {
+			chatterboxMessages.removeClass("attachment-preview");
+		}
 
 		$(this).runAjax();
-		
 	});
 	lQuery(".chatter-attachfile-cancel").livequery("click", function (e) {
 		e.preventDefault();
 		e.stopPropagation();
-		const chatterboxMessages = $(this).closest(".chatterbox").find("#chatterboxmessages");
+		const chatterboxMessages = $(this)
+			.closest(".chatterbox")
+			.find("#chatterboxmessages");
 		$(".attachfileonchat").html("");
 		$(".chatter-attachfile").show();
 		$(".chatter-send").data("sendactions", "");

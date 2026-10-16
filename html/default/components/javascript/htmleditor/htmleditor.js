@@ -988,30 +988,32 @@ $(document).ready(function () {
 		try {
 			const delta = $this.text();
 			const json = JSON.parse(delta);
-			const converter = new QuillDeltaToHtmlConverter(json["ops"], {
-				customTagAttributes: (op) => {
-					const attrs = op.attributes || {};
-					const filtered = {};
-					for (const [key, value] of Object.entries(attrs)) {
-						if (key === "class" || key === "id" || key.startsWith("data-")) {
-							filtered[key] = value;
+			if (json["ops"] && Array.isArray(json["ops"])) {
+				const converter = new QuillDeltaToHtmlConverter(json["ops"], {
+					customTagAttributes: (op) => {
+						const attrs = op.attributes || {};
+						const filtered = {};
+						for (const [key, value] of Object.entries(attrs)) {
+							if (key === "class" || key === "id" || key.startsWith("data-")) {
+								filtered[key] = value;
+							}
 						}
-					}
-					return Object.keys(filtered).length ? filtered : undefined;
-				},
-			});
-			const html = converter.convert();
-			$this.html(html);
+						return Object.keys(filtered).length ? filtered : undefined;
+					},
+				});
+				const html = converter.convert();
+				$this.html(html);
+			}
 
-			const formEl = parseForm(json);
-			if (formEl) $this.after(formEl);
+			if (json["formAttr"] || json["form"]) {
+				const formEl = parseForm(json);
+				if (formEl) $this.after(formEl);
+			}
 
-			const append = json["append"];
-			if (append) $this.after(append);
+			if (json["append"]) $this.after(json["append"]);
 		} catch (error) {
 			console.log(error);
 		} finally {
-			$this.removeClass("quill-delta");
 			$this.removeClass("d-none");
 		}
 	});

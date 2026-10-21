@@ -48,7 +48,7 @@ jQuery(document).ready(function () {
 				const attachform = chatter.find(".chatattachasset");
 				if (attachform.length > 0) {
 					attachform.find('input[name="chatmessage"]').val(chattermsg.val());
-					attachform.trigger("submit");
+					attachform.trigger("submit"); //This form saves the attachment and sends the message
 					chattermsg.val("");
 					$(".chatter-attachfile-cancel").trigger("click");
 					return;
@@ -248,8 +248,8 @@ jQuery(document).ready(function () {
 				messagebody === "" ||
 				messagebody == "null"
 			) {
-				//messagebody = "New message...";
-				return;
+				messagebody = "New message...";
+				//return;
 			}
 
 			const channelId = message.channel;
@@ -856,6 +856,8 @@ jQuery(document).ready(function () {
 			heightRatio: 0.98,
 			overlayOpacity: 1,
 			fadeSpeed: 60,
+			focus: false,
+			 appendTarget: 'body' 
 		});
 
 		slb.on("shown.simplelightbox", function () {

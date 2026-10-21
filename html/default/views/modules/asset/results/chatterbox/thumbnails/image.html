@@ -78,6 +78,7 @@ $context.putPageValue("thumbsize", $thumbsize)
 			#if($rendertype=="video")
 			target="_blank"
 			#end
+			
 
 			#if($download_enabled == "true")
 				#set($downloadlink = $mediaarchive.asLinkToShare($siteroot, $hit, $convertpreset))

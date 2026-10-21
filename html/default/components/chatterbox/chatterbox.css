@@ -906,6 +906,15 @@ body.hidden-scroll {
 	top: 0;
 	position: fixed;
 }
+body .sl-overlay {
+	z-index: 99999 !important;
+}
+body .sl-wrapper,
+body .sl-image,
+body .sl-scrollbar-measure {
+    z-index: 100000 !important;
+    position: fixed !important;
+}
 .sl-wrapper * {
 	box-sizing: border-box;
 }

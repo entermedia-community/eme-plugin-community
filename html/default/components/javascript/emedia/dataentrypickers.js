@@ -197,22 +197,25 @@ $(document).ready(function () {
 
 		var preview = input.closest(".attachfileonchat").find(".render-type-thumbnail");
 		preview.html("");
-		Array.from(assets).forEach(function (asset) {
-			var preview = input.data("assetpreview");
-			if (preview) {
-				var assetPreview = $("<div class=\"d-inline-block p-1\"></div>");
-				if (/\.(jpe?g|png|gif|webp)$/i.test(preview)) {
-					var img = $("<img>");
-					img.attr("src", preview);
-					assetPreview.append(img);
-				} else if (/\.(mp4|mov|mpeg|avi)$/i.test(preview)) {
-					var img = $("<i>");
-					img.attr("class", "bi bi-film");
-					assetPreview.append(img);
-				}
-				input.closest(".attachfileonchat").find(".render-type-thumbnail").append(assetPreview);
-			}
-		});
+		var previews = input.data("assetpreview");
+		if (previews) {
+			Array.from(assets).forEach(function (asset) {
+				
+					var preview = previews[asset];
+					var assetPreview = $("<div class=\"d-inline-block p-1\"></div>");
+					if (/\.(jpe?g|png|gif|webp)$/i.test(preview)) {
+						var img = $("<img>");
+						img.attr("src", preview);
+						assetPreview.append(img);
+					} else if (/\.(mp4|mov|mpeg|avi)$/i.test(preview)) {
+						var img = $("<i>");
+						img.attr("class", "bi bi-film");
+						assetPreview.append(img);
+					}
+					input.closest(".attachfileonchat").find(".render-type-thumbnail").append(assetPreview);
+				
+			});
+		}
 
 		const chatterboxMessages = input.closest(".chatterbox").find("#chatterboxmessages");
 			if (chatterboxMessages.length) {
@@ -941,8 +944,17 @@ $(window).on("assetpicked", function (_, params) {
 	var assetid = params.assetid;
 	var target = params.target;
 	console.log("Asset picked: ", assetid, "Target: ", target);
-	$("#" + target).val(assetid);
-	$("#" + target).data("assetpreview", params.assetpicked);
+	var currentval = $("#" + target).val();
+	if (currentval && currentval.length > 0) {
+		currentval += "," + assetid;
+	} else {
+		currentval = assetid;
+	}
+	$("#" + target).val(currentval);
+	//make a json string assetid: params.assetpicked
+	var assetpreviews = $("#" + target).data("assetpreview") || {};
+	assetpreviews[assetid] = params.assetpicked;
+	$("#" + target).data("assetpreview", assetpreviews);
 	$("#" + target).trigger("change");
 
 });

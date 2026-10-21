@@ -6,7 +6,10 @@
 
   <property name="module">emeserver</property>
 
+  <property name="chatterboxhome">/${applicationid}/views/modules/${module}/editors/${edithomename}/chatterbox</property>
+
   <property name="channeltype">agentserverchat</property>
+
   <property name="defaultscenarioid">eme_server_welcome_menu</property>
 
   <path-action name="ChatModule.loadChatChannel" />

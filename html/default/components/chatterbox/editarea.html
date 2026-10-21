@@ -37,7 +37,6 @@
 				
 				#if(!$page.chatattachmentsdisabled && $permissions.canModule($module, "chat_add_attachments"))
 					<div class="position-relative">
-						<div id="attachfileonchat" class="attachfileonchat">
 							<a class="btn chatter-attachfile"
 								href="${chatterboxhome}/attach.html"
 								data-targetdivinner="attachfileonchat"
@@ -48,7 +47,8 @@
 								title="[[Attachments]]">
 								<i class="fas fa-paperclip"></i>
 							</a>
-						</div>
+							
+						<div id="attachfileonchat" class="attachfileonchat"></div>
 					</div>
 					
 				#end

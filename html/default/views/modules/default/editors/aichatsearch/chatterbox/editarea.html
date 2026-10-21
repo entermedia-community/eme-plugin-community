@@ -41,9 +41,11 @@
 							href="${chatterboxhome}/attach.html"
 							data-targetdiv="attachfileonchat"
 							data-channel="$!currentchannel.getId()"  
-							#if($librarycol.getId())data-entityid="$librarycol.getId()"#end
+							data-entityid="$!entity.id"
+							data-entitymoduleid="$!entitymodule.id"
 							data-messageid="X"
 							data-allowclose="true"
+							data-includeeditcontext="false"
 							title="[[Attachments]]">
 							<i class="fas fa-paperclip"></i>
 						</a>

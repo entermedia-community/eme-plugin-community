@@ -326,64 +326,7 @@ $(document).ready(function () {
 		$(this).runAjax();
 	});
 
-	lQuery(".pickfromiframe").livequery("click", function (e) {
-		if ($("#application").hasClass("blockfind")) {
-			e.preventDefault();
-			e.stopImmediatePropagation();
-
-			var pickerBtn = $(this);
-
-			var imageUrl = pickerBtn.data("imageurl");
-			var assetInfo = pickerBtn.closest("[data-assetid]");
-			var assetid = "";
-			var target = $("#application").data("targetfieldid");
-
-			if (!target || target.trim() == "") {
-				if (externalmessage && externalmessage.target) {
-					target = externalmessage.target;
-				}
-			}
-			if (assetInfo.length) {
-				assetid = assetInfo.data("assetid");
-			}
-
-			var type = $("#application").data("targettype");
-			if (!type) {
-				type = "asset";
-			}
-
-			if (type == "entity") {
-				assetid = pickerBtn.data("primarymedia");
-			}
-
-			var entityid = pickerBtn.data("entityid");
-
-			var payload = {
-				name: "eMediaAssetPicked",
-				assetpicked: imageUrl,
-				assetid: assetid,
-				entityid: entityid,
-				target: target,
-				type: type,
-			};
-
-			if (top && externalmessage) {
-				var parenturl = externalmessage["parenturl"];
-				if (parenturl !== null) {
-					var parentProtocol = new URL(parenturl).protocol;
-					var hostname = new URL(parenturl).hostname;
-					var parentPort = new URL(parenturl).port;
-					var targetOrigin = `${parentProtocol}//${hostname}`;
-					if (parentPort) targetOrigin += `:${parentPort}`;
-
-					// Use the target origin in the postMessage.
-					top.postMessage(payload, targetOrigin);
-				}
-			} else {
-				window.parent.postMessage(payload);
-			}
-		}
-	});
+	
 
 	focusInput = function (input) {
 		if (window.innerWidth < 768) return false;

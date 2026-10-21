@@ -188,6 +188,38 @@ $(document).ready(function () {
 			}
 	});
 
+	//Show Asset Picked Preview on chatterbox
+	lQuery(".attachfileonchat .pickedassetid").livequery("change", function () {
+		var input = $(this);
+		var assets = input.val();
+		assets = assets.split(",");
+		if (assets.length == 0) return;
+
+		var preview = input.closest(".attachfileonchat").find(".render-type-thumbnail");
+		preview.html("");
+		Array.from(assets).forEach(function (asset) {
+			var preview = input.data("assetpreview");
+			if (preview) {
+				var assetPreview = $("<div class=\"d-inline-block p-1\"></div>");
+				if (/\.(jpe?g|png|gif|webp)$/i.test(preview)) {
+					var img = $("<img>");
+					img.attr("src", preview);
+					assetPreview.append(img);
+				} else if (/\.(mp4|mov|mpeg|avi)$/i.test(preview)) {
+					var img = $("<i>");
+					img.attr("class", "bi bi-film");
+					assetPreview.append(img);
+				}
+				input.closest(".attachfileonchat").find(".render-type-thumbnail").append(assetPreview);
+			}
+		});
+
+		const chatterboxMessages = input.closest(".chatterbox").find("#chatterboxmessages");
+			if (chatterboxMessages.length) {
+				chatterboxMessages.addClass("attachment-preview");
+			}
+	});
+
 	lQuery(".assetpicker .removefieldassetvalue").livequery(
 		"click",
 		function (e) {
@@ -206,6 +238,66 @@ $(document).ready(function () {
 			}
 		},
 	);
+
+
+	lQuery(".pickfromiframe").livequery("click", function (e) {
+		if ($("#application").hasClass("blockfind")) {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+
+			var pickerBtn = $(this);
+
+			var imageUrl = pickerBtn.data("imageurl");
+			var assetInfo = pickerBtn.closest("[data-assetid]");
+			var assetid = "";
+			var target = $("#application").data("targetfieldid");
+
+			if (!target || target.trim() == "") {
+				if (externalmessage && externalmessage.target) {
+					target = externalmessage.target;
+				}
+			}
+			if (assetInfo.length) {
+				assetid = assetInfo.data("assetid");
+			}
+
+			var type = $("#application").data("pickingtype");
+			if (!type) {
+				type = "asset";
+			}
+
+			if (type == "entity") {
+				assetid = pickerBtn.data("primarymedia");
+			}
+
+			var entityid = pickerBtn.data("entityid");
+
+			var payload = {
+				name: "eMediaAssetPicked",
+				assetpicked: imageUrl,
+				assetid: assetid,
+				entityid: entityid,
+				target: target,
+				type: type,
+			};
+
+			if (top && externalmessage) {
+				var parenturl = externalmessage["parenturl"];
+				if (parenturl !== null) {
+					var parentProtocol = new URL(parenturl).protocol;
+					var hostname = new URL(parenturl).hostname;
+					var parentPort = new URL(parenturl).port;
+					var targetOrigin = `${parentProtocol}//${hostname}`;
+					if (parentPort) targetOrigin += `:${parentPort}`;
+
+					// Use the target origin in the postMessage.
+					top.postMessage(payload, targetOrigin);
+				}
+			} else {
+				window.parent.postMessage(payload);
+			}
+		}
+	});
 
 	//Not used? Or used in admin area?
 	lQuery(".emrowpicker table td").livequery("click", function (e) {
@@ -708,22 +800,7 @@ $(document).ready(function () {
 		},
 	);
 
-	$(window).on("assetpicked", function (_, params) {
-		if (typeof params === "string") {
-			var params = JSON.parse(params);
-		}
-		var assetid = params.assetid;
-		var messageid = $("#blockfindpicker").data("messageid");
-
-		if (messageid !== undefined) {
-			var div = $("#attachasset" + messageid);
-			//Submit this assetid and reload the chat box we are in
-			var form = div.closest(".chatattachasset");
-			form.find(".pickedassetid").val(assetid);
-			form.trigger("submit");
-			//close the form
-		}
-	});
+	
 
 	lQuery(".orderpending .resultsdivdata").livequery("click", function (e) {
 		if (!isValidTarget(e)) {
@@ -842,11 +919,12 @@ $(document).ready(function () {
 
 window.addEventListener("message", function (event) {
 	if (event.origin !== window.location.origin) return;
+
 	if (
 		typeof event.data === "object" &&
-		event.data.name === "eMediaAssetPicked" &&
-		event.data.target === "chatattachment"
+		event.data.name === "eMediaAssetPicked"
 	) {
+		
 		$(window).trigger("assetpicked", [event.data]);
 		var pickermodal = $("#dialogpickerassetpicker");
 		if (!pickermodal.length) {
@@ -854,6 +932,19 @@ window.addEventListener("message", function (event) {
 		}
 		closeemdialog(pickermodal);
 	}
+});
+
+$(window).on("assetpicked", function (_, params) {
+	if (typeof params === "string") {
+		var params = JSON.parse(params);
+	}
+	var assetid = params.assetid;
+	var target = params.target;
+	console.log("Asset picked: ", assetid, "Target: ", target);
+	$("#" + target).val(assetid);
+	$("#" + target).data("assetpreview", params.assetpicked);
+	$("#" + target).trigger("change");
+
 });
 
 //Not used?

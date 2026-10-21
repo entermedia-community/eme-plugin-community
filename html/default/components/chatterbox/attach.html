@@ -44,7 +44,7 @@
 			<input type="hidden" name="entitymoduleid" value="$!entitymoduleid" />
 			<input type="hidden" name="channel" value="$!currentchannel.id" />
 			<input type="hidden" name="chatmessage" value="" />
-			<input type="hidden" name="assetid" class="pickedassetid" value="" id="chatattachment" />
+			<input type="hidden" name="assetid" class="pickedassetid" value="" id="chatattachment$!{currentchannel.id}" />
 		
 			#ifnotnull($attachedasset)
 				<input type="hidden" name="attachedassetid" value="$!{attachedasset.id}" />

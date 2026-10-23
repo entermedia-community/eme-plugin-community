@@ -109,8 +109,10 @@ public void init()
 	}
 
 	Map objects = new HashMap();
-	String entermediakey = archive.userManager.getEnterMediaKey(teamuser);
-	objects.put("entermediakey",entermediakey);
+	// One-time login link (single use, one hour) instead of embedding a key in the email
+	String loginlinktoken = archive.userManager.createNewTempLoginLink(teamuser.getId(), teamuser.getEmail(), teamuser.getFirstName(), teamuser.getLastName(), teamuser.getScreenName());
+	objects.put("loginlinktoken", loginlinktoken);
+	objects.put("loginemail", java.net.URLEncoder.encode(teamuser.getEmail(), "UTF-8"));
 	objects.put("user", context.getUser());
 	objects.put("teamuser",teamuser);
 	

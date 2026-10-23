@@ -18,8 +18,14 @@ $pages.include("${apphome}/theme/emails/layout-top.html", $context)
 </div>
 
 <div style="text-align:center; margin:10px 0 ;">
-	#set( $link = "$!{community.externaldomain}/authentication/loginwithcode.html?email=$!{mail}" )
-	<a href="#urlescape($link)" style="text-decoration:none;color:white;background:#3297d5;padding:8px 12px;border-radius:4px;display:inline-block;">[[Enter Login Code Here]]</a>
+	#if( $loginlinktoken )
+		#set( $link = "$!{community.externaldomain}/authentication/confirmlogin.html?email=$url_util.encodeParamVal($mail)&templogincode=$loginlinktoken" )
+		<a href="$link" style="text-decoration:none;color:white;background:#3297d5;padding:8px 12px;border-radius:4px;display:inline-block;">[[Sign in]]</a>
+		<p style="font-size:90%;">[[Or enter the code on the login page.]]</p>
+	#else
+		#set( $link = "$!{community.externaldomain}/authentication/loginwithcode.html?email=$!{mail}" )
+		<a href="#urlescape($link)" style="text-decoration:none;color:white;background:#3297d5;padding:8px 12px;border-radius:4px;display:inline-block;">[[Enter Login Code Here]]</a>
+	#end
 </div>
 
 $pages.include("${apphome}/theme/emails/layout-bottom.html", $context)

@@ -34,9 +34,6 @@
 	#end
 		
 	
-	<a class="btn btn-secondary emdialog"  data-cancelsubmit="true"
-			href="$home$content.usermanagerhome/user/showkey.html?username=$userName">[[Generate Temporary EnterMedia Key]]</a>
-	
 	#if($mediaarchive.isCatalogSettingTrue("twofactorauthentication") && $canviewsettings)
 		<div style="margin:8px 0;">
 		<a class="btn btn-secondary ajax" data-targetdivinner="passwordsent" href="$siteroot$usermanagerhome/user/reset2factorkey.html?username=$selectedUser.id">[[Reset 2 Factor Authentication Key]]</a>

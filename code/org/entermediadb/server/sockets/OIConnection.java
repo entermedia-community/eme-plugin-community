@@ -231,31 +231,16 @@ public class OIConnection extends Endpoint implements MessageHandler.Partial<Str
 
 		if (user == null)
 		{
-			String entermediakey = (String) params.get("entermedia.key");
-			log.info("Entermedia key was " + entermediakey);
+			String token = (String) params.get("token"); // key token or application password
 			String catalogtotry = fieldCatalogId;
 			if (catalogtotry == null)
 			{
 				catalogtotry = "system";
 			}
-			if (entermediakey != null)
+			if (token != null)
 			{
-				String account = entermediakey.substring(0, entermediakey.indexOf("md5"));
-				log.info("Got here - testing more");
 				MediaArchive archive = (MediaArchive) getModuleManager().getBean(catalogtotry, "mediaArchive");
-				User target = archive.getUser(account);
-				if (target != null)
-				{
-					log.info("Got here -found a user");
-
-					String emkey = archive.getUserManager().getEnterMediaKey(target);
-					if (entermediakey.equals(emkey))
-					{
-						log.info("Got here -found using " + target);
-
-						user = target;
-					}
-				}
+				user = archive.getUserManager().getUserByBearerToken(token);
 			}
 		}
 

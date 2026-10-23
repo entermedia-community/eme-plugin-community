@@ -11,27 +11,17 @@
 <p>[[A magic link was requested for]]: $mail</p>
 <div style="margin:10px; padding:15px; background-color:#f0f0f0;">
 
-#if( $entermediakey )
-	
+#if( $loginlinktoken )
 	#if($userCategory)
-		#set( $link = "$context.siteRoot$applink/views/modules/asset/sharefiles/$userCategory.getId()/#dash($userCategory.getName()).html?entermedia.key=$entermediakey" )
+		#set( $okpage = "$context.siteRoot$applink/views/modules/asset/sharefiles/$userCategory.getId()/#dash($userCategory.getName()).html" )
 	#else
-		#set( $link = "$context.siteRoot$applink/index.html?entermedia.key=$entermediakey" )
+		#set( $okpage = "$context.siteRoot$applink/index.html" )
 	#end
+	#set( $link = "$context.siteRoot$home/$applicationid/authentication/confirmlogin.html?email=$url_util.encodeParamVal($mail)&templogincode=$loginlinktoken&loginokpage=$url_util.encodeParamVal($okpage)" )
 
-	
-	#set( $expiry = $context.getPageProperty("temporary_password_expiry"))
-	#set( $days = $numberutils.toInt($expiry))
-	#set ( $calendar = $datetool.getCalendar() )
-	#set ( $today = $datetool.getDate() )
-	#set($null = $calendar.setTime($today))
-	#set($null = $calendar.add(6, $days))
-	
 	<p>
-	<a href="#urlescape($link)" style="text-align: center;">[[Login here]]</a>
-	#if( $calendar )
-		[[Key will expire by]] $context.getDate( $calendar.getTime() ) 
-	#end
+	<a href="$link" style="text-align: center;">[[Login here]]</a>
+	[[This link can be used once and expires in one hour.]]
 	</p>
 #end	
 

@@ -51,13 +51,15 @@
 			return;
 		}
 
+		// The desktop app authenticates with the browser's key (browserkey.js): a 7 day Bearer token, no cookie
+		const tokenPromise = window.emeBrowserKey ? window.emeBrowserKey.getToken() : Promise.resolve(null);
+		tokenPromise.then(function (entermediakey) {
 		const { ipcRenderer } = require("electron");
 		const { webUtils } = require("electron");
 
 		const app = $("#application");
 		const mediadb = app.data("mediadbappid");
 		const apphome = app.data("apphome");
-		const entermediakey = app.data("entermediakey");
 		const requiredDesktopVersion = parseInt(
 			app.data("required-desktop-version")
 		);
@@ -834,5 +836,6 @@
 					positive: false,
 				});
 			});
+		});
 	});
 })();

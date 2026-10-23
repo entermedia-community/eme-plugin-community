@@ -7,7 +7,7 @@ $pages.include("${apphome}/theme/emails/layout-top.html", $context)
 		
 		#set($projectlink = "$!{community.externaldomain}/${librarycol.urlname}/chat/index.html")
 	  
-	  	<a href="$projectlink?entermedia.key=${entermediakey}" style="text-decoration:none;color:white;background:#3297d5;padding:8px 12px;border-radius:4px;display:inline-block;">[[Log in to the Project]]</a>
+	  	<a href="$!{community.externaldomain}/authentication/confirmlogin.html?email=${loginemail}&templogincode=${loginlinktoken}&loginokpage=$projectlink" style="text-decoration:none;color:white;background:#3297d5;padding:8px 12px;border-radius:4px;display:inline-block;">[[Log in to the Project]]</a>
 	</p>
 
 

@@ -2,15 +2,11 @@
 <br/><br/>
 
 #set($loginokpage = $context.getRequestParameter("loginokpage"))
+#set($loginbase = "$context.siteRoot$home/$applicationid/authentication/confirmlogin.html?email=$url_util.encodeParamVal($newuser.getEmail())&templogincode=$!loginlinktoken")
 #if($loginokpage)
-	#if( $loginokpage.contains("?"))
-		#set($args = "&entermedia.key=$entermediakey")
-	#else
-		#set($args = "?entermedia.key=$entermediakey")
-	#end
-	<a href="$context.siteRoot$home/$loginokpage$!args">[[Complete Registration]]</a>
+	<a href="$loginbase&loginokpage=$context.siteRoot$home/$loginokpage">[[Complete Registration]]</a>
 #else
-<a href="$context.siteRoot$home/$applicationid/index.html?entermedia.key=$entermediakey">[[View Site]]</a>
+<a href="$loginbase&loginokpage=$context.siteRoot$home/$applicationid/index.html">[[View Site]]</a>
 #end
 
 <br/><br/>

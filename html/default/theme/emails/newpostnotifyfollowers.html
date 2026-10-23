@@ -39,7 +39,7 @@ $pages.include("${apphome}/theme/emails/layout-top.html", $context)
 	
 	<div style="margin-bottom:1rem;  font-size:15px; line-height: 1.7;">
 	By: $postuser.getAnonNickName()<br>
-	<a href="${bloglink}?entermedia.key=${entermediakey}&fbclid=blog${blogpost.getId()}" title="View $blogpost.getName()">View online</a>
+	<a href="$!{community.externaldomain}/authentication/confirmlogin.html?email=${loginemail}&templogincode=${loginlinktoken}&loginokpage=${bloglink}%3Ffbclid=blog${blogpost.getId()}" title="View $blogpost.getName()">View online</a>
 	</div>
 
 </div>

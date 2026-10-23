@@ -71,9 +71,6 @@ $context.putSessionValue("fullOriginalEntryPage", $!loginokpage)
 				<button class="btn-primary mt-3" id="nextBtn" type="submit">[[Next]]</button>
 				<input type="hidden" name="subject" value="[[Your Login Info]]"/>
 			</form>
-			<div class="text-end">
-				<a href="$content.loginroot/legacyform.html" class="ajax p-1" data-targetdiv="ajaxlogincontainer" title="[[Legacy login with username & password]]"><i class="fas fa-key me-1 me-1"></i>[[Legacy Login]]</a>
-			</div>
 		</div>
 		$pages.include("$home$content.loginroot/sociallogin.html", $context)
     $pages.include("$home$content.loginroot/loginhelp.html", $context)

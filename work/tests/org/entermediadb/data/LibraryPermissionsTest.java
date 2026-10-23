@@ -42,12 +42,12 @@ public class LibraryPermissionsTest extends BaseEnterMediaTest
 		User groupuser = uman.getUser("groupuser");
 		if (roleuser == null) {
 			
-			roleuser = uman.createUser("roleuser", "junk");	
+			roleuser = uman.createUser("roleuser");	
 			uman.saveUser(roleuser);
 		}
 		if (groupuser == null) {
 			
-			groupuser = uman.createUser("groupuser", "junk");
+			groupuser = uman.createUser("groupuser");
 			uman.saveUser(groupuser);	
 		}
 		

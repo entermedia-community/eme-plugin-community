@@ -28,16 +28,10 @@
 	#if($userurl)
 		<h2 style="color:#5BA14F; margin-bottom:30px;">[[Your Media Database is ready]]!</h2>
 		<p>[[Your instance URL]]: <strong>${userurl}</strong><br>
-		[[Username]]: <strong>admin</strong><br>
-		[[Password]]: <strong>admin</strong></p>
-		<form action="${userurl}/assets/emshare2/authentication/login.html" method="post">
-			<input type="hidden" name="accountname" value="admin" />
-			<input type="hidden" name="password" value="admin" />
-			<input type="hidden" name="loginokpage" value="/assets/emshare2/" />
-			  <button id="senddata" type="submit" class="btn btn-primary">
-			    [[Go To Your EnterMedia Instance]]
-			  </button>
-		</form>
+		[[Username]]: <strong>admin</strong></p>
+		<a id="senddata" href="${userurl}/assets/emshare2/" class="btn btn-primary">
+			[[Go To Your EnterMedia Instance]]
+		</a>
 		<div style="padding-top:20px; font-size:90%; color:#333;">
 		<hr>
 		##<p>The default trial period is 30 days. After 30 days, the site will automatically be archived unless an extension has been approved.</p>

@@ -43,7 +43,7 @@ public class PullTest extends BaseEnterMediaTest
 		HttpPost postMethod = null;
 		try
 		{
-			String url = "https://em9dev.entermediadb.org/assets/mediadb/services/lists/create/purpose?entermedia.key=adminmd5421c0af185908a6c0c40d50fd5e3f16760d5580bc&lastpullago=";
+			String url = "https://em9dev.entermediadb.org/assets/mediadb/services/lists/create/purpose?entermedia.key=" + System.getenv("EME_TOKEN") + "&lastpullago=";
 
 			String payload = "{\"id\": \"purpose\", \"name\": \"I have a purpose\" }";
 
@@ -70,7 +70,7 @@ public class PullTest extends BaseEnterMediaTest
 			{
 				nodeinfo = editingcluster.createNewData();
 				nodeinfo.setId("demo");
-				nodeinfo.setValue("entermediakey", "adminmd5421c0af185908a6c0c40d50fd5e3f16760d5580bc");
+				nodeinfo.setValue("entermediakey", System.getenv("EME_TOKEN"));
 				nodeinfo.setValue("baseurl", "https://em9dev.entermediadb.org/assets/");
 
 			}
@@ -126,7 +126,7 @@ public class PullTest extends BaseEnterMediaTest
 		HttpPost postMethod = null;
 		try
 		{
-			String url = "https://em9dev.entermediadb.org/assets/mediadb/services/lists/create/asset?entermedia.key=adminmd5421c0af185908a6c0c40d50fd5e3f16760d5580bc&lastpullago=";
+			String url = "https://em9dev.entermediadb.org/assets/mediadb/services/lists/create/asset?entermedia.key=" + System.getenv("EME_TOKEN") + "&lastpullago=";
 
 			String payload = "{\"id\": \"descriptiontest\", \"name\": \"I have a purpose\", \"sourcepath\" : \"descriptiontest\" }";
 
@@ -155,7 +155,7 @@ public class PullTest extends BaseEnterMediaTest
 				nodeinfo.setId("demo");
 				nodeinfo.setName("demo");
 
-				nodeinfo.setValue("entermediakey", "adminmd5421c0af185908a6c0c40d50fd5e3f16760d5580bc");
+				nodeinfo.setValue("entermediakey", System.getenv("EME_TOKEN"));
 				nodeinfo.setValue("baseurl", "https://em9dev.entermediadb.org/assets/");
 
 			}

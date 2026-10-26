@@ -207,7 +207,7 @@ public class PaymentModule extends BaseMediaModule {
 			invoice.setValue("paymentstatus", "paid");
 			invoice.setValue("invoicepaidon", today.getTime());
 
-			payment.setValue("paymentstatus", "success");
+			//payment.setValue("paymentstatus", "success");
 		} else {
 			invoice.setValue("paymentstatus", "error");
 			invoice.setValue("paymentstatusreason", "Credit Card failed");

@@ -1,4 +1,4 @@
-<div class="sessionhistory overflow-y">
+<div class="sessionhistory overflow-y auto-active-container">
 
   <div class="mt-3 mb-2 text-center small my-2">
     <strong>[[Sessions]]</strong>
@@ -24,49 +24,48 @@
   #end
 
   #foreach($hit in $hits.getPageOfHits() )
-    <div class="sessionhistory-item #if( $currentchannel.id == $hit.id ) active #end">
+      <div class="sessionhistory-item auto-active-row #if( $currentchannel.id == $hit.id ) current #end">
+        <a class="ajax item d-flex flex-column auto-active-link" 
+          data-targetdiv="chatterbox"
+          data-channel="$!{hit.id}"
+          data-entityid="$!entity.id"
+          data-entitymoduleid="$!module.getId()"
+          data-oemaxlevel="1"
+          href="$edithome/sessionrestore.html" 
+          title="[[Retrieve this session]]">
+          <span class="session-name">
+            #ifnotnull($toplevelfunctionid)
+              #set($toplevelfunction = $mediaarchive.query("aifunction").id($toplevelfunctionid).searchOne())
+              <i class="bi ns bi-${toplevelfunction.icon} me-1"></i> 
+            #end
+            #set($ownerid = $hit.user)
+            #set($owner = $mediaarchive.getUser($ownerid))
+            #text($owner): 
+            #ifnotnull($hit.name)
+              #esc($!hit.name)
+            #end
+            #ifnull($hit.name)
+              #set($id = $hits.size() - $foreach.count + 1)
+              [[Session]] #$id
+            #end
+          </span>
+          <small class="text-muted">
+            #datetime($hit.refreshdate)
+          </small>
+        </a>
 
-      <a class="ajax item d-flex flex-column" 
-        data-targetdiv="chatterbox"
-        data-channel="$!{hit.id}"
-        data-entityid="$!entity.id"
-        data-entitymoduleid="$!module.getId()"
-        data-oemaxlevel="1"
-	      href="$edithome/sessionrestore.html" 
-        title="[[Retrieve this session]]">
-        <span class="session-name">
-          #ifnotnull($toplevelfunctionid)
-            #set($toplevelfunction = $mediaarchive.query("aifunction").id($toplevelfunctionid).searchOne())
-            <i class="bi ns bi-${toplevelfunction.icon} me-1"></i> 
-          #end
-          #set($ownerid = $hit.user)
-          #set($owner = $mediaarchive.getUser($ownerid))
-          #text($owner): 
-          #ifnotnull($hit.name)
-            #esc($!hit.name)
-          #end
-          #ifnull($hit.name)
-            #set($id = $hits.size() - $foreach.count + 1)
-            [[Session]] #$id
-          #end
-        </span>
-        <small class="text-muted">
-          #datetime($hit.refreshdate)
-        </small>
-      </a>
-
-      <a class="ajax del" 
-        data-targetdiv="aichatsearch" 
-        data-oemaxlevel="1" 
-        data-id="$hit.id" 
-        data-entityid="$!entity.id"
-        data-entitymoduleid="$!module.getId()"
-        data-confirm="[[Sure you want to delete session?]]" 
-        data-toastsuccess="[[Session deleted successfully]]"
-        href="$edithome/sessiondelete.html"
-         title="[[Delete this session]]"> 
-        <i class="far fa-trash-alt"></i>
-      </a>
+        <a class="ajax del" 
+          data-targetdiv="aichatsearch" 
+          data-oemaxlevel="1" 
+          data-id="$hit.id" 
+          data-entityid="$!entity.id"
+          data-entitymoduleid="$!module.getId()"
+          data-confirm="[[Sure you want to delete session?]]" 
+          data-toastsuccess="[[Session deleted successfully]]"
+          href="$edithome/sessiondelete.html"
+          title="[[Delete this session]]"> 
+          <i class="far fa-trash-alt"></i>
+        </a>
 
     </div>
   #end

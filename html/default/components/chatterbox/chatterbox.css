@@ -692,7 +692,7 @@
 	background-color: var(--themed-tab-btn-hover);
 	/*background-color: rgba(148, 229, 148, 0.2);*/
 }
-.sessionhistory-item.active {
+.sessionhistory-item.current {
 	background-color: var(--themed-tab-btn-active);
 	/*background-color: rgba(148, 229, 148, 0.5);*/
 }

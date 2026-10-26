@@ -795,38 +795,7 @@ $(window).on("quillstart", function (_, targetDiv) {
 	$(".ql-save").html(saveSVG);
 	$(".ql-cancel").html(cancelSVG);
 });
-function convertDeltaToHtml(deltaOps) {
-	const tempDiv = document.createElement("div");
-	const tempQuill = new Quill(tempDiv);
-	tempQuill.setContents(deltaOps);
 
-	const doc = new DOMParser().parseFromString(
-		tempQuill.root.innerHTML,
-		"text/html",
-	);
-	doc.querySelectorAll("ol").forEach((ol) => {
-		const items = [...ol.children];
-		if (items.length && items.every((li) => li.dataset.list === "bullet")) {
-			const ul = doc.createElement("ul");
-			ul.innerHTML = ol.innerHTML; // keeps data-list on the <li>s
-			ol.replaceWith(ul);
-		}
-	});
-	// remove editor-only UI nodes
-	doc.querySelectorAll(".ql-ui, .ql-cursor").forEach((el) => el.remove());
-
-	// strip ql-* classes, leave other classes alone
-	doc.querySelectorAll("[class]").forEach((el) => {
-		const kept = [...el.classList].filter((c) => !c.startsWith("ql-"));
-		kept.length ? (el.className = kept.join(" ")) : el.removeAttribute("class");
-	});
-
-	doc
-		.querySelectorAll("[contenteditable]")
-		.forEach((el) => el.removeAttribute("contenteditable"));
-
-	return doc.body.innerHTML;
-}
 function destroyQuillEditor(quillInstance) {
 	if (!quillInstance) return;
 

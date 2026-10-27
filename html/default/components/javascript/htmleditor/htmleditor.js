@@ -947,7 +947,7 @@ $(document).ready(function () {
 		const submit = document.createElement("button");
 		submit.className = "btn btn-primary";
 		submit.type = "submit";
-		submit.textContent = "Submit";
+		submit.textContent = json.submitLabel || "Submit";
 		formEl.appendChild(submit);
 
 		return formEl;

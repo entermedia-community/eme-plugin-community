@@ -1,58 +1,54 @@
-<div style="padding:20px;">
-	
-	<h3 class="settings-title"><a href="$!siteroot$apphome/views/settings/modules/asset/hotfolders/index.html" title="[[Hot Folders]]">[[Hot Folders]]</a></h3>
-	
-	<a class="btn  btn-primary float-right ajax" 
-		href="$siteroot$apphome/views/settings/modules/asset/hotfolders/add-new-folder.html"
-		data-targetdivinner="hotfolderscontainer"
-		data-oemaxlevel="1">[[Add Hot Folder]]</a>
+
+
 	#set( $pathEventManager = $moduleManager.getBean($catalogid,"pathEventManager") )
 	#set( $event = $pathEventManager.getPathEvent("/$catalogid/events/importing/importfolders.html") )
 	#if( $event.isRunning() )
 		<a class="btn btn-primary float-right">[[Scan in Progress]]</a>
 	#else
-		<a class="btn btn-secondary float-right ms-2" 
-			href="$siteroot$apphome/views/settings/events/triggers/edit/edit.html?eventpath=/$catalogid/events/importing/importfolders.html"
-			##data-targetdivinner="applicationcontent"
+		##<a class="btn btn-secondary float-right ms-2" 
+		##	href="$siteroot$apphome/views/settings/events/triggers/edit/edit.html?eventpath=/$catalogid/events/importing/importfolders.html"
+		##	##data-targetdivinner="applicationcontent"
 			##data-autoactivecontainer="scheduler-system-menu"
 			##data-oemaxlevel="3"
-			>[[Schedule Importing]]</a>
+			##>[[Schedule Importing]]</a>
 	#end
-
-	<div class="clearfix"></div>
-</div>
-<div id="hotfolderscontainer" style="padding:10px 0 20px;">
-<ul id="folders" class="fwlist">
+<div id="hotfolderscontainer">
+<ul id="folders" class="fwlist pt-2 mb-2">
 	#foreach($source in $sources )
 		#set( $folder = $source.getConfig() )
-	<li class="auto">
-		<div class="folder">
-		<a href="$siteroot$apphome/views/settings/modules/asset/hotfolders/folder-setup.html?id=$folder.id"
-			class="ajax"
-			data-targetdivinner="hotfolderscontainer"
-			data-oemaxlevel="1"
-			data-updateurl="true"
-			title="#text($folder.name) [[Hot Folder]]">
-			<div class="name">
-				<div class="alias">#text($folder.name)
-				#if( $folder.enabled )
-				 <span class="path" >([[Enabled]]: $folder.enabled)</span> 
-				#end
+		<li>
+			<a href="$siteroot$apphome/views/settings/modules/asset/hotfolders/folder-setup.html?id=$folder.id"
+				class="ajax"
+				data-targetdivinner="hotfolderscontainer"
+				data-oemaxlevel="1"
+				data-updateurl="true"
+				title="#text($folder.name) [[Hot Folder]]">
+				<div class="d-flex">
+					<div class="py-3 px-4">
+						#if( $folder.enabled == "true")
+						<i class="bi bi-folder-check" style="font-size: 1.5rem;"></i>
+						#else
+						<i class="bi bi-folder" style="font-size: 1.5rem;"></i>
+						#end
+					</div>
+					<div class="d-flex flex-column py-3">
+						<div class="alias">#text($folder.name)
+						#if( $folder.enabled =="true" )
+						<span class="path" >([[Enabled]])</span> 
+						#else
+						<span class="path" >([[Disabled]])</span> 
+						#end
+						</div>
+						#if( $folder.subfolder )
+						<div class="path" title="$!folder.subfolder">[[Path]]: $folder.subfolder</div> 
+						#end
+						<div class="last-activity">[[Fully Scanned]]: $!context.getDateTime($folder.lastscanstart)</div>
+					</div>
 				</div>
-				#if( $folder.subfolder )
-				<div class="path" title="$folder.subfolder">[[Path]]: $folder.subfolder</div> 
-				#end
-				
-				
-				<div class="last-activity">[[Fully Scanned]]: $!context.getDateTime($folder.lastscanstart)</div>
-				
-			</div>
-		</a>
-
-		</div>
-	</li>
+			</a>
+		</li>
 	#end
-	
+
 	
 	<!-- 
 	<li class="auto">
@@ -80,9 +76,11 @@
 		</div>
 	</li>
 	 -->
-</ul>				
-</div>
+</ul>	
 
-
-
-
+	<a class="btn  btn-primary float-right ajax mt-4" 
+	href="$siteroot$apphome/views/settings/modules/asset/hotfolders/add-new-folder.html"
+	data-targetdivinner="hotfolderscontainer"
+	data-oemaxlevel="1">[[Add Hot Folder]]</a>
+	
+</div>			

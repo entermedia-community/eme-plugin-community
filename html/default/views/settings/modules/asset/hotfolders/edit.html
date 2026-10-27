@@ -18,10 +18,10 @@
 #end
 ##TODO: Use a detail editor here
 <div class="form-group">
-<label>[[Nickname]]</label>
+<label>[[Hotfolder Name]]</label>
 <input type="hidden" name="field" value="name" />
 <input class="form-control form-control-sm" name="name.value" value="$!data.name" />
-<div class="note">[[Required: Nickname of this hot folder]] </div> 
+<div class="note">[[Required: Name of this hot folder]] </div> 
 </div>
 
 $pages.include("./editdetails.html")
@@ -43,9 +43,9 @@ $pages.include("./editdetails.html")
 </div>
 
 <div class="form-group">
-<input class="btn btn-sm btn-primary" type="submit" value="[[Save]]"  />
+<input class="btn btn-primary" type="submit" value="[[Save]]"  />
 <a href="$siteroot$apphome/views/settings/modules/asset/hotfolders/index.html" 
-	class="btn btn-sm btn-secondary ajax"
+	class="btn btn-secondary ajax"
 	data-targetdivinner="applicationcontent"
 	data-oemaxlevel="2"
 	data-updateurl="true" 

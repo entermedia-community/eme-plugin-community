@@ -1,5 +1,5 @@
 <page>
 	<property name="tab">hotfolders</property>
 	<property name="searchtype">hotfolder</property>
-	<inner-layout>/${applicationid}/theme/layouts/settingslayout.html</inner-layout>
+	<inner-layout>/${applicationid}/views/settings/modules/asset/hotfolders/layout.html</inner-layout>
 </page>

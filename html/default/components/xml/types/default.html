@@ -6,12 +6,15 @@
 	#set($isrequired = "true")
 #end
 
+
+
 #if($detail.isMultiLanguage())
 	<div class="${detail.id}-languages languages-field #if( $searchform )insearchform#end">
 		
 		#set($languages = $mediaarchive.getList("locale"))
 		#set($languagemap = $data.getValue($detail.getId()))
 		#set($language_count = 0)
+		#set($languagesexpandible = false)
 		<div class="languagesfield">
 			<div class="translation-mask text-white">
 				<i class="fas fa-spinner fa-spin"></i>
@@ -20,9 +23,15 @@
 			#foreach($locale in $languages)
 				#set($localval = $languagemap.getText($locale.id))
 				#if($localval && $localval != "")
-					#set($language_count = $language_count+1)
+					
+					## Expandible languages for fields not in assets searchtype
+					#if($searchtype!= "asset" && $language_count == 1)
+						<div class="languagesexpand" style="display: none;">
+						#set($languagesexpandible = true)
+					#end
 					$pages.include("$apphome/components/xml/types/language/extralanguage.html?detailid=${detail.id}&locale=$locale&languagecode=${locale.id}&isrequired=$!isrequired",$context)
 					#set($isrequired = "false")
+					#set($language_count = $language_count+1)
 				#end
 				#set($localval = "")
 			#end
@@ -43,6 +52,12 @@
 			$context.putPageValue("languagemap", $languagemap)
 			$pages.include("$apphome/components/xml/types/translationfooter.html",$context)
 		
+			#if($languagesexpandible)
+				</div>
+				<a href="#" class="languagesfieldexpand" title="[[Show more languages]]"><i class="bi bi-chevron-compact-down"></i> [[Show more languages]]</a>
+				<a href="#" class="languagesfieldexpand languagesfieldhide" style="display: none;" title="[[Hide extra languages]]"><i class="bi bi-chevron-compact-up"></i> [[Hide extra languages]]</a>
+				
+			#end
 		</div>
 	</div>
 #elseif( $detail.isKeywordMap() )

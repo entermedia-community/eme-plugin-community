@@ -37,13 +37,13 @@
 #end
 <span class="datetimepicker-time pe-3">
 	<span class="datetimepicker-time-label">[[Time]]:</span>
-	<select class="form-control-sm me-1 hour" name="${detail.id}.hour" style="width:62px;">
+	<select class="form-control-sm me-1 hour" name="${detail.id}.hour" style="width:82px;">
 		#foreach($val in [0..23])
 		<option value="#if($val < 10)0#end$val" #if($hour == $val || $hour == "0$val")) selected #end >#if($val < 10)0#end$val</option>
 		#end
 	</select> 
 	<span class="me-1">:</span>
-	<select class="form-control-sm minute" name="${detail.id}.minute" style="width:62px;">
+	<select class="form-control-sm minute" name="${detail.id}.minute" style="width:82px;">
 		#foreach($val in [0..59])
 		<option value="#if($val < 10)0#end$val" #if($minute == $val || $minute == "0$val")) selected #end>#if($val < 10)0#end$val</option>
 		#end

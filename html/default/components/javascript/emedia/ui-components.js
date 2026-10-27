@@ -1171,6 +1171,25 @@ jQuery(document).ready(function () {
 		} //datepicker
 	});
 
+
+
+	lQuery(".languagesfieldexpand").livequery("click", function (e) {
+		e.preventDefault();
+		var container = $(this).closest(".languages-field");
+		var expandDiv = container.find(".languagesexpand");
+		if (expandDiv.is(":visible")) {
+			expandDiv.hide();
+			$(container.find(".languagesfieldexpand")).show();
+			container.find(".languagesfieldexpand.languagesfieldhide").hide();
+			
+		} else {
+			expandDiv.show();
+			$(this).hide();
+			container.find(".languagesfieldexpand.languagesfieldhide").show();
+			
+		}
+	});
+
 	function toggleAiSuggestions() {
 		var container = $(".ai-suggestions-container");
 		if (container.hasClass("expanded")) {

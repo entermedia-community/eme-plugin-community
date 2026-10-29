@@ -1,0 +1,31 @@
+#set( $showusersidebar = $userprofile.get("showsidebar"))
+
+#if ($showusersidebar != "true") 
+	#set( $showusersidebar = "false") 
+#end
+<button
+  class="btn rounded-0 oi-sidebar-toggler-show toggleuserpreference userOffcanvasToggler"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#userOffcanvas"
+  data-action="show"
+  title="[[Show User Sidebar]]"
+  data-userpreference="showsidebar"
+>
+<i class="fas fa-angle-double-right" style="font-size: 1.2em"></i>
+</button>
+
+<div
+  class="offcanvas offcanvas-start #if($user && $showusersidebar == 'true') show #end"
+  data-bs-scroll="true"
+  data-bs-backdrop="false"
+  tabindex="-1"
+  id="userOffcanvas"
+  aria-labelledby="userOffcanvasLabel"
+  style="max-width: 250px"
+>
+
+  <div class="offcanvas-body">
+    $pages.include("${communityhome}/users/sidebar.html", $context)
+  </div>
+</div>

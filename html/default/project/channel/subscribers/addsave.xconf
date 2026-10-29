@@ -1,6 +1,4 @@
 <page>
 	<inner-layout />
-	<path-action name="Script.run">
-		<script>./addtoteam.groovy</script>
-	</path-action>
+	<path-action name="ProjectModule.addUserToTeam"/>
 </page>

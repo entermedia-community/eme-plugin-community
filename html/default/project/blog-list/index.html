@@ -32,14 +32,14 @@ $context.putPageValue("showchannel",false)
 					
 			#if($drafts)
 				<a class="btn btn-light mx-2" 
-						href="${urlname}/project/blog-list/index-pending.html" 
+						href="${urlname}/blog-list/index-pending.html" 
 						data-collectionid="$librarycol.id">
 						<i class="fa fa-file me-1"></i>
 						[[Draft & Pending Posts]]
 				</a>
 			#end
 			<a class="btn btn-primary emdialog"
-				href="${urlname}/project/channel/addnew.html"
+				href="${urlname}/channel/addnew.html"
 				data-collectionid="$librarycol.id"
 				data-dialogid="createPostDialog"
 				data-hidefooter="true">
@@ -58,11 +58,11 @@ $context.putPageValue("showchannel",false)
 		<div class="blog-list-container">
 			#foreach( $userpost in $userposts.getPageOfHits())
 				$context.putPageValue("userpost",$userpost)
-				$pages.include("${urlname}/project/blog-list/blog-item.html",$context)
+				$pages.include("${urlname}/blog-list/blog-item.html",$context)
 			#end
 		</div>
 	#end
 
-	## $pages.include("${urlname}/project/blog-list/pagination.html", $context)
+	## $pages.include("${urlname}/blog-list/pagination.html", $context)
 
 </div>

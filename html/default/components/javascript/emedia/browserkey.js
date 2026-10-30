@@ -29,7 +29,7 @@
 		var app = document.getElementById("application");
 		return {
 			mediadb: app ? app.getAttribute("data-mediadbappid") : null,
-			userid: app ? app.getAttribute("data-userid") : null,
+			userid: app ? app.getAttribute("data-user") : null,
 		};
 	}
 
@@ -199,7 +199,7 @@
 		var userid = config().userid;
 
 		if (userid != null) return;
-		
+
 		loadRecord().then(function (record) {
 			if (userid) {
 				// Logged in. A key left by a different user is dropped; with no key for this user, make one (once per tab).

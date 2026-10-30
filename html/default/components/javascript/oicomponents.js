@@ -239,4 +239,44 @@ $(document).ready(function () {
 		var container2 = $(this).data("container2");
 		$("#" + container1 + ", #" + container2).toggleClass("d-none");
 	});
+
+	lQuery(".summary-toggler").livequery("click", function (e) {
+		var toggler = $(this);
+
+		var resultsdiv = toggler.closest(".resultsdiv");
+
+		var container = $(".summary-container", resultsdiv);
+		var isminimized = true;
+
+		//Refresh the UI quickly
+		if (container.length == 0 || container.hasClass("closed")) {
+			isminimized = true;
+			container.removeClass("closed");
+			$(".summary-opener", resultsdiv).addClass("closed"); //hide the button
+			container.removeClass("closed");
+		} else {
+			isminimized = false;
+			container.addClass("closed");
+			$(".summary-opener", resultsdiv).removeClass("closed");
+		}
+		setTimeout(() => {
+			$(window).trigger("resize");
+		}, 210); //match the transition speed of summary sidebar 200ms
+
+		var preferencename = toggler.data("preferencename");
+		var url = resultsdiv.data("searchhome");
+		resultsdiv.data("url", url + "/changeminimizefilter.html");
+
+		var toggle = !isminimized;
+		resultsdiv.data("profilepreference.value", toggle);
+		resultsdiv.data("profilepreference", preferencename);
+		if (isminimized) {
+			resultsdiv.data("targetdiv", resultsdiv.attr("id"));
+			resultsdiv.data("oemaxlevel", 1);
+		} else {
+			resultsdiv.data("targetdiv", "null");
+			resultsdiv.data("oemaxlevel", 0);
+		}
+		resultsdiv.runAjax();
+	});
 });

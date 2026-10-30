@@ -6,6 +6,9 @@
 #ifnull($themeid)
 	#set($themeid = $content.get("themeid") )
 #end	
+#ifnull($themeid)
+	#set($themeid = "defaulttheme")
+#end
 <link rel="stylesheet" type="text/css" href="/${applicationid}/theme/${themeid}/custom.css" />
 
 $pages.include("/${applicationid}/components/captureclick/init.html")

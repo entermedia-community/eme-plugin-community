@@ -194,6 +194,7 @@ public class ProjectLoader extends BaseManager implements PageLoader, CatalogEna
 			// //log.info("Cant find " + template);
 			// }
 			right.putParam("collectionid", librarycollection.getId());
+			
 
 			librarycollection = getMediaArchive().getSearcher("librarycollection").loadData(librarycollection);
 			right.putPageValue("librarycol", librarycollection);

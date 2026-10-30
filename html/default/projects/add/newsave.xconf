@@ -9,8 +9,10 @@
 	<path-action name="DataEditModule.saveData">
 		<property name="searchtype">librarycollection</property>
 	</path-action>
+	<property name="redirecttoproject">true</property>
 	<path-action name="Script.run" >
 		<property name="searchtype">librarycollection</property>
+		
 		<script>/${catalogid}/events/scripts/librarycollection/savecollective.groovy</script>
 	</path-action>
 	

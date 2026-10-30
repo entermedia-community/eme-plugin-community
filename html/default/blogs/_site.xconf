@@ -6,7 +6,6 @@
 
 	<property name="collectivesection">blogs</property>
 
-	<property name="communitytag">true</property>
 	<property name="virtual">true</property>
 
 	<inner-layout>/${applicationid}/blogs/layout.html</inner-layout>

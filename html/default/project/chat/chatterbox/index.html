@@ -10,7 +10,7 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 	#set($collectionid = $librarycol.getId()) 
 #end
 
-#set($entity = $emeprofile)
+#set($entity = $librarycol)
 
 
 #set( $cansendchat = $permissions.canEntity($module, $entity, "chat_send_messages"))

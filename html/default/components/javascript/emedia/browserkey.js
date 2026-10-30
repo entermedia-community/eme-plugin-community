@@ -194,8 +194,12 @@
 			e.preventDefault();
 			forget().then(function () { window.location.href = a.href; });
 		}, true);
+		
 
 		var userid = config().userid;
+
+		if (userid != null) return;
+		
 		loadRecord().then(function (record) {
 			if (userid) {
 				// Logged in. A key left by a different user is dropped; with no key for this user, make one (once per tab).

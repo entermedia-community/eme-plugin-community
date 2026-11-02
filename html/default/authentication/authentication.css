@@ -205,6 +205,8 @@
 }
 .loginbox .step {
 	animation: fadeUp 0.28s ease both;
+	display: flex;
+	flex-direction: column;
 }
 @keyframes fadeUp {
 	from {

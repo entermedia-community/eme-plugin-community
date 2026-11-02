@@ -35,6 +35,7 @@
 }
 
 .loginbox h1 {
+	color: var(--auth-text);
 	font-size: 1.35rem !important;
 	font-weight: 600;
 	letter-spacing: -0.3px;
@@ -42,6 +43,7 @@
 }
 
 .loginbox .subtitle {
+	color: var(--auth-text);
 	font-size: 0.875rem;
 	color: var(--auth-muted);
 	margin-bottom: 0.35rem !important;

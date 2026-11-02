@@ -30,7 +30,7 @@ $context.putPageValue("longform",false)
 	#end
 	
 	#ifnull($details)
-		[[No details available for this view:]] <em>$viewid</em> searchtype: <em>$searcher.getSearchType()</em>  [[Please configure your view settings.]]
+		[[No details available for this view:]] <em>$viewid</em> searchtype: <em>$searcher.getSearchType()</em>  [[Please configure your view settings.]] <em>Catalog:</em> $searcher.getCatalogId()
 
 	#end
 

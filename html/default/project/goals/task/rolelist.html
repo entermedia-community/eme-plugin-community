@@ -2,6 +2,8 @@
 
 #set($collectionid = $context.getRequestParameter("collectionid"))
 
+#set($caneditcollection = $permissions.canEntity("librarycollection", $collectionid, "edit"))
+
 <div id="roleeditor${task.id}" class="d-flex flex-wrap gap-2 rolelist">
 	#foreach( $role in $rolesarray )
 		

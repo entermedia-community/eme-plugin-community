@@ -25,24 +25,24 @@ $context.putPageValue("longform",false)
 	#if( $context.getUserProfile() )
 		#set ($details = $searcher.getDetailsForView($viewid, $context.getUserProfile()))
 	#end
-	#if( !$details)
+	#ifnull($details)
 		#set ($details = $searcher.getDetailsForView($view)) 
 	#end
 	
-	#if( !$details)
+	#ifnull($details)
 		[[No details available for this view:]] <em>$viewid</em> searchtype: <em>$searcher.getSearchType()</em>  [[Please configure your view settings.]]
 
 	#end
 
 #else
 	##leagacy check. We used to pass in the $details
-	#if( !$details)
-	#set ($details = $searcher.getPropertyDetails())
+	#ifnull($details)
+		#set ($details = $searcher.getPropertyDetails())
 	#end
 #end	
 
 #set ($mode = $user.get("oe_edit_mode"))
-#if($viewid)
+#ifnotnull($viewid)
 	#if($mode && ($mode == "debug" || $mode == "editing" ))
 		<span class="widget-header-edit">
 		<a class="ir emdialog" data-autoclose="false" href="$apphome/views/settings/lists/datamanager/views/indexdialog.html?viewpath=$view&searchtype=$searcher.searchType&viewid=$viewid">

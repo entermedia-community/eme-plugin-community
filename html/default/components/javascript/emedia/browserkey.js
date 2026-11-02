@@ -206,6 +206,10 @@
 	// Signs a login. With createSession the server session is started too (page loads); otherwise only a token is returned.
 	function login(createSession) {
 		if (!supported()) return Promise.resolve(null);
+		if (!!config().userid) {
+			console.log("User is logged in:", userid);
+			return;
+		}
 		return loadRecord()
 			.then(function (record) {
 				if (!record) {
@@ -310,8 +314,6 @@
 		);
 
 		var userid = config().userid;
-
-		if (!!userid) return;
 
 		loadRecord()
 			.then(function (record) {

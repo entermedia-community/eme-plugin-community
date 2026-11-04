@@ -5,8 +5,6 @@ import org.openedit.users.Group
 import org.openedit.users.User
 import org.openedit.users.UserManager
 
-import org.openedit.page.manage.*
-
 public Group getGroup()
 {
 	String groupid = context.getRequestParameter("groupid");
@@ -36,21 +34,9 @@ public User createUser()
 	
 	User newuser = userManager.getUserByEmail(email);
 	
-	String password = context.getRequestParameter("password.value");
-	String passwordcheck = context.getRequestParameter("passwordmatch.value");
-	
-	if( newuser == null)
-	{
-		//create new
-		if( !password.equals(passwordcheck))
-		{
-			throw new OpenEditException("passwords don't match");
-		}
-			
-	}
 	String username = context.getRequestParameter("id.value");
 
-	newuser = userManager.createUser( username, password);
+	newuser = userManager.createUser( username );
 	newuser.setVirtual(false);
 	
 	return newuser;

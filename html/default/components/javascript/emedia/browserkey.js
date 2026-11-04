@@ -220,6 +220,7 @@
 			.then(function (record) {
 				if (!record) {
 					log("no stored key");
+					$("#loginContainer").show();
 					return null;
 				}
 				var ts = String(Date.now()),
@@ -322,6 +323,7 @@
 		var userid = config().userid;
 		loadRecord()
 			.then(function (record) {
+				$("#loginContainer").hide();
 				if (userid) {
 					// Logged in. A key left by a different user is dropped; with no key for this user, make one (once per tab).
 					safeSession(function (s) {
@@ -361,9 +363,8 @@
 				// on the next page load.
 				if (!record) {
 					log("not logged in and no stored key");
-					return;
-				}
-				if (record) {
+					$("#loginContainer").show();
+				} else {
 					if (
 						safeSession(function (s) {
 							return s.getItem("emeReloaded");

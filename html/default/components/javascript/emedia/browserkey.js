@@ -40,7 +40,7 @@
 		var app = document.getElementById("application");
 		return {
 			mediadb: app ? app.getAttribute("data-mediadbappid") : null,
-			userid: app ? app.getAttribute("data-user") : null,
+			userid: app ? app.getAttribute("data-userid") : null,
 		};
 	}
 
@@ -207,8 +207,7 @@
 	function login(createSession) {
 		if (!supported()) return Promise.resolve(null);
 		if (!!config().userid) {
-			console.log("User is logged in:", userid);
-			return;
+			console.warn("User was already logged in:", userid);
 		}
 		return loadRecord()
 			.then(function (record) {
@@ -314,7 +313,6 @@
 		);
 
 		var userid = config().userid;
-
 		loadRecord()
 			.then(function (record) {
 				if (userid) {

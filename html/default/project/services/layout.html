@@ -1,5 +1,5 @@
 #set($collectionid = $librarycol.getId())
-
+#set( $caneditcollection = $permissions.canEntity("librarycollection", $librarycol.getId(), "edit"))
 #ifnotnull($collectionid)
 	#if($caneditcollection || $librarycol.priviacylevel != "commercial")
 		#set($collectiveadminsection = $content.collectiveadminsection)
@@ -16,7 +16,7 @@
 							<ul class="auto-active-container">
 								
 								##set($finances_profitandloss = $content.isPropertyTrue("finances_profitandloss",true))
-								#if($canviewsettings)
+								#if($caneditcollection)
 									<li class="#if($collectiveadminsection == "finances") current #end">
 										<a href="${projectlink}/services/finances/dashboard.html"  rel="nofollow"  class="ajax auto-active-link" 
 										data-targetdivinner="collectivesettingscontent" data-updateurl="true" data-oemaxlevel="1">[[Profit and Loss]]</a>
@@ -25,7 +25,7 @@
 								#end
 								
 								##set($finances_accounts = $content.isPropertyTrue("finances_accounts",true))
-								#if($canviewsettings)
+								#if($caneditcollection)
 									<li class="#if($collectiveadminsection == "bankaccounts") current #end">
 										<a href="${projectlink}/services/bankaccounts/"
 										data-updateurl="true"  class="ajax auto-active-link" data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Accounts]]</a>
@@ -48,7 +48,7 @@
 								#end
 								
 								#set($finances_income = $content.isPropertyTrue("finances_income",true))
-								#if($canviewsettings)
+								#if($caneditcollection)
 									<li class="#if($collectiveadminsection == "income") current #end">
 										<a href="${projectlink}/services/income/" data-updateurl="true" class="ajax auto-active-link" 
 										data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Income]]</a>
@@ -66,7 +66,7 @@
 								#end
 								
 								#set($finances_expenses = $content.isPropertyTrue("finances_expenses",true))
-								#if($canviewsettings)
+								#if($caneditcollection)
 									<li class="#if($collectiveadminsection == "expenses") current #end">
 										<a href="${projectlink}/services/expenses/"  data-updateurl="true" 
 										class="ajax auto-active-link" data-targetdivinner="collectivesettingscontent" data-oemaxlevel="1">[[Expenses]]</a>

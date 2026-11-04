@@ -5,6 +5,8 @@
 #set( $searcher = $mediaarchive.getSearcher("librarycollection") )
 $context.putPageValue("searcher",$searcher)
 
+#set( $canviewsettings = $permissions.canEntity("librarycollection", $librarycol.getId(), "edit"))
+
 #set( $viewid = "" )
 #if($isproposal)
 	##Proposals Settings

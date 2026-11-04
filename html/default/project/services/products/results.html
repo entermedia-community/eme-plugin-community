@@ -1,4 +1,4 @@
-#if( $canviewsettings )
+#if( $caneditcollection )
 	#set($collectionid = $librarycol.getId())
 	#set($collection = $librarycol)
 	<hr class="my-4">
@@ -29,7 +29,7 @@
                     #if ($hit.instance_status == "active")
                         #set($instancescount = $instancescount+1)
                     #end
-                    #if($hit.recurring == true || $canviewsettings)
+                    #if($hit.recurring == true || $caneditcollection)
                         <tr>
                             <td style="text-align: center;">$!context.getDate($hit.createdon)</td>
                             <td>
@@ -71,7 +71,7 @@
 							</td>
 							<td style="text-align: center;">$!context.getDate($hit.nextbillon)</td>
                             <td>
-                                #if( $canviewsettings )
+                                #if( $caneditcollection )
                                 
                                     #if($hit.recurring != "true")
 							    	<a

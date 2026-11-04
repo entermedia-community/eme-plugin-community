@@ -152,6 +152,12 @@
 			},
 			body: new URLSearchParams(fields).toString(),
 		}).then(function (r) {
+			if (r.status === 401) {
+				log("server rejected the key; deleting local record");
+				return deleteRecord().then(function () {
+					return {};
+				});
+			}
 			return r.json().catch(function () {
 				return {};
 			});
@@ -208,6 +214,7 @@
 		if (!supported()) return Promise.resolve(null);
 		if (!!config().userid) {
 			console.warn("User was already logged in:", userid);
+			return;
 		}
 		return loadRecord()
 			.then(function (record) {

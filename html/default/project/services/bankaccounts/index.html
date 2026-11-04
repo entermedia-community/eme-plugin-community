@@ -15,16 +15,16 @@
 	       
 	           <a style="margin-left:6px"
 	                      href="${projectlink}/services/${content.collectiveadminsection}/addnew.html?collectionid=${collectionid}"
-	                      class="emdialog btn btn-sm btn-primary "
+	                      class="emdialog btn btn-primary "
 	                      title="[[Add An Account]]"><i class="fa fa-plus"></i> [[Add An Account]]</a>
 				#if( !$hits.isEmpty() )                      
 	           <a href="${projectlink}/services/${content.collectiveadminsection}/reconcile.html?collectionid=${collectionid}"
-	              class="btn btn-sm btn-primary">[[Reconcile]]</a>
+	              class="btn  btn-primary">[[Reconcile]]</a>
 				#end
 			
 	        #end
 	        #if( !$hits.isEmpty() )
-	        <a onclick="$('#searchform').toggle()" class="btn btn-sm btn-secondary"><i class="fa fa-search"></i> [[Search]]</a>
+	        <a onclick="$('#searchform').toggle()" class="btn btn-secondary"><i class="fa fa-search"></i> [[Search]]</a>
 	        #end
 	        </div>
 	</div>

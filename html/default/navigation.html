@@ -54,7 +54,7 @@
           #end
           #ifnotnull($user)
           <li class="nav-item">
-            <a class="nav-link" href="$!{communitylink}/authentication/logout.html" title="[[Logout]] ($user)">
+            <a id="emelogout-nav" class="nav-link" href="$!{communitylink}/authentication/logout.html" title="[[Logout]] ($user)">
               <i class="ml-1 fs-small fas fa-sign-out-alt"></i>
             </a>
           </li>
@@ -101,7 +101,7 @@
               </ul>
             </div>
             #if($user)
-              <a class="lnk nav-link" href="${communitylink}/authentication/logout.html" title="[[Logout]]">
+              <a id="emelogout-navicon" data-browserkey="/${applicationid}/components/javascript/emedia/browserkey.js" class="lnk nav-link" href="${communitylink}/authentication/logout.html" title="[[Logout]]">
                 <i class="fas fa-sign-out-alt"></i>
               </a>
             #end

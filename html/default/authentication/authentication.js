@@ -35,7 +35,6 @@ $(document).ready(function () {
 	function checkOtpFilled() {
 		const $inputs = otpInputs();
 		const filled = $inputs.toArray().every((i) => $(i).val().length === 1);
-		
 
 		var codes = "";
 		$(".otp").each(function () {

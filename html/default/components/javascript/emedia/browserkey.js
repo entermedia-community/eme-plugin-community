@@ -6,14 +6,26 @@
  *   (registerkey.json). Scripts, including injected ones, can ask the browser to sign but cannot read it.
  * - On a page load where nobody is logged in, a stored key signs a login (token.json grant_type=key) which
  *   starts the server session. There is no persistent login cookie.
- * - Logging out deletes the key here and revokes it on the server.
+ * - Logging out deletes the key here and revokes it on the server: logout links (id starting with "emelogout")
+ *   call emeBrowserKey.logout() from ui-components.js (#emelogout), which loads this script in logout mode
+ *   (window.emeBrowserKeyMode = "logout": no auto sign-in or key registration) on pages that do not have it.
  * - getToken() gives other scripts (desktop app, API calls) a 7 day Bearer token from the same key.
+ * - Submitting the emailed-code form (any form with a templogincode field) makes a fresh key pair: the old key is
+ *   deleted here, the code and the new public key go to login.json in one call, and the key_id it returns is
+ *   stored with the private key. The old key is then revoked on the server.
  *
  * Ed25519 is used when the browser has it, otherwise ECDSA P-256. Everything quietly does nothing when
  * WebCrypto/IndexedDB are missing (plain http pages, private windows), so the code login keeps working.
  */
 (function () {
 	"use strict";
+
+	// Pages loaded by ajax can include this script again; one copy is enough
+	if (window.emeBrowserKey) return;
+
+	// Loaded only to log out (ui-components.js sets window.emeBrowserKeyMode = "logout" before $.ajax loads
+	// it, where there is no script element to read): skip the page-load sign-in / registration
+	var MODE = window.emeBrowserKeyMode || null;
 
 	var DB_NAME = "emebrowserkey",
 		STORE = "keys",
@@ -303,23 +315,6 @@
 			return;
 		}
 
-		// Logout links delete and revoke the key first, otherwise the next page load would sign straight back in.
-		document.addEventListener(
-			"click",
-			function (e) {
-				var a =
-					e.target && e.target.closest
-						? e.target.closest("a[href*='authentication/logout']")
-						: null;
-				if (!a) return;
-				e.preventDefault();
-				forget().then(function () {
-					window.location.href = a.href;
-				});
-			},
-			true,
-		);
-
 		var userid = config().userid;
 		loadRecord()
 			.then(function (record) {
@@ -402,14 +397,136 @@
 			.catch(function () {});
 	}
 
+	// Delete and revoke the key before logging out, otherwise the next visit would sign straight back in.
+	// Goes to inHref even if that fails (no IndexedDB, server down).
+	function logout(inHref) {
+		var go = function () {
+			if (inHref) window.location.href = inHref;
+		};
+		return forget().then(go, go);
+	}
+
+	/* ---------- emailed-code login ---------- */
+
+	var CODE_FORM = "form:has(input[name='templogincode'])";
+
+	function submitNatively(form) {
+		form.setAttribute("data-browserkey-done", "true");
+		HTMLFormElement.prototype.submit.call(form); // skips submit handlers, including this one
+	}
+
+	function afterLoginTarget(form) {
+		var ok = form.querySelector("input[name='loginokpage']");
+		if (ok && ok.value) return ok.value;
+		var app = document.getElementById("application");
+		var home = app && app.getAttribute("data-apphome");
+		return home ? home + "/index.html" : null;
+	}
+
+	// Signs in with the code and registers a new key in the same call (login.json). Anything unexpected
+	// falls back to the normal form post, so the code login always works.
+	function loginWithCode(form) {
+		if (!supported() || !config().mediadb) {
+			submitNatively(form);
+			return Promise.resolve(false);
+		}
+		var old, made;
+		return loadRecord()
+			.then(function (record) {
+				old = record;
+				return record ? deleteRecord() : null; // a login always starts with a new key
+			})
+			.then(generate)
+			.then(function (g) {
+				made = g;
+				return crypto.subtle.exportKey("spki", g.pair.publicKey);
+			})
+			.then(function (spki) {
+				var fields = new URLSearchParams(new FormData(form));
+				fields.set("publickey", b64url(spki));
+				fields.set("label", (navigator.userAgent || "Browser").slice(0, 80));
+				return fetch(endpoint("login.json"), {
+					method: "POST",
+					credentials: "same-origin",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+						Accept: "application/json",
+					},
+					body: fields.toString(),
+				}).then(function (r) {
+					return r.json();
+				});
+			})
+			.then(function (res) {
+				var userid = res && res.user && res.user.id;
+				if (!res || !res.response || res.response.status !== "ok" || !userid) {
+					// Wrong or expired code: let the server render its usual error page
+					log("code login refused:", (res && res.error) || "unknown");
+					submitNatively(form);
+					return false;
+				}
+				var saved = res.key_id
+					? saveRecord({
+							userid: userid,
+							keyid: res.key_id,
+							alg: made.alg,
+							privateKey: made.pair.privateKey,
+						})
+					: Promise.resolve(log("signed in, but no key was registered:", res.key_error || "no key_id"));
+				return saved
+					.then(function () {
+						if (res.key_id) log("signed in with the code; new key", res.key_id, "(" + made.alg + ")");
+						if (old && old.keyid && old.keyid !== res.key_id && old.userid === userid) {
+							// Signed in now, so the old key can be revoked
+							return post(endpoint("revokekey.json"), { keyid: old.keyid }).catch(function () {});
+						}
+					})
+					.then(function () {
+						var target = afterLoginTarget(form);
+						if (target) window.location.href = target;
+						else window.location.reload();
+						return true;
+					});
+			})
+			.catch(function (e) {
+				log("code login with a new key failed, using the normal login:", e);
+				submitNatively(form);
+				return false;
+			});
+	}
+
+	function onCodeFormSubmit(e) {
+		var form = e.target;
+		if (form.getAttribute("data-browserkey-done") === "true") return; // our own fallback post
+		e.preventDefault();
+		if (form.getAttribute("data-browserkey-busy") === "true") return; // auto-submit plus a click
+		form.setAttribute("data-browserkey-busy", "true");
+		loginWithCode(form).then(function () {
+			form.removeAttribute("data-browserkey-busy");
+		});
+	}
+
+	// The OTP inputs auto-submit with jQuery's .submit(), which calls form.submit() without a native submit
+	// event, so listen through jQuery when it is there (it also sees normal button submits).
+	if (window.jQuery) {
+		window.jQuery(document).on("submit", CODE_FORM, onCodeFormSubmit);
+	} else {
+		document.addEventListener("submit", function (e) {
+			if (e.target.querySelector && e.target.querySelector("input[name='templogincode']")) onCodeFormSubmit(e);
+		});
+	}
+
 	window.emeBrowserKey = {
 		supported: supported,
 		register: register,
 		login: login,
 		getToken: getToken,
 		forget: forget,
+		loginWithCode: loginWithCode,
+		logout: logout,
 	};
 
+	if (MODE === "logout") return;
 	if (document.readyState === "loading")
 		document.addEventListener("DOMContentLoaded", init);
 	else init();

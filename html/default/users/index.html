@@ -70,7 +70,7 @@ $context.putPageValue("selecteduser", $selecteduser)
 						*#
 					#end
 					#if( $user.getId() == $selecteduser.getId())
-						<a href="${communitylink}/authentication/logout.html" class="btn btn-xs btn-danger">
+						<a id="emelogout-profile" data-browserkey="/${applicationid}/components/javascript/emedia/browserkey.js" href="${communitylink}/authentication/logout.html" class="btn btn-xs btn-danger">
 							<i class="fas fa-sign-out-alt mr-1 me-1"></i> [[Logout]]
 						</a>
 					#end

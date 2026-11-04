@@ -134,20 +134,20 @@ jQuery(document).ready(function () {
 	});
 
 	lQuery(".dropdown-toggle-split").livequery("mouseenter", function () {
-			var dropdown = new bootstrap.Dropdown($(this), {
-				popperConfig: defaultPopperConfig,
-			});
-			dropdown.show();
+		var dropdown = new bootstrap.Dropdown($(this), {
+			popperConfig: defaultPopperConfig,
+		});
+		dropdown.show();
 	});
 	lQuery(".dropdown-group").livequery("mouseleave", function () {
-			var dropdownToggleEl = $(this).find(
-				'[data-bs-toggle="dropdown"], .dropdown-toggle',
-			)[0];
-			var dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownToggleEl);
-			if (dropdown) {
-				dropdown.hide();
-			}
-		});
+		var dropdownToggleEl = $(this).find(
+			'[data-bs-toggle="dropdown"], .dropdown-toggle',
+		)[0];
+		var dropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownToggleEl);
+		if (dropdown) {
+			dropdown.hide();
+		}
+	});
 
 	lQuery("form.checkCloseDialog").livequery(function () {
 		trackKeydown = true;
@@ -835,7 +835,6 @@ jQuery(document).ready(function () {
 					$(document).trigger("domchanged", [$(parent)]);
 
 					history.pushState($("#application").html(), null, url);
-
 				},
 				xhrFields: {
 					withCredentials: true,
@@ -1171,8 +1170,6 @@ jQuery(document).ready(function () {
 		} //datepicker
 	});
 
-
-
 	lQuery(".languagesfieldexpand").livequery("click", function (e) {
 		e.preventDefault();
 		var container = $(this).closest(".languages-field");
@@ -1181,12 +1178,10 @@ jQuery(document).ready(function () {
 			expandDiv.hide();
 			$(container.find(".languagesfieldexpand")).show();
 			container.find(".languagesfieldexpand.languagesfieldhide").hide();
-			
 		} else {
 			expandDiv.show();
 			$(this).hide();
 			container.find(".languagesfieldexpand.languagesfieldhide").show();
-			
 		}
 	});
 
@@ -1279,4 +1274,35 @@ jQuery(document).ready(function () {
 			form.submit();
 		}
 	});
+
+	// Delete and revoke this browser's login key before logging out, otherwise the next visit would sign
+	// straight back in with it. data-browserkey is the URL of browserkey.js, loaded here when the page lacks it.
+	function logout(e) {
+		e.preventDefault();
+		const $link = $(this);
+		const href = $link.attr("href");
+		let left = false;
+		const go = () => {
+			if (left) return;
+			left = true;
+			window.location.href = href;
+		};
+		setTimeout(go, 5000); // never leave the user stuck on the page
+
+		const clearLocalKey = () => {
+			const done = $.Deferred();
+			try {
+				const req =
+					window.indexedDB && window.indexedDB.deleteDatabase("emebrowserkey");
+				if (!req) return done.resolve().promise();
+				req.onsuccess = req.onerror = req.onblocked = () => done.resolve();
+			} catch (err) {
+				done.resolve();
+			}
+			return done.promise();
+		};
+		clearLocalKey().always(go);
+	}
+	lQuery("#emelogout").livequery("click", logout);
+	lQuery("#emelogout-nav").livequery("click", logout);
 });

@@ -114,7 +114,12 @@ $(document).ready(function () {
 	function readSignature() {
 		try {
 			var v = JSON.parse(window.localStorage.getItem(SIGNATURE_KEY));
-			return v && v.username && v.key_id && v.timestamp && v.nonce && v.signature
+			return v &&
+				v.username &&
+				v.key_id &&
+				v.timestamp &&
+				v.nonce &&
+				v.signature
 				? v
 				: null;
 		} catch (e) {
@@ -272,41 +277,88 @@ $(document).ready(function () {
 		});
 	}
 
+	function homeUrl() {
+		var app = document.getElementById("application");
+		var siteroot = (app && app.getAttribute("data-siteroot")) || "/";
+		var apphome = (app && app.getAttribute("data-apphome")) || "";
+		return siteroot + apphome;
+	}
+
+	// A signature under 24h old is already known to the server, so no token request is made: one page request that
+	// carries it in the X-token headers is enough for the server to start the session (see ajax/signedheaders.js).
+	// Resolves true when that worked (we did not end up on the login page again).
+	function sessionFromSignature(v) {
+		return fetch(homeUrl(), {
+			credentials: "same-origin",
+			headers: { "X-tokentype": "signature", "X-token": JSON.stringify(v) },
+		})
+			.then(function (r) {
+				return r.ok && !/nopermission|\/authentication\//.test(r.url);
+			})
+			.catch(function () {
+				return false;
+			});
+	}
+
 	// Signs in with the stored key and starts the server session. Resolves the server's answer, or null.
 	function login() {
 		if (!supported()) return Promise.resolve(null);
-		return signedLogin()
-			.then(function (v) {
-				if (!v) {
+		return loadRecord()
+			.then(function (record) {
+				if (!record) {
 					log("no stored key");
+					clearSignature();
 					$("#loginContainer").show();
 					return null;
 				}
-				return post(endpoint("token.json"), {
-					grant_type: "key",
-					username: v.username,
-					key_id: v.key_id,
-					timestamp: v.timestamp,
-					nonce: v.nonce,
-					signature: v.signature,
-					createsession: "true",
-				}).then(function (res) {
-					if (res.access_token) return res;
-					log(
-						"key login rejected:",
-						res.error_description || res.error || "unknown",
-					);
-					if (res.error === "invalid_grant")
-						return deleteRecord().then(function () {
-							return null;
-						}); // revoked: forget it
-					return null;
-				});
+				var stored = readSignature();
+				if (
+					stored &&
+					stored.key_id === record.keyid &&
+					stored.username === record.userid &&
+					Date.now() - Number(stored.timestamp) < SIGNATURE_MAX_AGE
+				) {
+					log("stored signature is still valid; starting the session with it");
+					return sessionFromSignature(stored).then(function (ok) {
+						if (ok) return {};
+						log("the server did not accept the stored signature; signing again");
+						clearSignature();
+						return tokenLogin();
+					});
+				}
+				return tokenLogin();
 			})
 			.catch(function (e) {
 				log("key login failed:", e);
 				return null;
 			});
+	}
+
+	// No usable signature: sign a new one and let token.json verify it and start the session
+	function tokenLogin() {
+		return signedLogin().then(function (v) {
+			if (!v) return null;
+			return post(endpoint("token.json"), {
+				grant_type: "key",
+				username: v.username,
+				key_id: v.key_id,
+				timestamp: v.timestamp,
+				nonce: v.nonce,
+				signature: v.signature,
+				createsession: "true",
+			}).then(function (res) {
+				if (res.access_token) return res;
+				log(
+					"key login rejected:",
+					res.error_description || res.error || "unknown",
+				);
+				if (res.error === "invalid_grant")
+					return deleteRecord().then(function () {
+						return null;
+					}); // revoked: forget it
+				return null;
+			});
+		});
 	}
 
 	function safeSession(fn) {
@@ -358,11 +410,8 @@ $(document).ready(function () {
 					safeSession(function (s) {
 						s.setItem("emeReloaded", String(Date.now()));
 					});
-					var app = document.getElementById("application");
-					var siteroot = (app && app.getAttribute("data-siteroot")) || "/";
-					var apphome = (app && app.getAttribute("data-apphome")) || "";
 					// The page that was refused, else the app home.
-					var target = res.redirect || siteroot + apphome;
+					var target = res.redirect || homeUrl();
 					log("signed in; going to", target);
 					window.location.href = target;
 				});

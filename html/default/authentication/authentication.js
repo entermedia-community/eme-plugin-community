@@ -358,7 +358,7 @@ $(document).ready(function () {
 					}) || "0",
 					10,
 				);
-				if (Date.now() - reloadedAt < 30 * 1000) {
+				if (Date.now() - reloadedAt < 5 * 1000) {
 					safeSession(function (s) {
 						s.removeItem("emeReloaded");
 					});

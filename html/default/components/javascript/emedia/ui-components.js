@@ -1292,6 +1292,9 @@ jQuery(document).ready(function () {
 		const clearLocalKey = () => {
 			const done = $.Deferred();
 			try {
+				window.localStorage.removeItem("emeSignature"); // signature made with the key being deleted
+			} catch (err) {}
+			try {
 				const req =
 					window.indexedDB && window.indexedDB.deleteDatabase("emebrowserkey");
 				if (!req) return done.resolve().promise();

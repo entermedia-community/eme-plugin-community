@@ -1,13 +1,13 @@
 #foreach( $style in $pageManager.getStylePathsFor($content) )
-<link rel="stylesheet" type="text/css" href="$style"  />
+<link rel="stylesheet" type="text/css" href="$style" />
 #end
 
 #set($themeid = $userprofile.getValue("themeid") )
 #ifnull($themeid)
-	#set($themeid = $content.get("themeid") )
-#end	
+#set($themeid = $content.get("themeid") )
+#end
 #ifnull($themeid)
-	#set($themeid = "defaulttheme")
+#set($themeid = "defaulttheme")
 #end
 <link rel="stylesheet" type="text/css" href="/${applicationid}/theme/${themeid}/custom.css" />
 
@@ -16,24 +16,27 @@ $pages.include("/${applicationid}/components/captureclick/init.html")
 #if( $desktop)
 <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 #end
-<script type="text/javascript" src="/${applicationid}/components/javascript/jquery-core/jquery-4.0.0.min.js" onload="if (!window.jQuery)  window.$ = window.jQuery = module.exports;"></script>
+<script type="text/javascript" src="/${applicationid}/components/javascript/jquery-core/jquery-4.0.0.min.js"
+	onload="if (!window.jQuery)  window.$ = window.jQuery = module.exports;"></script>
 
-#ifnull($user)
-	<link rel="stylesheet" type="text/css" href="/${applicationid}/authentication/authentication.css" />
-	<script type="text/javascript" src="/community/default/authentication/authentication.js"></script>
-#end
-
-<script type="text/javascript" src="/${applicationid}/components/javascript/jquery-core/jquery-migrate-4.0.1.js"></script>
+<script type="text/javascript"
+	src="/${applicationid}/components/javascript/jquery-core/jquery-migrate-4.0.1.js"></script>
 
 <script type="text/javascript" src="/${applicationid}/components/javascript/jquery-ui/1.14/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/${applicationid}/components/javascript/jquery-ui/i18n/jquery-ui-i18n.js"></script> 
+<script type="text/javascript" src="/${applicationid}/components/javascript/jquery-ui/i18n/jquery-ui-i18n.js"></script>
 
 <script type="text/javascript" src="/${applicationid}/components/javascript/bootstrap/5.3.8/js/popper.min.js"></script>
-<script type="text/javascript" src="/${applicationid}/components/javascript/bootstrap/5.3.8/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="/${applicationid}/components/javascript/bootstrap/5.3.8/js/bootstrap.min.js"></script>
 
 ##This has all the js in one for performance
 <script type="text/javascript" src="$applink/components/javascript/index.min.js"></script>
 <script type="text/javascript" src="$applink/components/javascript/indexdefer.min.js" defer></script>
+
+#ifnull($user)
+<link rel="stylesheet" type="text/css" href="/${applicationid}/authentication/authentication.css" />
+<script type="text/javascript" src="/community/default/authentication/authentication.js"></script>
+#end
 
 $pages.include("/${applicationid}/components/captureclick/end.html")
 
@@ -54,7 +57,8 @@ $pages.include("/${applicationid}/components/captureclick/end.html")
 <link rel="stylesheet" type="text/css" href="/${applicationid}/components/javascript/quill/dist/quill.snow.css" />
 <link rel="stylesheet" type="text/css" href="/${applicationid}/components/javascript/quill/dist/quill.bubble.css" />
 <script type="text/javascript" src="/${applicationid}/components/javascript/quill/dist/quill.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/quill-delta-to-html/dist/browser/QuillDeltaToHtmlConverter.bundle.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/quill-delta-to-html/dist/browser/QuillDeltaToHtmlConverter.bundle.js"></script>
 
 #set( $mapskey = $mediaarchive.getCatalogSettingValue("google-maps-key"))
 #ifnotnull( $mapskey )
@@ -67,13 +71,13 @@ $pages.include("/${applicationid}/components/captureclick/end.html")
 <script src="/${applicationid}/components/javascript/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 
 #if( $desktop)
-	<script type="text/javascript" src="/${applicationid}/components/javascript/emedia/electron-renderer.js"></script>
+<script type="text/javascript" src="/${applicationid}/components/javascript/emedia/electron-renderer.js"></script>
 #end
 
 <script type="text/javascript" src="/${applicationid}/components/javascript/emedia/downloadxhr.js"></script>
 
 #if( $browser.isNarrow() )
-	<script type="text/javascript" src="/${applicationid}/components/javascript/emedia/drawer.js"></script>
-	<link rel="stylesheet" type="text/css" href="/${applicationid}/theme/styles/mobile.css" />
-	<script type="text/javascript" src="/${applicationid}/components/javascript/emedia/mobile.js"></script>
+<script type="text/javascript" src="/${applicationid}/components/javascript/emedia/drawer.js"></script>
+<link rel="stylesheet" type="text/css" href="/${applicationid}/theme/styles/mobile.css" />
+<script type="text/javascript" src="/${applicationid}/components/javascript/emedia/mobile.js"></script>
 #end

@@ -123,7 +123,8 @@
 	}
 	function deleteRecord() {
 		// The cached request signature belongs to the key being deleted
-		if (window.jQuery && jQuery.emeSignedHeaders) jQuery.emeSignedHeaders.clear();
+		if (window.jQuery && jQuery.emeSignedHeaders)
+			jQuery.emeSignedHeaders.clear();
 		return dbRun("readwrite", function (s) {
 			return s.delete(RECORD);
 		});
@@ -389,11 +390,16 @@
 					log("not logged in and no stored key");
 					$("#loginContainer").show();
 				} else {
-					if (
+					// The flag is a timestamp, so one left behind by an earlier visit cannot block a later sign-in.
+					var reloadedAt = parseInt(
 						safeSession(function (s) {
 							return s.getItem("emeReloaded");
-						})
-					) {
+						}) || "0",
+						10,
+					);
+					// On nopermission.html always sign in and redirect, whatever the flag says.
+					var onNoPermission = /nopermission\.html/.test(window.location.pathname);
+					if (!onNoPermission && Date.now() - reloadedAt < 30 * 1000) {
 						safeSession(function (s) {
 							s.removeItem("emeReloaded");
 						});
@@ -406,20 +412,15 @@
 					login(true).then(function (res) {
 						if (!res) return;
 						safeSession(function (s) {
-							s.setItem("emeReloaded", "1");
+							s.setItem("emeReloaded", String(Date.now()));
 						});
-						var target = res.redirect; // the page that was refused before the login page appeared
-						if (
-							!target &&
-							/\/authentication\//.test(window.location.pathname)
-						) {
-							var app = document.getElementById("application");
-							var home = app && app.getAttribute("data-apphome");
-							if (home) target = home + "/index.html"; // sitting on a login page with nowhere to go back to
-						}
-						log("signed in; going to", target || "(reloading this page)");
-						if (target) window.location.href = target;
-						else window.location.reload();
+						var app = document.getElementById("application");
+						var siteroot = (app && app.getAttribute("data-siteroot")) || "/";
+						var apphome = (app && app.getAttribute("data-apphome")) || "";
+						// The page that was refused before the login page appeared, else the app home.
+						var target = res.redirect || siteroot + apphome;
+						log("signed in; going to", target);
+						window.location.href = target;
 					});
 				}
 			})
@@ -501,13 +502,30 @@
 							alg: made.alg,
 							privateKey: made.pair.privateKey,
 						})
-					: Promise.resolve(log("signed in, but no key was registered:", res.key_error || "no key_id"));
+					: Promise.resolve(
+							log(
+								"signed in, but no key was registered:",
+								res.key_error || "no key_id",
+							),
+						);
 				return saved
 					.then(function () {
-						if (res.key_id) log("signed in with the code; new key", res.key_id, "(" + made.alg + ")");
-						if (old && old.keyid && old.keyid !== res.key_id && old.userid === userid) {
+						if (res.key_id)
+							log(
+								"signed in with the code; new key",
+								res.key_id,
+								"(" + made.alg + ")",
+							);
+						if (
+							old &&
+							old.keyid &&
+							old.keyid !== res.key_id &&
+							old.userid === userid
+						) {
 							// Signed in now, so the old key can be revoked
-							return post(endpoint("revokekey.json"), { keyid: old.keyid }).catch(function () {});
+							return post(endpoint("revokekey.json"), {
+								keyid: old.keyid,
+							}).catch(function () {});
 						}
 					})
 					.then(function () {
@@ -541,7 +559,11 @@
 		window.jQuery(document).on("submit", CODE_FORM, onCodeFormSubmit);
 	} else {
 		document.addEventListener("submit", function (e) {
-			if (e.target.querySelector && e.target.querySelector("input[name='templogincode']")) onCodeFormSubmit(e);
+			if (
+				e.target.querySelector &&
+				e.target.querySelector("input[name='templogincode']")
+			)
+				onCodeFormSubmit(e);
 		});
 	}
 

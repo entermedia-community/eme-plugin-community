@@ -995,11 +995,12 @@ function initializeUI() {
 		var input = $(this);
 		var propertyname = input.data("propertyname");
 		var checked = input.is(":checked");
-		var newvalue = input.val();
-		if (newvalue === undefined) {
-			newvalue = checked ? "true" : "false";
+		var newvalue = checked ? "true" : "false";
+
+		if (input.data("reversevalue")) {
+			newvalue = checked ? "false" : "true";
 		}
-		
+
 		saveProfileProperty(propertyname, newvalue, function () {
 			$(window).trigger("checkautoreload", [input]);
 		});

@@ -5,6 +5,7 @@
 			<or>
 				<pagevalue name="canviewsettings" equals="true" />
 				<user name="admin" />
+				<boolean value="true" />
 			</or>	
 	</permission>
 </page>

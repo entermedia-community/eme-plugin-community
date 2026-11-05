@@ -32,94 +32,126 @@
 	data-oemaxlevel="1" 
 	data-url="$siteroot$viewsroot/dialog/index.html" 
 	data-ajaxreloadtargetid="$!{ajaxreloadtargetid}">
-<div class="emsettingslist  p-3" >
-	
-#if($canviewsettings)
-	<div class="pb-2" style="text-align:right;">
-	<input class="changeuserprofile" 
-			name="saveforall"
-			id="saveforall"
-			data-propertyname="view_saveforallenabled" 
-			type="checkbox" 
-			data-ajaxreloadtargets = "viewpickereditor" 
-			value="true" #if($userprofile.isEnabled("view_saveforallenabled"))checked#end 
-	/> 
-	<label for="saveforall">[[Edit For All Users]]</label>
+	<div class="emsettingslist  p-3" >
+		
+	#if($canviewsettings)
+		<div class="pb-2" style="text-align:right;">
+		<input class="changeuserprofile" 
+				name="saveforall"
+				id="saveforall"
+				data-propertyname="view_saveforallenabled" 
+				type="checkbox" 
+				data-ajaxreloadtargets = "viewpickereditor" 
+				value="true" #if($userprofile.isEnabled("view_saveforallenabled"))checked#end 
+		/> 
+		<label for="saveforall">[[Edit For All Users]]</label>
+		</div>
+
+	#end
+
+	<ul class="emsettingslist listsort" 
+		data-ajaxreloadtargets="dataeditedreload"  
+		data-path="$siteroot$viewsroot/dialog/saveview.html?searchtype=$module.id&assettype=$!{assettype}&viewid=$!{viewid}&ajaxreloadtargetid=$!{ajaxreloadtargetid}">
+
+		#set( $moduleid = $context.findValue("module") )
+
+		#foreach( $detail in $details)
+			#set( $pid = $detail.id)
+			#ifnotnull($detail.getSearchType())
+				#if($moduleid != $detail.getSearchType())
+					#set( $pid = "${detail.searchType}.${detail.id}")	
+				#end
+			#end
+			
+			#set( $null = $!ids.add($detail.id) )
+			<li id="$pid">  
+				<div class="sortableitem" style="cursor: hand;" title="$detail.getText($context) ($detail.id)" >
+					<i class="bi bi-chevron-expand me-1"></i>
+					$detail.getText($context) 
+					<a href="">
+					<span class="type-of-field">#if( $detail.getViewType() ) $mediaarchive.getCachedData("datarendertype" , $detail.getViewType() ) #else Text #end</span>
+					</a>
+				</div>
+							
+				<a class="ajax delete-row" 
+					data-targetdivinner="viewpicker"
+					#if($ajaxreloadtargetid)  
+					data-ajaxreloadtargetid="$!{ajaxreloadtargetid}"
+					#else
+						data-ajaxreloadtargets="dataeditedreload"
+					#end
+					href="$siteroot$viewsroot/dialog/removefromview.html?searchtype=$moduleid&detailid=$pid&assettype=$assettype&viewid=$viewid&oemaxlevel=1&ajaxreloadtargetid=$!{ajaxreloadtargetid}" 
+				>
+				<i class="bi bi-x"></i>
+				</a>
+			</li>
+		#end
+		</ul>	
 	</div>
 
-#end
+	<div class="emsettingslistd p-3" >
+			<form name="addtoview" 
+				class="ajaxform d-flex flex-grow-1 flex-column" 
+				data-targetdiv="viewpicker" 
+				id="addtoview" 
+				action="$siteroot$viewsroot/dialog/addtoview.html"
+				
+				#if($ajaxreloadtargetid)
+					data-ajaxreloadtargetid="$!ajaxreloadtargetid"
+				#else
+					data-ajaxreloadtargets="dataeditedreload"
+				#end
+				>
+				##ToFix: resultsdiv needs one of this classes and the data-url to reload it self
+			
+				<input type="hidden" name="oemaxlevel" value="1"/>
+				<input type="hidden" name="viewid" value="$viewid"/>
+				<input id="tableid" name="tableid" type="hidden" value="$moduleid">
+				<input type="hidden" name="ajaxreloadtargetid" value="$!ajaxreloadtargetid"
 
-<ul class="emsettingslist listsort" 
-	data-ajaxreloadtargets="dataeditedreload"  
-	data-path="$siteroot$viewsroot/dialog/saveview.html?searchtype=$module.id&assettype=$!{assettype}&viewid=$!{viewid}&ajaxreloadtargetid=$!{ajaxreloadtargetid}">
+				<div class="d-flex justify-content-between align-items-center mb-2">
+				<select id="fieldnames" name="detailid" class="select2 selectsubmitform" placeholder="[[Add another field]]">
+					<option value="">[[Add another field]]</option>
+					#foreach( $detail in $searcher.getUserPropertyDetails() )
+						#if( !$ids.contains($detail.getId()))
+						<option value="$detail.id">$detail.getText($context)</option>
+						#end
+					#end
+				</select>
+				</div>
+			</form> 
+	</div>
 
-	#set( $moduleid = $context.findValue("module") )
-
-	#foreach( $detail in $details)
-		#set( $pid = $detail.id)
-		#ifnotnull($detail.getSearchType())
-			#if($moduleid != $detail.getSearchType())
-				#set( $pid = "${detail.searchType}.${detail.id}")	
-			#end
+	<div class="p-3">
+	<h3>[[Table Settings]]</h3>
+	
+	<div class="mb-2">
+		#set($results_expanded = $userprofile.get("view_table_results_expanded"))
+		#ifnull($results_expanded)
+			#set($results_expanded = "false")
 		#end
-		
-		#set( $null = $!ids.add($detail.id) )
-		<li id="$pid">  
-			<div class="sortableitem" style="cursor: hand;" title="$detail.getText($context) ($detail.id)" >
-				<i class="bi bi-chevron-expand me-1"></i>
-				$detail.getText($context) 
-				<a href="">
-				<span class="type-of-field">#if( $detail.getViewType() ) $mediaarchive.getCachedData("datarendertype" , $detail.getViewType() ) #else Text #end</span>
-				</a>
-			</div>
-						
-			<a class="ajax delete-row" 
-				data-targetdivinner="viewpicker"
-				#if($ajaxreloadtargetid)  
+		<input class="changeuserprofile" 
+			name="table_compact"
+			id="table_compact"
+			data-propertyname="view_table_results_expanded" 
+			type="checkbox" 
+			#if($results_expanded == "false")
+				checked
+				value="true"
+			#else
+				value="false"
+			#end 
+			#if($ajaxreloadtargetid)  
 				data-ajaxreloadtargetid="$!{ajaxreloadtargetid}"
 				#else
 					data-ajaxreloadtargets="dataeditedreload"
 				#end
-			 	href="$siteroot$viewsroot/dialog/removefromview.html?searchtype=$moduleid&detailid=$pid&assettype=$assettype&viewid=$viewid&oemaxlevel=1&ajaxreloadtargetid=$!{ajaxreloadtargetid}" 
-			 >
-			 <i class="bi bi-x"></i>
-			</a>
-		</li>
-	#end
-	</ul>	
-</div>
-
-<div class="emsettingslistd p-3" >
-		<form name="addtoview" 
-			class="ajaxform d-flex flex-grow-1 flex-column" 
-			data-targetdiv="viewpicker" 
-			id="addtoview" 
-			action="$siteroot$viewsroot/dialog/addtoview.html"
-		 	
-			#if($ajaxreloadtargetid)
-				data-ajaxreloadtargetid="$!ajaxreloadtargetid"
-			#else
-				data-ajaxreloadtargets="dataeditedreload"
-			#end
-			>
-		 	##ToFix: resultsdiv needs one of this classes and the data-url to reload it self
-		 
-			<input type="hidden" name="oemaxlevel" value="1"/>
-			<input type="hidden" name="viewid" value="$viewid"/>
-			<input id="tableid" name="tableid" type="hidden" value="$moduleid">
-			<input type="hidden" name="ajaxreloadtargetid" value="$!ajaxreloadtargetid"
-
-			<div class="d-flex justify-content-between align-items-center mb-2">
-			<select id="fieldnames" name="detailid" class="select2 selectsubmitform" placeholder="[[Add another field]]">
-			 	<option value="">[[Add another field]]</option>
-				#foreach( $detail in $searcher.getUserPropertyDetails() )
-					#if( !$ids.contains($detail.getId()))
-					<option value="$detail.id">$detail.getText($context)</option>
-					#end
-				#end
-			</select>
-			</div>
-		</form> 
-</div>
-
+			/> 
+		<label for="table_compact">[[Compact Results]]</label>
+		<div><small class="text-muted">
+			[[Show compact view for specific table columns]]
+		</small>
+		</div>
+	</div>
+	</div>
 </div>

@@ -3,6 +3,8 @@
 	#set($idcount = "")
 #end
 
+#set($results_expanded = $userprofile.get("view_table_results_expanded"))
+
 #set( $type = $detail.getListId() )
 #set($link = $context.getPageValue("tagssearchlink"))
 #if(!$link)
@@ -18,7 +20,7 @@
 		#if ($clearfilters)
 			#set($fulllink = "$fulllink&clearfilters=true")
 		#end
-		<a class="badge badge-tags tageditor-${type} ajax #if($count>4) seelesstags #end" 
+		<a class='badge badge-tags tageditor-${type} ajax #if($results_expanded != "true" && $count>4) seelesstags #end' 
 		href="$fulllink"
 		data-targetdiv="applicationcontent"
 		data-oemaxlevel="3"
@@ -29,7 +31,8 @@
 		#set($count = $count + 1)
 	#end
 </span>
-#if($count>4)
+
+#if($results_expanded != "true" && $count>4)
 	#set($more = $count - 4)
 	<button class="see-more-tags-btn see-more" data-seemore="+${more} [[more]]" data-seeless="...[[see less]]">+${more} [[more]]</button>
 #end

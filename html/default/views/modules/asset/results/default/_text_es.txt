@@ -1,5 +1,5 @@
 #
-#Fri Jul 03 17:10:38 CST 2026
+#Thu Nov 05 14:18:53 CST 2026
 Add\ Column=A\u00F1adir columna
 Add\ To=A\u00F1adir a
 Add\ To\ Bookmarks=A\u00F1adir a los favoritos
@@ -54,6 +54,7 @@ Select\ None=Seleccione Ninguno
 Select\ Only\ This\ Page=Seleccione solo esta p\u00E1gina
 Select\ this\ page\ of\ results=Seleccione esta p\u00E1gina de resultados
 Share=Compartir
+Show\ Only\ Selected=Mostrar s\u00F3lo seleccionado
 Summary=Resumen
 Upload=Subir
 Workflow=Flujo de trabajo

@@ -1,5 +1,5 @@
 #
-#Thu Sep 24 12:02:57 CST 2026
+#Thu Nov 05 14:18:53 CST 2026
 AI\ Chat\ Search=B\u00FAsqueda de chat de IA
 Account\ Settings=Configuraci\u00F3n de cuenta
 Bookmarks=Marcadores
@@ -11,6 +11,7 @@ Dashboard\ Reports=Informes del panel
 Desktop\ Settings=Configuraci\u00F3n de escritorio
 Discard=Eliminar
 Download\ Desktop\ App=Descargar la aplicaci\u00F3n de escritorio
+EME\ Server=Servidor EME
 Esc\ to\ Close=Esc para cerrar
 Go\ to=Ve
 Guides=Gu\u00EDas

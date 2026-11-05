@@ -1,5 +1,5 @@
 #
-#Thu Sep 24 12:03:16 CST 2026
+#Thu Nov 05 15:24:32 CST 2026
 Add\n\t\tNew=A\u00F1adir nuevo
 Add\ New=A\u00F1adir nuevo
 Back=Atr\u00E1s
@@ -29,6 +29,7 @@ Reset\ Data=Restablecer datos
 Reset\ Fields=Restablecer campos
 Reset\ Settings=Reiniciar configuraciones
 Restore\ Complete=Restauraci\u00F3n completa
+Restore\ Data\ Complete=Restaurar los datos completos
 Restore\ Table=Restaurar tabla
 Search=B\u00FAsqueda
 Select\ a\ Table=Seleccione una tabla

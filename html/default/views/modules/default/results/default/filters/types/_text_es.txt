@@ -1,4 +1,6 @@
 #
-#Wed Jul 29 16:29:55 CST 2026
+#Thu Nov 05 14:18:55 CST 2026
 Add\ Language=A\u00F1adir idioma
+See\ All=Ver todos
+See\ Less=Ver Menos
 Type\ to\ search\ and\ press\ the\ enter\ key=Escriba para buscar y presione la tecla Enter.

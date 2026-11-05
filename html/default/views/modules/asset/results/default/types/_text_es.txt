@@ -1,7 +1,8 @@
 #
-#Fri Jul 03 17:12:24 CST 2026
+#Thu Nov 05 14:18:55 CST 2026
 Download=Descargar
 Edit\ Table\ Header=Editar el encabezado de la tabla
 Select\ All\ on\ This\ Page=Seleccionar todo en esta p\u00E1gina
 Sort\ by=Ordenar por
+Table\ Preferences=Preferencias de la tabla
 Thumbnail=Miniaturas

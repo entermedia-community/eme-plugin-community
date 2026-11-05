@@ -1,5 +1,10 @@
 #
-#Thu Sep 24 15:12:55 CST 2026
+#Thu Nov 05 15:15:27 CST 2026
+Esc\ to\ Close=Esc \u00E0 cl\u00F4turer
 Featured\ Folders=Dossiers sp\u00E9ciaux
+No\ exact\ match\ found\ for=Aucune correspondance exacte trouv\u00E9e pour
+Recent=R\u00E9cemment
 Search=Recherche
+Search...=\u00C0 la recherche...
+Searching\ for\ results=Recherche de r\u00E9sultats
 View=Vue

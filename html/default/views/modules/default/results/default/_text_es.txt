@@ -1,5 +1,5 @@
 #
-#Fri Jul 03 17:26:14 CST 2026
+#Thu Nov 05 14:18:54 CST 2026
 Add\ Column=A\u00F1adir columna
 Add\ New\ Record=A\u00F1adir nuevo registro
 Add\ To=A\u00F1adir a
@@ -25,9 +25,12 @@ Export\ results\ to\ CSV\ (Friendly)=Exportar resultados a CSV (Amistoso)
 Export\ reults\ to\ CSV=Exportar resultados a CSV
 Folders=Carpetas
 Import\ from\ YouTube=Importar desde YouTube
+Jump\ To=Salta hacia
 Multi\ edit\ selected\ items=Edici\u00F3n m\u00FAltiple de elementos seleccionados
+Next=El siguiente.
 No\ results\ found=No se encontraron resultados
 Page=P\u00E1gina
+Previous=El anterior
 Records=Registros
 Records\ Using\ IDs=Registros usando identificador
 Records\ Using\ Text=Registros de texto
@@ -47,3 +50,4 @@ Sort\ Results=Ordenar resultados
 Successfully\ copied\ files\ and\ metadata\ to=Archivos y metadatos copiados con \u00E9xito a
 Summary=Resumen
 Upload\ Spreadsheet=Subir la hoja de c\u00E1lculo
+of=de las

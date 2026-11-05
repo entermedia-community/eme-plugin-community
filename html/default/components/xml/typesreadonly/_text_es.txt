@@ -1,11 +1,12 @@
 #
-#Thu Sep 24 12:03:50 CST 2026
+#Thu Nov 05 15:24:11 CST 2026
 Deleted\ Asset=Activo eliminado
 Face\ Profile=Perfil de la cara
 Go\ to=Vete hacia
 No=No
 No\ name\ label=No hay etiqueta de nombre
 Not\ Found=No se encuentra
+Not\ Shown=No se muestra
 Person=Personas
 Profile=Descripci\u00F3n
 Sample\ Count=N\u00FAmero de muestras

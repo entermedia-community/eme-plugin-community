@@ -1,11 +1,12 @@
 #
-#Thu Sep 24 12:02:54 CST 2026
+#Thu Nov 05 14:18:52 CST 2026
 Cloud\ Sync=Sincronizaci\u00F3n en la nube
 Database=Base de datos
 Download\ Orders=Descargar pedidos
 Home=Inicio
 Resize\ Sidebar=Ajustar la barra lateral
 Settings=Configuraci\u00F3n
+Skills\ Manager=Responsable de las competencias
 Smart\ Automation=Automatizaci\u00F3n inteligente
 Smart\ Organizer=Organizador inteligente
 User\ Guide=Gu\u00EDa del usuario

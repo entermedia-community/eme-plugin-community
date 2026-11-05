@@ -1,5 +1,5 @@
 #
-#Thu Sep 24 15:19:53 CST 2026
+#Thu Nov 05 14:18:07 CST 2026
 Add=Ajouter
 Add\ New=Ajout de nouveau
 Add\ a\ Language=Ajouter une langue
@@ -11,6 +11,7 @@ Choose=Choisissez
 Creates\ Translations\ for\ Missing\ Languages=Cr\u00E9ation de traductions pour les langues manquantes
 Enter\ a\ Custom\ Range=Entrez une plage personnalis\u00E9e
 Equals=\u00C9gal
+Hide\ extra\ languages=Cacher les langues suppl\u00E9mentaires
 Missing\ Languages=Des langues manquantes
 New=Nouveau
 No\ asset\ selected=Aucun actif s\u00E9lectionn\u00E9
@@ -24,6 +25,7 @@ Past\ year=Ann\u00E9e derni\u00E8re
 Remove=Retirer
 Search\ =\u00C0 la recherche \!
 Select=S\u00E9lectionner
+Show\ more\ languages=Afficher plus de langues
 Translate=Pour traduire
 Translating...=Je traduis...
 Unassign\ this\ asset=D\u00E9signer cet actif

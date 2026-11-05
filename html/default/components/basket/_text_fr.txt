@@ -1,7 +1,11 @@
 #
-#Thu Sep 24 13:37:00 CST 2026
+#Thu Nov 05 15:15:18 CST 2026
+Add\ To\ Order=Ajouter \u00E0 la commande
+Added\ To\ Basket=Ajout\u00E9 au panier
 Cart\ is\ Empty=Le panier est vide
 Pending\ Orders=Ordres en attente
+Remove\ From\ Order=Retirer de l'ordre
+Removed\ From\ Basket=Retrait du panier
 asset=actif
 assets=les actifs
 in\ Cart=dans le panier

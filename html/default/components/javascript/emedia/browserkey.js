@@ -122,6 +122,8 @@
 		});
 	}
 	function deleteRecord() {
+		// The cached request signature belongs to the key being deleted
+		if (window.jQuery && jQuery.emeSignedHeaders) jQuery.emeSignedHeaders.clear();
 		return dbRun("readwrite", function (s) {
 			return s.delete(RECORD);
 		});
@@ -272,6 +274,33 @@
 			})
 			.catch(function (e) {
 				log("key login failed:", e);
+				return null;
+			});
+	}
+
+	// Signs a fresh {username, key_id, timestamp, nonce, signature} for the X-token header (X-tokentype: signature).
+	// Used by signedheaders.js, which caches the result. Resolves null when there is no stored key.
+	function signLogin() {
+		if (!supported()) return Promise.resolve(null);
+		return loadRecord()
+			.then(function (record) {
+				if (!record) return null;
+				var ts = String(Date.now()),
+					nonce = randomNonce();
+				return sign(
+					record,
+					record.userid + "\n" + record.keyid + "\n" + ts + "\n" + nonce,
+				).then(function (signature) {
+					return {
+						username: record.userid,
+						key_id: record.keyid,
+						timestamp: ts,
+						nonce: nonce,
+						signature: signature,
+					};
+				});
+			})
+			.catch(function () {
 				return null;
 			});
 	}
@@ -521,6 +550,7 @@
 		register: register,
 		login: login,
 		getToken: getToken,
+		signLogin: signLogin,
 		forget: forget,
 		loginWithCode: loginWithCode,
 		logout: logout,

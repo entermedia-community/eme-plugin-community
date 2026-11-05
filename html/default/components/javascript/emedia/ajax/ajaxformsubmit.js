@@ -169,6 +169,7 @@
 
 		form.ajaxSubmit({
 			data: { ...data },
+			headers: $.emeSignedHeaders(),
 			xhrFields: {
 				withCredentials: true,
 			},

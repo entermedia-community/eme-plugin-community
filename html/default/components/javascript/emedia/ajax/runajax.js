@@ -204,6 +204,7 @@ findClosest = function (link, inid) {
 		jQuery
 			.ajax({
 				url: href,
+				headers: $.emeSignedHeaders(),
 				data: {
 					...options,
 				},
@@ -446,6 +447,7 @@ $(document).ready(function () {
 				config.totalRun = totalRun + 1;
 				jQuery.ajax({
 					url: path,
+					headers: $.emeSignedHeaders(),
 					async: false,
 					data: {
 						...data,
@@ -524,6 +526,7 @@ $(document).ready(function () {
 		var path = cell.data("ajaxpath");
 		singleAjaxReqs[uid] = jQuery.ajax({
 			url: path,
+			headers: $.emeSignedHeaders(),
 			data: {
 				...data,
 			},

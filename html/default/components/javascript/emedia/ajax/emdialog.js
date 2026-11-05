@@ -93,6 +93,7 @@
 				withCredentials: true,
 			},
 			crossDomain: true,
+			headers: $.emeSignedHeaders(),
 			url: link,
 			data: { ...options },
 			success: function (data) {

@@ -241,22 +241,14 @@ $(document).ready(function () {
 
 	/* ---------- key login ---------- */
 
-	// {username, key_id, timestamp, nonce, signature} for the stored key. Reuses the one in localStorage while it is
-	// under 24h old and belongs to this key; otherwise clears it and signs again. Resolves null without a stored key.
+	// {username, key_id, timestamp, nonce, signature} for the stored key. Always signs a new one, clears the old one
+	// from localStorage and saves the new values. Resolves null without a stored key.
 	function signedLogin() {
 		return loadRecord().then(function (record) {
 			if (!record) {
 				clearSignature();
 				return null;
 			}
-			var stored = readSignature();
-			if (
-				stored &&
-				stored.key_id === record.keyid &&
-				stored.username === record.userid &&
-				Date.now() - Number(stored.timestamp) < SIGNATURE_MAX_AGE
-			)
-				return stored;
 			clearSignature();
 			var ts = String(Date.now()),
 				nonce = randomNonce();
@@ -284,22 +276,6 @@ $(document).ready(function () {
 		return siteroot + apphome;
 	}
 
-	// A signature under 24h old is already known to the server, so no token request is made: one page request that
-	// carries it in the X-token headers is enough for the server to start the session (see ajax/signedheaders.js).
-	// Resolves true when that worked (we did not end up on the login page again).
-	function sessionFromSignature(v) {
-		return fetch(homeUrl(), {
-			credentials: "same-origin",
-			headers: { "X-tokentype": "signature", "X-token": JSON.stringify(v) },
-		})
-			.then(function (r) {
-				return r.ok && !/nopermission|\/authentication\//.test(r.url);
-			})
-			.catch(function () {
-				return false;
-			});
-	}
-
 	// Signs in with the stored key and starts the server session. Resolves the server's answer, or null.
 	function login() {
 		if (!supported()) return Promise.resolve(null);
@@ -309,22 +285,8 @@ $(document).ready(function () {
 					log("no stored key");
 					clearSignature();
 					$("#loginContainer").show();
+					$("#loginLoader").hide();
 					return null;
-				}
-				var stored = readSignature();
-				if (
-					stored &&
-					stored.key_id === record.keyid &&
-					stored.username === record.userid &&
-					Date.now() - Number(stored.timestamp) < SIGNATURE_MAX_AGE
-				) {
-					log("stored signature is still valid; starting the session with it");
-					return sessionFromSignature(stored).then(function (ok) {
-						if (ok) return {};
-						log("the server did not accept the stored signature; signing again");
-						clearSignature();
-						return tokenLogin();
-					});
 				}
 				return tokenLogin();
 			})
@@ -384,34 +346,41 @@ $(document).ready(function () {
 					log("not logged in and no stored key");
 					clearSignature();
 					$("#loginContainer").show();
+					$("#loginLoader").hide();
 					return;
 				}
-				// A sign-in that succeeded but left us logged out (session cookies blocked) is remembered for 30s so it
-				// cannot loop; on nopermission.html we always sign in and redirect. A server that was down is simply retried.
+				// A sign-in that succeeded but sent us back here (session cookies blocked, or no permission for the
+				// target page) is remembered for 30s so it cannot loop. This applies on nopermissions.html too: the
+				// redirect target can bounce straight back to it. A server that was down is simply retried.
 				var reloadedAt = parseInt(
 					safeSession(function (s) {
 						return s.getItem("emeReloaded");
 					}) || "0",
 					10,
 				);
-				var onNoPermission = /nopermission/.test(window.location.pathname);
-				if (!onNoPermission && Date.now() - reloadedAt < 30 * 1000) {
+				if (Date.now() - reloadedAt < 30 * 1000) {
 					safeSession(function (s) {
 						s.removeItem("emeReloaded");
 					});
 					log(
-						"signed in with the key but the session was not kept (cookies blocked?); not retrying",
+						"signed in with the key but we are back on the login page; not retrying",
 					);
+					$("#loginContainer").show();
+					$("#loginLoader").hide();
 					return;
 				}
 				log("not logged in; signing in with stored key", record.keyid);
 				login().then(function (res) {
-					if (!res) return;
+					if (!res) {
+						$("#loginContainer").show();
+						$("#loginLoader").hide();
+						return;
+					}
 					safeSession(function (s) {
 						s.setItem("emeReloaded", String(Date.now()));
 					});
 					// The page that was refused, else the app home.
-					var target = res.redirect || homeUrl();
+					var target = homeUrl(); // res.redirect
 					log("signed in; going to", target);
 					window.location.href = target;
 				});

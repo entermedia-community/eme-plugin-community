@@ -795,6 +795,7 @@ function initializeUI() {
 				allowClear: allowClear,
 				dropdownParent: getDropdownParent(theinput),
 				selectOnBlur: true,
+				minimumInputLength: 1,
 				delay: 150,
 				ajax: {
 					url: url,

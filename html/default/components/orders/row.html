@@ -33,7 +33,7 @@
    	<td class="resultstablecell" >
 	       #set($statuslist = $searcherManager.getList($catalogid, "orderitem/approval"))
 	      
-	       	<select class="statusfield" name="${item.id}.status.value">
+	       	<select class="statusfield select2" name="${item.id}.status.value">
 	      		 <option  value=""></option>
 	      		 
 	      		 #foreach($status in $statuslist)

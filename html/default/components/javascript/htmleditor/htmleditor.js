@@ -952,10 +952,11 @@ $(document).ready(function () {
 
 		return formEl;
 	}
-	lQuery(".quill-delta").livequery(function () {
-		const $this = $(this);
+
+	function renderDelta(deltaTarget) {
+		if (!deltaTarget || deltaTarget.length === 0) return;
 		try {
-			const delta = $this.text();
+			const delta = deltaTarget.text();
 			const json = JSON.parse(delta);
 			if (json["ops"] && Array.isArray(json["ops"])) {
 				const converter = new QuillDeltaToHtmlConverter(json["ops"], {
@@ -971,19 +972,27 @@ $(document).ready(function () {
 					},
 				});
 				const html = converter.convert();
-				$this.html(html);
+				deltaTarget.html(html);
 			}
 
 			if (json["formAttr"] || json["form"]) {
 				const formEl = parseForm(json);
-				if (formEl) $this.after(formEl);
+				if (formEl) deltaTarget.after(formEl);
 			}
 
-			if (json["append"]) $this.after(json["append"]);
+			if (json["append"]) deltaTarget.after(json["append"]);
 		} catch (error) {
-			console.log(error);
+			console.log(error, deltaTarget);
 		} finally {
-			$this.removeClass("d-none");
+			deltaTarget.removeClass("quill-delta d-none");
+			$(document).trigger("domchanged", [deltaTarget]);
 		}
+	}
+
+	lQuery(".quill-delta").livequery(function () {
+		renderDelta($(this));
+	});
+	$(window).on("renderdelta", function (_, targetDelta) {
+		renderDelta(targetDelta);
 	});
 });

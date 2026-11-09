@@ -441,6 +441,7 @@ jQuery(document).ready(function () {
 
 			scrollToChat();
 			sortChatterbox(listArea);
+			$(window).trigger("renderdelta", [listArea.find(".quill-delta")]);
 			return;
 		}
 
@@ -455,7 +456,6 @@ jQuery(document).ready(function () {
 	}
 
 	function sortChatterbox(container) {
-		//var messages = Array.from(container.querySelectorAll(".msg-bubble"));
 		const messages = Array.from(container.find(".msg-bubble"));
 
 		messages
@@ -465,6 +465,7 @@ jQuery(document).ready(function () {
 				return dateA - dateB;
 			})
 			.forEach((el) => container.append(el));
+		$(document).trigger("domchanged", [container]);
 	}
 
 	let keepAliveTimeoutID = 0;
@@ -857,7 +858,7 @@ jQuery(document).ready(function () {
 			overlayOpacity: 1,
 			fadeSpeed: 60,
 			focus: false,
-			 appendTarget: 'body' 
+			appendTarget: "body",
 		});
 
 		slb.on("shown.simplelightbox", function () {

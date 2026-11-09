@@ -308,7 +308,7 @@ $(document).ready(function () {
 		$(this).closest(".creator-section-title").removeClass("edit-mode");
 	});
 
-	lQuery(".aitutorial").livequery("click", function () {
+	lQuery(".entitytutorial").livequery("click", function () {
 		var playbackentityid = $(this).data("playbackentityid");
 		var playbackentitymoduleid = $(this).data("playbackentitymoduleid");
 

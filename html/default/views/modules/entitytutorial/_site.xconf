@@ -1,0 +1,5 @@
+<page>
+  <property name="fallbackdirectory">/${applicationid}/views/modules/default</property>
+  <property name="enforcesecurity">true</property>
+  <property name="module">entitytutorial</property>
+</page>

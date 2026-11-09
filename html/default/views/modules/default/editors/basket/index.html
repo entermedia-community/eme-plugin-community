@@ -51,7 +51,7 @@ $context.putPageValue("hidefilters",true)
       $context.putPageValue("resultsPage","$siteroot$apphome/views/basket/index.html")
       $context.putPageValue("hideresultstypes","hideresultstypes")
 
-		#set($searchhome = "$siteroot$apphome/views/modules/asset/results/default")
+		#set($searchhome = "$!{apphome}/views/modules/asset/results/default")
 		$context.putPageValue("searchhome",$searchhome)
       	$pages.include("$searchhome/index.html",$context)
 

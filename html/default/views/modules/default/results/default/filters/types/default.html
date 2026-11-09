@@ -1,15 +1,17 @@
-#if($detail.isMultiLanguage())
+
+
+#if($detail.isMultiLanguage() && !$searchform)
 	<div class="${detail.id}-languages languages-field #if( $searchform )insearchform#end">
 			#set($languages = $mediaarchive.getList("locale"))
 			#set($map = $data.getValue($detail.getId()))
 			#set($dlocale = $context.getLanguage() )
 			#set($language_count = 0)
-			#if( !$searchform )
+			
 			<div class="languagesadd">
 				<a class="languagesavebtn pl-1" href="$siteroot$apphome/components/xml/types/language/extralanguage.html" data-targetdiv="languagesextra_${detail.id}" data-detailid="${detail.id}" id="" title="[[Add Language]]">
 				<i class="bi bi-plus-lg"></i></a>
 			</div>
-			#end
+			
 			<div class="languagesfield">
 				#foreach($locale in $languages)
 					#set($localval = $map.getText($locale.id))

@@ -95,8 +95,12 @@ $(document).ready(function () {
 		);
 
 		if (pickerresults.length > 0) {
-			return;
+			//return;
 		}
+
+		e.preventDefault();
+		e.stopPropagation();
+		
 
 		if (e.ctrlKey || e.shiftKey) {
 			return;
@@ -106,8 +110,6 @@ $(document).ready(function () {
 			return true;
 		}
 
-		e.preventDefault();
-		e.stopPropagation();
 		
 		showAsset(clicked);
 

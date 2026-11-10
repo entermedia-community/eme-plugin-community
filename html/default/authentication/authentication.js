@@ -497,31 +497,39 @@ $(document).ready(function () {
 			});
 	}
 
-
 	function providerLoginWithCode() {
 		if (!supported() || !config().mediadb) {
 			return false;
 		}
 		var keypair = generate();
-		return crypto.subtle.exportKey("spki", keypair.publicKey);
 	}
 
 	$(".loginprovider").on("click", function (e) {
 		e.preventDefault();
-		var key = providerLoginWithCode();
-		if (!key) return; //Error: failed to generate or export key
-		var href = $(this).attr("href");
-		if (href.startsWith("/")) 
-		{
-			href = window.location.origin + href;
+		if (!supported() || !config().mediadb) {
+			return false; // handle error
 		}
-		var url = new URL(href);
-		url.searchParams.set("publickey", key);
-		url.searchParams.set("label", (navigator.userAgent || "Browser").slice(0, 80));
-		//href = url.toString();
-		//window.location.href = href;
-		$(this).attr("href", url.toString());
-		$(this).trigger("click");
+		generate()
+			.then(function (keypair) {
+				return crypto.subtle.exportKey("spki", keypair.pair.publicKey);
+			})
+			.then(function (key) {
+				if (!key) return; //Error: failed to generate or export key
+				var href = $(this).attr("href");
+				if (href.startsWith("/")) {
+					href = window.location.origin + href;
+				}
+				var url = new URL(href);
+				url.searchParams.set("publickey", key);
+				url.searchParams.set(
+					"label",
+					(navigator.userAgent || "Browser").slice(0, 80),
+				);
+				//href = url.toString();
+				//window.location.href = href;
+				$(this).attr("href", url.toString());
+				$(this).trigger("click");
+			});
 	});
 
 	function onCodeFormSubmit(e) {

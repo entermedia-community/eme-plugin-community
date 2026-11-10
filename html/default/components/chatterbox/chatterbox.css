@@ -162,7 +162,7 @@
 .chatterbox-editactions {
 	display: flex;
 	justify-content: space-between;
-	
+
 	padding: 5px;
 }
 .chatterbox-write .chatter-btn {
@@ -382,7 +382,7 @@
 	padding: 4px;
 }
 .chat-icon {
-	width: 40px;;
+	width: 40px;
 }
 .chat-icon img {
 	width: 34px;
@@ -390,22 +390,21 @@
 	border-radius: 6px;
 }
 .msg-bubble .chatuser-alias .msg-avt {
-	background: rgba(125, 249, 255, 1.0);
+	background: rgba(125, 249, 255, 1);
 }
 .icon-alias {
 	position: absolute;
-	display:flex;
+	display: flex;
 	bottom: -5px;
 	right: 0px;
-	width:18px;
+	width: 18px;
 	height: 18px;
-	background: rgba(125, 249, 255, 1.0);
+	background: rgba(125, 249, 255, 1);
 	border-radius: 50%;
 	padding: 2px;
 }
 .icon-alias i {
 	font-size: 0.7rem;
-	
 }
 .msg-bubble .msg-body {
 	color: #444;
@@ -540,10 +539,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+
 	color: royalblue;
 	background: #fff;
-	opacity: 0.70;
+	opacity: 0.7;
 	z-index: 10;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
@@ -664,6 +663,7 @@
 	padding: 0 0.5rem 5px;
 	border-right: 1px solid #e5e5e5;
 	background-color: var(--themed-tab-bar);
+	border-top: 1px solid var(--themed-tab-btn-hover);
 	color: var(--themed-tab-btn-text);
 }
 .aichatsearch .team-list {
@@ -697,10 +697,8 @@
 	/*background-color: rgba(148, 229, 148, 0.5);*/
 }
 .sessionhistory-item .session-name {
-	
 }
 .sessionhistory-item.active .session-name {
-	
 }
 .sessionhistory-item a.item {
 	flex: 1;
@@ -912,8 +910,8 @@ body .sl-overlay {
 body .sl-wrapper,
 body .sl-image,
 body .sl-scrollbar-measure {
-    z-index: 100000 !important;
-    position: fixed !important;
+	z-index: 100000 !important;
+	position: fixed !important;
 }
 .sl-wrapper * {
 	box-sizing: border-box;
@@ -1442,17 +1440,16 @@ body .sl-scrollbar-measure {
 	padding-right: 100px;
 }
 
-
 .msg-body-content .code-block {
-    padding: 10px;
-    margin: 10px 0;
-    
-    /* Typography */
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 14px;
-    line-height: 1.5;
-    
-    /* Managing overflow */
-    overflow-x: auto; /* Adds a horizontal scrollbar if code is too long */
-    white-space: pre-wrap; /* Prevents wrapping and keeps layout spacing */
+	padding: 10px;
+	margin: 10px 0;
+
+	/* Typography */
+	font-family: "Consolas", "Monaco", "Courier New", monospace;
+	font-size: 14px;
+	line-height: 1.5;
+
+	/* Managing overflow */
+	overflow-x: auto; /* Adds a horizontal scrollbar if code is too long */
+	white-space: pre-wrap; /* Prevents wrapping and keeps layout spacing */
 }

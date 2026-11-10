@@ -173,6 +173,24 @@ $(document).ready(function () {
 	}
 
 	function loadRecord() {
+		var url = new URL(window.location.href);
+		var keyid = $("#loginContainer").data("keyid");
+		var userid = $("#loginContainer").data("userid");
+		if (keyid && userid)
+		{
+			return dbRun("readonly", function (s) {
+				return s.get("tempkey");
+			})
+			.then(function (temp) {
+				if (temp) {
+					var rec = { keyid: keyid, userid: userid, ...temp };
+					saveRecord(rec);
+					return rec;
+				}
+			});
+			
+
+		}
 		return dbRun("readonly", function (s) {
 			return s.get(RECORD);
 		});
@@ -181,6 +199,12 @@ $(document).ready(function () {
 		clearSignature(); // a signature made with the previous key is no good with this one
 		return dbRun("readwrite", function (s) {
 			return s.put(rec, RECORD);
+		});
+	}
+	function saveTempRecord(rec) {
+		clearSignature(); // a signature made with the previous key is no good with this one
+		return dbRun("readwrite", function (s) {
+			return s.put(rec, "tempkey");
 		});
 	}
 	function deleteRecord() {
@@ -512,17 +536,11 @@ $(document).ready(function () {
 		}
 		generate()
 			.then(function (keypair) {
-				window.sessionStorage.setItem(
-					"tempkey",
-					JSON.stringify({
-						alg: keypair.alg,
-						privateKey: b64url(
-							Promise.resolve(
-								crypto.subtle.exportKey("spki", keypair.pair.privateKey),
-							),
-						),
-					}),
-				);
+
+				saveTempRecord({
+					alg: keypair.alg,
+					privateKey: keypair.pair.privateKey
+				});
 				return crypto.subtle.exportKey("spki", keypair.pair.publicKey);
 			})
 			.then(function (key) {

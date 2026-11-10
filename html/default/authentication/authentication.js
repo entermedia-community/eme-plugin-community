@@ -505,6 +505,7 @@ $(document).ready(function () {
 	}
 
 	$(".loginprovider").on("click", function (e) {
+		var loginbtn = $(this);
 		e.preventDefault();
 		if (!supported() || !config().mediadb) {
 			return false; // handle error
@@ -515,20 +516,20 @@ $(document).ready(function () {
 			})
 			.then(function (key) {
 				if (!key) return; //Error: failed to generate or export key
-				var href = $(this).attr("href");
+				var href = loginbtn.attr("href");
 				if (href.startsWith("/")) {
 					href = window.location.origin + href;
 				}
 				var url = new URL(href);
-				url.searchParams.set("publickey", key);
+				url.searchParams.set("publickey", b64url(key));
 				url.searchParams.set(
 					"label",
 					(navigator.userAgent || "Browser").slice(0, 80),
 				);
-				//href = url.toString();
-				//window.location.href = href;
-				$(this).attr("href", url.toString());
-				$(this).trigger("click");
+				href = url.toString();
+				window.location.href = href;
+				//loginbtn.attr("href", url.toString());
+				//loginbtn.trigger("click");
 			});
 	});
 

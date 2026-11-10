@@ -1,7 +1,7 @@
 #set($provider = $mediaarchive.getCachedData("oauthprovider", "google"))
 #if($provider.getBoolean("enabled"))
 <div class="mx-3">
-    <a href="$apphome/authentication/oauth/oauth.html?provider=google" class="shine"
+    <a href="$apphome/authentication/oauth/oauth.html?provider=google" class="shine loginprovider"
 	title="[[Login with]] #text($provider)">
         <img src="$apphome/authentication/oauth/google.png" class="img-fluid" />
     </a>

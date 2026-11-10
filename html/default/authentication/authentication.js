@@ -516,7 +516,11 @@ $(document).ready(function () {
 					"tempkey",
 					JSON.stringify({
 						alg: keypair.alg,
-						privateKey: keypair.pair.privateKey,
+						privateKey: b64url(
+							Promise.resolve(
+								crypto.subtle.exportKey("spki", keypair.pair.privateKey),
+							),
+						),
 					}),
 				);
 				return crypto.subtle.exportKey("spki", keypair.pair.publicKey);

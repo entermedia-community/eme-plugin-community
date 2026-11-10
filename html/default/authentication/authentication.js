@@ -512,17 +512,20 @@ $(document).ready(function () {
 		}
 		generate()
 			.then(function (keypair) {
-				var m = crypto.subtle.exportKey("spki", keypair.pair.publicKey);
-				return { "publicKey": m.pair.publicKey, "alg": m.keypair.alg, "pair": keypair.pair };
+				window.sessionStorage.setItem(
+					"tempkey",
+					JSON.stringify({
+						alg: keypair.alg,
+						privateKey: keypair.pair.privateKey,
+					}),
+				);
+				return crypto.subtle.exportKey("spki", keypair.pair.publicKey);
 			})
 			.then(function (key) {
-				if (!key) return; //Error: failed to generate or export key
-
-				window.sessionStorage.setItem("tempkey", JSON.stringify({
-							alg: key,
-							privateKey: made.pair.privateKey,
-						}));
-
+				if (!key) {
+					sessionStorage.removeItem("tempkey");
+					return;
+				} //Error: failed to generate or export key
 				var href = loginbtn.attr("href");
 				if (href.startsWith("/")) {
 					href = window.location.origin + href;

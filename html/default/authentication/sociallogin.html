@@ -1,16 +1,16 @@
 #set($allowloginproviders = $content.isPropertyTrue("allowloginproviders",true))
 
 #if($allowloginproviders)
-  #set($providers = $mediaarchive.query("oauthprovider").orgroup("id", "google facebook microsoft").search($context))
+  #set($providers = $mediaarchive.query("oauthprovider").orgroup("id", "google facebook microsoft").exact("enabled","true").search($context))
   
   #if( !$providers.isEmpty() )
     <div id="loginproviders" class="text-center my-3">
       <span class="d-flex align-items-center text-muted" style="min-width: 250px;">
-        <span class="flex-grow-1" style="border-top:1px solid #cfcfcf;"></span>
+        <span class="flex-grow-1" ></span>
         <span class="px-2">
           [[Or continue with]]
         </span>
-        <span class="flex-grow-1" style="border-top:1px solid #cfcfcf;"></span>
+        <span class="flex-grow-1" ></span>
       </span>
     </div>
     <div class="loginproviders d-flex flex-wrap align-items-center justify-content-center mb-3">

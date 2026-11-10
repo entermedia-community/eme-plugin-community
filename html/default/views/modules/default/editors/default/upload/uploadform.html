@@ -11,8 +11,15 @@
 		<input  type="hidden" name="entityid" value="${entity.getId()}"/>
 		<input  type="hidden" name="entitymoduleid" value="${entitymodule.getId()}"/>
 		
-		
 			
+		#set( $nodeID = $context.getRequestParameter("nodeID") )
+		#ifnull($nodeID)
+			#set( $nodeID = $context.getRequestParameter("nodeid") )
+		#end
+		#ifnotnull( $nodeID )
+			<input id="nodeid" type="hidden" name="uploadtocategory" value="$nodeID" />
+		#end
+		
 			<div class="p-2 p-md-4">
 				<div class="row">
 					<div class="col-sm-12 col-md-6 col-upload-left overflow-y pr-md-1 mb-4 mb-md-0">

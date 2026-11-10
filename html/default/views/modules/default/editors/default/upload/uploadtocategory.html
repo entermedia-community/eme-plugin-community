@@ -1,5 +1,8 @@
 #set( $nodeID = $context.getRequestParameter("nodeID") )
 #ifnull($nodeID)
+	#set( $nodeID = $context.getRequestParameter("nodeid") )
+#end
+#ifnull($nodeID)
 	#set( $nodeID = $context.getRequestParameter("categoryid") )
 #end
 #ifnotnull( $nodeID )
@@ -36,7 +39,7 @@
 				#end
 			</div>		
 		</div>
-		<input id="nodeid" type="hidden" name="parentcategoryid" value="$nodeID"/>
+		<input id="nodeid" type="hidden" name="parentcategoryid" value="$nodeID" />
 	#end
 	
 	

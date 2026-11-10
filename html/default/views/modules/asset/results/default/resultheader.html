@@ -184,8 +184,9 @@ $context.putPageValue("resultview", $resultview)
 							data-targetdiv="resultsarea" 
 							data-oemaxlevel="1"
 							data-includeeditcontext="true"
+							#ifnotnull($nodeID)data-nodeID="$nodeID"#end
 							data-tabsection="upload"
-							title="[[Upload]]"><i class="bi bi-upload"></i></a>
+							title="[[Upload]]#ifnotnull($category) [[to]] $!category.getName()#end"><i class="bi bi-upload"></i></a>
 						</li>
 					#end
 					#set($candownload = $permissions.canModule("asset", "download"))
@@ -229,7 +230,7 @@ $context.putPageValue("resultview", $resultview)
 							data-targetdivinner="applicationcontent" 
 							data-oemaxlayout="3"
 							href="$siteroot$applink/views/modules/asset/editors/assetupload/index.html?categoryid=$!categoryid"
-							title="[[Upload]]"><i class="bi bi-upload"></i></a>
+							title="[[Upload]]#ifnotnull($category) [[to]] $!category.getName()#end"><i class="bi bi-upload"></i></a>
 					</li>
 					#end
 				#end

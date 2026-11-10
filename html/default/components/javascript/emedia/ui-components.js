@@ -1196,11 +1196,12 @@ jQuery(document).ready(function () {
 		}
 	}
 
-	lQuery(".autoprefixchatmsg").livequery("click", function () {
+	lQuery(".autoprefixchatmsg").livequery("click", function (e) {
+		e.preventDefault();
 		var link = $(this);
 		var prefix = link.data("prefix");
 		var editorid = link.data("editorid");
-		var functionname = link.data("functionname");
+		// var functionname = link.data("functionname");
 		if (!editorid) {
 			editorid = "chatter-msg";
 		}

@@ -17,6 +17,7 @@
       <i class="bi bi-plus-lg me-1"></i> [[New Session]]
     </a>
     </div>
+
   #if($entity.owner == $user.id)
     #set( $hits = $mediaarchive.query("channel").exact("dataid",$entity.id).exact("searchtype", $module.id).sort("refreshdateDown").search($context))
   #else
@@ -25,7 +26,7 @@
 
   #foreach($hit in $hits.getPageOfHits() )
       <div class="sessionhistory-item auto-active-row #if( $currentchannel.id == $hit.id ) current #end">
-        <a class="ajax item d-flex flex-column auto-active-link" 
+        <a class="ajax item d-flex flex-column auto-active-link"
           data-targetdiv="chatterbox"
           data-channel="$!{hit.id}"
           data-entityid="$!entity.id"

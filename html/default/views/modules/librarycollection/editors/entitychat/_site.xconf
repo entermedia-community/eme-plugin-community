@@ -10,7 +10,7 @@
 
 	<property name="chatterboxhomeX">${edithome}/chatterbox</property>
 
-	<property name="channeltype">emeteamchat</property>
-	<property name="defaultscenarioid">team_chat_monitor</property>
+	<property name="channeltype">agententitychat</property>
+	<property name="defaultscenarioid">entity_chat_welcome_menu</property>
 
 </page>

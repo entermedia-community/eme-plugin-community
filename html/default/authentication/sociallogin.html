@@ -1,6 +1,8 @@
 #set($allowloginproviders = $content.isPropertyTrue("allowloginproviders",true))
-#if(!$allowloginproviders)
+
+#if($allowloginproviders)
   #set($providers = $mediaarchive.query("oauthprovider").orgroup("id", "google facebook microsoft").search($context))
+  
   #if( !$providers.isEmpty() )
     <div id="loginproviders" class="text-center my-3">
       <span class="d-flex align-items-center text-muted" style="min-width: 250px;">

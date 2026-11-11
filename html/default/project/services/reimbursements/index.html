@@ -1,5 +1,4 @@
 #set($collectionid = $librarycol.getId())
-#set( $topic = $context.getRequestParameter("collectiveproject"))		
 
 #ifnull( $collectionid )
 	#set($collectionid = $context.getRequestParameter("collectionid"))

@@ -5,18 +5,18 @@ $pages.include("layout-top.html", $context)
 
 #foreach( $topicmod in $topicmods)
 	#set($collectionid = $topicmod.collectionid)
-	#set($topicid = $topicmod.chattopicid)
 
 	#set( $project = $mediaarchive.getCachedData("librarycollection",$collectionid) )
-	#set( $topic = $mediaarchive.getCachedData("collectiveproject",$topicid) )
+	#set( $channels = $mediaarchive.query("channel").exact("searchtype","librarycollection").exact("dataid",$collectionid).search() )
 
 	#set($projectlink = "$!{community.externaldomain}/${project.urlname}")
 	<div style="padding-bottom:10px; border-bottom:1px solid #ddd;">
 		<strong>
 			<a href="${projectlink}/chat/index.html" 
 			title="Open: $project.getName() "
-			style="color: royalblue;text-decoration: none;">$project.getName() / $topic</a></strong>
-		#set( $messages = $mediaarchive.query("chatterbox").exact("channel",$topicid).after("date",$messagessince).sort("date").search() )
+			style="color: royalblue;text-decoration: none;">$project.getName()</a></strong>
+		#if( !$channels.isEmpty() )
+		#set( $messages = $mediaarchive.query("chatterbox").orgroup("channel",$channels).after("date",$messagessince).sort("date").search() )
 		#foreach($chat in $messages)
 			<div style="padding:0 15px 15px 0;">
 				#set( $chatuser = $mediaarchive.getUser($chat.user) ) 
@@ -30,6 +30,7 @@ $pages.include("layout-top.html", $context)
 					#end
 				#end
 			</div>
+		#end
 		#end
 	</div>
 #end

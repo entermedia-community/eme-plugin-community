@@ -83,49 +83,6 @@ jQuery(document).ready(function (url, params) {
 			});
 		}); //category
 
-		//Drop on column
-		lQuery(".goals-column-container").livequery(function () {
-			outlineSelectionCol = function (event, ui) {
-				jQuery(this).addClass("dragoverselected");
-			};
-
-			unoutlineSelectionCol = function (event, ui) {
-				jQuery(this).removeClass("dragoverselected");
-			};
-
-			jQuery(this).droppable({
-				drop: function (event, ui) {
-					var goalid = ui.draggable.data("goalid"); //Drag onto a category
-					var column = $(this);
-					var columnid = column.data("col");
-					//Make sure we are not already inthis column
-					if (columnid != undefined) {
-						var params = {};
-						params["goalid"] = goalid;
-						params["col"] = columnid;
-
-						jQuery.get(
-							applink + "/collective/goals/drop/movetocolumn.html",
-							params,
-							function (data) {
-								//Reload goalist
-								var li = $(".projectgoals #goal" + goalid);
-								li.detach();
-
-								var ul = column.find("ul.projectgoals");
-								li.prependTo(ul);
-
-								$(".goals-column-container").removeClass(".dragoverselected");
-							},
-						);
-					}
-				},
-				tolerance: "pointer",
-				over: outlineSelectionCol,
-				out: unoutlineSelectionCol,
-			});
-		});
-
 		//Sort tasks
 		lQuery("#editgoal .card-task").livequery(function () {
 			outlineSelectionCol = function (event, ui) {

@@ -24,8 +24,7 @@
 	<path-action name="OiModule.loadCommunityCategory" />
 
 	<property name="channeltype">emeteamchat</property>
-	<property name="channeldatamodule">collectiveproject</property>
-	<path-action name="ProjectModule.loadChatTopic" />
+	<property name="channeldatamodule">librarycollection</property>
 
 	<path-action name="ChatModule.loadChatChannel" />
 	<path-action name="AgentModule.loadAgentContext" />

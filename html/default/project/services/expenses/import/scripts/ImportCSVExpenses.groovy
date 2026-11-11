@@ -24,5 +24,4 @@ csvimporter.setLog(log);
 csvimporter.setMakeId(false);
 
 csvimporter.collectionid = collectionid;
-csvimporter.addDbLookUpFilter("collectiveproject","parentcollectionid", collectionid);
 csvimporter.importData();

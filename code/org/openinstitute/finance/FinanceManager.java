@@ -72,7 +72,7 @@ public class FinanceManager implements CatalogEnabled
 
 	// get expenses from expenses db
 
-	public Map getTotalIncomesByDateRange(String inCollectionId, DateRange inDateRange, String topicid)
+	public Map getTotalIncomesByDateRange(String inCollectionId, DateRange inDateRange)
 	{
 		HashMap<String, Object> bycurrency = new HashMap<String, Object>();
 
@@ -83,10 +83,6 @@ public class FinanceManager implements CatalogEnabled
 		Collection incometypes = getMediaArchive().query("incometype").exact("iscapitalloan", false).search();
 		query.orgroup("incometype", incometypes);
 
-		if (topicid != null)
-		{
-			query.exact("collectiveproject", topicid);
-		}
 
 		addDateRange(query, "date", inDateRange);
 		HitTracker hits = incomesSearcher.search(query.getQuery());
@@ -118,10 +114,6 @@ public class FinanceManager implements CatalogEnabled
 		incomesSearcher = getMediaArchive().getSearcher("transaction");
 		query = incomesSearcher.query();
 		query.exact("collectionid", inCollectionId);
-		if (topicid != null)
-		{
-			query.exact("collectiveproject", topicid);
-		}
 		addDateRange(query, "paymentdate", inDateRange);
 		hits = incomesSearcher.search(query.getQuery());
 		hits.setHitsPerPage(1000);
@@ -168,10 +160,6 @@ public class FinanceManager implements CatalogEnabled
 		incomesSearcher = getMediaArchive().getSearcher("collectiveinvoice");
 		query = incomesSearcher.query();
 		query.exact("collectionid", inCollectionId);
-		if (topicid != null)
-		{
-			// TODO: Add topics to invoices query.exact("collectiveproject",topicid);
-		}
 		query.exact("paymentstatus", "paid");
 		addDateRange(query, "invoicepaidon", inDateRange);
 		hits = incomesSearcher.search(query.getQuery());
@@ -200,19 +188,19 @@ public class FinanceManager implements CatalogEnabled
 
 	}
 
-	public Map getIncomeTypesByDateRange(String inCollectionId, DateRange inDateRange, String topicid)
+	public Map getIncomeTypesByDateRange(String inCollectionId, DateRange inDateRange)
 	{
-		Map income = getIncomeTypesByDateRange(inCollectionId, false, inDateRange, topicid);
+		Map income = getIncomeTypesByDateRange(inCollectionId, false, inDateRange);
 		return income;
 	}
 
-	public Map getCapitalIncomeByDateRange(String inCollectionId, DateRange inDateRange, String topicid)
+	public Map getCapitalIncomeByDateRange(String inCollectionId, DateRange inDateRange)
 	{
-		Map income = getIncomeTypesByDateRange(inCollectionId, true, inDateRange, topicid);
+		Map income = getIncomeTypesByDateRange(inCollectionId, true, inDateRange);
 		return income;
 	}
 
-	public Map getIncomeTypesByDateRange(String inCollectionId, boolean incapital, DateRange inDateRange, String topicid)
+	public Map getIncomeTypesByDateRange(String inCollectionId, boolean incapital, DateRange inDateRange)
 	{
 		HashMap<String, Collection> bycurrency = new HashMap<String, Collection>();
 
@@ -222,10 +210,6 @@ public class FinanceManager implements CatalogEnabled
 		query.exact("collectionid", inCollectionId);
 		Collection incometypes = getMediaArchive().query("incometype").exact("iscapitalloan", incapital).search();
 		query.orgroup("incometype", incometypes);
-		if (topicid != null)
-		{
-			query.exact("collectiveproject", topicid);
-		}
 
 		addDateRange(query, "date", inDateRange);
 
@@ -252,10 +236,6 @@ public class FinanceManager implements CatalogEnabled
 		// incomesSearcher = getMediaArchive().getSearcher("transaction");
 		// query = incomesSearcher.query();
 		// query.exact("collectionid", inCollectionId);
-		// if( topicid != null)
-		// {
-		// query.exact("collectiveproject",topicid);
-		// }
 		//
 		// addDateRange(query,"paymentdate",inDateRange);
 		//
@@ -280,10 +260,6 @@ public class FinanceManager implements CatalogEnabled
 		// incomesSearcher = getMediaArchive().getSearcher("collectiveinvoice");
 		// query = incomesSearcher.query();
 		// query.exact("collectionid", inCollectionId);
-		// if( topicid != null)
-		// {
-		// //TODO: Add topics to invoices query.exact("collectiveproject",topicid);
-		// }
 		// query.exact("paymentstatus","paid");
 		// addDateRange(query,"invoicepaidon",inDateRange);
 		// hits = incomesSearcher.search(query.getQuery());
@@ -379,19 +355,19 @@ public class FinanceManager implements CatalogEnabled
 		return bycurrency;
 	}
 
-	public Map<String, List> getCapitalExpenseTypesByDateRange(String inCollectionId, DateRange inDateRange, String topicid)
+	public Map<String, List> getCapitalExpenseTypesByDateRange(String inCollectionId, DateRange inDateRange)
 	{
-		Map<String, List> bycurrency = getExpenseTypesByDateRange(inCollectionId, inDateRange, true, topicid);
+		Map<String, List> bycurrency = getExpenseTypesByDateRange(inCollectionId, inDateRange, true);
 		return bycurrency;
 	}
 
-	public Map<String, List> getNormalExpenseTypesByDateRange(String inCollectionId, DateRange inDateRange, String topicid)
+	public Map<String, List> getNormalExpenseTypesByDateRange(String inCollectionId, DateRange inDateRange)
 	{
-		Map<String, List> bycurrency = getExpenseTypesByDateRange(inCollectionId, inDateRange, false, topicid);
+		Map<String, List> bycurrency = getExpenseTypesByDateRange(inCollectionId, inDateRange, false);
 		return bycurrency;
 	}
 
-	public Map<String, List> getExpenseTypesByDateRange(String inCollectionId, DateRange inDateRange, boolean capital, String topicid)
+	public Map<String, List> getExpenseTypesByDateRange(String inCollectionId, DateRange inDateRange, boolean capital)
 	{
 		Searcher expensesSearcher = getMediaArchive().getSearcher("collectiveexpense");
 		QueryBuilder query = expensesSearcher.query();
@@ -400,10 +376,6 @@ public class FinanceManager implements CatalogEnabled
 		query.orgroup("expensetype", expensetypes);
 
 		query.exact("collectionid", inCollectionId);
-		if (topicid != null)
-		{
-			query.exact("collectiveproject", topicid);
-		}
 		addDateRange(query, "date", inDateRange);
 
 		HitTracker hits = expensesSearcher.search(query.getQuery());
@@ -516,15 +488,11 @@ public class FinanceManager implements CatalogEnabled
 		return inValue + inValue2;
 	}
 
-	public Map getNetExpenseByCurrency(String inCollectionId, DateRange inDateRange, String topicid)
+	public Map getNetExpenseByCurrency(String inCollectionId, DateRange inDateRange)
 	{
 		Searcher expensesSearcher = getMediaArchive().getSearcher("collectiveexpense");
 		QueryBuilder query = expensesSearcher.query();
 		query.exact("collectionid", inCollectionId);
-		if (topicid != null)
-		{
-			query.exact("collectiveproject", topicid);
-		}
 		Collection expensetypes = getMediaArchive().query("expensetype").exact("iscapitalloan", false).search();
 		query.orgroup("expensetype", expensetypes);
 
@@ -592,10 +560,10 @@ public class FinanceManager implements CatalogEnabled
 		return inQuery;
 	}
 
-	public Map getNetIncomeByCurrency(String inCollectionId, DateRange inDateRange, String topicid)
+	public Map getNetIncomeByCurrency(String inCollectionId, DateRange inDateRange)
 	{
-		Map incomebycurrency = getTotalIncomesByDateRange(inCollectionId, inDateRange, topicid);
-		Map expensesbycurrency = getNetExpenseByCurrency(inCollectionId, inDateRange, topicid);
+		Map incomebycurrency = getTotalIncomesByDateRange(inCollectionId, inDateRange);
+		Map expensesbycurrency = getNetExpenseByCurrency(inCollectionId, inDateRange);
 
 		HashMap<String, Object> netIncome = new HashMap<String, Object>();
 
@@ -1010,19 +978,10 @@ public class FinanceManager implements CatalogEnabled
 
 	public Collection<MultiCurrency> getTotalsReimbursedByUser(String inCollectionId, DateRange inDateRange)
 	{
-		return getTotalsReimbursedByUser(inCollectionId, inDateRange, null);
-	}
-
-	public Collection<MultiCurrency> getTotalsReimbursedByUser(String inCollectionId, DateRange inDateRange, String topicid)
-	{
 		Searcher expensesSearcher = getMediaArchive().getSearcher("collectiveexpense");
 		QueryBuilder query = expensesSearcher.query();
 		query.exact("collectionid", inCollectionId);
 		query.exact("reimbursedstatus", "2"); // paid
-		if (topicid != null)
-		{
-			query.exact("collectiveproject", topicid);
-		}
 		addDateRange(query, "date", inDateRange);
 
 		HitTracker hits = expensesSearcher.search(query.getQuery());

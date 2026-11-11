@@ -52,47 +52,8 @@ $mediaarchive.query("librarycollection").exact("id",$collectionid).searchOne() )
       </div>
 
       #end #if( $caneditcollection )
-      $pages.include("$apphome/project/channel/addnewupload.html") #end #set(
-      $topic = $context.getRequestParameter("topic")) #if($caneditcollection)
-      #set( $allprojects =
-      $mediaarchive.getSearcher("collectiveproject").query().match("parentcollectionid",$collectionid).match("featured","true").sort("name").search($context)
-      ) #else #set( $allprojects =
-      $mediaarchive.getSearcher("collectiveproject").query().match("parentcollectionid",$collectionid).exact("teamproject","false").match("featured","true").sort("name").search($context)
-      ) #end #if($allprojects.size()>0)
-      <div class="feed-topics">
-        <span class="d-none d-md-block"><strong>[[Topics]]:</strong></span>
-        <a
-          href="$apphome/project/channel/${collectionid}/${librarycol.name}.html"
-          class="btn-toolbar #if (!$topic) topicselected #end"
-          title="[[All Posts]]"
-          >#[[All]]</a
-        >
-
-        #foreach( $project in $allprojects )
-        <a
-          href="$apphome/project/channel/${collectionid}/topics.html?topic=${project.getId()}"
-          class="btn-toolbar #if($topic == $project.getId()) topicselected #end"
-          title="#esc($!{project.projectdescription})"
-          >$project</a
-        >
-        #end #if($caneditcollection)
-        <a
-          href="${projectlink}/projects/edit.html?collectionid=${collectionid}"
-          class="btn-toolbar float-right emdialog"
-          data-hidefooter="true"
-          title="[[Edit Topics]]"
-          style="margin-left: 5px"
-          ><i class="fa-solidfa-ellipsis-v"></i
-        ></a>
-        <a
-          href="${projectlink}/projects/addnew.html?collectionid=${collectionid}"
-          class="btn-toolbar emdialog"
-          title="[[Add a Topic]]"
-          ><i class="fa-solidfa-plus"></i
-        ></a>
-        #end
-      </div>
-      #end #if( $librarycol.streamurl && !$topic )
+      $pages.include("$apphome/project/channel/addnewupload.html") #end
+      #if( $librarycol.streamurl )
       $pages.include("$apphome/components/streaming/play.html",$context) #end
       #set($resultsPage =
       "$content.getPath()?hitssessionid=$topuploads.sessionId&useruploadpageposition")

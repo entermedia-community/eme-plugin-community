@@ -19,11 +19,6 @@
 	style="text-decoration:underline;" >
 	$!project
 	</a>
-	#set( $topic= $!mediaarchive.getData("collectiveproject",$goal.goaltrackercolumn) )
-	<a href="${communitylink}/collective/goals/search/search.html?collectionid=$activity.collectionid&field=goaltrackercolumn&operation=matches&goaltrackercolumn.value=$topic.id" 
-	style="text-decoration:underline;" >
-	/ $!topic
-	</a>
 	<br>	
 		$pages.include("${apphome}/users/tasks/resolvebutton.html",$context)
 		<span >

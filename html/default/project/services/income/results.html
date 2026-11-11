@@ -22,7 +22,6 @@
                      <tr class="tableheader">
                          <th>[[Date]] #if($sortedby.startsWith("date")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
                          <th>[[Account]] #if($sortedby.startsWith("bankaccount")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
-                         <th>[[Topic]] #if($sortedby.startsWith("collectiveproject")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
                          <th>[[Type]] #if($sortedby.startsWith("incometype")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
                          <th>[[Description]] #if($sortedby.startsWith("incomedescription")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
                          <th>[[Total]] #if($sortedby.startsWith("total")) #if($sortedby.endsWith("Down")) <i class="fas fa-arrow-down"></i> #else <i class="fas fa-arrow-up"></i>  #end #end</th>
@@ -43,7 +42,6 @@
 	                     <tr>
 	                         <td>$!context.getDate($hit.date)</td>
 	                         <td>$!mediaarchive.getCachedData("bankaccount", $hit.paidfromaccount)</td>
-	                         <td>$!mediaarchive.getCachedData("collectiveproject", $hit.collectiveproject)</td>
 	                         <td>$!context.getText($!mediaarchive.getCachedData("incometype", $hit.incometype))</td>
 	                         <td>#esc($hit.incomedescription)</td>
 	                         <td style="text-align: right; width:140px;">
@@ -72,7 +70,7 @@
 						#set($currency = $mediaarchive.getCachedData("currencytype", $currencyid))
 						#set($subtotal = $totalsbycurrency.get($currencyid))
 	                	<tr class="table-row-subtotals">
-	                		<td colspan="3"></td>
+	                		<td colspan="2"></td>
 	                		<td class="text-right">[[Sub Total]]:</td>
 	                		<td class="text-right">
 	       
@@ -95,7 +93,7 @@
                 	#end
 				
 					<tr class="table-row-totals">
-                		<td colspan="4"></td>
+                		<td colspan="3"></td>
                 		<td class="text-right"><strong>[[Total]]:</strong></td>
                 		<td class="text-right">
                 			<strong>$!{currencyusd.currencysymbol}$!context.doubleToMoney($!ustotal, 2) $!{currencyusd.currencycode}</strong> 

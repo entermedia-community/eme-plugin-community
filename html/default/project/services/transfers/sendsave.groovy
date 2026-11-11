@@ -18,6 +18,7 @@ public void init()
 	tosave.setValue("user",context.getUserName());
 	tosave.setValue("paymententitysourcetype","librarycollection"); //Project
 	tosave.setValue("paymententitysource",collectionid); //
+	tosave.setValue("collectionid",collectionid); //Project the transfer belongs to
 	
 	tosave.setValue("currencytransferstatus","2"); //complete
 	searcher.saveData(tosave);

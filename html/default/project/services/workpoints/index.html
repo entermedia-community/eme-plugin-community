@@ -94,7 +94,7 @@
 							  		    	  <a href="$goallink"
 									    	title="$ticket.name" class="emdialog editgoalshow" 
 									    	data-urlbar="${projectlink}/goals/search/index.html?collectionid=$ticket.collectionid&opengoalid=${ticket.id}" data-width="900" >
-							  				[[Ticket]]: $collection - $mediaarchive.getCachedData("collectiveproject",$ticket.goaltrackercolumn) - "$ticket.name" </a></td>
+							  				[[Ticket]]: $collection - "$ticket.name" </a></td>
 							  				<td>$!context.getDateTime($ticket.getDate("resolveddate"))</td>
 							  				<td>$points</td></tr>
 											#set( $counted = $counted +1)

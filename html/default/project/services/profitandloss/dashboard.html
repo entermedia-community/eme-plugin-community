@@ -64,17 +64,6 @@
 				</select>
 			</div>
 			<div class="col-md-2">
-				#set( $allprojects = $mediaarchive.getSearcher("collectiveproject").query().match("parentcollectionid",$librarycol.getId()).sort("name").search($context) )
-				#if( $allprojects.size() > 1)
-					
-					#set($projectid = $context.getRequestParameter("collectiveproject") )
-					<select name="collectiveproject"  class="select2 form-control-sm" style="width:250px;">
-						<option value="">[[By Topic]]</option>
-						#foreach( $project in $allprojects )
-							<option value="$project.getId()" #if($projectid == $project.getId()) selected #end>$project</option>
-						#end
-					</select>
-				#end				
 			</div>		
 			<div class="col-md-5 text-right">
 				<a href="${projectlink}/services/profitandloss/dashboard.html?collectionid=$collectionid&clearfilters=true&oemaxlevel=1" class="btn btn-sm btn-light ajax" data-targetdiv="financesdashboard">[[Clear Filters]]</a>
@@ -84,7 +73,7 @@
 		</div>	
 	</form>
 
-	#set( $netincome = $financeManager.getNetIncomeByCurrency($collectionid, $daterange, $projectid) )
+	#set( $netincome = $financeManager.getNetIncomeByCurrency($collectionid, $daterange) )
 	<h4>[[Profit]]</h4>
 		#set( $total = 0.0)
 			<table class="table tablefinances" >

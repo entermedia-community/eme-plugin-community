@@ -14,24 +14,6 @@
 	<input type="hidden" name="id" value="$id" />
 	<input type="hidden" name="collectionid" value="$collectionid" />
 
-	$context.putPageValue("viewid", "collectiveexpensemoveexpense")
-	$context.putPageValue("data", $data)
-	$context.putPageValue("searcher", $mediaarchive.getSearcher("collectiveexpense"))
-
-       <script type="text/javascript">
-		var ignore = true;
-		function reloadform()
-		{
-				var options = $("#submitform").data();
-				options["parentcollectionid"] = $("#parentcollectionid").val();
-				
-				$.get("${projectlink}/services/expenses/move/move.html", options, function(data) {
-					console.log("changed",options)
-					$("#moveform").replaceWith(data);
-				});
-		}
-	</script>
- 
 
 <div class="form-group row no-gutters g-0">
     <label for="exampleTextarea" class="col">Project</label>
@@ -40,7 +22,7 @@
     
 <div class="emfield-list">
 	<select name="parentcollectionid" id="parentcollectionid" 
-		class="listautocomplete" onchange="reloadform()" 
+		class="listautocomplete" 
 		data-searchfield="name" data-searchtype="librarycollection" 
 		data-placeholder="[[Choose Project]]" data-sortby="name">
 		#if( $parentcollectionid )
@@ -51,15 +33,6 @@
 </div>
 	</div>
 
-#if( $parentcollectionid )
-	
-#if( $caneditcollection ||  $canviewsettings)	 
-	$pages.include("/$applicationid/components/xml/detaileditor4.html", $context)
-#else	
-	$pages.include("/$applicationid/components/xml/detaileditor4.html?detailsreadonly=true", $context)
-#end	
-
-#end
 	</form>
 </div>
 

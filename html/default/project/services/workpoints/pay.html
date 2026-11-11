@@ -53,7 +53,7 @@
 		<div class="emfield-list">
 			<input type="hidden" value="currencytype" name="field">
 			<div id="listdetail_currencytypesource" class="listdetailpicker">
-			#set( $netincome = $financeManager.getNetIncomeByCurrency($collectionid,null,null) )
+			#set( $netincome = $financeManager.getNetIncomeByCurrency($collectionid,null) )
 			<input type="hidden" name="field" value="currencytype" />
 			<select name="currencytype.value" class="select2" >
 			#foreach( $currencytype in $netincome.keySet())

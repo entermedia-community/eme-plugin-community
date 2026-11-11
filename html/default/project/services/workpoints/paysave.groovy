@@ -26,6 +26,7 @@ public void init()
 	tosave.setValue("generatedbyscript","paysave");
 	tosave.setValue("paymententitysourcetype","librarycollection"); //Project
 	tosave.setValue("paymententitysource",collectionid); //
+	tosave.setValue("collectionid",collectionid); //Project the transfer belongs to
 	tosave.setValue("currencytransferstatus","2"); //complete
 	tosave.setName(data.getName()); //complete
 	

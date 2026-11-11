@@ -6,7 +6,6 @@
 <thead>
 <tr class="tableheader">
 	<th>[[Project]]</th>
-	<th>[[Topic]]</th>
 	<th>[[Goal]]</th>
 	<th>[[Team]]</th>
 	<th>[[Details]]</th>
@@ -22,13 +21,6 @@
 	<td >
 	#set( $project= $!mediaarchive.getData("librarycollection",$goal.collectionid) )
 	<a href="${communitylink}/collective/goals/priorities/index.html?collectionid=$activity.collectionid"
-	style="text-decoration:underline;" >
-	$!project
-	</a>
-	</td>
-	<td >
-	#set( $project= $!mediaarchive.getData("collectiveproject",$goal.goaltrackercolumn) )
-	<a href="${communitylink}/collective/goals/search/search.html?collectionid=$activity.collectionid&field=goaltrackercolumn&operation=matches&goaltrackercolumn.value=$!project.id" 
 	style="text-decoration:underline;" >
 	$!project
 	</a>

@@ -13,17 +13,13 @@
 			data-goalid="$goal.id" 
 			data-cloneparentid="goal$goal.id">
 			
-			#set( $project = $!mediaarchive.getData("collectiveproject",$goal.goaltrackercolumn) )
 			#set( $collection = $!mediaarchive.getData("librarycollection",$goal.collectionid) )
 			<div class="goalheader" >
 			#if ($goalfolder=='agentcalendar' && $collection)
 				<a title="$collection" class="" href="${apphome}/project/goals/priorities/index.html?collectionid=$goal.collectionid">
 				$!{collection} 
-				</a> >
+				</a>
 				#end
-				<a title="$goal.name" class="" href="${apphome}/project/goals/search/index.html?collectionid=$goal.collectionid&goaltrackercolumn.value=$!{project.id}&operation=matches&field=goaltrackercolumn">
-				$!{project}
-				</a>	
 			</div>
 			<div class="goalbody" >
 			

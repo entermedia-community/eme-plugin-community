@@ -10,14 +10,14 @@
 #foreach( $topicmod in $topicmods)
 
 #set($collectionid = $topicmod.collectionid)
-#set($topicid = $topicmod.chattopicid)
 
 #set( $collection = $mediaarchive.getCachedData("librarycollection",$collectionid) )
-#set( $topic = $mediaarchive.getCachedData("collectiveproject",$topicid) )
+#set( $channels = $mediaarchive.query("channel").exact("searchtype","librarycollection").exact("dataid",$collectionid).search() )
 <div style="padding-bottom:10px; border-bottom:1px solid #ddd;">
-	<strong><a href="$!siteroot$applink/collective/community/index.html?collectionid=${collection.getId()}&topic=$topicid">$collection.getName() / $topic</a></strong>
+	<strong><a href="$!siteroot$applink/collective/community/index.html?collectionid=${collection.getId()}">$collection.getName()</a></strong>
 	
-	#set( $messages = $mediaarchive.query("chatterbox").exact("channel",$topicid).after("date",$messagessince).sort("date").search() )
+	#if( !$channels.isEmpty() )
+	#set( $messages = $mediaarchive.query("chatterbox").orgroup("channel",$channels).after("date",$messagessince).sort("date").search() )
 	#foreach($chat in $messages)
 		<div style="padding-left:20px">
 			#set( $chatuser = $mediaarchive.getUser($chat.user) ) 
@@ -32,6 +32,7 @@
 			
 		</div>
 	#end 
+	#end
 	
 	
 </div>	

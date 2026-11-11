@@ -20,8 +20,7 @@
 			<div class="usersidebartopmessages">
 				#foreach( $message in $messages )
 				#set( $channel = $mediaarchive.getCachedData("channel",$message.channel))
-				#set( $topic = $mediaarchive.getCachedData("collectiveproject",$channel.dataid))
-				#set( $project = $mediaarchive.getCachedData("librarycollection",$topic.parentcollectionid))
+				#set( $project = $mediaarchive.getCachedData("librarycollection",$channel.dataid))
 				#ifnotnull($project)
 				#set( $community = $mediaarchive.getCachedData("communitytag",$project.communitytag))
 				#set( $otherperson = $chatManager.getOtherChatUser($project,$user) )

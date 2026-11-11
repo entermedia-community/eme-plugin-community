@@ -7,7 +7,6 @@
 <table width="100%" class="table">
 <thead>
 <tr class="tableheader">
-	<th>[[Topic]]</th>
 	<th>[[Goal]]</th>
 	<th>[[Team]]</th>
 	<th>[[Details]]</th>
@@ -22,13 +21,6 @@
 	#set( $goal = $mediaarchive.getData("projectgoal",$activity.goalid) )
 	<tr class="goalstatus$!{goal.projectstatus} goallevel$!{goal.ticketlevel}" >
 	$context.putPageValue("goal",$goal)
-	<td >
-	#set( $project= $!mediaarchive.getData("collectiveproject",$goal.goaltrackercolumn) )
-	<a href="${apphome}/project/goals/search/search.html?collectionid=$collectionid&field=goaltrackercolumn&operation=matches&goaltrackercolumn.value=$!project.id">
-	$!project
-	</a>
-	</td>
-
 	<td >
 	<a href="${apphome}/project/goals/editgoalpanel.html?id=$goal.id&collectionid=$librarycol.getId()&goalfolder=search" 
 		title="" class="emdialog editgoalshow" style="text-decoration:underline;" data-urlbar="${apphome}/project/goals/editgoalpanel.html?id=$goal.id&collectionid=$librarycol.getId()&opengoalid=AWs9VXR1fsnO52OamiNQ" 

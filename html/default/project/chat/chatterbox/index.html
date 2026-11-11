@@ -20,7 +20,7 @@ $context.putPageValue("chatterboxhome", $chatterboxhome)
 	#ifnotnull($entity)data-entityid="$!entity.id"#end
 	#ifnotnull($collectionid)data-collectionid="$!collectionid"#end  
 	data-moduleid="$!moduleid"
-	data-dataid="$!{currenttopic.getId()}"
+	data-dataid="$!{librarycol.getId()}"
 	data-renderurl="${chatterboxhome}/index.html" 
 	data-chatterboxhome="${chatterboxhome}"
 	data-channel="$!{currentchannel.getId()}"

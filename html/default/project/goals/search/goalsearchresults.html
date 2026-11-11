@@ -1,32 +1,6 @@
 <div id="goalresultsdiv">  
-#set( $allprojects = $mediaarchive.getSearcher("collectiveproject").query().match("parentcollectionid",$librarycol.getId()).sort("name").search($context) )
-#set( $projectid = $context.getRequestParameter("projectid"))
-
-#if(!$projectids)
-	#set( $projectids = $userprofile.getValues("goaltrackercolumns") )
-#end
-
-#if( $projects.isEmpty() )
-	[[Create a new Topic to get started]]
-#end
-
 #if( $caneditcollection)
 <div class="goals-header-actions">
-    #if(!$allprojects.isEmpty() )
-	    <a href="" class=" btn-toolbar dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown">[[Topics]]</a>
-	    <div class="dropdown-menu">
-	    <a class="dropdown-item" href="#">[[Open Topics]]</a>
-	    #foreach( $project in $allprojects )
-	    	<a class="dropdown-item" href="openproject.html?collectionid=$librarycol.getId()&profilepreference=goaltrackercolumns&profilepreference.value=$!project.id">$project.name</a>
-	    #end
-	    </div>
-		#if($caneditcollection)
-			<a href="${projectlink}/projects/addnew.html?collectionid=$librarycol.getId()&collectionroot=${apphome}/project/goals/search/index.html" 
-				class="btn-toolbar emdialog" 
-				title="[[Create a Topic]]">
-				<i class="fas fa-plus"></i></a>
-		#end
-    #end
  	<a class="btn btn-success emdialog" 
  	title="[[New Ticket]]" 
  	data-width="900"
@@ -47,20 +21,12 @@
 #set( $col = 0)
 <div class="goals-columns">
 
-#foreach( $projectid in $projectids )
-
-#set( $project = $mediaarchive.getData("collectiveproject", $projectid))
-<div class="goals-column-container" style="width:33%" data-col="$project.id">
+#set( $hits = $context.getPageValue("goalhits0"))
+<div class="goals-column-container" style="width:100%">
 
 <div class="goals-column">
 <div class="goals-column-header"> 
-	#set( $hits = $context.getPageValue("goalhits${projectid}"))
-	#if(!$project) 
-		##$projectid [[missing]]
-		[[Not Defined]] 
-	#end
-	$!project.name	( $!hits.size() ) 
-	<a class="goals-column-header-close" href="closeproject.html?collectionid=$librarycol.getId()&profilepreference=goaltrackercolumns&profilepreference.value=$!project.id"><i class="fas fa-times"></i></a>
+	[[Tickets]]	( $!hits.size() ) 
 	<div class="clearfix"></div>
 </div>
 
@@ -77,7 +43,6 @@ data-oemaxlevel="2"  data-collectionid="$librarycol.getId()" data-categoryid="$!
 
 </div>
 </div>
-#end
 </div>
 
 #if( $toomanygoals)

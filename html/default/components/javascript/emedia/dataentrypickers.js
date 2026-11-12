@@ -90,17 +90,17 @@ $(document).ready(function () {
 
 	lQuery(".stackedplayer, .resultsassetcontainer").livequery("click", function (e) {
 		var clicked = $(this);
+
 		var pickerresults = clicked.closest(
 			".clickableresultlist, .clickableresultlistinline, .pickerpickasset",
 		);
 
 		if (pickerresults.length > 0) {
-			//return;
+			return;
 		}
 
 		e.preventDefault();
 		e.stopPropagation();
-		
 
 		if (e.ctrlKey || e.shiftKey) {
 			return;
@@ -109,7 +109,6 @@ $(document).ready(function () {
 		if ($(e.target).is("input") || $(e.target).is("a")) {
 			return true;
 		}
-
 		
 		showAsset(clicked);
 

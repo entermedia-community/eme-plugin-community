@@ -10,14 +10,9 @@ import org.entermediadb.email.TemplateWebEmail
 
 public void init() {
 
-	
-	
 	//Notify to Email:
 	
 	String notifyemail = "sales@entermediadb.org";  //get it from catalog settings?
-	
-	
-	
 
 	//prevent re-submition
 	 String clientform = context.getSessionValue("clientform");
@@ -64,7 +59,6 @@ public void init() {
 	meetingsearcher.saveData(meeting);
 	log.info("Saving Meeting Schedule Request");	
 	
-	
 	context.putPageValue("subject", "Meeting Request");
 	HashMap htmlfields = new HashMap();
 	htmlfields.put("name", context.getRequestParameter("name.value"));
@@ -104,6 +98,7 @@ protected void sendEmail(Map pageValues, String email, String templatePage){
 	mailer.loadSettings(newcontext);
 	mailer.setMailTemplatePath(templatePage);
 	mailer.setRecipientsFromCommas(email);
+	log.info("Sending email to ${email}");
 	mailer.send();
 	log.info("email sent to ${email}");
 }

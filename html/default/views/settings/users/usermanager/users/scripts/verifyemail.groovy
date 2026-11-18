@@ -7,7 +7,6 @@ import org.openedit.util.DateStorageUtil
 
 import org.openedit.BaseWebPageRequest
 import org.openedit.hittracker.*
-import org.openedit.users.authenticate.PasswordGenerator
 import org.openedit.util.Exec
 import org.openedit.util.ExecResult
 import org.openedit.util.RequestUtils

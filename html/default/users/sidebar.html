@@ -43,7 +43,7 @@
 					</div>
 					<div class="flex-grow-1 p-1" style="">
 						#if($project.urlname)
-						#set($projectlink = "$!{community.externaldomain}/${project.urlname}/chat/index.html")
+						#set($projectlink = "$!{community.externaldomain}/${project.urlname}")
 						#else
 						#set($projectlink = "/project/chat/index.html?collectionid=${project.id}")
 						#end

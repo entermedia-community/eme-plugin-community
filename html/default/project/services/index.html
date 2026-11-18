@@ -140,7 +140,7 @@
   
 							 #end
 							 
-	                       	 #if( $canviewsettings )
+	                       	 #if( $caneditcollection )
                                  #if ($invoice.getValue("paymentstatus") != "paid" && $invoice.getValue("invoicesentstatus") != "canceled")
                              	  <a
                                   href="${projectlink}/services/cancelinvoice.html?collectionid=${collectionid}&id=${invoice.id}&oemaxlevel=1"

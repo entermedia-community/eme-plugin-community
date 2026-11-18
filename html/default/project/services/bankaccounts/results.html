@@ -49,7 +49,7 @@
         
         #if($hits.size() >0)
         	<div>$hits.size() [[hits]]</div>
-	        #if( $canviewsettings)
+	        #if( $caneditcollection)
 	        ##<div><a class="ajax btn btn-sm btn-secondary" data-collectionid="$librarycol.id" data-confirm="[[Sure you want to delete all] $hits.size() [[records?]]" data-targetdiv="investmentreport" href="${projectlink}/services/bankaccounts/deleteall.html" data-hitssessionid="$hits.getSessionId()">[[Delete All]]</a></div>
 	        #end
 		#end

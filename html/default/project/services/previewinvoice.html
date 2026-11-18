@@ -14,7 +14,7 @@
 		#set( $invoiceready =	"false")
 	#end
 	<div id="invoicecontainer">
-	#if( $canviewsettings )
+	#if( $caneditcollection )
 <form method="post" action="${projectlink}/services/sendinvoice.html" 
 		class="modal-dialog-form ajaxform autocloseform" 
 		data-targetdiv="collectivebilling">
@@ -27,7 +27,7 @@
 		
 		
 		<div class="text-right" style="padding:15px 10px;">
-		#if( $canviewsettings )
+		#if( $caneditcollection )
 			#set($status = $invoice.getValue("paymentstatus"))
 			
 			#if(!$status.equals("paid"))
@@ -48,7 +48,7 @@
 		
 		#end
 		</div>
-		#if( $canviewsettings )
+		#if( $caneditcollection )
 	</form>
 	#end
 	</div>

@@ -41,7 +41,7 @@
 		<a href="$!librarycol.websitelink"><i class="fa-solidfa-link"></i> Web Site</a>
 	#end
 	
-	#if( $librarycol.owner == $user.getId() || $canviewsettings )
+	#if( $librarycol.owner == $user.getId() || $caneditcollection || $canviewsettings )
 </p>
 	 <a class="btn btn-light btn-sm emdialog" title="[[Project Details]]" data-width="500" 
 	 	href="$apphome/project/edit.html?collectionid=$librarycol.getId()"><i class="fa-solidfa-edit"></i> [[Edit]]</a>

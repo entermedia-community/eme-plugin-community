@@ -160,7 +160,7 @@
             
         </div>
        
-       #if($canviewsettings && $expenses.size() > 0)
+       #if($caneditcollection && $expenses.size() > 0)
         <div>
 	        <a href="${projectlink}/services/expenses/export/expenses.csv?collectionid=$!{librarycol.id}&hitssessionid=$expenses.getSessionId()"
 	           class="btn btn-sm btn-primary mb-4">[[Download CSV]]</a>
@@ -169,7 +169,7 @@
 	           class="btn btn-sm btn-primary mb-4 emdialog" title="[[Import Expenes]]">[[Import CSV]]</a>
           </div>
 		#end
-        #if( $canviewsettings  && $expenses.size() > 0)
+        #if( $caneditcollection  && $expenses.size() > 0)
 	        <div>
 	        <a class="ajax btn btn-sm btn-secondary" 
 	        data-targetdiv="expensereport" 

@@ -4,7 +4,7 @@
   <path-action name="Admin.logout"/>
   <path-action name="Admin.loadPermissions"/>
   
-  <layout />
+  <inner-layout />
   
   <permission name="view">
     <boolean value="true"/>

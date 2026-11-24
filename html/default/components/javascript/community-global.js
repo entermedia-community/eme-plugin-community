@@ -103,6 +103,34 @@ $(document).ready(function () {
 		var form = $(this);
 		var action = form.attr("action");
 
+		// Block double submits: put the button in a waiting state right away
+		if (form.data("submitting")) {
+			return;
+		}
+		form.data("submitting", true);
+		var submitbtn = form.find("button[type=submit]").first();
+		if (submitbtn.length > 0) {
+			submitbtn.data("original-html", submitbtn.html());
+			submitbtn
+				.prop("disabled", true)
+				.addClass("disabled")
+				.attr("aria-busy", "true")
+				.html(
+					'<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...'
+				);
+		}
+		// The page can come back from the browser history, so restore the button
+		$(window).one("pageshow", function () {
+			form.data("submitting", false);
+			if (submitbtn.length > 0) {
+				submitbtn
+					.prop("disabled", false)
+					.removeClass("disabled")
+					.removeAttr("aria-busy")
+					.html(submitbtn.data("original-html"));
+			}
+		});
+
 		if (action == undefined || action == "/fake") {
 			action = form.find("button[type=submit]").data("action");
 			if (action == undefined) {
